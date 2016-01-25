@@ -19,5 +19,6 @@
 #import "BaseUrl.h"
 #import "CommonResource.h"
 #import "KeyServer.h"
+#import "Log.h"
 
 #endif /* Config_h */

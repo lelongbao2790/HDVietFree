@@ -20,6 +20,8 @@
 #import "NSString+MD5.h"
 #import "Config.h"
 #import "AFNetworking.h"
+#import "Movie.h"
+#import "User.h"
 
 
 #endif /* HDVietPrefix_pch */
