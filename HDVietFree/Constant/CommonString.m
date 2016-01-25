@@ -10,4 +10,24 @@
 
 @implementation CommonString
 
+/**
+ * Empty String
+ */
+NSString *const kEmptyString = @"";
+
+/**
+ * Slide menu Controller : Table view identifier
+ */
+NSString *const kTableViewLeftMenuIdentifier = @"TableViewLeftMenuIdentifier";
+
+/**
+ * Main Controller : Table view identifier
+ */
+NSString *const kCollectionTopMenuIdentifier = @"TopMenuIdentifier";
+
+/**
+ * Main Controller : Detail movie
+ */
+NSString *const kCollectionDetailMovieIdentifier = @"DetailMovieIdentifier";
+
 @end

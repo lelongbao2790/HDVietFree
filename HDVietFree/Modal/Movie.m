@@ -17,7 +17,8 @@
     newMovie.movieName = [json objectForKey:kMovieName];
     newMovie.knownAs = [json objectForKey:kKnownAs];
     newMovie.trailer = [json objectForKey:kTrailer];
-    newMovie.poster214x321 = [json objectForKey:kPosterLink];
+    newMovie.poster124x184 = [json objectForKey:kPoster124184];
+    newMovie.poster = [json objectForKey:kPosterLink];
     newMovie.sequence = [[json objectForKey:kSequence] integerValue];
     newMovie.currentSeason = [[json objectForKey:kCurrentSeason] integerValue];
     newMovie.episode = [[json objectForKey:kEpisode] integerValue];

@@ -10,4 +10,29 @@
 
 @implementation StoryboardId
 
+/**
+ * Slide menu controller
+ */
+NSString *const kSlideMenuController = @"SlideMenuController";
+
+/**
+ * Film controller
+ */
+NSString *const kFilmController = @"FilmController";
+
+/**
+ * Play film controller
+ */
+NSString *const kPlayController = @"PlayController";
+
+/**
+* Main controller
+*/
+NSString *const kMainController = @"MainController";
+
+/**
+ * Login controller
+ */
+NSString *const kLoginController = @"LoginController";
+
 @end

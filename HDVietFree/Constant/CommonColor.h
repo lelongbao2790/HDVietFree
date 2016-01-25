@@ -10,4 +10,9 @@
 
 @interface CommonColor : NSObject
 
+/**
+ * Navigation bar color
+ */
+extern NSString *const kColorBgNavigationBar;
+
 @end

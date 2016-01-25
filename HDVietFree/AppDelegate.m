@@ -17,6 +17,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:kColorBgNavigationBar]];
+    [self handleLogin];
+    
     return YES;
 }
 
@@ -40,6 +44,31 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark ** Helper Method **
+- (void)handleLogin {
+    if ([self checkAccessTokenSave]) {
+        MainController *mainController = InitStoryBoardWithIdentifier(kMainController);
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainController];
+        self.window.rootViewController = navController;
+    } else {
+        LoginController *loginController = InitStoryBoardWithIdentifier(kLoginController);
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+        self.window.rootViewController = navController;
+    }
+}
+
+- (BOOL)checkAccessTokenSave {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]
+                            stringForKey:kAccessToken];
+    if (accessToken) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 @end

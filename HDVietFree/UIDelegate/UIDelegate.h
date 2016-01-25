@@ -8,6 +8,15 @@
 
 #ifndef UIDelegate_h
 #define UIDelegate_h
+#import <Foundation/Foundation.h>
 
+/*
+ * Have read  message delegate
+ */
+@protocol LoginDelegate
+@optional
+-(void) loginAPISuccess:(NSDictionary *)response;
+-(void) loginAPIFail:(NSString *)resultMessage;
+@end
 
 #endif /* UIDelegate_h */

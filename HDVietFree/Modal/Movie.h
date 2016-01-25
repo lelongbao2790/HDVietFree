@@ -16,7 +16,8 @@
 @property (strong, nonatomic) NSString *movieName;
 @property (strong, nonatomic) NSString *knownAs;
 @property (strong, nonatomic) NSString *trailer;
-@property (strong, nonatomic) NSString *poster214x321;
+@property (strong, nonatomic) NSString *poster124x184;
+@property (strong, nonatomic) NSString *poster;
 @property (assign, nonatomic) NSInteger sequence;
 @property (assign, nonatomic) NSInteger currentSeason;
 @property (assign, nonatomic) NSInteger episode;

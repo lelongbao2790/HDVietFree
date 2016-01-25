@@ -10,4 +10,9 @@
 
 @implementation CommonColor
 
+/**
+ * Navigation bar color
+ */
+NSString *const kColorBgNavigationBar = @"ea8e00";
+
 @end

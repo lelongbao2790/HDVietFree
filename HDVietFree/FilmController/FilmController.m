@@ -1,0 +1,37 @@
+//
+//  FilmController.m
+//  HDVietFree
+//
+//  Created by Bao (Brian) L. LE on 1/25/16.
+//  Copyright © 2016 Brian. All rights reserved.
+//
+
+#import "FilmController.h"
+
+@interface FilmController ()
+
+@end
+
+@implementation FilmController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

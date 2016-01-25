@@ -39,6 +39,16 @@
 		D32916E71C55B98E00CE46B6 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D32916E61C55B98E00CE46B6 /* DataManager.m */; };
 		D32916EA1C55BA0700CE46B6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D32916E91C55BA0700CE46B6 /* User.m */; };
 		D36579131C55CB8C00F51DA3 /* CategoryFilm.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579121C55CB8C00F51DA3 /* CategoryFilm.m */; };
+		D365791B1C55D1B300F51DA3 /* SlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = D365791A1C55D1B300F51DA3 /* SlideMenuController.m */; };
+		D365791E1C55DAB000F51DA3 /* MovieSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = D365791D1C55DAB000F51DA3 /* MovieSearch.m */; };
+		D36579211C55F21500F51DA3 /* FilmController.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579201C55F21500F51DA3 /* FilmController.m */; };
+		D36579241C55F38E00F51DA3 /* ManageAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579231C55F38E00F51DA3 /* ManageAPI.m */; };
+		D36579271C55F70600F51DA3 /* CommonConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579261C55F70600F51DA3 /* CommonConstant.m */; };
+		D365792A1C5602A600F51DA3 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579291C5602A600F51DA3 /* MainController.m */; };
+		D36579321C56049100F51DA3 /* JASidePanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = D365792F1C56049100F51DA3 /* JASidePanelController.m */; };
+		D36579331C56049100F51DA3 /* UIViewController+JASidePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579311C56049100F51DA3 /* UIViewController+JASidePanel.m */; };
+		D36579391C5616D000F51DA3 /* DetailMovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579381C5616D000F51DA3 /* DetailMovieCell.m */; };
+		D365793C1C5616EE00F51DA3 /* TopMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D365793B1C5616EE00F51DA3 /* TopMenuCell.m */; };
 		D38CBE771C51D7AC00084126 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE761C51D7AC00084126 /* PlayController.m */; };
 		D38CBE791C51D83A00084126 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38CBE781C51D83A00084126 /* MediaPlayer.framework */; };
 		D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE7E1C51DFD400084126 /* NSString+MD5.m */; };
@@ -145,6 +155,26 @@
 		D36579101C55C2C200F51DA3 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Log.h; path = Debug/Log.h; sourceTree = "<group>"; };
 		D36579111C55CB8C00F51DA3 /* CategoryFilm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryFilm.h; path = Modal/CategoryFilm.h; sourceTree = "<group>"; };
 		D36579121C55CB8C00F51DA3 /* CategoryFilm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryFilm.m; path = Modal/CategoryFilm.m; sourceTree = "<group>"; };
+		D36579191C55D1B300F51DA3 /* SlideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideMenuController.h; path = SlideMenuController/SlideMenuController.h; sourceTree = "<group>"; };
+		D365791A1C55D1B300F51DA3 /* SlideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideMenuController.m; path = SlideMenuController/SlideMenuController.m; sourceTree = "<group>"; };
+		D365791C1C55DAB000F51DA3 /* MovieSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MovieSearch.h; path = Modal/MovieSearch.h; sourceTree = "<group>"; };
+		D365791D1C55DAB000F51DA3 /* MovieSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MovieSearch.m; path = Modal/MovieSearch.m; sourceTree = "<group>"; };
+		D365791F1C55F21500F51DA3 /* FilmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilmController.h; path = FilmController/FilmController.h; sourceTree = "<group>"; };
+		D36579201C55F21500F51DA3 /* FilmController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilmController.m; path = FilmController/FilmController.m; sourceTree = "<group>"; };
+		D36579221C55F38E00F51DA3 /* ManageAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManageAPI.h; path = Modal/ManageAPI.h; sourceTree = "<group>"; };
+		D36579231C55F38E00F51DA3 /* ManageAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManageAPI.m; path = Modal/ManageAPI.m; sourceTree = "<group>"; };
+		D36579251C55F70600F51DA3 /* CommonConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommonConstant.h; path = Constant/CommonConstant.h; sourceTree = "<group>"; };
+		D36579261C55F70600F51DA3 /* CommonConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommonConstant.m; path = Constant/CommonConstant.m; sourceTree = "<group>"; };
+		D36579281C5602A600F51DA3 /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainController.h; path = MainController/MainController.h; sourceTree = "<group>"; };
+		D36579291C5602A600F51DA3 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainController.m; path = MainController/MainController.m; sourceTree = "<group>"; };
+		D365792E1C56049100F51DA3 /* JASidePanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JASidePanelController.h; sourceTree = "<group>"; };
+		D365792F1C56049100F51DA3 /* JASidePanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JASidePanelController.m; sourceTree = "<group>"; };
+		D36579301C56049100F51DA3 /* UIViewController+JASidePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+JASidePanel.h"; sourceTree = "<group>"; };
+		D36579311C56049100F51DA3 /* UIViewController+JASidePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+JASidePanel.m"; sourceTree = "<group>"; };
+		D36579371C5616CF00F51DA3 /* DetailMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailMovieCell.h; path = MainController/DetailMovieCell.h; sourceTree = "<group>"; };
+		D36579381C5616D000F51DA3 /* DetailMovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailMovieCell.m; path = MainController/DetailMovieCell.m; sourceTree = "<group>"; };
+		D365793A1C5616EE00F51DA3 /* TopMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopMenuCell.h; path = MainController/TopMenuCell.h; sourceTree = "<group>"; };
+		D365793B1C5616EE00F51DA3 /* TopMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopMenuCell.m; path = MainController/TopMenuCell.m; sourceTree = "<group>"; };
 		D38CBE751C51D7AC00084126 /* PlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayController.h; path = PlayController/PlayController.h; sourceTree = "<group>"; };
 		D38CBE761C51D7AC00084126 /* PlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayController.m; path = PlayController/PlayController.m; sourceTree = "<group>"; };
 		D38CBE781C51D83A00084126 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -234,6 +264,8 @@
 				D32916931C55B51900CE46B6 /* CommonResource.m */,
 				D32916EB1C55BA5600CE46B6 /* KeyServer.h */,
 				D36579101C55C2C200F51DA3 /* Log.h */,
+				D36579251C55F70600F51DA3 /* CommonConstant.h */,
+				D36579261C55F70600F51DA3 /* CommonConstant.m */,
 			);
 			name = Constant;
 			sourceTree = "<group>";
@@ -249,6 +281,10 @@
 				D32916E61C55B98E00CE46B6 /* DataManager.m */,
 				D36579111C55CB8C00F51DA3 /* CategoryFilm.h */,
 				D36579121C55CB8C00F51DA3 /* CategoryFilm.m */,
+				D365791C1C55DAB000F51DA3 /* MovieSearch.h */,
+				D365791D1C55DAB000F51DA3 /* MovieSearch.m */,
+				D36579221C55F38E00F51DA3 /* ManageAPI.h */,
+				D36579231C55F38E00F51DA3 /* ManageAPI.m */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -267,6 +303,7 @@
 				D329169B1C55B75D00CE46B6 /* MBProgressHUD */,
 				D32916A51C55B76B00CE46B6 /* iToast */,
 				D32916A61C55B7DF00CE46B6 /* AFNetworking */,
+				D365792C1C56049100F51DA3 /* JASidePanels */,
 			);
 			name = ThirdParties;
 			sourceTree = "<group>";
@@ -350,6 +387,56 @@
 				D32916CE1C55B7DF00CE46B6 /* UIWebView+AFNetworking.m */,
 			);
 			path = "UIKit+AFNetworking";
+			sourceTree = "<group>";
+		};
+		D36579141C55D0F900F51DA3 /* SlideMenuController */ = {
+			isa = PBXGroup;
+			children = (
+				D36579191C55D1B300F51DA3 /* SlideMenuController.h */,
+				D365791A1C55D1B300F51DA3 /* SlideMenuController.m */,
+			);
+			name = SlideMenuController;
+			sourceTree = "<group>";
+		};
+		D36579151C55D10100F51DA3 /* FilmController */ = {
+			isa = PBXGroup;
+			children = (
+				D365791F1C55F21500F51DA3 /* FilmController.h */,
+				D36579201C55F21500F51DA3 /* FilmController.m */,
+			);
+			name = FilmController;
+			sourceTree = "<group>";
+		};
+		D365792B1C5602AA00F51DA3 /* MainController */ = {
+			isa = PBXGroup;
+			children = (
+				D36579281C5602A600F51DA3 /* MainController.h */,
+				D36579291C5602A600F51DA3 /* MainController.m */,
+				D36579371C5616CF00F51DA3 /* DetailMovieCell.h */,
+				D36579381C5616D000F51DA3 /* DetailMovieCell.m */,
+				D365793A1C5616EE00F51DA3 /* TopMenuCell.h */,
+				D365793B1C5616EE00F51DA3 /* TopMenuCell.m */,
+			);
+			name = MainController;
+			sourceTree = "<group>";
+		};
+		D365792C1C56049100F51DA3 /* JASidePanels */ = {
+			isa = PBXGroup;
+			children = (
+				D365792D1C56049100F51DA3 /* Source */,
+			);
+			path = JASidePanels;
+			sourceTree = "<group>";
+		};
+		D365792D1C56049100F51DA3 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D365792E1C56049100F51DA3 /* JASidePanelController.h */,
+				D365792F1C56049100F51DA3 /* JASidePanelController.m */,
+				D36579301C56049100F51DA3 /* UIViewController+JASidePanel.h */,
+				D36579311C56049100F51DA3 /* UIViewController+JASidePanel.m */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		D38CBE741C51D77D00084126 /* PlayController */ = {
@@ -478,8 +565,11 @@
 		D3EA87E21C50C74900D593A1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D36579151C55D10100F51DA3 /* FilmController */,
+				D36579141C55D0F900F51DA3 /* SlideMenuController */,
 				D38CBE741C51D77D00084126 /* PlayController */,
 				D3EA87DE1C50C71500D593A1 /* LoginController */,
+				D365792B1C5602AA00F51DA3 /* MainController */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -636,32 +726,40 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D36579331C56049100F51DA3 /* UIViewController+JASidePanel.m in Sources */,
 				D329168E1C55B3D800CE46B6 /* CommonColor.m in Sources */,
 				D32916DE1C55B7DF00CE46B6 /* UIImageView+AFNetworking.m in Sources */,
 				D32916E01C55B7DF00CE46B6 /* UIRefreshControl+AFNetworking.m in Sources */,
 				D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */,
 				D3EA87A71C50BF6200D593A1 /* AppDelegate.m in Sources */,
+				D36579241C55F38E00F51DA3 /* ManageAPI.m in Sources */,
 				D32916E11C55B7DF00CE46B6 /* UIWebView+AFNetworking.m in Sources */,
 				D32916D11C55B7DF00CE46B6 /* AFHTTPSessionManager.m in Sources */,
+				D36579391C5616D000F51DA3 /* DetailMovieCell.m in Sources */,
 				D32916A41C55B76700CE46B6 /* iToast.m in Sources */,
 				D32916D21C55B7DF00CE46B6 /* AFNetworkReachabilityManager.m in Sources */,
 				D32916CF1C55B7DF00CE46B6 /* AFHTTPRequestOperation.m in Sources */,
 				D32916D51C55B7DF00CE46B6 /* AFURLRequestSerialization.m in Sources */,
+				D36579271C55F70600F51DA3 /* CommonConstant.m in Sources */,
 				D32916D41C55B7DF00CE46B6 /* AFURLConnectionOperation.m in Sources */,
 				D32916D71C55B7DF00CE46B6 /* AFURLSessionManager.m in Sources */,
 				D32916DF1C55B7DF00CE46B6 /* UIProgressView+AFNetworking.m in Sources */,
 				D38CBE771C51D7AC00084126 /* PlayController.m in Sources */,
+				D36579211C55F21500F51DA3 /* FilmController.m in Sources */,
 				D32916DD1C55B7DF00CE46B6 /* UIButton+AFNetworking.m in Sources */,
 				D32916E71C55B98E00CE46B6 /* DataManager.m in Sources */,
 				D32916E41C55B84100CE46B6 /* Movie.m in Sources */,
 				D36579131C55CB8C00F51DA3 /* CategoryFilm.m in Sources */,
+				D365793C1C5616EE00F51DA3 /* TopMenuCell.m in Sources */,
 				D32916841C55B36400CE46B6 /* CommonString.m in Sources */,
 				D32916D91C55B7DF00CE46B6 /* README.md in Sources */,
 				D32916EA1C55BA0700CE46B6 /* User.m in Sources */,
 				D32916991C55B6CA00CE46B6 /* UIColor+HexColor.m in Sources */,
+				D365791B1C55D1B300F51DA3 /* SlideMenuController.m in Sources */,
 				D3EA87A41C50BF6200D593A1 /* main.m in Sources */,
 				D32916A11C55B75D00CE46B6 /* SNLoading.m in Sources */,
 				D32916DC1C55B7DF00CE46B6 /* UIAlertView+AFNetworking.m in Sources */,
+				D365792A1C5602A600F51DA3 /* MainController.m in Sources */,
 				D3EA87E61C50D9C400D593A1 /* Utilities.m in Sources */,
 				D3EA87DD1C50C6FC00D593A1 /* LoginController.m in Sources */,
 				D32916A01C55B75D00CE46B6 /* MBProgressHUD.m in Sources */,
@@ -669,9 +767,11 @@
 				D32916D31C55B7DF00CE46B6 /* AFSecurityPolicy.m in Sources */,
 				D32916941C55B51900CE46B6 /* CommonResource.m in Sources */,
 				D32916DA1C55B7DF00CE46B6 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				D36579321C56049100F51DA3 /* JASidePanelController.m in Sources */,
 				D32916D01C55B7DF00CE46B6 /* AFHTTPRequestOperationManager.m in Sources */,
 				D32916DB1C55B7DF00CE46B6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				D32916871C55B37800CE46B6 /* StoryboardId.m in Sources */,
+				D365791E1C55DAB000F51DA3 /* MovieSearch.m in Sources */,
 				D32916D61C55B7DF00CE46B6 /* AFURLResponseSerialization.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

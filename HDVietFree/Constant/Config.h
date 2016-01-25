@@ -20,5 +20,6 @@
 #import "CommonResource.h"
 #import "KeyServer.h"
 #import "Log.h"
+#import "CommonConstant.h"
 
 #endif /* Config_h */

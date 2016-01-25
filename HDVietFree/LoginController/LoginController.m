@@ -8,15 +8,28 @@
 
 #import "LoginController.h"
 
-@interface LoginController ()
+@interface LoginController () <LoginDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *txtUsername;
+@property (weak, nonatomic) IBOutlet UITextField *txtPassword;
 
 @end
 
 @implementation LoginController
 
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Life Cycle **
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self configView];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    // Hidden navigation bar
+    [self.navigationController.navigationBar setHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +37,59 @@
     // Dispose of any resources that can be recreated.
 }
 
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Helper Method **
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+ * Config
+ */
+- (void)configView {
+    [DataManager shared].loginDelegate = self;
 }
-*/
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Text field delegate **
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    return [textField resignFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    [textView resignFirstResponder];
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** IBAction **
+- (IBAction)btnLogin:(id)sender {
+    ProgressBarShowLoading(@"Loading");
+    [[ManageAPI share] loginAPI:self.txtUsername.text andPass:self.txtPassword.text];
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Login delegate **
+
+- (void)loginAPISuccess:(NSDictionary *)response {
+    ProgressBarDismissLoading(kEmptyString);
+    
+    User *aUser = [User userFromJSON:response];
+    
+    // Save access token
+    [[NSUserDefaults standardUserDefaults] setObject:aUser.accessToken forKey:kAccessToken];
+    
+    MainController *mainController = InitStoryBoardWithIdentifier(kMainController);
+    [self.navigationController pushViewController:mainController animated:YES];
+    
+}
+
+- (void)loginAPIFail:(NSString *)resultMessage {
+    
+}
 
 @end

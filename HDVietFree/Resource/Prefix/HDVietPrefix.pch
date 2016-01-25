@@ -22,6 +22,15 @@
 #import "AFNetworking.h"
 #import "Movie.h"
 #import "User.h"
-
+#import "JASidePanelController.h"
+#import "MovieSearch.h"
+#import "UIColor+HexColor.h"
+#import "TopMenuCell.h"
+#import "DetailMovieCell.h"
+#import "DataManager.h"
+#import "LoginController.h"
+#import "MainController.h"
+#import "SNLoading.h"
+#import "ManageAPI.h"
 
 #endif /* HDVietPrefix_pch */
