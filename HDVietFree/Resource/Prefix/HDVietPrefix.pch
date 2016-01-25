@@ -1,0 +1,25 @@
+//
+//  HDVietPrefix.pch
+//  HDVietFree
+//
+//  Created by Bao (Brian) L. LE on 1/21/16.
+//  Copyright © 2016 Brian. All rights reserved.
+//
+
+#ifndef HDVietPrefix_pch
+#define HDVietPrefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "UIDelegate.h"
+#import "FixAutoLayoutDelegate.h"
+#import "PlayController.h"
+#import <UIKit/UIKit.h>
+#import <CommonCrypto/CommonDigest.h>
+#import "NSString+MD5.h"
+#import "Config.h"
+#import "AFNetworking.h"
+
+
+#endif /* HDVietPrefix_pch */
