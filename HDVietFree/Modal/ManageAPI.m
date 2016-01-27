@@ -28,14 +28,16 @@
 - (void)loginAPI:(NSString *)userName andPass:(NSString *)password {
     NSString *strUrl = [NSString stringWithFormat:kUrlLogin, userName, [password MD5]];
     DLOG(@"Login with url:%@", strUrl);
-    [[DataManager shared] postLoginWithUrl:strUrl];
+    [[DataManager shared] getLoginWithUrl:strUrl];
 }
 
 /*
- * Get category API
+ * Load list movie API
  */
-- (void)getCategoryAPI {
-    
+- (void)loadListMovieAPI:(NSInteger)genre tag:(NSString *)tagMovie andPage:(NSInteger)page {
+    NSString *strUrl = [NSString stringWithFormat:kUrlListMovieByGenre, (int)genre, tagMovie, (int)page];
+    DLOG(@"Load list movie with url:%@", strUrl);
+     [[DataManager shared] getListMovieByGenreWithUrl:strUrl atTag:tagMovie andGenre:stringFromInteger([MovieSearch share].genreMovie)];
 }
 
 

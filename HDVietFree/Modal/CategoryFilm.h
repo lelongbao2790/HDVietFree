@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface CategoryFilm : NSObject
+#import <DBAccess/DBAccess.h>
+@interface CategoryFilm : DBObject
 
 // Property
 @property (strong, nonatomic) NSString *categoryID;

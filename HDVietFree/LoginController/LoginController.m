@@ -9,6 +9,9 @@
 #import "LoginController.h"
 
 @interface LoginController () <LoginDelegate>
+
+@property (strong, nonatomic) User *user;
+
 @property (weak, nonatomic) IBOutlet UITextField *txtUsername;
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
 
@@ -44,6 +47,7 @@
  * Config
  */
 - (void)configView {
+    self.user = [User share];
     [DataManager shared].loginDelegate = self;
 }
 
@@ -67,7 +71,8 @@
 #pragma mark -
 #pragma mark - ** IBAction **
 - (IBAction)btnLogin:(id)sender {
-    ProgressBarShowLoading(@"Loading");
+    [self.view endEditing:YES];
+    ProgressBarShowLoading(kLoading);
     [[ManageAPI share] loginAPI:self.txtUsername.text andPass:self.txtPassword.text];
 }
 
@@ -78,10 +83,10 @@
 - (void)loginAPISuccess:(NSDictionary *)response {
     ProgressBarDismissLoading(kEmptyString);
     
-    User *aUser = [User userFromJSON:response];
+    self.user = [User userFromJSON:response];
     
     // Save access token
-    [[NSUserDefaults standardUserDefaults] setObject:aUser.accessToken forKey:kAccessToken];
+    [[NSUserDefaults standardUserDefaults] setObject:self.user.accessToken forKey:kAccessToken];
     
     MainController *mainController = InitStoryBoardWithIdentifier(kMainController);
     [self.navigationController pushViewController:mainController animated:YES];
@@ -89,7 +94,11 @@
 }
 
 - (void)loginAPIFail:(NSString *)resultMessage {
+     ProgressBarDismissLoading(kEmptyString);
+    [Utilities showiToastMessage:resultMessage];
     
+    // Remove access token save
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
 }
 
 @end

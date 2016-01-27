@@ -21,8 +21,8 @@
 - (void)loginAPI:(NSString *)userName andPass:(NSString *)password;
 
 /*
- * Get category API
+ * Load list movie API
  */
-- (void)getCategoryAPI;
+- (void)loadListMovieAPI:(NSInteger)genre tag:(NSString *)tagMovie andPage:(NSInteger)page;
 
 @end

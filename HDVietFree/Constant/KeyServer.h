@@ -22,6 +22,7 @@
 #define kKnownAs @"KnownAs"
 #define kTrailer @"Trailer"
 #define kPosterLink @"Poster"
+#define kNewPoster @"NewPoster"
 #define kPoster124184 @"Poster124x184"
 #define kSequence @"Sequence"
 #define kCurrentSeason @"CurrentSeason"
@@ -52,11 +53,17 @@
 // Response server
 #define kE @"e"
 #define kR @"r"
+#define kError @"error"
+#define kData @"data"
+#define kMessage @"message"
 #define kCannotConnectToServer @"Cannot connect to server!"
+#define kMetadata @"metadata"
+#define kList @"lists"
+#define kTotalRecord @"totalRecord"
 
 // Request header
 #define kHTTPHeaderApplication @"application/json"
+#define kHTTPHeaderAccessToken @"Access-Token"
 #define kHTTPHeaderContentType @"Content-Type"
-#define kErrorResponseObjectKey @"HDVietErrorResponseObjectKey"
 
 #endif /* KeyServer_h */

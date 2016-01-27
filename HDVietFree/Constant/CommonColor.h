@@ -15,4 +15,14 @@
  */
 extern NSString *const kColorBgNavigationBar;
 
+/**
+ * Background color of each section
+ */
+extern NSString *const kBackgroundColorOfSection;
+
+/**
+ * Text color of title navigation bar
+ */
+extern NSString *const kTextColorOfTitleNav;
+
 @end

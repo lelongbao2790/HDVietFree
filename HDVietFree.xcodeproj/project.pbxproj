@@ -48,7 +48,10 @@
 		D36579321C56049100F51DA3 /* JASidePanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = D365792F1C56049100F51DA3 /* JASidePanelController.m */; };
 		D36579331C56049100F51DA3 /* UIViewController+JASidePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579311C56049100F51DA3 /* UIViewController+JASidePanel.m */; };
 		D36579391C5616D000F51DA3 /* DetailMovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579381C5616D000F51DA3 /* DetailMovieCell.m */; };
-		D365793C1C5616EE00F51DA3 /* TopMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D365793B1C5616EE00F51DA3 /* TopMenuCell.m */; };
+		D365793F1C570C2E00F51DA3 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D365793E1C570C2E00F51DA3 /* MovieCell.m */; };
+		D36579421C570FA700F51DA3 /* CollectionMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579411C570FA700F51DA3 /* CollectionMovie.m */; };
+		D36579441C58565200F51DA3 /* DBAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36579431C58565200F51DA3 /* DBAccess.framework */; };
+		D36579481C58574A00F51DA3 /* DataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579471C58574A00F51DA3 /* DataAccess.m */; };
 		D38CBE771C51D7AC00084126 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE761C51D7AC00084126 /* PlayController.m */; };
 		D38CBE791C51D83A00084126 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38CBE781C51D83A00084126 /* MediaPlayer.framework */; };
 		D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE7E1C51DFD400084126 /* NSString+MD5.m */; };
@@ -173,8 +176,13 @@
 		D36579311C56049100F51DA3 /* UIViewController+JASidePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+JASidePanel.m"; sourceTree = "<group>"; };
 		D36579371C5616CF00F51DA3 /* DetailMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailMovieCell.h; path = MainController/DetailMovieCell.h; sourceTree = "<group>"; };
 		D36579381C5616D000F51DA3 /* DetailMovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailMovieCell.m; path = MainController/DetailMovieCell.m; sourceTree = "<group>"; };
-		D365793A1C5616EE00F51DA3 /* TopMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopMenuCell.h; path = MainController/TopMenuCell.h; sourceTree = "<group>"; };
-		D365793B1C5616EE00F51DA3 /* TopMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopMenuCell.m; path = MainController/TopMenuCell.m; sourceTree = "<group>"; };
+		D365793D1C570C2E00F51DA3 /* MovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MovieCell.h; path = MainController/MovieCell.h; sourceTree = "<group>"; };
+		D365793E1C570C2E00F51DA3 /* MovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MovieCell.m; path = MainController/MovieCell.m; sourceTree = "<group>"; };
+		D36579401C570FA700F51DA3 /* CollectionMovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionMovie.h; path = MainController/CollectionMovie.h; sourceTree = "<group>"; };
+		D36579411C570FA700F51DA3 /* CollectionMovie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionMovie.m; path = MainController/CollectionMovie.m; sourceTree = "<group>"; };
+		D36579431C58565200F51DA3 /* DBAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBAccess.framework; sourceTree = "<group>"; };
+		D36579461C58574A00F51DA3 /* DataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataAccess.h; path = Modal/DataAccess.h; sourceTree = "<group>"; };
+		D36579471C58574A00F51DA3 /* DataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataAccess.m; path = Modal/DataAccess.m; sourceTree = "<group>"; };
 		D38CBE751C51D7AC00084126 /* PlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayController.h; path = PlayController/PlayController.h; sourceTree = "<group>"; };
 		D38CBE761C51D7AC00084126 /* PlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayController.m; path = PlayController/PlayController.m; sourceTree = "<group>"; };
 		D38CBE781C51D83A00084126 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -212,6 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D36579441C58565200F51DA3 /* DBAccess.framework in Frameworks */,
 				D38CBE791C51D83A00084126 /* MediaPlayer.framework in Frameworks */,
 				D3EA87EE1C50DD2F00D593A1 /* UIKit.framework in Frameworks */,
 			);
@@ -285,6 +294,8 @@
 				D365791D1C55DAB000F51DA3 /* MovieSearch.m */,
 				D36579221C55F38E00F51DA3 /* ManageAPI.h */,
 				D36579231C55F38E00F51DA3 /* ManageAPI.m */,
+				D36579461C58574A00F51DA3 /* DataAccess.h */,
+				D36579471C58574A00F51DA3 /* DataAccess.m */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -300,6 +311,7 @@
 		D329169A1C55B73B00CE46B6 /* ThirdParties */ = {
 			isa = PBXGroup;
 			children = (
+				D36579451C58565500F51DA3 /* DBAccess */,
 				D329169B1C55B75D00CE46B6 /* MBProgressHUD */,
 				D32916A51C55B76B00CE46B6 /* iToast */,
 				D32916A61C55B7DF00CE46B6 /* AFNetworking */,
@@ -414,8 +426,10 @@
 				D36579291C5602A600F51DA3 /* MainController.m */,
 				D36579371C5616CF00F51DA3 /* DetailMovieCell.h */,
 				D36579381C5616D000F51DA3 /* DetailMovieCell.m */,
-				D365793A1C5616EE00F51DA3 /* TopMenuCell.h */,
-				D365793B1C5616EE00F51DA3 /* TopMenuCell.m */,
+				D365793D1C570C2E00F51DA3 /* MovieCell.h */,
+				D365793E1C570C2E00F51DA3 /* MovieCell.m */,
+				D36579401C570FA700F51DA3 /* CollectionMovie.h */,
+				D36579411C570FA700F51DA3 /* CollectionMovie.m */,
 			);
 			name = MainController;
 			sourceTree = "<group>";
@@ -437,6 +451,14 @@
 				D36579311C56049100F51DA3 /* UIViewController+JASidePanel.m */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		D36579451C58565500F51DA3 /* DBAccess */ = {
+			isa = PBXGroup;
+			children = (
+				D36579431C58565200F51DA3 /* DBAccess.framework */,
+			);
+			name = DBAccess;
 			sourceTree = "<group>";
 		};
 		D38CBE741C51D77D00084126 /* PlayController */ = {
@@ -728,6 +750,8 @@
 			files = (
 				D36579331C56049100F51DA3 /* UIViewController+JASidePanel.m in Sources */,
 				D329168E1C55B3D800CE46B6 /* CommonColor.m in Sources */,
+				D365793F1C570C2E00F51DA3 /* MovieCell.m in Sources */,
+				D36579481C58574A00F51DA3 /* DataAccess.m in Sources */,
 				D32916DE1C55B7DF00CE46B6 /* UIImageView+AFNetworking.m in Sources */,
 				D32916E01C55B7DF00CE46B6 /* UIRefreshControl+AFNetworking.m in Sources */,
 				D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */,
@@ -750,7 +774,6 @@
 				D32916E71C55B98E00CE46B6 /* DataManager.m in Sources */,
 				D32916E41C55B84100CE46B6 /* Movie.m in Sources */,
 				D36579131C55CB8C00F51DA3 /* CategoryFilm.m in Sources */,
-				D365793C1C5616EE00F51DA3 /* TopMenuCell.m in Sources */,
 				D32916841C55B36400CE46B6 /* CommonString.m in Sources */,
 				D32916D91C55B7DF00CE46B6 /* README.md in Sources */,
 				D32916EA1C55BA0700CE46B6 /* User.m in Sources */,
@@ -766,6 +789,7 @@
 				D329168A1C55B38D00CE46B6 /* CommonSize.m in Sources */,
 				D32916D31C55B7DF00CE46B6 /* AFSecurityPolicy.m in Sources */,
 				D32916941C55B51900CE46B6 /* CommonResource.m in Sources */,
+				D36579421C570FA700F51DA3 /* CollectionMovie.m in Sources */,
 				D32916DA1C55B7DF00CE46B6 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D36579321C56049100F51DA3 /* JASidePanelController.m in Sources */,
 				D32916D01C55B7DF00CE46B6 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -917,6 +941,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HDVietFree",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${PROJECT_DIR}/HDVietFree/Resource/Prefix/HDVietPrefix.pch";
 				INFOPLIST_FILE = HDVietFree/Info.plist;
@@ -931,6 +960,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HDVietFree",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${PROJECT_DIR}/HDVietFree/Resource/Prefix/HDVietPrefix.pch";
 				INFOPLIST_FILE = HDVietFree/Info.plist;

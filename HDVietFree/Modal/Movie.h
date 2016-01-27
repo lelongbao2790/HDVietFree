@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "CategoryFilm.h"
+#import <DBAccess/DBAccess.h>
 
-@interface Movie : NSObject
+@interface Movie : DBObject
 
 // Property
 @property (strong, nonatomic) NSString *movieID;
@@ -26,9 +27,15 @@
 @property (strong, nonatomic) NSString *plotVI;
 @property (strong, nonatomic) NSString *country;
 @property (strong, nonatomic) NSString *releaseDate;
+@property (strong, nonatomic) NSString *tagMovie;
+@property (strong, nonatomic) NSString *genreMovie;
+
 @property (strong, nonatomic) CategoryFilm *categoryFilm;
 
 // Init movie from json
-+ (Movie *)movieFromJSON:(NSDictionary *)json;
++ (Movie *)detailMovieFromJSON:(NSDictionary *)json;
+
+// Init movie from json
++ (Movie *)detailListMovieFromJSON:(NSDictionary *)json withTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie;
 
 @end

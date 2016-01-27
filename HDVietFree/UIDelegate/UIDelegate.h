@@ -11,12 +11,21 @@
 #import <Foundation/Foundation.h>
 
 /*
- * Have read  message delegate
+ * Login Delegate
  */
 @protocol LoginDelegate
 @optional
 -(void) loginAPISuccess:(NSDictionary *)response;
 -(void) loginAPIFail:(NSString *)resultMessage;
+@end
+
+/*
+ * Load movie
+ */
+@protocol ListMovieByGenreDelegate
+@optional
+-(void) loadListMovieAPISuccess:(NSDictionary *)response atTag:(NSString *)tagMovie andGenre:(NSString *)genre;
+-(void) loadListMovieAPIFail:(NSString *)resultMessage;
 @end
 
 #endif /* UIDelegate_h */

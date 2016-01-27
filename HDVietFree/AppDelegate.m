@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<DBDelegate>
 
 @end
 
@@ -19,7 +19,9 @@
     // Override point for customization after application launch.
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:kColorBgNavigationBar]];
+    [self connectLocalDatabase];
     [self handleLogin];
+    [self setCustomNavigationBackButton];
     
     return YES;
 }
@@ -49,6 +51,17 @@
 //*****************************************************************************
 #pragma mark -
 #pragma mark ** Helper Method **
+- (void)connectLocalDatabase {
+    [DBAccess setDelegate:self];
+    [DBAccess openDatabaseNamed:kNameDatabase];
+}
+- (void)setCustomNavigationBackButton
+{
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor colorWithHexString:kTextColorOfTitleNav]}];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithHexString:kTextColorOfTitleNav]];
+}
+
 - (void)handleLogin {
     if ([self checkAccessTokenSave]) {
         MainController *mainController = InitStoryBoardWithIdentifier(kMainController);
@@ -62,13 +75,16 @@
 }
 
 - (BOOL)checkAccessTokenSave {
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]
-                            stringForKey:kAccessToken];
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessToken];
+
     if (accessToken) {
+        [User share].accessToken = accessToken;
         return YES;
     } else {
         return NO;
     }
+    
+//    return NO;
 }
 
 @end

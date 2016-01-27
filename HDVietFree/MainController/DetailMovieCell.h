@@ -11,5 +11,8 @@
 @interface DetailMovieCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageMovie;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityLoading;
+@property (weak, nonatomic) IBOutlet UILabel *lbNameMovie;
+
+- (void)loadInformationWithMovie:(Movie *)movie;
 
 @end

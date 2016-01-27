@@ -10,4 +10,11 @@
 
 @interface Utilities : NSObject
 
+
+/**
+ * Show iToast message for informing.
+ * @param message
+ */
++ (void)showiToastMessage:(nonnull NSString *)message;
+
 @end

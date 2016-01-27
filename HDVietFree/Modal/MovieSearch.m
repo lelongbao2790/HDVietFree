@@ -9,7 +9,7 @@
 #import "MovieSearch.h"
 
 @implementation MovieSearch
-
+@dynamic genreMovie, page, tagMovie;
 + (MovieSearch *)share {
     static dispatch_once_t once;
     static MovieSearch *share;

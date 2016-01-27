@@ -7,7 +7,27 @@
 //
 
 #import "Utilities.h"
+#define kTimeDuration 300
 
 @implementation Utilities
+
+/**
+ * Show iToast message for informing.
+ * @param message
+ */
++ (void)showiToastMessage:(nonnull NSString *)message
+{
+    
+    iToastSettings *theSettings = [iToastSettings getSharedSettings];
+    theSettings.duration = kTimeDuration;
+    
+    // Prevent crash with null string
+    if (message == (id)[NSNull null]) {
+        message = kEmptyString;
+    }
+    
+    [[[[iToast makeText:message]
+       setGravity:iToastGravityBottom] setDuration:iToastDurationNormal] show];
+}
 
 @end

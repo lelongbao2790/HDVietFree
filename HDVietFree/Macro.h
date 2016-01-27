@@ -23,4 +23,7 @@
 #define ProgressBarDismissLoading(_Title_) [SNLoading hideWithTitle:_Title_]
 #define ProgressBarUpdateLoading(_Title_, _DetailsText_) [SNLoading updateWithTitle:_Title_ detailsText:_DetailsText_]
 
+// String
+#define stringFromInteger(value) [NSString stringWithFormat:@"%d", (int)value]
+
 #endif /* Macro_h */

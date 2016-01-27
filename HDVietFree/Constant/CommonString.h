@@ -23,7 +23,7 @@ extern NSString *const kTableViewLeftMenuIdentifier;
 /**
  * Main Controller : Collection view top menu
  */
-extern NSString *const kCollectionTopMenuIdentifier;
+extern NSString *const kTableViewMoviedentifier;
 
 /**
  * Main Controller : Detail movie
@@ -31,13 +31,23 @@ extern NSString *const kCollectionTopMenuIdentifier;
 extern NSString *const kCollectionDetailMovieIdentifier;
 
 /**
- * NSUserDefault : User name
+ * Loading
  */
-extern NSString *const kUserNameStore;
+extern NSString *const kLoading;
 
 /**
- * NSUserDefault : Password
+ * Genre 1: PhimLe
  */
-extern NSString *const kPasswordStore;
+extern NSString *const kPhimLe;
+
+/**
+ * Genre 2: Phimbo
+ */
+extern NSString *const kPhimBo;
+
+/**
+ * Name database
+ */
+extern NSString *const kNameDatabase;
 
 @end

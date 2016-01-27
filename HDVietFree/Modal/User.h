@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @interface User : NSObject
+
++ (User *)share;
 
 // Property
 @property (strong, nonatomic) NSString *userId;

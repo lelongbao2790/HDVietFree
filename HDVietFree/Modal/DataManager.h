@@ -8,11 +8,18 @@
 
 #import "AFHTTPSessionManager.h"
 
-@interface DataManager : AFHTTPSessionManager {
+@interface DataManager : NSObject {
      NSObject<LoginDelegate> *loginDelegate;
+     NSObject<ListMovieByGenreDelegate> *listMovieDelegate;
 }
+// Init request operation manager
+@property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager *managerSSL;
 
+// Delegate
 @property (strong, nonatomic) NSObject *loginDelegate;
+@property (strong, nonatomic) NSObject *listMovieDelegate;
+
 
 //*****************************************************************************
 #pragma mark -
@@ -27,6 +34,13 @@
  *
  * @param strUrl url string request
  */
-- (void)postLoginWithUrl:(NSString *)strUrl;
+- (void)getLoginWithUrl:(NSString *)strUrl;
+
+/*
+ * GET LIST MOVIE
+ *
+ * @param strUrl url string request
+ */
+- (void)getListMovieByGenreWithUrl:(NSString *)strUrl atTag:(NSString *)tagMovie andGenre:(NSString *)genre;
 
 @end

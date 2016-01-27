@@ -13,6 +13,16 @@
 /**
  * Navigation bar color
  */
-NSString *const kColorBgNavigationBar = @"ea8e00";
+NSString *const kColorBgNavigationBar = @"ffcb06";
+
+/**
+ * Background color of each section
+ */
+NSString *const kBackgroundColorOfSection = @"dbdad5";
+
+/**
+ * Text color of title navigation bar
+ */
+NSString *const kTextColorOfTitleNav = @"fd3946";
 
 @end

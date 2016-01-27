@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <DBAccess/DBAccess.h>
 
-@interface MovieSearch : NSObject
+@interface MovieSearch : DBObject
 
 + (MovieSearch *)share;
 
