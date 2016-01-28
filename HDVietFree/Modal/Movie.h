@@ -29,13 +29,22 @@
 @property (strong, nonatomic) NSString *releaseDate;
 @property (strong, nonatomic) NSString *tagMovie;
 @property (strong, nonatomic) NSString *genreMovie;
-
+@property (strong, nonatomic) NSString *bannerMovie;
+@property (strong, nonatomic) NSString *backdrop;
+@property (strong, nonatomic) NSString *relativeMovie;
+@property (strong, nonatomic) NSString *backdrop945530;
 @property (strong, nonatomic) CategoryFilm *categoryFilm;
 
 // Init movie from json
 + (Movie *)detailMovieFromJSON:(NSDictionary *)json;
 
 // Init movie from json
++ (Movie *)detailRelativeMovieFromJson:(NSDictionary *)json;
+
+// Init movie from json
 + (Movie *)detailListMovieFromJSON:(NSDictionary *)json withTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie;
+
+// Update information movie
++ (void)updateInformationMovieFromJSON:(NSDictionary *)json andMovie:(Movie *)movie;
 
 @end

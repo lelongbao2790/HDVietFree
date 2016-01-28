@@ -14,12 +14,11 @@
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Property **
-@property (strong, nonatomic) NSIndexPath *indexPath;
-@property (strong, nonatomic) NSMutableArray *listMovie;
+@property (strong, nonatomic) NSArray *listMovie;
 
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Helper Method **
-- (void)setCollectionViewDataSourceDelegate;
+- (void)setCollectionViewDataSourceDelegateWithController:(NSInteger)typeController andListMovie:(NSArray *)listMovieInDB;
 
 @end

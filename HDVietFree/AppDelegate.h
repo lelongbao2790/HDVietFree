@@ -10,8 +10,18 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+//*****************************************************************************
+#pragma mark -
+#pragma mark ** Life Cycle **
 
++ (AppDelegate *)share;
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark ** Property **
+@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) JASidePanelController *mainPanel;
+@property (strong, nonatomic) MainController *mainController;
 
 @end
 

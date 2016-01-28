@@ -15,8 +15,8 @@
 @property (strong, nonatomic) NSDictionary *dictMovie;
 @property (assign, nonatomic) NSInteger lastListMovie;
 
-// IBOutlet
 @property (weak, nonatomic) IBOutlet UITableView *tbvListMovie;
+@property (strong, nonatomic) NSArray *listTopMovie;
 
 @end
 
@@ -47,15 +47,18 @@
 #pragma mark - ** Helper Method **
 - (void)configView {
     // Init
+    [AppDelegate share].mainController = self;
     self.dictMenu = kDicMainMenu;
     self.title = @"PHIM LẺ";
     [DataManager shared].listMovieDelegate = self;
     self.lastListMovie = 0;
+    self.listTopMovie = [[NSArray alloc] init];
     
     // Config table view
     self.tbvListMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tbvListMovie.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.automaticallyAdjustsScrollViewInsets = NO;
+    [self setAutomaticallyAdjustsScrollViewInsets:NO];
     
     // Check list data
     [self checkListMovie];
@@ -101,8 +104,11 @@
     }
     
     // Config cell
-    cell.collectionViewMovie.indexPath = indexPath;
-    [cell.collectionViewMovie setCollectionViewDataSourceDelegate];
+    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[indexPath.section]
+                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)];
+    
+    [cell.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagMainController
+                                                                   andListMovie:listDBInLocal];
     return cell;
     
 }
@@ -141,13 +147,15 @@
     NSArray *listData = [response objectForKey:kList];
     
     // Get detail movie and init object movie
-    for (NSDictionary *dictObjectMovie in listData) {
+    for (int i = 0; i < listData.count; i++) {
+        NSDictionary *dictObjectMovie = listData[i];
         [Movie detailListMovieFromJSON:dictObjectMovie withTag:tagMovie andGenre:genre];
     }
     
     if (self.lastListMovie == kDicMainMenu.allKeys.count - 1) {
         // Last list loaded
         ProgressBarDismissLoading(kEmptyString);
+        self.listTopMovie = [[DataAccess share] getListTopMovieWithReleaseDateInDB];
         [self.tbvListMovie reloadData];
         self.lastListMovie = 0;
         
@@ -159,6 +167,8 @@
 - (void)loadListMovieAPIFail:(NSString *)resultMessage {
     ProgressBarDismissLoading(kEmptyString);
     [Utilities showiToastMessage:resultMessage];
+    // Remove access token save
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
     
 }
 

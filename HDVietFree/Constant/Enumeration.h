@@ -19,11 +19,24 @@ typedef NS_ENUM(NSInteger, SearchMovie) {
 typedef NS_ENUM(NSInteger, TagMainController) {
     kTagCollectionTopMenu = 101,
     kTagCollectionDetailMovie = 100,
+    kTagImageCollectionTop = 105,
+    kTagActivityLoadingTop = 106,
 };
 
 typedef NS_ENUM(NSInteger, ServerResponseKey) {
     kRequestSuccess = 0,
     kRequestFail = 111,
+};
+
+typedef NS_ENUM(NSInteger, PlayMovieTagTableView) {
+    kSectionInformationMovie = 0,
+    kSectionCategoryFilm = 1,
+    kNumberOfSectionPlayMovie = 2,
+};
+
+typedef NS_ENUM(NSInteger, ControllerTag) {
+    kTagMainController = 1,
+    kTagPlayController = 2,
 };
 
 #endif /* Enumeration_h */

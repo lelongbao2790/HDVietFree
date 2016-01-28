@@ -9,7 +9,7 @@
 #ifndef UIDelegate_h
 #define UIDelegate_h
 #import <Foundation/Foundation.h>
-
+#import "Movie.h"
 /*
  * Login Delegate
  */
@@ -26,6 +26,15 @@
 @optional
 -(void) loadListMovieAPISuccess:(NSDictionary *)response atTag:(NSString *)tagMovie andGenre:(NSString *)genre;
 -(void) loadListMovieAPIFail:(NSString *)resultMessage;
+@end
+
+/*
+ * Load detail information movie
+ */
+@protocol DetailInformationMovieDelegate
+@optional
+-(void) loadDetailInformationMovieAPISuccess:(NSDictionary *)response;
+-(void) loadDetailInformationMovieAPIFail:(NSString *)resultMessage;
 @end
 
 #endif /* UIDelegate_h */

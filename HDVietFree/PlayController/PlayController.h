@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlayMovieCell.h"
+@class Movie;
 
 @interface PlayController : UIViewController
+
+@property (strong, nonatomic) Movie *movie;
 
 @end

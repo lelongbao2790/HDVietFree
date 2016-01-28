@@ -12,6 +12,7 @@
 
 // Property
 @property (strong, nonatomic) NSDictionary *dictMenu;
+@property (weak, nonatomic) IBOutlet UILabel *nameUser;
 
 // IBOutlet
 @property (weak, nonatomic) IBOutlet UITableView *tbvListMenu;
@@ -25,6 +26,10 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self configView];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -33,7 +38,17 @@
 #pragma mark -
 #pragma mark - ** Helper Method **
 - (void)configView {
+    
+    // Config table view
+    self.tbvListMenu.delegate = self;
+    self.tbvListMenu.dataSource = self;
+    self.tbvListMenu.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tbvListMenu.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.dictMenu = kDicLeftMenu;
+    [self.tbvListMenu reloadData];
+    self.nameUser.text = [User share].userName;
 }
 
 //*****************************************************************************
@@ -53,10 +68,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     // Init cell
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTableViewLeftMenuIdentifier];
-    if(!cell) { cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kTableViewLeftMenuIdentifier]; }
+    SlideMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:kTableViewLeftMenuIdentifier];
+    if(!cell) { cell = [[SlideMenuCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kTableViewLeftMenuIdentifier]; }
     
-    cell.textLabel.text = self.dictMenu.allValues[indexPath.row];
+    [cell setInformationCell:self.dictMenu.allValues[indexPath.row]];
     
     return cell;
 }
@@ -72,6 +87,8 @@
     
     // Assign tag menu
     [MovieSearch share].genreMovie = [self.dictMenu.allKeys[indexPath.row] integerValue];
+    [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+    [[AppDelegate share].mainController configView];
     
 }
 

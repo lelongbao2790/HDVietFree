@@ -30,4 +30,90 @@
        setGravity:iToastGravityBottom] setDuration:iToastDurationNormal] show];
 }
 
+/*
+ * Save image
+ */
++ (void)saveImage:(nonnull UIImage*)image withName:(nonnull NSString *)nameImage {
+    if (image != nil)
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                             NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString* path = [documentsDirectory stringByAppendingPathComponent:
+                          [NSString stringWithString: nameImage] ];
+        NSData* data = UIImagePNGRepresentation(image);
+        [data writeToFile:path atomically:YES];
+    }
+}
+
+/*
+ * Load image
+ */
++ (nonnull UIImage*)loadImageFromName:(nonnull NSString *)nameImage {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString* path = [documentsDirectory stringByAppendingPathComponent:
+                      [NSString stringWithString: nameImage] ];
+    UIImage* image = [UIImage imageWithContentsOfFile:path];
+    return image;
+}
+
+/*
+ * Check image exist
+ */
++ (BOOL)isExistImage:(nonnull NSString *)nameImage {
+    if (nameImage) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                             NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString* path = [documentsDirectory stringByAppendingPathComponent:
+                          [NSString stringWithString: nameImage] ];
+        
+        return [[NSFileManager defaultManager] fileExistsAtPath:path];
+    } else {
+        return NO;
+    }
+    
+}
+
+/*
+ * Set main page
+ */
++ (void)setMainPageSlide {
+    // Set main panel
+    SlideMenuController *leftMenu = InitStoryBoardWithIdentifier(kSlideMenuController);
+    MainController *mainController = InitStoryBoardWithIdentifier(kMainController);
+    
+    [AppDelegate share].mainPanel = [JASidePanelController shareInstance];
+    [AppDelegate share].mainPanel.leftPanel = leftMenu;
+    [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc]initWithRootViewController:mainController];
+    [AppDelegate share].window.rootViewController = [AppDelegate share].mainPanel;
+}
+
+/*
+ * Get year from date
+ */
++ (nonnull NSString *)getYearOfDateFromString:(nonnull NSString *)strDate {
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZ"];
+    NSDate *currentDate = [dateFormatter dateFromString:strDate];
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    NSDateComponents* components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:currentDate]; // Get necessary date components
+    
+    return [NSString stringWithFormat:@"%d",(int)[components year]];
+}
+
+/*
+ * Get string url poster image
+ */
++ (nonnull NSString *)getStringUrlPoster:(nonnull Movie *)movie {
+    if ([movie.poster containsString:kUrlHttpTHdViet]) {
+        return movie.poster;
+    } else {
+        return [NSString stringWithFormat:kUrlImagePosterHdViet, movie.poster];
+    }
+}
+
 @end

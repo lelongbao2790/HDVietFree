@@ -37,5 +37,10 @@
 #import "iToast.h"
 #import <DBAccess/DBAccess.h>
 #import "DataAccess.h"
+#import "AppDelegate.h"
+#import "SlideMenuController.h"
+#import "SlideMenuCell.h"
+#import "PlayMovieCell.h"
+#import "TopMovieCell.h"
 
 #endif /* HDVietPrefix_pch */

@@ -14,6 +14,8 @@
 #define kBaseUrl @"http://rest.hdviet.com/"
 #define kUrlHdViet @"http://movies.hdviet.com/"
 #define kUrlImagePosterHdViet @"http://t.hdviet.com/thumbs/origins/%@"
+#define kUrlImageBannerHdViet @"http://t.hdviet.com/backdrops/origins/%@"
+#define kUrlHttpTHdViet @"http://t.hdviet.com"
 
 // List api
 #define kUrlLogin @"user/login?email=%@&password=%@"

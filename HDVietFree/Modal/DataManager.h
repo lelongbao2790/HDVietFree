@@ -11,6 +11,7 @@
 @interface DataManager : NSObject {
      NSObject<LoginDelegate> *loginDelegate;
      NSObject<ListMovieByGenreDelegate> *listMovieDelegate;
+     NSObject<DetailInformationMovieDelegate> *detailInfoMovieDelegate;
 }
 // Init request operation manager
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
@@ -19,7 +20,7 @@
 // Delegate
 @property (strong, nonatomic) NSObject *loginDelegate;
 @property (strong, nonatomic) NSObject *listMovieDelegate;
-
+@property (strong, nonatomic) NSObject *detailInfoMovieDelegate;
 
 //*****************************************************************************
 #pragma mark -
@@ -42,5 +43,12 @@
  * @param strUrl url string request
  */
 - (void)getListMovieByGenreWithUrl:(NSString *)strUrl atTag:(NSString *)tagMovie andGenre:(NSString *)genre;
+
+/*
+ * GET DETAIL INFORMATION MOVIE
+ *
+ * @param strUrl url string request
+ */
+- (void)getDetailInformationMovieWithUrl:(NSString *)strUrl andMovie:(Movie *)movie;
 
 @end

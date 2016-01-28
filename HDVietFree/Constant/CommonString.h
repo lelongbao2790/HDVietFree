@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface CommonString : NSObject
+#define kLoadImageInBackground "backgroundDownloadImage"
 
 /**
  * Empty String
@@ -26,9 +27,19 @@ extern NSString *const kTableViewLeftMenuIdentifier;
 extern NSString *const kTableViewMoviedentifier;
 
 /**
+ * Main Controller : Table view identifier
+ */
+extern NSString *const kPlayMovieCellIdentifier;
+
+/**
  * Main Controller : Detail movie
  */
 extern NSString *const kCollectionDetailMovieIdentifier;
+
+/**
+ * Main Controller : top movie
+ */
+extern NSString *const kCollectionTopMainIdentifier;
 
 /**
  * Loading
@@ -49,5 +60,10 @@ extern NSString *const kPhimBo;
  * Name database
  */
 extern NSString *const kNameDatabase;
+
+/**
+ * Relative movie
+ */
+extern NSString *const kRelativeMovie;
 
 @end

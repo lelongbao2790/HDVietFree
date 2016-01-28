@@ -9,21 +9,32 @@
 #import "PlayController.h"
 @import MediaPlayer;
 
-@interface PlayController ()<MPMediaPickerControllerDelegate,MPMediaPlayback>
+@interface PlayController ()<MPMediaPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, DetailInformationMovieDelegate>
+@property (weak, nonatomic) IBOutlet UIImageView *imagePoster;
+@property (weak, nonatomic) IBOutlet UITableView *tbvInforMovie;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivity;
+@property (weak, nonatomic) IBOutlet UIButton *btnPlayMovie;
 
 @end
 
 @implementation PlayController
 
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Life cycle method **
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self playMediaController];
+    [self configView];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self getInformationMovie];
 }
 
 /*
@@ -35,6 +46,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Media play controller **
 
 - (void)playMediaController {
     NSURL *url = [[NSURL alloc] initWithString:@"http://plist.vn-hd.com/mp4childv3/2982963905c77744565d051df2822fe9/947842ab03c548e7be5999157d22563d/6614d5f054e811e58d2e44d3cad9dd84/3784_800_ivdc.m3u8"];
@@ -55,6 +70,177 @@
     if (value == MPMovieFinishReasonUserExited) {
         [self dismissMoviePlayerViewControllerAnimated];
     }
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Helper Method **
+
+- (void)configView {
+    // Config table view
+    self.tbvInforMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tbvInforMovie.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.tbvInforMovie reloadData];
+    
+    [DataManager shared].detailInfoMovieDelegate = self;
+}
+
+- (void)loadImage {
+    [self.loadingActivity startAnimating];
+    if ([Utilities isExistImage:self.movie.backdrop945530]) {
+        // Exist image
+        [self.loadingActivity stopAnimating];
+        [self.btnPlayMovie setHidden:NO];
+        [self updateUIImageAvatar:[Utilities loadImageFromName:self.movie.backdrop945530]];
+        
+    } else {
+        // Not exist
+        __block NSData *data = nil;
+        NSString *strImageUrl = self.movie.backdrop945530;
+        NSURL *urlImage = [NSURL URLWithString:strImageUrl];
+        
+        dispatch_queue_t backgroundQueue = dispatch_queue_create(kLoadImageInBackground, 0);
+        dispatch_async(backgroundQueue, ^{
+            
+            // Download
+            data = [NSData dataWithContentsOfURL:urlImage];
+            UIImage *image = [UIImage imageWithData:data];
+            [Utilities saveImage:image withName:self.movie.backdrop945530];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                // Load image on UI
+                [self updateUIImageAvatar:image];
+            });
+        });
+    }
+}
+
+// This method will update image avatar
+- (void)updateUIImageAvatar:(UIImage*)images {
+    [self.btnPlayMovie setHidden:NO];
+    [self.loadingActivity stopAnimating];
+    self.imagePoster.image = images;
+}
+
+- (void)reloadView {
+    [self loadImage];
+    [self.tbvInforMovie reloadData];
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Table view delegate **
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return kNumberOfSectionPlayMovie;
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    switch (section) {
+        case kSectionInformationMovie:
+            return self.movie.movieName;
+            break;
+            
+        case kSectionCategoryFilm:
+            return kRelativeMovie;
+            break;
+        default:
+            break;
+    }
+    
+    return kEmptyString;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    // Background color
+    view.tintColor = [UIColor colorWithHexString:kBackgroundColorOfSection];
+    
+    // Text Color
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    [header.textLabel setTextColor:[UIColor blackColor]];
+    header.textLabel.font = [UIFont systemFontOfSize:16];
+    CGRect headerFrame = header.frame;
+    header.textLabel.frame = headerFrame;
+    header.textLabel.textAlignment = NSTextAlignmentCenter;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = nil;
+    switch (indexPath.section) {
+        case kSectionInformationMovie: {
+            PlayMovieCell *cellPlayMovie = (PlayMovieCell *)[tableView dequeueReusableCellWithIdentifier:kPlayMovieCellIdentifier];
+            if (!cellPlayMovie) {
+                cellPlayMovie = [[PlayMovieCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kPlayMovieCellIdentifier];
+            }
+            [cellPlayMovie setDetailInformation:self.movie];
+            
+            cell = cellPlayMovie;
+
+        }
+            break;
+            
+        case kSectionCategoryFilm: {
+            MovieCell *cellMovie = (MovieCell *)[tableView dequeueReusableCellWithIdentifier:kTableViewMoviedentifier];
+            if (!cellMovie) {
+                cellMovie = [[MovieCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTableViewMoviedentifier];
+            }
+            
+            // Config cell
+            NSArray *listRelativeMovieInLocal = [[DataAccess share] getRelativeMovieInDB:self.movie.movieID];
+            [cellMovie.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagPlayController
+                                                                                andListMovie:listRelativeMovieInLocal];
+            cell = cellMovie;
+        }
+            break;
+        default:
+            break;
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell     forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) { [tableView setSeparatorInset:UIEdgeInsetsZero]; }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) { [tableView setLayoutMargins:UIEdgeInsetsZero]; }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) { [cell setLayoutMargins:UIEdgeInsetsZero]; }
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Handle get information movie **
+- (void)getInformationMovie {
+    if ([[DataAccess share] getRelativeMovieInDB:self.movie.movieID].count > 0) {
+        [self reloadView];
+    } else {
+        ProgressBarShowLoading(kLoading);
+        [[ManageAPI share] loadDetailInfoMovieAPI:self.movie];
+    }
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Detail Information Movie Delegate **
+- (void)loadDetailInformationMovieAPISuccess:(NSDictionary *)response {
+    ProgressBarDismissLoading(kEmptyString);
+    DLOG(@"Load detail information api success");
+    [Movie updateInformationMovieFromJSON:response andMovie:self.movie];
+    [self reloadView];
+}
+
+- (void)loadDetailInformationMovieAPIFail:(NSString *)resultMessage {
+    DLOG(@"Load detail information api fail");
+    [Utilities showiToastMessage:resultMessage];
+    
 }
 
 @end

@@ -56,4 +56,60 @@
         return NO;
 }
 
+/*
+ * Get movie from Id
+ */
+- (Movie *)getMovieFromId:(NSString *)movieId; {
+    Movie *movieObj = nil;
+    DBResultSet* r = [[[Movie query]
+                       whereWithFormat:@"movieID = %@", movieId]
+                      fetch];
+    
+    if (r.count > 0)
+        for (Movie *aMovie in r) {
+            movieObj = aMovie;
+        }
+    else
+        movieObj = nil;
+    
+    return movieObj;
+}
+
+/*
+ * Get relative movie in db
+ */
+- (NSArray *)getRelativeMovieInDB:(NSString *)movieId {
+    DBResultSet* r = [[[Movie query]
+                       whereWithFormat:@"relativeMovie = %@", movieId]
+                      fetch];
+    
+    if (r.count > 0) {
+        return r;
+    }
+    else
+        return nil;
+}
+
+/*
+ * Get movie with release 2015 - 2016
+ */
+- (NSArray *)getListTopMovieWithReleaseDateInDB {
+
+    NSMutableArray *listTopMovie = [[NSMutableArray alloc] init];
+    DBResultSet* r = [[[Movie query]
+                       whereWithFormat:@"genreMovie = %@", stringFromInteger([MovieSearch share].genreMovie)]
+                      fetch];
+    if (r.count > 0) {
+        for (Movie *aMovie in r) {
+            if ([aMovie.releaseDate containsString:k2015] ||
+                [aMovie.releaseDate containsString:k2016]) {
+                [listTopMovie addObject:aMovie];
+            }
+        }
+    }
+    else
+        listTopMovie = nil;
+    return listTopMovie;
+}
+
 @end

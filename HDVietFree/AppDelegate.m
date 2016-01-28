@@ -14,6 +14,20 @@
 
 @implementation AppDelegate
 
+//*****************************************************************************
+#pragma mark -
+#pragma mark ** Life Cycle **
+
++ (AppDelegate *)share
+{
+    static dispatch_once_t once;
+    static AppDelegate *share;
+    
+    dispatch_once(&once, ^{
+        share = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    });
+    return share;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -64,9 +78,7 @@
 
 - (void)handleLogin {
     if ([self checkAccessTokenSave]) {
-        MainController *mainController = InitStoryBoardWithIdentifier(kMainController);
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainController];
-        self.window.rootViewController = navController;
+        [Utilities setMainPageSlide];
     } else {
         LoginController *loginController = InitStoryBoardWithIdentifier(kLoginController);
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
@@ -79,6 +91,7 @@
 
     if (accessToken) {
         [User share].accessToken = accessToken;
+        [User share].userName = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
         return YES;
     } else {
         return NO;

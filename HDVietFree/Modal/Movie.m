@@ -9,7 +9,7 @@
 #import "Movie.h"
 
 @implementation Movie
-@dynamic movieID, movieName, knownAs, trailer, poster, poster124x184, sequence, currentSeason, episode, runtime, cast, plotVI, country, releaseDate, categoryFilm, tagMovie, genreMovie;
+@dynamic movieID, movieName, knownAs, trailer, poster, poster124x184, sequence, currentSeason, episode, runtime, cast, plotVI, country, releaseDate, categoryFilm, tagMovie, genreMovie, bannerMovie, backdrop, backdrop945530, relativeMovie;
 
 + (DBIndexDefinition *)indexDefinitionForEntity {
     
@@ -45,6 +45,20 @@
 }
 
 // Init movie from json
++ (Movie *)detailRelativeMovieFromJson:(NSDictionary *)json {
+    Movie *newMovie = [Movie new];
+    newMovie.movieID = [json objectForKey:kMovieId];
+    newMovie.movieName = [json objectForKey:kMovieRelativeName];
+    newMovie.knownAs = [json objectForKey:kKnownAs];
+    newMovie.poster124x184 = [json objectForKey:kPoster124184];
+    newMovie.poster = [json objectForKey:kPosterLink];
+    newMovie.sequence = [[json objectForKey:kSequence] integerValue];
+    newMovie.episode = [[json objectForKey:kEpisode] integerValue];
+    [newMovie commit];
+    return newMovie;
+}
+
+// Init movie from json
 + (Movie *)detailListMovieFromJSON:(NSDictionary *)json withTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie {
     Movie *newMovie = [Movie new];
     newMovie.movieID = [json objectForKey:kMovieId];
@@ -59,10 +73,35 @@
     newMovie.plotVI = [json objectForKey:kPlotVI];
     newMovie.country = [json objectForKey:kCountry];
     newMovie.releaseDate = [json objectForKey:kReleaseDate];
+    newMovie.bannerMovie = [json objectForKey:kBannerFilm];
+    newMovie.backdrop = [json objectForKey:kBackDrop];
     newMovie.tagMovie = tagMovie;
     newMovie.genreMovie = genreMovie;
     [newMovie commit];
     return newMovie;
+}
+
+// Update information movie
++ (void)updateInformationMovieFromJSON:(NSDictionary *)json andMovie:(Movie *)movie {
+    
+    NSArray *listRelativeFromJson = [json objectForKey:kRelative];
+    
+    for (NSDictionary *dictMovie in listRelativeFromJson) {
+        Movie *movieFromLocal = [[DataAccess share] getMovieFromId:[dictMovie objectForKey:kMovieId]];
+        if (movieFromLocal == nil) {
+            // Movie not exist in local
+            Movie *aMovie = [Movie detailRelativeMovieFromJson:dictMovie];
+            aMovie.relativeMovie = movie.movieID;
+            [aMovie commit];
+            
+        } else {
+            // Movie exist in local
+            movieFromLocal.relativeMovie = movie.movieID;
+            [movieFromLocal commit];
+        }
+    }
+    movie.backdrop945530 = [json objectForKey:kNewBackDrop945530];
+    [movie commit];
 }
 
 @end

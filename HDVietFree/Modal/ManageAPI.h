@@ -25,4 +25,8 @@
  */
 - (void)loadListMovieAPI:(NSInteger)genre tag:(NSString *)tagMovie andPage:(NSInteger)page;
 
+/*
+ * Load detail information movie API
+ */
+- (void)loadDetailInfoMovieAPI:(Movie*)movie;
 @end

@@ -9,7 +9,7 @@
 #import "DataManager.h"
 
 @implementation DataManager
-@synthesize loginDelegate, listMovieDelegate;
+@synthesize loginDelegate, listMovieDelegate, detailInfoMovieDelegate;
 
 //*****************************************************************************
 #pragma mark -
@@ -97,7 +97,7 @@
         }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [loginDelegate loginAPIFail:kCannotConnectToServer];
+        [loginDelegate loginAPIFail:[error localizedDescription]];
     }];
 }
 
@@ -120,8 +120,31 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [listMovieDelegate loadListMovieAPIFail:kCannotConnectToServer];
+        [listMovieDelegate loadListMovieAPIFail:[error localizedDescription]];
 
+    }];
+}
+
+/*
+ * GET DETAIL INFORMATION MOVIE
+ *
+ * @param strUrl url string request
+ */
+- (void)getDetailInformationMovieWithUrl:(NSString *)strUrl andMovie:(Movie *)movie {
+    [self.managerSSL.requestSerializer setValue:[User share].accessToken forHTTPHeaderField:kHTTPHeaderAccessToken];
+    [self.managerSSL GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([[responseObject objectForKey:kE] integerValue] == kRequestSuccess) {
+            
+            // Success
+            [detailInfoMovieDelegate  loadDetailInformationMovieAPISuccess:[responseObject objectForKey:kR]];
+        } else {
+            
+            // Fail
+            [detailInfoMovieDelegate loadDetailInformationMovieAPIFail:[responseObject objectForKey:kR]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [detailInfoMovieDelegate loadDetailInformationMovieAPIFail:[error localizedDescription]];
     }];
 }
 

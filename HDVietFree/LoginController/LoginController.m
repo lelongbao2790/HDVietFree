@@ -87,9 +87,9 @@
     
     // Save access token
     [[NSUserDefaults standardUserDefaults] setObject:self.user.accessToken forKey:kAccessToken];
+    [[NSUserDefaults standardUserDefaults] setObject:self.user.userName forKey:kUserName];
     
-    MainController *mainController = InitStoryBoardWithIdentifier(kMainController);
-    [self.navigationController pushViewController:mainController animated:YES];
+    [Utilities setMainPageSlide];
     
 }
 

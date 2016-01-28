@@ -26,9 +26,19 @@ NSString *const kTableViewLeftMenuIdentifier = @"TableViewLeftMenuIdentifier";
 NSString *const kTableViewMoviedentifier = @"tableViewMovieIdentifier";
 
 /**
+ * Main Controller : Table view identifier
+ */
+NSString *const kPlayMovieCellIdentifier = @"tableViewPlayMovieIdentifier";
+
+/**
  * Main Controller : Detail movie
  */
 NSString *const kCollectionDetailMovieIdentifier = @"collectionViewMovieIdentifier";
+
+/**
+ * Main Controller : top movie
+ */
+NSString *const kCollectionTopMainIdentifier =  @"collectionViewTopIdentifier";
 
 /**
  * Loading
@@ -49,5 +59,10 @@ NSString *const kPhimBo = @"PHIM BỘ";
  * Name database
  */
 NSString *const kNameDatabase = @"dbHDViet";
+
+/**
+ * Relative movie
+ */
+NSString *const kRelativeMovie = @"Phim liên quan";
 
 @end

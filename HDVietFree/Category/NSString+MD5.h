@@ -12,4 +12,6 @@
 
 - (NSString *)MD5;
 
+- (BOOL) containsString: (NSString*) substring;
+
 @end

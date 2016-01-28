@@ -40,5 +40,13 @@
      [[DataManager shared] getListMovieByGenreWithUrl:strUrl atTag:tagMovie andGenre:stringFromInteger([MovieSearch share].genreMovie)];
 }
 
+/*
+ * Load detail information movie API
+ */
+- (void)loadDetailInfoMovieAPI:(Movie*)movie {
+    NSString *strUrl = [NSString stringWithFormat:kUrlDetailMovie, movie.movieID];
+    DLOG(@"Load detail information movie with url:%@", strUrl);
+    [[DataManager shared] getDetailInformationMovieWithUrl:strUrl andMovie:movie];
+}
 
 @end

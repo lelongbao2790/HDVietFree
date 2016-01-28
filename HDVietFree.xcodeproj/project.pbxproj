@@ -52,6 +52,11 @@
 		D36579421C570FA700F51DA3 /* CollectionMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579411C570FA700F51DA3 /* CollectionMovie.m */; };
 		D36579441C58565200F51DA3 /* DBAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36579431C58565200F51DA3 /* DBAccess.framework */; };
 		D36579481C58574A00F51DA3 /* DataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579471C58574A00F51DA3 /* DataAccess.m */; };
+		D365794A1C5889F700F51DA3 /* user_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D36579491C5889F700F51DA3 /* user_icon.png */; };
+		D365794D1C58A65E00F51DA3 /* SlideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D365794C1C58A65E00F51DA3 /* SlideMenuCell.m */; };
+		D36579501C58B07300F51DA3 /* PlayMovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D365794F1C58B07300F51DA3 /* PlayMovieCell.m */; };
+		D36579541C58CE1E00F51DA3 /* play_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D36579531C58CE1E00F51DA3 /* play_icon.png */; };
+		D36579571C59F1B800F51DA3 /* TopMovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579561C59F1B800F51DA3 /* TopMovieCell.m */; };
 		D38CBE771C51D7AC00084126 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE761C51D7AC00084126 /* PlayController.m */; };
 		D38CBE791C51D83A00084126 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38CBE781C51D83A00084126 /* MediaPlayer.framework */; };
 		D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE7E1C51DFD400084126 /* NSString+MD5.m */; };
@@ -183,6 +188,14 @@
 		D36579431C58565200F51DA3 /* DBAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBAccess.framework; sourceTree = "<group>"; };
 		D36579461C58574A00F51DA3 /* DataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataAccess.h; path = Modal/DataAccess.h; sourceTree = "<group>"; };
 		D36579471C58574A00F51DA3 /* DataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataAccess.m; path = Modal/DataAccess.m; sourceTree = "<group>"; };
+		D36579491C5889F700F51DA3 /* user_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_icon.png; sourceTree = "<group>"; };
+		D365794B1C58A65E00F51DA3 /* SlideMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideMenuCell.h; path = SlideMenuController/SlideMenuCell.h; sourceTree = "<group>"; };
+		D365794C1C58A65E00F51DA3 /* SlideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideMenuCell.m; path = SlideMenuController/SlideMenuCell.m; sourceTree = "<group>"; };
+		D365794E1C58B07300F51DA3 /* PlayMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayMovieCell.h; path = PlayController/PlayMovieCell.h; sourceTree = "<group>"; };
+		D365794F1C58B07300F51DA3 /* PlayMovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayMovieCell.m; path = PlayController/PlayMovieCell.m; sourceTree = "<group>"; };
+		D36579531C58CE1E00F51DA3 /* play_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon.png; sourceTree = "<group>"; };
+		D36579551C59F1B800F51DA3 /* TopMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopMovieCell.h; path = MainController/TopMovieCell.h; sourceTree = "<group>"; };
+		D36579561C59F1B800F51DA3 /* TopMovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopMovieCell.m; path = MainController/TopMovieCell.m; sourceTree = "<group>"; };
 		D38CBE751C51D7AC00084126 /* PlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayController.h; path = PlayController/PlayController.h; sourceTree = "<group>"; };
 		D38CBE761C51D7AC00084126 /* PlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayController.m; path = PlayController/PlayController.m; sourceTree = "<group>"; };
 		D38CBE781C51D83A00084126 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -406,6 +419,8 @@
 			children = (
 				D36579191C55D1B300F51DA3 /* SlideMenuController.h */,
 				D365791A1C55D1B300F51DA3 /* SlideMenuController.m */,
+				D365794B1C58A65E00F51DA3 /* SlideMenuCell.h */,
+				D365794C1C58A65E00F51DA3 /* SlideMenuCell.m */,
 			);
 			name = SlideMenuController;
 			sourceTree = "<group>";
@@ -430,6 +445,8 @@
 				D365793E1C570C2E00F51DA3 /* MovieCell.m */,
 				D36579401C570FA700F51DA3 /* CollectionMovie.h */,
 				D36579411C570FA700F51DA3 /* CollectionMovie.m */,
+				D36579551C59F1B800F51DA3 /* TopMovieCell.h */,
+				D36579561C59F1B800F51DA3 /* TopMovieCell.m */,
 			);
 			name = MainController;
 			sourceTree = "<group>";
@@ -466,6 +483,8 @@
 			children = (
 				D38CBE751C51D7AC00084126 /* PlayController.h */,
 				D38CBE761C51D7AC00084126 /* PlayController.m */,
+				D365794E1C58B07300F51DA3 /* PlayMovieCell.h */,
+				D365794F1C58B07300F51DA3 /* PlayMovieCell.m */,
 			);
 			name = PlayController;
 			sourceTree = "<group>";
@@ -557,6 +576,8 @@
 		D3EA87DF1C50C72000D593A1 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				D36579531C58CE1E00F51DA3 /* play_icon.png */,
+				D36579491C5889F700F51DA3 /* user_icon.png */,
 				D3EA87D91C50C3A400D593A1 /* ic_launcher.png */,
 				D3EA87D51C50C1B300D593A1 /* loading_bg.png */,
 				D3EA87D71C50C22B00D593A1 /* button_active.png */,
@@ -718,12 +739,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3EA87B21C50BF6200D593A1 /* LaunchScreen.storyboard in Resources */,
+				D36579541C58CE1E00F51DA3 /* play_icon.png in Resources */,
 				D3EA87DA1C50C3A400D593A1 /* ic_launcher.png in Resources */,
 				D3EA87D81C50C22B00D593A1 /* button_active.png in Resources */,
 				D32916D81C55B7DF00CE46B6 /* LICENSE in Resources */,
 				D3EA87AF1C50BF6200D593A1 /* Assets.xcassets in Resources */,
 				D3EA87AD1C50BF6200D593A1 /* Main.storyboard in Resources */,
 				D3EA87D61C50C1B300D593A1 /* loading_bg.png in Resources */,
+				D365794A1C5889F700F51DA3 /* user_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,6 +779,7 @@
 				D32916E01C55B7DF00CE46B6 /* UIRefreshControl+AFNetworking.m in Sources */,
 				D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */,
 				D3EA87A71C50BF6200D593A1 /* AppDelegate.m in Sources */,
+				D36579571C59F1B800F51DA3 /* TopMovieCell.m in Sources */,
 				D36579241C55F38E00F51DA3 /* ManageAPI.m in Sources */,
 				D32916E11C55B7DF00CE46B6 /* UIWebView+AFNetworking.m in Sources */,
 				D32916D11C55B7DF00CE46B6 /* AFHTTPSessionManager.m in Sources */,
@@ -764,6 +788,7 @@
 				D32916D21C55B7DF00CE46B6 /* AFNetworkReachabilityManager.m in Sources */,
 				D32916CF1C55B7DF00CE46B6 /* AFHTTPRequestOperation.m in Sources */,
 				D32916D51C55B7DF00CE46B6 /* AFURLRequestSerialization.m in Sources */,
+				D365794D1C58A65E00F51DA3 /* SlideMenuCell.m in Sources */,
 				D36579271C55F70600F51DA3 /* CommonConstant.m in Sources */,
 				D32916D41C55B7DF00CE46B6 /* AFURLConnectionOperation.m in Sources */,
 				D32916D71C55B7DF00CE46B6 /* AFURLSessionManager.m in Sources */,
@@ -773,6 +798,7 @@
 				D32916DD1C55B7DF00CE46B6 /* UIButton+AFNetworking.m in Sources */,
 				D32916E71C55B98E00CE46B6 /* DataManager.m in Sources */,
 				D32916E41C55B84100CE46B6 /* Movie.m in Sources */,
+				D36579501C58B07300F51DA3 /* PlayMovieCell.m in Sources */,
 				D36579131C55CB8C00F51DA3 /* CategoryFilm.m in Sources */,
 				D32916841C55B36400CE46B6 /* CommonString.m in Sources */,
 				D32916D91C55B7DF00CE46B6 /* README.md in Sources */,

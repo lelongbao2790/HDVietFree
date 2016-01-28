@@ -25,5 +25,19 @@
  */
 - (BOOL)isExistDataMovieWithGenre:(NSString *)genreMovie andTag:(NSString *)tagMovie;
 
+/*
+ * Get movie from Id
+ */
+- (Movie *)getMovieFromId:(NSString *)movieId;
+
+/*
+ * Get relative movie in db
+ */
+- (NSArray *)getRelativeMovieInDB:(NSString *)movieId;
+
+/*
+ * Get movie with release 2015 - 2016
+ */
+- (NSArray *)getListTopMovieWithReleaseDateInDB;
 
 @end

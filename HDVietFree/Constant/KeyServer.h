@@ -19,6 +19,7 @@
 // Movie
 #define kMovieId @"MovieID"
 #define kMovieName @"MovieName"
+#define kMovieRelativeName @"Name"
 #define kKnownAs @"KnownAs"
 #define kTrailer @"Trailer"
 #define kPosterLink @"Poster"
@@ -33,6 +34,13 @@
 #define kCountry @"Country"
 #define kReleaseDate @"ReleaseDate"
 #define kCategoryFilm @"Category"
+#define kBannerFilm @"Banner"
+#define kBackDrop @"Backdrop"
+#define kNewBackDrop @"NewBackdrop"
+#define kNewBackDrop945530 @"NewBackdrop945x530"
+#define kRelative @"Relative"
+#define k2015 @"2015"
+#define k2016 @"2016"
 
 // Category
 #define kCategoryID @"CategoryID"
