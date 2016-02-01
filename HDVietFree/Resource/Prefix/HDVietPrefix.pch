@@ -42,5 +42,7 @@
 #import "SlideMenuCell.h"
 #import "PlayMovieCell.h"
 #import "TopMovieCell.h"
+#import "MoviePlay.h"
+#import "FilmController.h"
 
 #endif /* HDVietPrefix_pch */

@@ -14,7 +14,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbCountry;
 @property (weak, nonatomic) IBOutlet UILabel *lbReleaseDate;
 @property (weak, nonatomic) IBOutlet UITextView *lbPlot;
+@property (strong, nonatomic) Movie *movie;
 
-- (void)setDetailInformation:(Movie *)movie;
+- (void)setDetailInformation;
 
 @end

@@ -33,10 +33,7 @@
 @property (strong, nonatomic) NSString *backdrop;
 @property (strong, nonatomic) NSString *relativeMovie;
 @property (strong, nonatomic) NSString *backdrop945530;
-@property (strong, nonatomic) CategoryFilm *categoryFilm;
-
-// Init movie from json
-+ (Movie *)detailMovieFromJSON:(NSDictionary *)json;
+@property (strong, nonatomic) NSString *category;
 
 // Init movie from json
 + (Movie *)detailRelativeMovieFromJson:(NSDictionary *)json;

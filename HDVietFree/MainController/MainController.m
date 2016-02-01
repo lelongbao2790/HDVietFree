@@ -72,28 +72,44 @@
     return self.dictMenu.count;
 }
 
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    UILabel *headerLabel = [[UILabel alloc]init];
+    headerLabel.tag = section;
+    headerLabel.userInteractionEnabled = YES;
+    headerLabel.backgroundColor = [UIColor colorWithHexString:kBackgroundColorOfSection];
+    headerLabel.text = self.dictMenu.allValues[section];
+    headerLabel.frame = CGRectMake(0, 0, tableView.tableHeaderView.frame.size.width-100, tableView.tableHeaderView.frame.size.height);
+    
+    UILabel *dotLabel = [[UILabel alloc]init];
+    dotLabel.text = @"...";
+    dotLabel.frame = CGRectMake(tableView.tableHeaderView.frame.size.width - 100, 0, 100, tableView.tableHeaderView.frame.size.height);
+    
+    [headerLabel addSubview:dotLabel];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapHeader:)];
+    tapGesture.cancelsTouchesInView = NO;
+    [headerLabel addGestureRecognizer:tapGesture];
+    
+    return headerLabel;
+    
+    //return nil;
+}
+
+- (void)didTapHeader:(UITapGestureRecognizer *)recognizer {
+    NSInteger section = recognizer.view.tag;
+    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[section]
+                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)];
+    FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
+    filmController.view.tag = section;
+    filmController.listMovie = listDBInLocal;
+    [self.navigationController pushViewController:filmController animated:YES];
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    return self.dictMenu.allValues[section];
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-{
-    // Background color
-    view.tintColor = [UIColor colorWithHexString:kBackgroundColorOfSection];
-    
-    // Text Color
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setTextColor:[UIColor blackColor]];
-    header.textLabel.font = [UIFont systemFontOfSize:14];
-    CGRect headerFrame = header.frame;
-    header.textLabel.frame = headerFrame;
-    header.textLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

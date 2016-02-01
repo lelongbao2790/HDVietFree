@@ -35,4 +35,9 @@ NSString *const kMainController = @"MainController";
  */
 NSString *const kLoginController = @"LoginController";
 
+/*
+ * Detail cell
+ */
+NSString *const kDetailMovieCell = @"DetailMovieCell";
+
 @end

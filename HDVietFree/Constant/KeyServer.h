@@ -41,6 +41,8 @@
 #define kRelative @"Relative"
 #define k2015 @"2015"
 #define k2016 @"2016"
+#define kLinkPlay @"LinkPlay"
+
 
 // Category
 #define kCategoryID @"CategoryID"
@@ -68,6 +70,10 @@
 #define kMetadata @"metadata"
 #define kList @"lists"
 #define kTotalRecord @"totalRecord"
+
+#define kGenre @"genre"
+#define kTag @"tag"
+#define kPage @"page"
 
 // Request header
 #define kHTTPHeaderApplication @"application/json"

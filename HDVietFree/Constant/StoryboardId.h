@@ -35,4 +35,9 @@ extern NSString *const kMainController;
  */
 extern NSString *const kLoginController;
 
+/*
+ * Detail cell
+ */
+extern NSString *const kDetailMovieCell;
+
 @end

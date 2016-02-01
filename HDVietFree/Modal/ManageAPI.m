@@ -49,4 +49,13 @@
     [[DataManager shared] getDetailInformationMovieWithUrl:strUrl andMovie:movie];
 }
 
+/*
+ * Load detail information movie API
+ */
+- (void)loadLinkToPlayMovie:(Movie*)movie {
+    NSString *strUrl = [NSString stringWithFormat:kUrlPlayMovie, movie.movieID, [User share].accessToken];
+    DLOG(@"Load link to play movie with url:%@", strUrl);
+    [[DataManager shared] getLinkPlayMovie:strUrl];
+}
+
 @end

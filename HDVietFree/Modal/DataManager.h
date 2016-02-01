@@ -12,6 +12,7 @@
      NSObject<LoginDelegate> *loginDelegate;
      NSObject<ListMovieByGenreDelegate> *listMovieDelegate;
      NSObject<DetailInformationMovieDelegate> *detailInfoMovieDelegate;
+    NSObject<LoadLinkPlayMovieDelegate> *loadLinkPlayMovieDelegate;
 }
 // Init request operation manager
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) NSObject *loginDelegate;
 @property (strong, nonatomic) NSObject *listMovieDelegate;
 @property (strong, nonatomic) NSObject *detailInfoMovieDelegate;
+@property (strong, nonatomic) NSObject *loadLinkPlayMovieDelegate;
 
 //*****************************************************************************
 #pragma mark -
@@ -50,5 +52,12 @@
  * @param strUrl url string request
  */
 - (void)getDetailInformationMovieWithUrl:(NSString *)strUrl andMovie:(Movie *)movie;
+
+/*
+ * LOAD LINK PLAY
+ *
+ * @param strUrl url string request
+ */
+- (void)getLinkPlayMovie:(NSString *)strUrl;
 
 @end

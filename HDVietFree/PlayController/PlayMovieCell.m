@@ -20,14 +20,19 @@
     // Configure the view for the selected state
 }
 
-- (void)setDetailInformation:(Movie *)movie {
+- (void)setDetailInformation {
     
-    self.lbCast.text = movie.cast;
-    self.lbCountry.text = movie.country;
-    self.lbPlot.text = movie.plotVI;
-    self.lbReleaseDate.text = [Utilities getYearOfDateFromString:movie.releaseDate];
-    self.lbTagMovie.text = [kDicMainMenu objectForKey:movie.tagMovie];
+    self.lbCast.text = self.movie.cast;
+    self.lbCountry.text = self.movie.country;
+    self.lbPlot.text = self.movie.plotVI;
+    self.lbReleaseDate.text = self.movie.releaseDate;
+    self.lbTagMovie.text = self.movie.category;
 
+}
+- (IBAction)btnTrailer:(id)sender {
+    if (![self.movie.trailer isEqualToString:kEmptyString]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.movie.trailer]];
+    }
 }
 
 @end

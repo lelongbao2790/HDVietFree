@@ -9,7 +9,7 @@
 #import "DataManager.h"
 
 @implementation DataManager
-@synthesize loginDelegate, listMovieDelegate, detailInfoMovieDelegate;
+@synthesize loginDelegate, listMovieDelegate, detailInfoMovieDelegate, loadLinkPlayMovieDelegate;
 
 //*****************************************************************************
 #pragma mark -
@@ -145,6 +145,30 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [detailInfoMovieDelegate loadDetailInformationMovieAPIFail:[error localizedDescription]];
+    }];
+}
+
+/*
+ * LOAD LINK PLAY
+ *
+ * @param strUrl url string request
+ */
+- (void)getLinkPlayMovie:(NSString *)strUrl {
+    [self.managerSSL.requestSerializer setValue:kHTTPHeaderApplication
+                             forHTTPHeaderField:kHTTPHeaderContentType];
+    [self.managerSSL GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([[responseObject objectForKey:kE] integerValue] == kRequestSuccess) {
+            
+            // Success
+            [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPISuccess:[responseObject objectForKey:kR]];
+        } else {
+            
+            // Fail
+            [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPIFail:[responseObject objectForKey:kR]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPIFail:[error localizedDescription]];
     }];
 }
 

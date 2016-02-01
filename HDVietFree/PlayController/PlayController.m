@@ -7,9 +7,13 @@
 //
 
 #import "PlayController.h"
+#define kResolution320480 @"320_480"
+#define kResolution320568 @"320_568"
+#define kResolution6401136 @"640_1136"
+
 @import MediaPlayer;
 
-@interface PlayController ()<MPMediaPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, DetailInformationMovieDelegate>
+@interface PlayController ()<MPMediaPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, DetailInformationMovieDelegate, LoadLinkPlayMovieDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imagePoster;
 @property (weak, nonatomic) IBOutlet UITableView *tbvInforMovie;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivity;
@@ -51,8 +55,8 @@
 #pragma mark -
 #pragma mark - ** Media play controller **
 
-- (void)playMediaController {
-    NSURL *url = [[NSURL alloc] initWithString:@"http://plist.vn-hd.com/mp4childv3/2982963905c77744565d051df2822fe9/947842ab03c548e7be5999157d22563d/6614d5f054e811e58d2e44d3cad9dd84/3784_800_ivdc.m3u8"];
+- (void)playMediaControllerWithUrl:(NSString *)urlString {
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
     MPMoviePlayerViewController *mpvc = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlaybackDidFinish:)
@@ -84,6 +88,7 @@
     [self.tbvInforMovie reloadData];
     
     [DataManager shared].detailInfoMovieDelegate = self;
+    [DataManager shared].loadLinkPlayMovieDelegate = self;
 }
 
 - (void)loadImage {
@@ -181,7 +186,8 @@
             if (!cellPlayMovie) {
                 cellPlayMovie = [[PlayMovieCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kPlayMovieCellIdentifier];
             }
-            [cellPlayMovie setDetailInformation:self.movie];
+            cellPlayMovie.movie = self.movie;
+            [cellPlayMovie setDetailInformation];
             
             cell = cellPlayMovie;
 
@@ -233,14 +239,49 @@
 - (void)loadDetailInformationMovieAPISuccess:(NSDictionary *)response {
     ProgressBarDismissLoading(kEmptyString);
     DLOG(@"Load detail information api success");
-    [Movie updateInformationMovieFromJSON:response andMovie:self.movie];
+    if (![response isKindOfClass:[NSNull class]]) {
+        [Movie updateInformationMovieFromJSON:response andMovie:self.movie];
+    } else {
+        [Utilities showiToastMessage:@"Không có thông tin về film này"];
+    }
+    
     [self reloadView];
 }
 
 - (void)loadDetailInformationMovieAPIFail:(NSString *)resultMessage {
     DLOG(@"Load detail information api fail");
     [Utilities showiToastMessage:resultMessage];
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Load Link Movie Delegate **
+
+- (void)loadLinkPlayMovieAPISuccess:(NSDictionary *)response {
+    ProgressBarDismissLoading(kEmptyString);
+    NSString *linkPlay = [response objectForKey:kLinkPlay];
     
+    if (![linkPlay isEqualToString:kEmptyString]) {
+        if ([linkPlay containsString:kResolution320480]) {
+            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution320480 withString:kResolution320568];
+        }
+        [self playMediaControllerWithUrl:linkPlay];
+    }
+}
+
+- (void)loadLinkPlayMovieAPIFail:(NSString *)resultMessage {
+    ProgressBarDismissLoading(kEmptyString);
+    [Utilities showiToastMessage:resultMessage];
+    // Remove access token save
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** IBAction **
+- (IBAction)btnPlayMovie:(id)sender {
+    ProgressBarShowLoading(kLoading);
+    [[ManageAPI share] loadLinkToPlayMovie:self.movie];
 }
 
 @end

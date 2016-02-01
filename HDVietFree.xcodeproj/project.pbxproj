@@ -41,7 +41,6 @@
 		D36579131C55CB8C00F51DA3 /* CategoryFilm.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579121C55CB8C00F51DA3 /* CategoryFilm.m */; };
 		D365791B1C55D1B300F51DA3 /* SlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = D365791A1C55D1B300F51DA3 /* SlideMenuController.m */; };
 		D365791E1C55DAB000F51DA3 /* MovieSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = D365791D1C55DAB000F51DA3 /* MovieSearch.m */; };
-		D36579211C55F21500F51DA3 /* FilmController.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579201C55F21500F51DA3 /* FilmController.m */; };
 		D36579241C55F38E00F51DA3 /* ManageAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579231C55F38E00F51DA3 /* ManageAPI.m */; };
 		D36579271C55F70600F51DA3 /* CommonConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579261C55F70600F51DA3 /* CommonConstant.m */; };
 		D365792A1C5602A600F51DA3 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579291C5602A600F51DA3 /* MainController.m */; };
@@ -57,6 +56,9 @@
 		D36579501C58B07300F51DA3 /* PlayMovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D365794F1C58B07300F51DA3 /* PlayMovieCell.m */; };
 		D36579541C58CE1E00F51DA3 /* play_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D36579531C58CE1E00F51DA3 /* play_icon.png */; };
 		D36579571C59F1B800F51DA3 /* TopMovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579561C59F1B800F51DA3 /* TopMovieCell.m */; };
+		D365795A1C5A1D2300F51DA3 /* MoviePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579591C5A1D2300F51DA3 /* MoviePlay.m */; };
+		D365795D1C5EEFA000F51DA3 /* FilmController.m in Sources */ = {isa = PBXBuildFile; fileRef = D365795C1C5EEFA000F51DA3 /* FilmController.m */; };
+		D365795F1C5EFF7800F51DA3 /* play_youtube_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D365795E1C5EFF7800F51DA3 /* play_youtube_icon.png */; };
 		D38CBE771C51D7AC00084126 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE761C51D7AC00084126 /* PlayController.m */; };
 		D38CBE791C51D83A00084126 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38CBE781C51D83A00084126 /* MediaPlayer.framework */; };
 		D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE7E1C51DFD400084126 /* NSString+MD5.m */; };
@@ -167,8 +169,6 @@
 		D365791A1C55D1B300F51DA3 /* SlideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideMenuController.m; path = SlideMenuController/SlideMenuController.m; sourceTree = "<group>"; };
 		D365791C1C55DAB000F51DA3 /* MovieSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MovieSearch.h; path = Modal/MovieSearch.h; sourceTree = "<group>"; };
 		D365791D1C55DAB000F51DA3 /* MovieSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MovieSearch.m; path = Modal/MovieSearch.m; sourceTree = "<group>"; };
-		D365791F1C55F21500F51DA3 /* FilmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilmController.h; path = FilmController/FilmController.h; sourceTree = "<group>"; };
-		D36579201C55F21500F51DA3 /* FilmController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilmController.m; path = FilmController/FilmController.m; sourceTree = "<group>"; };
 		D36579221C55F38E00F51DA3 /* ManageAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManageAPI.h; path = Modal/ManageAPI.h; sourceTree = "<group>"; };
 		D36579231C55F38E00F51DA3 /* ManageAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManageAPI.m; path = Modal/ManageAPI.m; sourceTree = "<group>"; };
 		D36579251C55F70600F51DA3 /* CommonConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommonConstant.h; path = Constant/CommonConstant.h; sourceTree = "<group>"; };
@@ -196,6 +196,11 @@
 		D36579531C58CE1E00F51DA3 /* play_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon.png; sourceTree = "<group>"; };
 		D36579551C59F1B800F51DA3 /* TopMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopMovieCell.h; path = MainController/TopMovieCell.h; sourceTree = "<group>"; };
 		D36579561C59F1B800F51DA3 /* TopMovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopMovieCell.m; path = MainController/TopMovieCell.m; sourceTree = "<group>"; };
+		D36579581C5A1D2300F51DA3 /* MoviePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoviePlay.h; path = Modal/MoviePlay.h; sourceTree = "<group>"; };
+		D36579591C5A1D2300F51DA3 /* MoviePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoviePlay.m; path = Modal/MoviePlay.m; sourceTree = "<group>"; };
+		D365795B1C5EEFA000F51DA3 /* FilmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilmController.h; path = FilmController/FilmController.h; sourceTree = "<group>"; };
+		D365795C1C5EEFA000F51DA3 /* FilmController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilmController.m; path = FilmController/FilmController.m; sourceTree = "<group>"; };
+		D365795E1C5EFF7800F51DA3 /* play_youtube_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_youtube_icon.png; sourceTree = "<group>"; };
 		D38CBE751C51D7AC00084126 /* PlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayController.h; path = PlayController/PlayController.h; sourceTree = "<group>"; };
 		D38CBE761C51D7AC00084126 /* PlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayController.m; path = PlayController/PlayController.m; sourceTree = "<group>"; };
 		D38CBE781C51D83A00084126 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -309,6 +314,8 @@
 				D36579231C55F38E00F51DA3 /* ManageAPI.m */,
 				D36579461C58574A00F51DA3 /* DataAccess.h */,
 				D36579471C58574A00F51DA3 /* DataAccess.m */,
+				D36579581C5A1D2300F51DA3 /* MoviePlay.h */,
+				D36579591C5A1D2300F51DA3 /* MoviePlay.m */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -428,8 +435,8 @@
 		D36579151C55D10100F51DA3 /* FilmController */ = {
 			isa = PBXGroup;
 			children = (
-				D365791F1C55F21500F51DA3 /* FilmController.h */,
-				D36579201C55F21500F51DA3 /* FilmController.m */,
+				D365795B1C5EEFA000F51DA3 /* FilmController.h */,
+				D365795C1C5EEFA000F51DA3 /* FilmController.m */,
 			);
 			name = FilmController;
 			sourceTree = "<group>";
@@ -576,6 +583,7 @@
 		D3EA87DF1C50C72000D593A1 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				D365795E1C5EFF7800F51DA3 /* play_youtube_icon.png */,
 				D36579531C58CE1E00F51DA3 /* play_icon.png */,
 				D36579491C5889F700F51DA3 /* user_icon.png */,
 				D3EA87D91C50C3A400D593A1 /* ic_launcher.png */,
@@ -742,6 +750,7 @@
 				D36579541C58CE1E00F51DA3 /* play_icon.png in Resources */,
 				D3EA87DA1C50C3A400D593A1 /* ic_launcher.png in Resources */,
 				D3EA87D81C50C22B00D593A1 /* button_active.png in Resources */,
+				D365795F1C5EFF7800F51DA3 /* play_youtube_icon.png in Resources */,
 				D32916D81C55B7DF00CE46B6 /* LICENSE in Resources */,
 				D3EA87AF1C50BF6200D593A1 /* Assets.xcassets in Resources */,
 				D3EA87AD1C50BF6200D593A1 /* Main.storyboard in Resources */,
@@ -794,7 +803,6 @@
 				D32916D71C55B7DF00CE46B6 /* AFURLSessionManager.m in Sources */,
 				D32916DF1C55B7DF00CE46B6 /* UIProgressView+AFNetworking.m in Sources */,
 				D38CBE771C51D7AC00084126 /* PlayController.m in Sources */,
-				D36579211C55F21500F51DA3 /* FilmController.m in Sources */,
 				D32916DD1C55B7DF00CE46B6 /* UIButton+AFNetworking.m in Sources */,
 				D32916E71C55B98E00CE46B6 /* DataManager.m in Sources */,
 				D32916E41C55B84100CE46B6 /* Movie.m in Sources */,
@@ -807,6 +815,7 @@
 				D365791B1C55D1B300F51DA3 /* SlideMenuController.m in Sources */,
 				D3EA87A41C50BF6200D593A1 /* main.m in Sources */,
 				D32916A11C55B75D00CE46B6 /* SNLoading.m in Sources */,
+				D365795A1C5A1D2300F51DA3 /* MoviePlay.m in Sources */,
 				D32916DC1C55B7DF00CE46B6 /* UIAlertView+AFNetworking.m in Sources */,
 				D365792A1C5602A600F51DA3 /* MainController.m in Sources */,
 				D3EA87E61C50D9C400D593A1 /* Utilities.m in Sources */,
@@ -820,6 +829,7 @@
 				D36579321C56049100F51DA3 /* JASidePanelController.m in Sources */,
 				D32916D01C55B7DF00CE46B6 /* AFHTTPRequestOperationManager.m in Sources */,
 				D32916DB1C55B7DF00CE46B6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				D365795D1C5EEFA000F51DA3 /* FilmController.m in Sources */,
 				D32916871C55B37800CE46B6 /* StoryboardId.m in Sources */,
 				D365791E1C55DAB000F51DA3 /* MovieSearch.m in Sources */,
 				D32916D61C55B7DF00CE46B6 /* AFURLResponseSerialization.m in Sources */,

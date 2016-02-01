@@ -29,4 +29,9 @@
  * Load detail information movie API
  */
 - (void)loadDetailInfoMovieAPI:(Movie*)movie;
+
+/*
+ * Load detail information movie API
+ */
+- (void)loadLinkToPlayMovie:(Movie*)movie;
 @end

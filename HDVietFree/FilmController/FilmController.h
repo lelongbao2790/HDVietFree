@@ -2,12 +2,17 @@
 //  FilmController.h
 //  HDVietFree
 //
-//  Created by Bao (Brian) L. LE on 1/25/16.
+//  Created by Bao (Brian) L. LE on 2/1/16.
 //  Copyright © 2016 Brian. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface FilmController : UIViewController
+@interface FilmController : UICollectionViewController
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Property **
+@property (strong, nonatomic) NSArray *listMovie;
 
 @end

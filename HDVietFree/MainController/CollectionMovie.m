@@ -13,7 +13,7 @@
 - (void)setCollectionViewDataSourceDelegateWithController:(NSInteger)typeController andListMovie:(NSArray *)listMovieInDB
 {
     self.listMovie = listMovieInDB;
-    [self registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:@"DetailMovieCell"];
+    [self registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     self.dataSource = self;
     self.delegate = self;
     dispatch_async(dispatch_get_main_queue(), ^{
