@@ -9,7 +9,7 @@
 #import "Movie.h"
 
 @implementation Movie
-@dynamic movieID, movieName, knownAs, trailer, poster, poster124x184, sequence, currentSeason, episode, runtime, cast, plotVI, country, releaseDate, tagMovie, genreMovie, bannerMovie, backdrop, backdrop945530, relativeMovie, category;
+@dynamic movieID, movieName, knownAs, trailer, poster, poster124x184, sequence, currentSeason, episode, runtime, cast, plotVI, country, releaseDate, tagMovie, genreMovie, bannerMovie, backdrop, backdrop945530, relativeMovie, category, pageNumber, totalRecord;
 
 + (DBIndexDefinition *)indexDefinitionForEntity {
     

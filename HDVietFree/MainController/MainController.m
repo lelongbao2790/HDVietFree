@@ -16,7 +16,6 @@
 @property (assign, nonatomic) NSInteger lastListMovie;
 
 @property (weak, nonatomic) IBOutlet UITableView *tbvListMovie;
-@property (strong, nonatomic) NSArray *listTopMovie;
 
 @end
 
@@ -52,7 +51,6 @@
     self.title = @"PHIM LẺ";
     [DataManager shared].listMovieDelegate = self;
     self.lastListMovie = 0;
-    self.listTopMovie = [[NSArray alloc] init];
     
     // Config table view
     self.tbvListMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -100,10 +98,11 @@
 - (void)didTapHeader:(UITapGestureRecognizer *)recognizer {
     NSInteger section = recognizer.view.tag;
     NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[section]
-                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)];
+                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                                             andPage:kPageDefault];
     FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
     filmController.view.tag = section;
-    filmController.listMovie = listDBInLocal;
+    filmController.listMovie = [listDBInLocal mutableCopy];
     [self.navigationController pushViewController:filmController animated:YES];
 }
 
@@ -121,7 +120,8 @@
     
     // Config cell
     NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[indexPath.section]
-                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)];
+                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                                             andPage:kPageDefault];
     
     [cell.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagMainController
                                                                    andListMovie:listDBInLocal];
@@ -138,7 +138,7 @@
     DLOG(@"Total menu : %d", (int)kDicMainMenu.allKeys.count);
     
     for (int i = 0; i < kDicMainMenu.allKeys.count; i++) {
-        if ([[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie) andTag:kDicMainMenu.allKeys[i]]) {
+        if ([[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie) andTag:kDicMainMenu.allKeys[i] andPage:kPageDefault]) {
             // Exist
             [self.tbvListMovie reloadData];
             
@@ -157,21 +157,23 @@
 
 - (void)loadListMovieAPISuccess:(NSDictionary *)response atTag:(NSString *)tagMovie andGenre:(NSString *)genre {
     DLOG(@"loadListMovieAPISuccess with: %@ %@", tagMovie, genre );
-    DLOG(@"Last list movie : %d", (int)self.lastListMovie);
     
     // Get list movie from response
     NSArray *listData = [response objectForKey:kList];
+    NSInteger totalRecord = [[[response objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
     
     // Get detail movie and init object movie
     for (int i = 0; i < listData.count; i++) {
         NSDictionary *dictObjectMovie = listData[i];
-        [Movie detailListMovieFromJSON:dictObjectMovie withTag:tagMovie andGenre:genre];
+        Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie withTag:tagMovie andGenre:genre];
+        newMovie.pageNumber = kPageDefault;
+        newMovie.totalRecord = totalRecord;
+        [newMovie commit];
     }
     
     if (self.lastListMovie == kDicMainMenu.allKeys.count - 1) {
         // Last list loaded
         ProgressBarDismissLoading(kEmptyString);
-        self.listTopMovie = [[DataAccess share] getListTopMovieWithReleaseDateInDB];
         [self.tbvListMovie reloadData];
         self.lastListMovie = 0;
         

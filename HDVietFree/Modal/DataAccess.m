@@ -25,10 +25,10 @@
 /*
  * Get list movie local
  */
-- (NSMutableArray *)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie {
+- (NSMutableArray *)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page {
     NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
     DBResultSet* r = [[[Movie query]
-                       whereWithFormat:@"tagMovie = %@ and genreMovie = %@", tagMovie, genreMovie]
+                       whereWithFormat:@"tagMovie = %@ and genreMovie = %@ and pageNumber <= %d", tagMovie, genreMovie, (int)page]
                       fetch];
     if (r.count > 0) {
         for (Movie* newMovie in r) {
@@ -45,9 +45,9 @@
 /*
  * Check exist data
  */
-- (BOOL)isExistDataMovieWithGenre:(NSString *)genreMovie andTag:(NSString *)tagMovie {
+- (BOOL)isExistDataMovieWithGenre:(NSString *)genreMovie andTag:(NSString *)tagMovie andPage:(NSInteger)page {
     DBResultSet* r = [[[Movie query]
-                       whereWithFormat:@"genreMovie = %@ and tagMovie = %@", genreMovie, tagMovie]
+                       whereWithFormat:@"genreMovie = %@ and tagMovie = %@ and pageNumber = %d", genreMovie, tagMovie, (int)page]
                       fetch];
     
     if (r.count > 0)

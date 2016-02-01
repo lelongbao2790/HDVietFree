@@ -34,6 +34,8 @@
 @property (strong, nonatomic) NSString *relativeMovie;
 @property (strong, nonatomic) NSString *backdrop945530;
 @property (strong, nonatomic) NSString *category;
+@property (assign, nonatomic) NSInteger pageNumber;
+@property (assign, nonatomic) NSInteger totalRecord;
 
 // Init movie from json
 + (Movie *)detailRelativeMovieFromJson:(NSDictionary *)json;

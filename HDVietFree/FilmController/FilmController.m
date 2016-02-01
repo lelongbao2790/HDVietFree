@@ -8,24 +8,20 @@
 
 #import "FilmController.h"
 
-@interface FilmController ()
-
+@interface FilmController ()<ListMovieByGenreDelegate>
 @end
 
 @implementation FilmController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Register cell classes
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     self.title = kDicMainMenu.allValues[self.view.tag];
+    [DataManager shared].listMovieDelegate = self;
     [self.collectionView registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     [self.collectionView reloadData];
-    
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,6 +55,14 @@
     DetailMovieCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionDetailMovieIdentifier forIndexPath:indexPath];
     [cell loadInformationWithMovie:self.listMovie[indexPath.row]];
     
+    // Load more row when scroll on last row
+    DLOG(@"Row : %d", (int)indexPath.row);
+    if(indexPath.row == (self.listMovie.count / 2)) {
+        if (self.listMovie.count > 5) {
+            [self checkListMovie];
+        }
+    }
+    
     return cell;
 }
 
@@ -85,36 +89,96 @@
     return returnSize;
 }
 
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Handle list movie **
 
-#pragma mark <UICollectionViewDelegate>
+- (void)checkListMovie {
+    
+    Movie *randomMovie = self.listMovie[0];
+    if (self.listMovie.count < randomMovie.totalRecord + 1) {
+        NSInteger nextPage = (self.listMovie.count / 10) + 1;
+        
+        if ([[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                                   andTag:kDicMainMenu.allKeys[self.view.tag]
+                                                  andPage:nextPage]) {
+            // Exist
+            self.listMovie = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[self.view.tag]
+                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                                             andPage:nextPage];
+            [self.collectionView reloadData];
+            
+        } else {
+            // Not exist - Request server to get list
+            [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie
+                                            tag:kDicMainMenu.allKeys[self.view.tag]
+                                        andPage:nextPage];
+        }
+    }
+}
+
+- (void)requestGetListMovie:(NSNumber *)nextPage {
+    [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie
+                                    tag:kDicMainMenu.allKeys[self.view.tag]
+                                andPage:[nextPage integerValue]];
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** List movie delegate **
+
+- (void)loadListMovieAPISuccess:(NSDictionary *)response atTag:(NSString *)tagMovie andGenre:(NSString *)genre {
+    DLOG(@"loadListMovieAPISuccess with: %@ %@", tagMovie, genre );
+    NSInteger nextPage = (self.listMovie.count / 10) + 1;
+    
+    // Get list movie from response
+    NSArray *listData = [response objectForKey:kList];
+    NSInteger totalRecord = [[[response objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
+    
+    // Get detail movie and init object movie
+    for (int i = 0; i < listData.count; i++) {
+        NSDictionary *dictObjectMovie = listData[i];
+        Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie withTag:tagMovie andGenre:genre];
+        newMovie.pageNumber = nextPage;
+        newMovie.totalRecord = totalRecord;
+        [newMovie commit];
+    }
+    self.listMovie = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[self.view.tag]
+                                                    andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                                     andPage:nextPage];
+    [self.collectionView reloadData];
+}
 
 /*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+ * Update UI for list movie
+ */
+- (void)updateUIListMovie:(NSArray *)listResponse {
+    DLOG(@"loadListMovieAPISuccess with: %@ %@", listResponse[1], listResponse[2]);
+    NSInteger nextPage = (self.listMovie.count / 10) + 1;
+    
+    // Get list movie from response
+    NSArray *listData = [listResponse[0] objectForKey:kList];
+    NSInteger totalRecord = [[[listResponse[0] objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
+    
+    // Get detail movie and init object movie
+    for (int i = 0; i < listData.count; i++) {
+        NSDictionary *dictObjectMovie = listData[i];
+        Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie withTag:listResponse[1] andGenre:listResponse[2]];
+        newMovie.pageNumber = nextPage;
+        newMovie.totalRecord = totalRecord;
+        [newMovie commit];
+    }
+    self.listMovie = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[self.view.tag]
+                                                    andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                                     andPage:nextPage];
+    [self.collectionView reloadData];
 }
-*/
 
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
+- (void)loadListMovieAPIFail:(NSString *)resultMessage {
+    ProgressBarDismissLoading(kEmptyString);
+    [Utilities showiToastMessage:resultMessage];
+    
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 @end
