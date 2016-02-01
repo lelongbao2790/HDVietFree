@@ -40,4 +40,9 @@ extern NSString *const kLoginController;
  */
 extern NSString *const kDetailMovieCell;
 
+/*
+ * Search controller
+ */
+extern NSString *const kSearchController;
+
 @end

@@ -9,7 +9,7 @@
 #import "DataManager.h"
 
 @implementation DataManager
-@synthesize loginDelegate, listMovieDelegate, detailInfoMovieDelegate, loadLinkPlayMovieDelegate;
+@synthesize loginDelegate, listMovieDelegate, detailInfoMovieDelegate, loadLinkPlayMovieDelegate, searchMovieDelegate;
 
 //*****************************************************************************
 #pragma mark -
@@ -169,6 +169,30 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPIFail:[error localizedDescription]];
+    }];
+}
+
+/*
+ * SEARCH MOVIE
+ *
+ * @param strUrl url string request
+ */
+- (void)searchMovieWithUrl:(NSString *)strUrl {
+    [self.manager.requestSerializer setValue:[User share].accessToken forHTTPHeaderField:kHTTPHeaderAccessToken];
+    [self.manager GET:[strUrl encodeNSUTF8:strUrl] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([[responseObject objectForKey:kError] integerValue] == kRequestSuccess) {
+            
+            // Success
+            [searchMovieDelegate searchMovieAPISuccess:[[responseObject objectForKey:kData] objectForKey:kResponse]];
+        } else {
+            
+            // Fail
+            [searchMovieDelegate searchMovieAPIFail:[responseObject objectForKey:kMessage]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [searchMovieDelegate searchMovieAPIFail:[error localizedDescription]];
+        
     }];
 }
 

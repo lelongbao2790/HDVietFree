@@ -42,6 +42,11 @@ extern NSString *const kCollectionDetailMovieIdentifier;
 extern NSString *const kCollectionTopMainIdentifier;
 
 /**
+ * Search cell identifier
+ */
+extern NSString *const kSearchCellIdentifier;
+
+/**
  * Loading
  */
 extern NSString *const kLoading;
@@ -65,5 +70,15 @@ extern NSString *const kNameDatabase;
  * Relative movie
  */
 extern NSString *const kRelativeMovie;
+
+/**
+ * Relative movie
+ */
+extern NSString *const kSearchMovieTitle;
+
+/**
+ * Relative movie
+ */
+extern NSString *const kSearchMovie;
 
 @end

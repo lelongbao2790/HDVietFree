@@ -59,6 +59,7 @@
 #define kDocCategory @"category"
 #define kDocReleaseDate @"mo_releamo_date"
 #define kDocMovieId @"id"
+#define kDocs @"docs"
 
 // Response server
 #define kE @"e"
@@ -70,6 +71,7 @@
 #define kMetadata @"metadata"
 #define kList @"lists"
 #define kTotalRecord @"totalRecord"
+#define kResponse @"response"
 
 #define kGenre @"genre"
 #define kTag @"tag"

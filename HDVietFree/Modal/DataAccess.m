@@ -27,9 +27,9 @@
  */
 - (NSMutableArray *)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page {
     NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
-    DBResultSet* r = [[[Movie query]
-                       whereWithFormat:@"tagMovie = %@ and genreMovie = %@ and pageNumber <= %d", tagMovie, genreMovie, (int)page]
-                      fetch];
+    DBResultSet* r = [[[[Movie query] whereWithFormat:@"tagMovie = %@ and genreMovie = %@ and pageNumber <= %d", tagMovie, genreMovie, (int)page]
+                                              orderBy:@"movieID"]
+                                                fetch];
     if (r.count > 0) {
         for (Movie* newMovie in r) {
             [listMovieLocal addObject:newMovie];
@@ -79,8 +79,9 @@
  * Get relative movie in db
  */
 - (NSArray *)getRelativeMovieInDB:(NSString *)movieId {
-    DBResultSet* r = [[[Movie query]
+    DBResultSet* r = [[[[Movie query]
                        whereWithFormat:@"relativeMovie = %@", movieId]
+                       orderBy:@"movieID"]
                       fetch];
     
     if (r.count > 0) {
@@ -96,8 +97,9 @@
 - (NSArray *)getListTopMovieWithReleaseDateInDB {
 
     NSMutableArray *listTopMovie = [[NSMutableArray alloc] init];
-    DBResultSet* r = [[[Movie query]
+    DBResultSet* r = [[[[Movie query]
                        whereWithFormat:@"genreMovie = %@", stringFromInteger([MovieSearch share].genreMovie)]
+                       orderBy:@"movieID"]
                       fetch];
     if (r.count > 0) {
         for (Movie *aMovie in r) {

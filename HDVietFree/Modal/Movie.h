@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CategoryFilm.h"
 #import <DBAccess/DBAccess.h>
 
 @interface Movie : DBObject
@@ -45,5 +44,8 @@
 
 // Update information movie
 + (void)updateInformationMovieFromJSON:(NSDictionary *)json andMovie:(Movie *)movie;
+
+// Init movie from json search
++ (Movie *)initMovieFromJSONSearch:(NSDictionary *)json;
 
 @end

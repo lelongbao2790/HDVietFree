@@ -10,4 +10,10 @@
 
 @interface CommonResource : NSObject
 
+/**
+ * Search image
+ */
+extern NSString *const kSearchIcon;
+
+
 @end

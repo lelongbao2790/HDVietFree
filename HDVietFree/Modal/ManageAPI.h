@@ -31,7 +31,13 @@
 - (void)loadDetailInfoMovieAPI:(Movie*)movie;
 
 /*
- * Load detail information movie API
+ * Load link play movie
  */
 - (void)loadLinkToPlayMovie:(Movie*)movie;
+
+/*
+ * Search movie
+ */
+- (void)searchMovieWithKeyword:(NSString *)keyword;
+
 @end

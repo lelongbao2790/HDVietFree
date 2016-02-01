@@ -46,4 +46,13 @@
 -(void) loadLinkPlayMovieAPIFail:(NSString *)resultMessage;
 @end
 
+/*
+ * Load detail information movie
+ */
+@protocol SearchMovieDelegate
+@optional
+-(void) searchMovieAPISuccess:(NSDictionary *)response;
+-(void) searchMovieAPIFail:(NSString *)resultMessage;
+@end
+
 #endif /* UIDelegate_h */

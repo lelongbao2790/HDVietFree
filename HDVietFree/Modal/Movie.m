@@ -21,28 +21,6 @@
     
 }
 
-//
-//// Init movie from json
-//+ (Movie *)detailMovieFromJSON:(NSDictionary *)json {
-//    Movie *newMovie = [Movie new];
-//    newMovie.movieID = [json objectForKey:kMovieId];
-//    newMovie.movieName = [json objectForKey:kMovieName];
-//    newMovie.knownAs = [json objectForKey:kKnownAs];
-//    newMovie.trailer = [json objectForKey:kTrailer];
-//    newMovie.poster124x184 = [json objectForKey:kPoster124184];
-//    newMovie.poster = [json objectForKey:kPosterLink];
-//    newMovie.sequence = [[json objectForKey:kSequence] integerValue];
-//    newMovie.currentSeason = [[json objectForKey:kCurrentSeason] integerValue];
-//    newMovie.episode = [[json objectForKey:kEpisode] integerValue];
-//    newMovie.runtime = [[json objectForKey:kRuntime] integerValue];
-//    newMovie.cast = [json objectForKey:kCast];
-//    newMovie.plotVI = [json objectForKey:kPlotVI];
-//    newMovie.country = [json objectForKey:kCountry];
-//    newMovie.categoryFilm = [CategoryFilm categoryFromJSON:[json objectForKey:kCategoryFilm]];
-//    [newMovie commit];
-//    return newMovie;
-//}
-
 // Init movie from json
 + (Movie *)detailRelativeMovieFromJson:(NSDictionary *)json {
     Movie *newMovie = [Movie new];
@@ -126,6 +104,18 @@
     }
     movie.backdrop945530 = [json objectForKey:kNewBackDrop945530];
     [movie commit];
+}
+
+// Init movie from json search
++ (Movie *)initMovieFromJSONSearch:(NSDictionary *)json {
+    Movie *newMovie = [Movie new];
+    newMovie.movieID = [json objectForKey:kDocMovieId];
+    newMovie.movieName = [json objectForKey:kDocMovieName];
+    newMovie.knownAs = [json objectForKey:kDocKnownAs];
+    newMovie.poster = [json objectForKey:kDocPoster];
+    newMovie.plotVI = [json objectForKey:kDocMoviePlotVi];
+    [newMovie commit];
+    return newMovie;
 }
 
 @end

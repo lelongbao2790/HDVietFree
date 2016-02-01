@@ -10,4 +10,9 @@
 
 @implementation CommonResource
 
+/**
+ * Search image
+ */
+NSString *const kSearchIcon = @"search_icon.png";
+
 @end

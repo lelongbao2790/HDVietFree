@@ -12,7 +12,8 @@
      NSObject<LoginDelegate> *loginDelegate;
      NSObject<ListMovieByGenreDelegate> *listMovieDelegate;
      NSObject<DetailInformationMovieDelegate> *detailInfoMovieDelegate;
-    NSObject<LoadLinkPlayMovieDelegate> *loadLinkPlayMovieDelegate;
+     NSObject<LoadLinkPlayMovieDelegate> *loadLinkPlayMovieDelegate;
+     NSObject<SearchMovieDelegate> *searchMovieDelegate;
 }
 // Init request operation manager
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
@@ -23,7 +24,7 @@
 @property (strong, nonatomic) NSObject *listMovieDelegate;
 @property (strong, nonatomic) NSObject *detailInfoMovieDelegate;
 @property (strong, nonatomic) NSObject *loadLinkPlayMovieDelegate;
-
+@property (strong, nonatomic) NSObject *searchMovieDelegate;
 //*****************************************************************************
 #pragma mark -
 #pragma mark ** Singleton object **
@@ -59,5 +60,12 @@
  * @param strUrl url string request
  */
 - (void)getLinkPlayMovie:(NSString *)strUrl;
+
+/*
+ * SEARCH MOVIE
+ *
+ * @param strUrl url string request
+ */
+- (void)searchMovieWithUrl:(NSString *)strUrl;
 
 @end

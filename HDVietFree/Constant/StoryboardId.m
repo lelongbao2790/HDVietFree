@@ -40,4 +40,9 @@ NSString *const kLoginController = @"LoginController";
  */
 NSString *const kDetailMovieCell = @"DetailMovieCell";
 
+/*
+ * Search controller
+ */
+NSString *const kSearchController = @"SearchController";
+
 @end

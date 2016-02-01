@@ -41,6 +41,11 @@ NSString *const kCollectionDetailMovieIdentifier = @"collectionViewMovieIdentifi
 NSString *const kCollectionTopMainIdentifier =  @"collectionViewTopIdentifier";
 
 /**
+ * Search cell identifier
+ */
+NSString *const kSearchCellIdentifier = @"SearchCellIdentifier";
+
+/**
  * Loading
  */
 NSString *const kLoading = @"Loading";
@@ -64,5 +69,15 @@ NSString *const kNameDatabase = @"dbHDViet";
  * Relative movie
  */
 NSString *const kRelativeMovie = @"Phim liên quan";
+
+/**
+ * Relative movie
+ */
+NSString *const kSearchMovieTitle = @"TÌM KIẾM";
+
+/**
+ * Relative movie
+ */
+NSString *const kSearchMovie = @"Tìm kiếm phim";
 
 @end

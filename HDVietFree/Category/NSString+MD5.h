@@ -13,5 +13,6 @@
 - (NSString *)MD5;
 
 - (BOOL) containsString: (NSString*) substring;
+- (NSString *)encodeNSUTF8: (NSString*) link;
 
 @end

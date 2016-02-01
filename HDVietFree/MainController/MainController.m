@@ -51,6 +51,7 @@
     self.title = @"PHIM LẺ";
     [DataManager shared].listMovieDelegate = self;
     self.lastListMovie = 0;
+    [self initSearchBarButton];
     
     // Config table view
     self.tbvListMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -60,6 +61,16 @@
     
     // Check list data
     [self checkListMovie];
+}
+
+- (void)initSearchBarButton {
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc ] initWithImage:[UIImage imageNamed:kSearchIcon] style:UIBarButtonItemStylePlain target:self action:@selector(searchBarButton)];
+    self.navigationItem.rightBarButtonItem = barButton;
+}
+
+- (void)searchBarButton {
+    SearchController *searchController = InitStoryBoardWithIdentifier(kSearchController);
+    [self.navigationController pushViewController:searchController animated:YES];
 }
 
 //*****************************************************************************
@@ -189,6 +200,5 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
     
 }
-
 
 @end

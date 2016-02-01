@@ -58,4 +58,14 @@
     [[DataManager shared] getLinkPlayMovie:strUrl];
 }
 
+/*
+ * Search movie
+ */
+- (void)searchMovieWithKeyword:(NSString *)keyword {
+    NSString *strUrl = [NSString stringWithFormat:kUrlSearchMovieWithKeyword, keyword];
+    
+    DLOG(@"Search movie with :%@", strUrl);
+    [[DataManager shared] searchMovieWithUrl:strUrl];
+}
+
 @end

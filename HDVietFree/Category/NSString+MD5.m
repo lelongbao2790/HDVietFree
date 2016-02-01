@@ -36,4 +36,8 @@
     return found;
 }
 
+- (NSString *)encodeNSUTF8: (NSString*) link {
+    return [link stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];;
+}
+
 @end
