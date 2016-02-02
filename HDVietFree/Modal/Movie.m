@@ -53,7 +53,6 @@
     newMovie.backdrop = [json objectForKey:kBackDrop];
     newMovie.tagMovie = tagMovie;
     newMovie.genreMovie = genreMovie;
-    [newMovie commit];
     return newMovie;
 }
 

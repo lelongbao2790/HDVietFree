@@ -348,6 +348,7 @@
         <!--Film Controller-->
         <scene sceneID="SWG-tq-1SV">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6KS-zK-7OB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <collectionViewController storyboardIdentifier="FilmController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DwP-AY-7So" customClass="FilmController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="a8Z-5p-XzX">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -412,10 +413,12 @@
                     </collectionView>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="collectionFilmController" destination="a8Z-5p-XzX" id="5hG-AN-Tnq"/>
+                    </connections>
                 </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6KS-zK-7OB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1897" y="1108"/>
+            <point key="canvasLocation" x="1808" y="1137"/>
         </scene>
         <!--Play Controller-->
         <scene sceneID="OPC-sG-8rh">

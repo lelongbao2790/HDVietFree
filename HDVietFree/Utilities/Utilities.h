@@ -11,6 +11,8 @@
 
 @interface Utilities : NSObject
 
++ (Utilities *)share;
+
 /**
  * Show iToast message for informing.
  * @param message
@@ -62,5 +64,10 @@
  */
 + (CGFloat)heightOfScreen;
 
+// set
+- (void)cacheImage:(nonnull UIImage*)image forKey:(nonnull NSString*)key;
+
+// get
+- (nonnull UIImage*)getCachedImageForKey:(nonnull NSString*)key;
 
 @end

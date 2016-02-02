@@ -151,6 +151,8 @@
         if ([[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie) andTag:kDicMainMenu.allKeys[i] andPage:kPageDefault]) {
             // Exist
             [self.tbvListMovie reloadData];
+            self.lastListMovie += 1;
+            ProgressBarDismissLoading(kEmptyString);
             
         } else {
             ProgressBarShowLoading(kLoading);
@@ -173,8 +175,7 @@
     NSInteger totalRecord = [[[response objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
     
     // Get detail movie and init object movie
-    for (int i = 0; i < listData.count; i++) {
-        NSDictionary *dictObjectMovie = listData[i];
+    for (NSDictionary *dictObjectMovie in listData) {
         Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie withTag:tagMovie andGenre:genre];
         newMovie.pageNumber = kPageDefault;
         newMovie.totalRecord = totalRecord;

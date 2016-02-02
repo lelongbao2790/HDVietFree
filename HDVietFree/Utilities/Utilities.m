@@ -9,7 +9,20 @@
 #import "Utilities.h"
 #define kTimeDuration 300
 
+@interface Utilities ()
+@property (nonatomic, strong) NSCache *imageCache;
+@end
+
 @implementation Utilities
+
++ (Utilities *)share {
+    static dispatch_once_t once;
+    static Utilities *share;
+    dispatch_once(&once, ^{
+        share = [self new];
+    });
+    return share;
+}
 
 /**
  * Show iToast message for informing.
@@ -146,5 +159,13 @@
     return screenRect.size.height;
 }
 
+// set
+- (void)cacheImage:(nonnull UIImage*)image forKey:(nonnull NSString*)key {
+    [self.imageCache setObject:image forKey:key];
+}
+// get
+-  (nonnull UIImage*)getCachedImageForKey:(nonnull NSString*)key {
+    return [self.imageCache objectForKey:key];
+}
 
 @end

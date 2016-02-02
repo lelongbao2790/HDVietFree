@@ -8,9 +8,10 @@
 
 #import "FilmController.h"
 
-@interface FilmController ()<ListMovieByGenreDelegate, UICollectionViewDelegateFlowLayout>
+@interface FilmController ()<ListMovieByGenreDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (assign, nonatomic) NSInteger totalItemOnOnePage;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionFilmController;
 
 @end
 
@@ -23,8 +24,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     self.title = kDicMainMenu.allValues[self.view.tag];
     [DataManager shared].listMovieDelegate = self;
-    [self.collectionView registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
-    [self.collectionView reloadData];
+    [self.collectionFilmController registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
+    [self.collectionFilmController reloadData];
+    self.collectionFilmController.delegate = self;
+    self.collectionFilmController.dataSource = self;
     self.totalItemOnOnePage = self.listMovie.count;
 }
 
@@ -46,21 +49,24 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // Configure the cell
     DetailMovieCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionDetailMovieIdentifier forIndexPath:indexPath];
+    if (cell == nil) {
+        DLOG(@"Cell nil");
+    }
     [cell loadInformationWithMovie:self.listMovie[indexPath.row]];
     
     // Load more row when scroll on last row
     DLOG(@"Row : %d", (int)indexPath.row);
     
-    NSInteger numberOfItemPerRow = (NSInteger)([Utilities widthOfScreen] /
-                                               [self collectionView:collectionView
-                                                             layout:collectionView.collectionViewLayout
-                                             sizeForItemAtIndexPath:indexPath].width);
-    NSInteger lastRow = (self.listMovie.count / numberOfItemPerRow);
+//    NSInteger numberOfItemPerRow = (NSInteger)([Utilities widthOfScreen] /
+//                                               [self collectionView:collectionView
+//                                                             layout:collectionView.collectionViewLayout
+//                                             sizeForItemAtIndexPath:indexPath].width);
+//    NSInteger lastRow = (self.listMovie.count / numberOfItemPerRow);
     
-    if(indexPath.row == lastRow) {
-        if (self.listMovie.count > lastRow) {
-            [self checkListMovie];
-        }
+    // Check last item
+    if(indexPath.item == (self.listMovie.count - 1)) {
+        // Load more item when scroll to last item
+        [self checkListMovie];
     }
     
     return cell;
@@ -105,7 +111,6 @@
             // Exist
             DLOG(@"Get list movie of next page from local:%d",(int)nextPage);
             [self refreshListMovieWithPage:nextPage];
-            [self.collectionView reloadData];
             
         } else {
             // Not exist - Request server to get list
@@ -146,26 +151,32 @@
     }
     
     [self refreshListMovieWithPage:nextPage];
-
-    [self.collectionView reloadData];
 }
 
 - (void)loadListMovieAPIFail:(NSString *)resultMessage {
     ProgressBarDismissLoading(kEmptyString);
     [Utilities showiToastMessage:resultMessage];
-    
 }
 
 /*
  * Refresh list movie
  */
 - (void)refreshListMovieWithPage:(NSInteger)page {
+    NSMutableArray *indexPaths = [NSMutableArray new];
+    NSInteger totalCount = [self.listMovie count];
     NSArray *listMovieForPage = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[self.view.tag]
                                                                andGenre:stringFromInteger([MovieSearch share].genreMovie)
                                                                 andPage:page];
-    for (Movie *aMovie in listMovieForPage) {
-        [self.listMovie addObject:aMovie];
+    for (int i = 0; i < listMovieForPage.count; i++) {
+        Movie *newMovie = listMovieForPage[i];
+        [self.listMovie addObject:newMovie];
+        [indexPaths addObject:[NSIndexPath indexPathForRow:totalCount + i
+                                                 inSection:0]];
     }
+    
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView insertItemsAtIndexPaths:indexPaths];
+    } completion:nil];
 }
 
 @end

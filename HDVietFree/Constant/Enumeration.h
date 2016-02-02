@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger, PlayMovieTagTableView) {
 typedef NS_ENUM(NSInteger, ControllerTag) {
     kTagMainController = 1,
     kTagPlayController = 2,
-    kTimeOutIntervalSession = 10,
+    kTimeOutIntervalSession = 60,
 };
 
 #endif /* Enumeration_h */
