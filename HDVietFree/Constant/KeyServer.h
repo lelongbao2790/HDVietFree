@@ -42,7 +42,9 @@
 #define k2015 @"2015"
 #define k2016 @"2016"
 #define kLinkPlay @"LinkPlay"
-
+#define kSubtitleExt @"SubtitleExt"
+#define kSubtitleVIE @"VIE"
+#define kSubtitleSource @"Source"
 
 // Category
 #define kCategoryID @"CategoryID"

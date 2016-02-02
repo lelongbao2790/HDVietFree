@@ -35,6 +35,8 @@
 @property (strong, nonatomic) NSString *category;
 @property (assign, nonatomic) NSInteger pageNumber;
 @property (assign, nonatomic) NSInteger totalRecord;
+@property (strong, nonatomic) NSString *urlLinkPlayMovie;
+@property (strong, nonatomic) NSString *urlLinkSubtitleMovie;
 
 // Init movie from json
 + (Movie *)detailRelativeMovieFromJson:(NSDictionary *)json;

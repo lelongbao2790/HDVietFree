@@ -45,5 +45,6 @@
 #import "FilmController.h"
 #import "SearchCell.h"
 #import "SearchController.h"
+#import "MPMoviePlayerController+Subtitles.h"
 
 #endif /* HDVietPrefix_pch */

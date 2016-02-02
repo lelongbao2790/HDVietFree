@@ -60,6 +60,7 @@
 		D36579611C5F3F5F00F51DA3 /* search_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D36579601C5F3F5F00F51DA3 /* search_icon.png */; };
 		D36579651C5F40A200F51DA3 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579641C5F40A200F51DA3 /* SearchController.m */; };
 		D36579681C5F48B000F51DA3 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579671C5F48B000F51DA3 /* SearchCell.m */; };
+		D365796C1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.m in Sources */ = {isa = PBXBuildFile; fileRef = D365796B1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.m */; };
 		D38CBE771C51D7AC00084126 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE761C51D7AC00084126 /* PlayController.m */; };
 		D38CBE791C51D83A00084126 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38CBE781C51D83A00084126 /* MediaPlayer.framework */; };
 		D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE7E1C51DFD400084126 /* NSString+MD5.m */; };
@@ -203,6 +204,8 @@
 		D36579641C5F40A200F51DA3 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchController.m; path = SearchController/SearchController.m; sourceTree = "<group>"; };
 		D36579661C5F48B000F51DA3 /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCell.h; path = SearchController/SearchCell.h; sourceTree = "<group>"; };
 		D36579671C5F48B000F51DA3 /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCell.m; path = SearchController/SearchCell.m; sourceTree = "<group>"; };
+		D365796A1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MPMoviePlayerController+Subtitles.h"; path = "ThirdParties/MPMoviePlayerController+Subtitles/MPMoviePlayerController+Subtitles.h"; sourceTree = "<group>"; };
+		D365796B1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MPMoviePlayerController+Subtitles.m"; path = "ThirdParties/MPMoviePlayerController+Subtitles/MPMoviePlayerController+Subtitles.m"; sourceTree = "<group>"; };
 		D38CBE751C51D7AC00084126 /* PlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayController.h; path = PlayController/PlayController.h; sourceTree = "<group>"; };
 		D38CBE761C51D7AC00084126 /* PlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayController.m; path = PlayController/PlayController.m; sourceTree = "<group>"; };
 		D38CBE781C51D83A00084126 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -329,6 +332,7 @@
 		D329169A1C55B73B00CE46B6 /* ThirdParties */ = {
 			isa = PBXGroup;
 			children = (
+				D36579691C60503A00F51DA3 /* MPMoviePlayerController+Subtitles */,
 				D36579451C58565500F51DA3 /* DBAccess */,
 				D329169B1C55B75D00CE46B6 /* MBProgressHUD */,
 				D32916A51C55B76B00CE46B6 /* iToast */,
@@ -492,6 +496,15 @@
 				D36579671C5F48B000F51DA3 /* SearchCell.m */,
 			);
 			name = SearchController;
+			sourceTree = "<group>";
+		};
+		D36579691C60503A00F51DA3 /* MPMoviePlayerController+Subtitles */ = {
+			isa = PBXGroup;
+			children = (
+				D365796A1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.h */,
+				D365796B1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.m */,
+			);
+			name = "MPMoviePlayerController+Subtitles";
 			sourceTree = "<group>";
 		};
 		D38CBE741C51D77D00084126 /* PlayController */ = {
@@ -818,6 +831,7 @@
 				D36579681C5F48B000F51DA3 /* SearchCell.m in Sources */,
 				D32916DD1C55B7DF00CE46B6 /* UIButton+AFNetworking.m in Sources */,
 				D32916E71C55B98E00CE46B6 /* DataManager.m in Sources */,
+				D365796C1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.m in Sources */,
 				D32916E41C55B84100CE46B6 /* Movie.m in Sources */,
 				D36579501C58B07300F51DA3 /* PlayMovieCell.m in Sources */,
 				D32916841C55B36400CE46B6 /* CommonString.m in Sources */,

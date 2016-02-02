@@ -55,18 +55,29 @@
 #pragma mark -
 #pragma mark - ** Media play controller **
 
-- (void)playMediaControllerWithUrl:(NSString *)urlString {
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-    MPMoviePlayerViewController *mpvc = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+- (void)playMediaControllerWithUrl {
+    NSURL *url = [[NSURL alloc] initWithString:self.movie.urlLinkPlayMovie];
+    MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlaybackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:nil];
     
-    mpvc.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+    player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+    NSString *subString = [Utilities getDataSubFromUrl:self.movie.urlLinkSubtitleMovie];
+    [player.moviePlayer openWithSRTString:subString completion:^(BOOL finished) {
+        // Activate subtitles
+        [player.moviePlayer showSubtitles];
+
+    } failure:^(NSError *error) {
+        NSLog(@"Error: %@", error.description);
+        
+        [Utilities showiToastMessage:@"Phim này hiện chưa có sub việt"];
+    }];
     
-    [self presentMoviePlayerViewControllerAnimated:mpvc];
-    [mpvc.moviePlayer play];
+    // Show video
+    [self presentMoviePlayerViewControllerAnimated:player];
+    [player.moviePlayer play];
 }
 
 -(void)moviePlaybackDidFinish:(NSNotification*)aNotification{
@@ -251,6 +262,7 @@
 - (void)loadDetailInformationMovieAPIFail:(NSString *)resultMessage {
     DLOG(@"Load detail information api fail");
     [Utilities showiToastMessage:resultMessage];
+    ProgressBarDismissLoading(kEmptyString);
 }
 
 //*****************************************************************************
@@ -258,15 +270,24 @@
 #pragma mark - ** Load Link Movie Delegate **
 
 - (void)loadLinkPlayMovieAPISuccess:(NSDictionary *)response {
-    ProgressBarDismissLoading(kEmptyString);
+    
     NSString *linkPlay = [response objectForKey:kLinkPlay];
+    NSString *linkSub = [[[response objectForKey:kSubtitleExt]
+                                    objectForKey:kSubtitleVIE]
+                                    objectForKey:kSubtitleSource];
+    if (linkSub) {
+        self.movie.urlLinkSubtitleMovie = linkSub;
+    }
     
     if (![linkPlay isEqualToString:kEmptyString]) {
         if ([linkPlay containsString:kResolution320480]) {
             linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution320480 withString:kResolution320568];
         }
-        [self playMediaControllerWithUrl:linkPlay];
+        self.movie.urlLinkPlayMovie = linkPlay;
+        [self playMediaControllerWithUrl];
     }
+    
+    ProgressBarDismissLoading(kEmptyString);
 }
 
 - (void)loadLinkPlayMovieAPIFail:(NSString *)resultMessage {

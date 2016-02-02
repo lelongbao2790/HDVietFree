@@ -23,6 +23,11 @@
 + (void)saveImage:(nonnull UIImage*)image withName:(nonnull NSString *)nameImage;
 
 /*
+ * Get srt file from url
+ */
++ (nonnull NSString*)getDataSubFromUrl:(nonnull NSString*)srtUrl;
+
+/*
  * Load image
  */
 + (nonnull UIImage*)loadImageFromName:(nonnull NSString *)nameImage;

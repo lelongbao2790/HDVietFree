@@ -40,10 +40,24 @@
                                                              NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString* path = [documentsDirectory stringByAppendingPathComponent:
-                          [NSString stringWithString: nameImage] ];
+                          [NSString stringWithString: nameImage]];
         NSData* data = UIImagePNGRepresentation(image);
         [data writeToFile:path atomically:YES];
     }
+}
+
+/*
+ * Get srt file from url
+ */
++ (nonnull NSString*)getDataSubFromUrl:(nonnull NSString*)srtUrl {
+    NSString *sub = kEmptyString;
+    NSURL  *url = [NSURL URLWithString:srtUrl];
+    NSData *urlData = [[NSData alloc] initWithContentsOfURL:url] ;
+    if ( urlData )
+    {
+        sub = [NSString stringWithUTF8String:[urlData bytes]];
+    }
+    return sub;
 }
 
 /*
