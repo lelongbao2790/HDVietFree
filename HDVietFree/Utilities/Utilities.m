@@ -101,7 +101,7 @@
     
     [AppDelegate share].mainPanel = [JASidePanelController shareInstance];
     [AppDelegate share].mainPanel.leftPanel = leftMenu;
-    [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc]initWithRootViewController:mainController];
+    [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:mainController];
     [AppDelegate share].window.rootViewController = [AppDelegate share].mainPanel;
 }
 

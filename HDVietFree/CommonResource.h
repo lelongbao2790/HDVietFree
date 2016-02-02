@@ -15,5 +15,4 @@
  */
 extern NSString *const kSearchIcon;
 
-
 @end

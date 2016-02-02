@@ -37,6 +37,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+     NavigationMovieCustomController *navCustom = (NavigationMovieCustomController *)self.navigationController;
+    [navCustom.txtSearch removeFromSuperview];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    NavigationMovieCustomController *navCustom = (NavigationMovieCustomController *)self.navigationController;
+    [navCustom initTextField];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [self getInformationMovie];
 }
@@ -236,7 +246,7 @@
 #pragma mark -
 #pragma mark - ** Handle get information movie **
 - (void)getInformationMovie {
-    if ([[DataAccess share] getRelativeMovieInDB:self.movie.movieID].count > 0) {
+    if ([[DataAccess share] getRelativeMovieInDB:self.movie.movieID].count > 0 && self.movie.backdrop945530 != nil) {
         [self reloadView];
     } else {
         ProgressBarShowLoading(kLoading);

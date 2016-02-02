@@ -38,6 +38,10 @@
         self.managerSSL = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrlSSL]];
         self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        self.managerSSL.requestSerializer = [AFHTTPRequestSerializer serializer];
+        self.managerSSL.responseSerializer = [AFJSONResponseSerializer serializer];
+        [self.manager.requestSerializer setTimeoutInterval:kTimeOutIntervalSession];
+        [self.managerSSL.requestSerializer setTimeoutInterval:kTimeOutIntervalSession];
     }
     
     return self;
@@ -46,22 +50,6 @@
 //*****************************************************************************
 #pragma mark -
 #pragma mark ** Life Cycle Method **
-- (instancetype)initWithBaseURL:(NSURL *)url andBaseSSL:(NSURL *)urlSSL
-{
-    self = [super init];
-    
-    if (self) {
-        // init manager AFHTTPRequestOperationManager
-        self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:url];
-        self.managerSSL = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:urlSSL];
-        self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        self.managerSSL.requestSerializer = [AFHTTPRequestSerializer serializer];
-        self.managerSSL.responseSerializer = [AFJSONResponseSerializer serializer];
-    }
-    
-    return self;
-}
 
 - (void)setHTTPHeaderWithToken:(AFHTTPRequestOperationManager *)manager {
     [manager.requestSerializer setValue:[User share].accessToken

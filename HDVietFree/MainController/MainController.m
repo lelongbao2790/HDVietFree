@@ -48,10 +48,9 @@
     // Init
     [AppDelegate share].mainController = self;
     self.dictMenu = kDicMainMenu;
-    self.title = @"PHIM LẺ";
     [DataManager shared].listMovieDelegate = self;
     self.lastListMovie = 0;
-    [self initSearchBarButton];
+//    [self initSearchBarButton];
     
     // Config table view
     self.tbvListMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

@@ -8,12 +8,11 @@
 
 #import "SearchController.h"
 
-@interface SearchController ()<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, SearchMovieDelegate>
+@interface SearchController ()<UITableViewDataSource, UITableViewDelegate, SearchMovieDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tbvSearch;
 @property (nonatomic, strong) DBEventHandler* recipeEventHandler;
 @property (strong, nonatomic) UISearchController *searchController;
 @property (nonatomic, strong) NSMutableArray *listResult;
-
 @end
 
 @implementation SearchController
@@ -33,9 +32,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self dismissView];
+    
+}
+
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Helper Method **
+
+- (void)dismissView {
+    [self.navigationController.view endEditing:YES];
+}
+
 - (void)configView {
     [DataManager shared].searchMovieDelegate = self;
     self.listResult = [[NSMutableArray alloc] init];
@@ -46,9 +58,7 @@
     self.tbvSearch.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tbvSearch.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    // Init search controller
-    [self initSearchController];
+    [self setAutomaticallyAdjustsScrollViewInsets:NO];
 }
 
 - (void) initData {
@@ -61,18 +71,16 @@
                                           } onMainThread:YES];
 }
 
-/*
- * Init search controller
- */
-- (void)initSearchController {
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchResultsUpdater = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-    self.searchController.searchBar.delegate = self;
-    self.searchController.searchBar.placeholder = kSearchMovie;
-    self.tbvSearch.tableHeaderView = self.searchController.searchBar;
-    self.searchController.searchBar.barTintColor = [UIColor colorWithHexString:kColorBgNavigationBar];
-    self.definesPresentationContext = YES;
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Text field delegate **
+-(void)textDidChange:(NSNotification *)notification {
+    UITextField *searchText = [notification object];
+    [[ManageAPI share] searchMovieWithKeyword:searchText.text];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    return [textField resignFirstResponder];
 }
 
 //*****************************************************************************
@@ -102,15 +110,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self dismissView];
     
     PlayController *playController = InitStoryBoardWithIdentifier(kPlayController);
     playController.movie = self.listResult[indexPath.row];
     [self.navigationController pushViewController:playController animated:YES];
-}
-
-- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
-{
-    [self updateSearchResultsForSearchController:self.searchController];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell     forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -118,19 +122,6 @@
     if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) { [tableView setSeparatorInset:UIEdgeInsetsZero]; }
     if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) { [tableView setLayoutMargins:UIEdgeInsetsZero]; }
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) { [cell setLayoutMargins:UIEdgeInsetsZero]; }
-}
-#pragma mark - UISearchBarDelegate
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [searchBar resignFirstResponder];
-}
-
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSString *searchString = searchController.searchBar.text;
-    
-    // Filter content
-    [[ManageAPI share] searchMovieWithKeyword:searchString];
-    
 }
 
 #pragma mark - Search movie delegate
