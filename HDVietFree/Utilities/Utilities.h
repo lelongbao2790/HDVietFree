@@ -47,4 +47,15 @@
  */
 + (nonnull NSString *)getStringUrlPoster:(nonnull Movie *)movie;
 
+/*
+ * Get width of screen
+ */
++ (CGFloat)widthOfScreen;
+
+/*
+ * Height of screen
+ */
++ (CGFloat)heightOfScreen;
+
+
 @end

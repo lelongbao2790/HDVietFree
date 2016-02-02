@@ -8,7 +8,10 @@
 
 #import "FilmController.h"
 
-@interface FilmController ()<ListMovieByGenreDelegate>
+@interface FilmController ()<ListMovieByGenreDelegate, UICollectionViewDelegateFlowLayout>
+
+@property (assign, nonatomic) NSInteger totalItemOnOnePage;
+
 @end
 
 @implementation FilmController
@@ -22,6 +25,7 @@
     [DataManager shared].listMovieDelegate = self;
     [self.collectionView registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     [self.collectionView reloadData];
+    self.totalItemOnOnePage = self.listMovie.count;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,8 +61,15 @@
     
     // Load more row when scroll on last row
     DLOG(@"Row : %d", (int)indexPath.row);
-    if(indexPath.row == (self.listMovie.count / 2)) {
-        if (self.listMovie.count > 5) {
+    
+    NSInteger numberOfItemPerRow = (NSInteger)([Utilities widthOfScreen] /
+                                               [self collectionView:collectionView
+                                                             layout:collectionView.collectionViewLayout
+                                             sizeForItemAtIndexPath:indexPath].width);
+    NSInteger lastRow = (self.listMovie.count / numberOfItemPerRow);
+    
+    if(indexPath.row == lastRow) {
+        if (self.listMovie.count > lastRow) {
             [self checkListMovie];
         }
     }
@@ -97,15 +108,14 @@
     
     Movie *randomMovie = self.listMovie[0];
     if (self.listMovie.count < randomMovie.totalRecord + 1) {
-        NSInteger nextPage = (self.listMovie.count / 10) + 1;
+        NSInteger nextPage = (self.listMovie.count / self.totalItemOnOnePage) + 1;
         
         if ([[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie)
                                                    andTag:kDicMainMenu.allKeys[self.view.tag]
                                                   andPage:nextPage]) {
             // Exist
-            self.listMovie = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[self.view.tag]
-                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                                             andPage:nextPage];
+            DLOG(@"Get list movie of next page from local:%d",(int)nextPage);
+            [self refreshListMovieWithPage:nextPage];
             [self.collectionView reloadData];
             
         } else {
@@ -129,7 +139,9 @@
 
 - (void)loadListMovieAPISuccess:(NSDictionary *)response atTag:(NSString *)tagMovie andGenre:(NSString *)genre {
     DLOG(@"loadListMovieAPISuccess with: %@ %@", tagMovie, genre );
-    NSInteger nextPage = (self.listMovie.count / 10) + 1;
+    
+    // Fixed crash of next page is same of previous page
+    NSInteger nextPage = (self.listMovie.count / self.totalItemOnOnePage) + 1;
     
     // Get list movie from response
     NSArray *listData = [response objectForKey:kList];
@@ -143,34 +155,9 @@
         newMovie.totalRecord = totalRecord;
         [newMovie commit];
     }
-    self.listMovie = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[self.view.tag]
-                                                    andGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                                     andPage:nextPage];
-    [self.collectionView reloadData];
-}
+    
+    [self refreshListMovieWithPage:nextPage];
 
-/*
- * Update UI for list movie
- */
-- (void)updateUIListMovie:(NSArray *)listResponse {
-    DLOG(@"loadListMovieAPISuccess with: %@ %@", listResponse[1], listResponse[2]);
-    NSInteger nextPage = (self.listMovie.count / 10) + 1;
-    
-    // Get list movie from response
-    NSArray *listData = [listResponse[0] objectForKey:kList];
-    NSInteger totalRecord = [[[listResponse[0] objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
-    
-    // Get detail movie and init object movie
-    for (int i = 0; i < listData.count; i++) {
-        NSDictionary *dictObjectMovie = listData[i];
-        Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie withTag:listResponse[1] andGenre:listResponse[2]];
-        newMovie.pageNumber = nextPage;
-        newMovie.totalRecord = totalRecord;
-        [newMovie commit];
-    }
-    self.listMovie = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[self.view.tag]
-                                                    andGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                                     andPage:nextPage];
     [self.collectionView reloadData];
 }
 
@@ -180,5 +167,16 @@
     
 }
 
+/*
+ * Refresh list movie
+ */
+- (void)refreshListMovieWithPage:(NSInteger)page {
+    NSArray *listMovieForPage = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[self.view.tag]
+                                                               andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                                                andPage:page];
+    for (Movie *aMovie in listMovieForPage) {
+        [self.listMovie addObject:aMovie];
+    }
+}
 
 @end

@@ -53,7 +53,6 @@
     newMovie.backdrop = [json objectForKey:kBackDrop];
     newMovie.tagMovie = tagMovie;
     newMovie.genreMovie = genreMovie;
-    [newMovie commit];
     return newMovie;
 }
 
@@ -114,7 +113,6 @@
     newMovie.knownAs = [json objectForKey:kDocKnownAs];
     newMovie.poster = [json objectForKey:kDocPoster];
     newMovie.plotVI = [json objectForKey:kDocMoviePlotVi];
-    [newMovie commit];
     return newMovie;
 }
 

@@ -113,7 +113,7 @@
                                                              andPage:kPageDefault];
     FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
     filmController.view.tag = section;
-    filmController.listMovie = [listDBInLocal mutableCopy];
+    filmController.listMovie = [[NSMutableArray alloc] initWithArray:listDBInLocal];
     [self.navigationController pushViewController:filmController animated:YES];
 }
 

@@ -116,4 +116,21 @@
     }
 }
 
+/*
+ * Get width of screen
+ */
++ (CGFloat)widthOfScreen {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    return  screenRect.size.width;
+}
+
+/*
+ * Height of screen
+ */
++ (CGFloat)heightOfScreen {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    return screenRect.size.height;
+}
+
+
 @end

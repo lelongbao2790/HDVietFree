@@ -13,6 +13,6 @@
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Property **
-@property (strong, nonatomic) NSArray *listMovie;
+@property (strong, nonatomic) NSMutableArray *listMovie;
 
 @end
