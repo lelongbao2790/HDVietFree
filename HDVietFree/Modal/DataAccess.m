@@ -27,8 +27,7 @@
  */
 - (NSMutableArray *)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page {
     NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
-    DBResultSet* r = [[[[Movie query] whereWithFormat:@"tagMovie = %@ and genreMovie = %@ and pageNumber = %d", tagMovie, genreMovie, (int)page]
-                                              orderBy:@"movieID"]
+    DBResultSet* r = [[[Movie query] whereWithFormat:@"tagMovie = %@ and genreMovie = %@ and pageNumber = %d", tagMovie, genreMovie, (int)page]
                                                 fetch];
     if (r.count > 0) {
         for (Movie* newMovie in r) {

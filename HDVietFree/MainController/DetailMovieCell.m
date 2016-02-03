@@ -13,7 +13,7 @@
 
 - (void)loadInformationWithMovie:(Movie *)movie {
     self.lbNameMovie.text = movie.movieName;
-    [self performSelectorInBackground:@selector(setImagePoster:) withObject:movie];
+    [self setImagePoster:movie];
     DLOG(@"Movie name: %@", movie.movieName);
 }
 
@@ -51,12 +51,11 @@
         NSData *data = [NSData dataWithContentsOfURL:urlImage];
         UIImage *image = [UIImage imageWithData:data];
         [Utilities saveImage:image withName:movie.poster];
-        
+        [[Utilities share]cacheImage:image forKey:movie.poster];
         dispatch_sync(dispatch_get_main_queue(), ^{
             
             // Load image on UI main thread
-            UIImage *cacheImage = [Utilities loadImageFromName:movie.poster];
-            [self updateUIImageAvatar:cacheImage withMovie:movie];
+            [self updateUIImageAvatar:image withMovie:movie];
         });
     });
 }
@@ -64,13 +63,10 @@
 // This method will update image avatar
 - (void)updateUIImageAvatar:(UIImage*)images withMovie:(Movie *)movie {
     
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        
-        [self.activityLoading stopAnimating];
-        self.imageMovie.image = images;
-        self.lbNameMovie.text = movie.movieName;
-        [[Utilities share]cacheImage:images forKey:movie.poster];
-    });
+    [self.activityLoading stopAnimating];
+    self.imageMovie.image = images;
+    self.lbNameMovie.text = movie.movieName;
+    
     
 }
 

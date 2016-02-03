@@ -50,8 +50,9 @@
  * Init text field
  */
 - (void)initTextField {
-    CGRect frameTextField = CGRectMake([Utilities widthOfScreen] - kWidthTextField - kCornerRadius, 0,
-                                       kWidthTextField, kHeightTextField);
+    NSInteger widthTextField = [Utilities widthOfScreen] - kSpaceWidthTextField;
+    CGRect frameTextField = CGRectMake([Utilities widthOfScreen] - widthTextField - kCornerRadius, 0,
+                                       widthTextField, kHeightTextField);
     self.txtSearch = [[UITextField alloc]initWithFrame:frameTextField];
     self.txtSearch.backgroundColor = [UIColor whiteColor];
     [self.txtSearch setAutocorrectionType:UITextAutocorrectionTypeNo];

@@ -242,7 +242,38 @@ static NSString *const kText = @"kText";
         self.subtitleLabel.text = [lastFounded objectForKey:kText];
 
         // Update label constraints
-        [self updateLabelConstraints];
+        // Add label
+        if (!self.subtitleLabel) {
+            
+            // Add label
+            CGFloat fontSize = 0.0;
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                fontSize = 40.0;
+            } else {
+                fontSize = 20.0;
+            }
+            self.subtitleLabel = [[UILabel alloc] init];
+            self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            self.subtitleLabel.backgroundColor = [UIColor clearColor];
+            self.subtitleLabel.font = [UIFont boldSystemFontOfSize:fontSize];
+            self.subtitleLabel.textColor = [UIColor whiteColor];
+            self.subtitleLabel.numberOfLines = 0;
+            self.subtitleLabel.textAlignment = NSTextAlignmentCenter;
+            self.subtitleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+            self.subtitleLabel.layer.shadowOffset = CGSizeMake(6.0, 6.0);
+            self.subtitleLabel.layer.shadowOpacity = 0.9;
+            self.subtitleLabel.layer.shadowRadius = 4.0;
+            self.subtitleLabel.layer.shouldRasterize = YES;
+            self.subtitleLabel.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+            [self.view addSubview:self.subtitleLabel];
+            
+            // Update label constraints
+            [self updateLabelConstraints];
+            
+        } else {
+            // Update label constraints
+            [self updateLabelConstraints];
+        }
 
     } else {
         
@@ -258,7 +289,7 @@ static NSString *const kText = @"kText";
     NSString *horizontal = @"H:|-(15)-[weakSubtitleLabel]-(15)-|";
     NSString *vertical = @"V:[weakSubtitleLabel]-(15)-|";
     
-    UIView __weak *weakSubtitleLabel = self.subtitleLabel;
+    UIView *weakSubtitleLabel = self.subtitleLabel;
     NSDictionary *views = NSDictionaryOfVariableBindings(weakSubtitleLabel);
     NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:horizontal
                                                                    options:0
@@ -336,6 +367,9 @@ static NSString *const kText = @"kText";
                 // Update label constraints
                 [self updateLabelConstraints];
                 
+            } else {
+                // Update label constraints
+                [self updateLabelConstraints];
             }
             
             break;
@@ -369,7 +403,37 @@ static NSString *const kText = @"kText";
     self.subtitleLabel.hidden = NO;
 
     // Update label constraints
-    [self updateLabelConstraints];
+    // Add label
+    if (!self.subtitleLabel) {
+        
+        // Add label
+        CGFloat fontSize = 0.0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            fontSize = 40.0;
+        } else {
+            fontSize = 20.0;
+        }
+        self.subtitleLabel = [[UILabel alloc] init];
+        self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        self.subtitleLabel.backgroundColor = [UIColor clearColor];
+        self.subtitleLabel.font = [UIFont boldSystemFontOfSize:fontSize];
+        self.subtitleLabel.textColor = [UIColor whiteColor];
+        self.subtitleLabel.numberOfLines = 0;
+        self.subtitleLabel.textAlignment = NSTextAlignmentCenter;
+        self.subtitleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.subtitleLabel.layer.shadowOffset = CGSizeMake(6.0, 6.0);
+        self.subtitleLabel.layer.shadowOpacity = 0.9;
+        self.subtitleLabel.layer.shadowRadius = 4.0;
+        self.subtitleLabel.layer.shouldRasterize = YES;
+        self.subtitleLabel.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+        [self.view addSubview:self.subtitleLabel];
+        
+        // Update label constraints
+        [self updateLabelConstraints];
+        
+    } else {
+        [self updateLabelConstraints];
+    }
  
 }
 
@@ -386,7 +450,37 @@ static NSString *const kText = @"kText";
     [window addSubview:self.subtitleLabel];
     
     // Update label constraints
-    [self updateLabelConstraints];
+    // Add label
+    if (!self.subtitleLabel) {
+        
+        // Add label
+        CGFloat fontSize = 0.0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            fontSize = 40.0;
+        } else {
+            fontSize = 20.0;
+        }
+        self.subtitleLabel = [[UILabel alloc] init];
+        self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        self.subtitleLabel.backgroundColor = [UIColor clearColor];
+        self.subtitleLabel.font = [UIFont boldSystemFontOfSize:fontSize];
+        self.subtitleLabel.textColor = [UIColor whiteColor];
+        self.subtitleLabel.numberOfLines = 0;
+        self.subtitleLabel.textAlignment = NSTextAlignmentCenter;
+        self.subtitleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.subtitleLabel.layer.shadowOffset = CGSizeMake(6.0, 6.0);
+        self.subtitleLabel.layer.shadowOpacity = 0.9;
+        self.subtitleLabel.layer.shadowRadius = 4.0;
+        self.subtitleLabel.layer.shouldRasterize = YES;
+        self.subtitleLabel.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+        [self.view addSubview:self.subtitleLabel];
+        
+        // Update label constraints
+        [self updateLabelConstraints];
+        
+    } else {
+        [self updateLabelConstraints];
+    }
 
 }
 
@@ -402,7 +496,37 @@ static NSString *const kText = @"kText";
     [self.view addSubview:self.subtitleLabel];
     
     // Update label constraints
-    [self updateLabelConstraints];
+    // Add label
+    if (!self.subtitleLabel) {
+        
+        // Add label
+        CGFloat fontSize = 0.0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            fontSize = 40.0;
+        } else {
+            fontSize = 20.0;
+        }
+        self.subtitleLabel = [[UILabel alloc] init];
+        self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        self.subtitleLabel.backgroundColor = [UIColor clearColor];
+        self.subtitleLabel.font = [UIFont boldSystemFontOfSize:fontSize];
+        self.subtitleLabel.textColor = [UIColor whiteColor];
+        self.subtitleLabel.numberOfLines = 0;
+        self.subtitleLabel.textAlignment = NSTextAlignmentCenter;
+        self.subtitleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.subtitleLabel.layer.shadowOffset = CGSizeMake(6.0, 6.0);
+        self.subtitleLabel.layer.shadowOpacity = 0.9;
+        self.subtitleLabel.layer.shadowRadius = 4.0;
+        self.subtitleLabel.layer.shouldRasterize = YES;
+        self.subtitleLabel.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+        [self.view addSubview:self.subtitleLabel];
+        
+        // Update label constraints
+        [self updateLabelConstraints];
+        
+    } else {
+        [self updateLabelConstraints];
+    }
     
 }
 

@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSDictionary *dictMenu;
 @property (strong, nonatomic) NSDictionary *dictMovie;
 @property (assign, nonatomic) NSInteger lastListMovie;
+@property (strong, nonatomic) NSMutableArray *listMovieOnMain;
 
 @property (weak, nonatomic) IBOutlet UITableView *tbvListMovie;
 
@@ -28,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self configView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,7 +40,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     // Hidden navigation bar
     [self.navigationController.navigationBar setHidden:NO];
-    [self configView];
+    
 }
 
 //*****************************************************************************
@@ -59,6 +61,7 @@
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     
     // Check list data
+    self.listMovieOnMain = [[NSMutableArray alloc] init];
     [self checkListMovie];
 }
 
@@ -132,9 +135,10 @@
     NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[indexPath.section]
                                                             andGenre:stringFromInteger([MovieSearch share].genreMovie)
                                                              andPage:kPageDefault];
+    self.listMovieOnMain = [listDBInLocal mutableCopy];
     
     [cell.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagMainController
-                                                                   andListMovie:listDBInLocal];
+                                                                   andListMovie:self.listMovieOnMain];
     return cell;
     
 }

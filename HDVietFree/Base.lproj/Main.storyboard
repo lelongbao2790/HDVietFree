@@ -432,9 +432,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gco-ce-xO4">
-                                <rect key="frame" x="290" y="162" width="20" height="20"/>
-                            </activityIndicatorView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qxy-Oq-gVt">
                                 <rect key="frame" x="0.0" y="64" width="600" height="216"/>
                                 <constraints>
@@ -674,7 +671,7 @@
                                     <outlet property="delegate" destination="XBf-3O-wCI" id="plb-wd-XKi"/>
                                 </connections>
                             </tableView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUG-g3-23u">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUG-g3-23u">
                                 <rect key="frame" x="5" y="64" width="590" height="216"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="play_icon.png"/>
@@ -689,7 +686,6 @@
                             <constraint firstAttribute="trailingMargin" secondItem="cNS-x8-5a5" secondAttribute="trailing" constant="-20" id="FJi-gU-c8D"/>
                             <constraint firstItem="cNS-x8-5a5" firstAttribute="leading" secondItem="XwV-mZ-yP0" secondAttribute="leadingMargin" constant="-18" id="Q8b-8m-UWR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qxy-Oq-gVt" secondAttribute="trailing" constant="-20" id="VrX-bi-log"/>
-                            <constraint firstItem="gco-ce-xO4" firstAttribute="centerX" secondItem="XwV-mZ-yP0" secondAttribute="centerX" id="YV1-pp-zmE"/>
                             <constraint firstItem="qxy-Oq-gVt" firstAttribute="leading" secondItem="XwV-mZ-yP0" secondAttribute="leadingMargin" constant="-20" id="aFI-va-n9F"/>
                             <constraint firstItem="cNS-x8-5a5" firstAttribute="top" secondItem="jUG-g3-23u" secondAttribute="bottom" constant="1" id="ccp-g5-wQd"/>
                             <constraint firstItem="5vK-xg-f9z" firstAttribute="top" secondItem="cNS-x8-5a5" secondAttribute="bottom" id="fyF-6E-CQ9"/>
@@ -697,7 +693,6 @@
                             <constraint firstItem="jUG-g3-23u" firstAttribute="leading" secondItem="XwV-mZ-yP0" secondAttribute="leadingMargin" constant="-15" id="oCe-OD-5Vd"/>
                             <constraint firstItem="jUG-g3-23u" firstAttribute="top" secondItem="RSZ-nQ-Nv3" secondAttribute="bottom" id="snT-RK-QuH"/>
                             <constraint firstItem="qxy-Oq-gVt" firstAttribute="top" secondItem="RSZ-nQ-Nv3" secondAttribute="bottom" id="uFy-6Q-hl9"/>
-                            <constraint firstItem="gco-ce-xO4" firstAttribute="top" secondItem="qxy-Oq-gVt" secondAttribute="bottom" constant="-118" id="vbW-JY-vSP"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="07C-aG-uDa"/>
@@ -706,7 +701,6 @@
                     <connections>
                         <outlet property="btnPlayMovie" destination="jUG-g3-23u" id="PZ8-KV-7pq"/>
                         <outlet property="imagePoster" destination="qxy-Oq-gVt" id="h1a-kV-vwd"/>
-                        <outlet property="loadingActivity" destination="gco-ce-xO4" id="56D-LN-MVa"/>
                         <outlet property="tbvInforMovie" destination="cNS-x8-5a5" id="ftp-FZ-Lf5"/>
                     </connections>
                 </viewController>

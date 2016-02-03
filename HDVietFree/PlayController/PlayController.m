@@ -8,6 +8,7 @@
 
 #import "PlayController.h"
 #define kResolution320480 @"320_480"
+#define kResolution3201024 @"320_1024"
 #define kResolution320568 @"320_568"
 #define kResolution6401136 @"640_1136"
 
@@ -16,7 +17,6 @@
 @interface PlayController ()<MPMediaPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, DetailInformationMovieDelegate, LoadLinkPlayMovieDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imagePoster;
 @property (weak, nonatomic) IBOutlet UITableView *tbvInforMovie;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivity;
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayMovie;
 
 @end
@@ -40,6 +40,7 @@
 - (void)viewWillAppear:(BOOL)animated {
      NavigationMovieCustomController *navCustom = (NavigationMovieCustomController *)self.navigationController;
     [navCustom.txtSearch removeFromSuperview];
+    [self getInformationMovie];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -48,7 +49,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self getInformationMovie];
+    
 }
 
 /*
@@ -86,7 +87,7 @@
     }];
     
     // Show video
-    [self presentMoviePlayerViewControllerAnimated:player];
+    [self.navigationController presentMoviePlayerViewControllerAnimated:player];
     [player.moviePlayer play];
 }
 
@@ -113,39 +114,47 @@
 }
 
 - (void)loadImage {
-    [self.loadingActivity startAnimating];
-    if ([Utilities isExistImage:self.movie.backdrop945530]) {
-        // Exist image
-        [self.loadingActivity stopAnimating];
-        [self.btnPlayMovie setHidden:NO];
-        [self updateUIImageAvatar:[Utilities loadImageFromName:self.movie.backdrop945530]];
-        
+    
+    UIImage *imageFromCache = [[Utilities share]getCachedImageForKey:self.movie.backdrop945530];
+    
+    if (imageFromCache) {
+        [self updateUIImageAvatar:imageFromCache];
     } else {
-        // Not exist
-        __block NSData *data = nil;
-        NSString *strImageUrl = self.movie.backdrop945530;
-        NSURL *urlImage = [NSURL URLWithString:strImageUrl];
-        
-        dispatch_queue_t backgroundQueue = dispatch_queue_create(kLoadImageInBackground, 0);
-        dispatch_async(backgroundQueue, ^{
+        if ([Utilities isExistImage:self.movie.backdrop945530]) {
+            // Exist image
+            [[Utilities share]cacheImage:[Utilities loadImageFromName:self.movie.backdrop945530] forKey:self.movie.backdrop945530];
+            [self updateUIImageAvatar:[Utilities loadImageFromName:self.movie.backdrop945530]];
+        } else {
+            [self downloadImage];
             
-            // Download
-            data = [NSData dataWithContentsOfURL:urlImage];
-            UIImage *image = [UIImage imageWithData:data];
-            [Utilities saveImage:image withName:self.movie.backdrop945530];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                // Load image on UI
-                [self updateUIImageAvatar:image];
-            });
-        });
+        }
     }
+}
+
+- (void)downloadImage {
+    // Not exist
+    __block NSData *data = nil;
+    NSString *strImageUrl = self.movie.backdrop945530;
+    NSURL *urlImage = [NSURL URLWithString:strImageUrl];
+    
+    dispatch_queue_t backgroundQueue = dispatch_queue_create(kLoadImageInBackground, 0);
+    dispatch_async(backgroundQueue, ^{
+        
+        // Download
+        data = [NSData dataWithContentsOfURL:urlImage];
+        UIImage *image = [UIImage imageWithData:data];
+        [Utilities saveImage:image withName:self.movie.backdrop945530];
+        [[Utilities share]cacheImage:image forKey:self.movie.backdrop945530];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            // Load image on UI
+            [self updateUIImageAvatar:image];
+        });
+    });
 }
 
 // This method will update image avatar
 - (void)updateUIImageAvatar:(UIImage*)images {
-    [self.btnPlayMovie setHidden:NO];
-    [self.loadingActivity stopAnimating];
     self.imagePoster.image = images;
 }
 
@@ -285,13 +294,18 @@
     NSString *linkSub = [[[response objectForKey:kSubtitleExt]
                                     objectForKey:kSubtitleVIE]
                                     objectForKey:kSubtitleSource];
+    
+    NSString *convertResolution = [NSString stringWithFormat:@"%d_%d",(int)[Utilities widthOfScreen],(int)[Utilities heightOfScreen]];
+    
     if (linkSub) {
         self.movie.urlLinkSubtitleMovie = linkSub;
     }
     
     if (![linkPlay isEqualToString:kEmptyString]) {
         if ([linkPlay containsString:kResolution320480]) {
-            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution320480 withString:kResolution320568];
+            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution320480 withString:convertResolution];
+        } else if ([linkPlay containsString:kResolution3201024]) {
+            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:convertResolution];
         }
         self.movie.urlLinkPlayMovie = linkPlay;
         [self playMediaControllerWithUrl];

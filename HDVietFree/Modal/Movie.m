@@ -71,7 +71,7 @@
     movie.plotVI = [json objectForKey:kPlotVI];
     movie.country = [json objectForKey:kCountry];
     movie.releaseDate = [json objectForKey:kReleaseDate];
-    movie.genreMovie = [MovieSearch share].tagMovie;
+    movie.genreMovie = stringFromInteger([MovieSearch share].genreMovie);
     
     // Update category
     NSArray *listCategory = [json objectForKey:kCategoryFilm];

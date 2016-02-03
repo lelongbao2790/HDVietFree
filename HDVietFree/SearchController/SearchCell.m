@@ -34,38 +34,40 @@
     UIImage *imageFromCache = [[Utilities share]getCachedImageForKey:movie.poster];
     
     if (imageFromCache) {
-        [self.activityLoading stopAnimating];
         [self updateUIImageAvatar:imageFromCache withMovie:movie];
     } else {
         if ([Utilities isExistImage:movie.poster]) {
             // Exist image
-            [self.activityLoading stopAnimating];
             [self updateUIImageAvatar:[Utilities loadImageFromName:movie.poster] withMovie:movie];
-            
         } else {
-            self.imgPoster.image = nil;
-            [self.activityLoading startAnimating];
-            // Not exist
-            __block NSData *data = nil;
-            NSString *strImageUrl = [Utilities getStringUrlPoster:movie];
-            NSURL *urlImage = [NSURL URLWithString:strImageUrl];
+            [self downloadImage:movie];
             
-            dispatch_queue_t backgroundQueue = dispatch_queue_create(kLoadImageInBackground, 0);
-            dispatch_async(backgroundQueue, ^{
-                
-                // Download
-                data = [NSData dataWithContentsOfURL:urlImage];
-                UIImage *image = [UIImage imageWithData:data];
-                [Utilities saveImage:image withName:movie.poster];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    // Load image on UI
-                    UIImage *cacheImage = [Utilities loadImageFromName:movie.poster];
-                    [self updateUIImageAvatar:cacheImage withMovie:movie];
-                });
-            });
         }
     }
+}
+
+- (void)downloadImage:(Movie *)movie {
+    // Not exist
+    self.imgPoster.image = nil;
+    [self.activityLoading startAnimating];
+    NSString *strImageUrl = [Utilities getStringUrlPoster:movie];
+    NSURL *urlImage = [NSURL URLWithString:strImageUrl];
+    
+    // Using GCD to download image
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        // Download
+        NSData *data = [NSData dataWithContentsOfURL:urlImage];
+        UIImage *image = [UIImage imageWithData:data];
+        [Utilities saveImage:image withName:movie.poster];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            // Load image on UI main thread
+            UIImage *cacheImage = [Utilities loadImageFromName:movie.poster];
+            [self updateUIImageAvatar:cacheImage withMovie:movie];
+        });
+    });
 }
 
 // This method will update image avatar
