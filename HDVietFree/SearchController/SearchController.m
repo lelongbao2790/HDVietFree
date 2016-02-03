@@ -54,7 +54,6 @@
     [DataManager shared].searchMovieDelegate = self;
     self.listResult = [[NSMutableArray alloc] init];
     [self initData];
-    self.title = kSearchMovieTitle;
     
     // Config table view recipe
     self.tbvSearch.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

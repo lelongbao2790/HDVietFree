@@ -131,25 +131,28 @@
 #pragma mark - ** List movie delegate **
 
 - (void)loadListMovieAPISuccess:(NSDictionary *)response atTag:(NSString *)tagMovie andGenre:(NSString *)genre {
-    DLOG(@"loadListMovieAPISuccess with: %@ %@", tagMovie, genre );
-    
-    // Fixed crash of next page is same of previous page
-    NSInteger nextPage = (self.listMovie.count / self.totalItemOnOnePage) + 1;
-    
-    // Get list movie from response
-    NSArray *listData = [response objectForKey:kList];
-    NSInteger totalRecord = [[[response objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
-    
-    // Get detail movie and init object movie
-    for (int i = 0; i < listData.count; i++) {
-        NSDictionary *dictObjectMovie = listData[i];
-        Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie withTag:tagMovie andGenre:genre];
-        newMovie.pageNumber = nextPage;
-        newMovie.totalRecord = totalRecord;
-        [newMovie commit];
+    if (response.count > 0) {
+        DLOG(@"loadListMovieAPISuccess with: %@ %@", tagMovie, genre );
+        
+        // Fixed crash of next page is same of previous page
+        NSInteger nextPage = (self.listMovie.count / self.totalItemOnOnePage) + 1;
+        
+        // Get list movie from response
+        NSArray *listData = [response objectForKey:kList];
+        NSInteger totalRecord = [[[response objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
+        
+        // Get detail movie and init object movie
+        for (int i = 0; i < listData.count; i++) {
+            NSDictionary *dictObjectMovie = listData[i];
+            Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie withTag:tagMovie andGenre:genre];
+            newMovie.pageNumber = nextPage;
+            newMovie.totalRecord = totalRecord;
+            [newMovie commit];
+        }
+        
+        [self refreshListMovieWithPage:nextPage];
     }
     
-    [self refreshListMovieWithPage:nextPage];
 }
 
 - (void)loadListMovieAPIFail:(NSString *)resultMessage {

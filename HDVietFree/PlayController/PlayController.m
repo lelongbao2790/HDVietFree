@@ -313,25 +313,30 @@
 #pragma mark - ** Load Link Movie Delegate **
 
 - (void)loadLinkPlayMovieAPISuccess:(NSDictionary *)response {
-    
-    NSString *linkPlay = [response objectForKey:kLinkPlay];
-    NSString *linkSub = [[[response objectForKey:kSubtitleExt]
-                                    objectForKey:kSubtitleVIE]
-                                    objectForKey:kSubtitleSource];
-    
-    if (linkSub) {
-        self.movie.urlLinkSubtitleMovie = linkSub;
-    }
-    
-    if (![linkPlay isEqualToString:kEmptyString]) {
-        if ([linkPlay containsString:kResolution320480]) {
-            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution320480 withString:self.convertResolution];
-        } else if ([linkPlay containsString:kResolution3201024]) {
-            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
+    if (![response isKindOfClass:[NSNull class]]) {
+        NSString *linkPlay = [response objectForKey:kLinkPlay];
+        NSString *linkSub = [[[response objectForKey:kSubtitleExt]
+                              objectForKey:kSubtitleVIE]
+                             objectForKey:kSubtitleSource];
+        
+        if (linkSub) {
+            self.movie.urlLinkSubtitleMovie = linkSub;
         }
-        self.movie.urlLinkPlayMovie = linkPlay;
-        [self playMediaControllerWithUrl];
+        
+        if (![linkPlay isEqualToString:kEmptyString]) {
+            if ([linkPlay containsString:kResolution320480]) {
+                linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution320480 withString:self.convertResolution];
+            } else if ([linkPlay containsString:kResolution3201024]) {
+                linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
+            }
+            self.movie.urlLinkPlayMovie = linkPlay;
+            [self playMediaControllerWithUrl];
+        }
     }
+    else {
+         [Utilities showiToastMessage:kMessageErrorAboutMovie];
+    }
+    
     
     ProgressBarDismissLoading(kEmptyString);
 }
@@ -361,7 +366,7 @@
 }
 
 - (void)fixAutolayoutFor47 {
-    self.convertResolution = kResolution375667;
+    self.convertResolution = kResolution7501334;
 }
 
 - (void)fixAutolayoutFor55 {

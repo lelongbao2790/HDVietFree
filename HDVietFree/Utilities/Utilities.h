@@ -75,4 +75,6 @@
 // get
 - (nonnull UIImage*)getCachedImageForKey:(nonnull NSString*)key;
 
++ (NSDictionary *)convertNullDictionary:(NSDictionary *)dict;
+
 @end

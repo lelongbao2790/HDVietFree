@@ -77,7 +77,14 @@
         if ([[responseObject objectForKey:kE] integerValue] == kRequestSuccess) {
             
             // Success
-            [loginDelegate loginAPISuccess:[responseObject objectForKey:kR]];
+            
+            if ([Utilities convertNullDictionary:[responseObject objectForKey:kR]]) {
+                [loginDelegate loginAPISuccess:[responseObject objectForKey:kR]];
+            } else {
+                [loginDelegate loginAPIFail:kErrorDict];
+            }
+            
+            
         } else {
             
             // Fail
@@ -100,7 +107,11 @@
         if ([[responseObject objectForKey:kError] integerValue] == kRequestSuccess) {
             
             // Success
-            [listMovieDelegate loadListMovieAPISuccess:[responseObject objectForKey:kData] atTag:tagMovie andGenre:genre];
+            if ([Utilities convertNullDictionary:[responseObject objectForKey:kData]]) {
+                [listMovieDelegate loadListMovieAPISuccess:[responseObject objectForKey:kData] atTag:tagMovie andGenre:genre];
+            } else {
+                [listMovieDelegate loadListMovieAPIFail:kErrorDict];
+            }
         } else {
             
             // Fail
@@ -124,7 +135,12 @@
         if ([[responseObject objectForKey:kE] integerValue] == kRequestSuccess) {
             
             // Success
-            [detailInfoMovieDelegate  loadDetailInformationMovieAPISuccess:[responseObject objectForKey:kR]];
+            if ([Utilities convertNullDictionary:[responseObject objectForKey:kR]]) {
+                [detailInfoMovieDelegate  loadDetailInformationMovieAPISuccess:[responseObject objectForKey:kR]];
+            } else {
+                [detailInfoMovieDelegate loadDetailInformationMovieAPIFail:kErrorDict];
+            }
+            
         } else {
             
             // Fail
@@ -148,7 +164,13 @@
         if ([[responseObject objectForKey:kE] integerValue] == kRequestSuccess) {
             
             // Success
-            [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPISuccess:[responseObject objectForKey:kR]];
+            if ([Utilities convertNullDictionary:[responseObject objectForKey:kR]]) {
+                [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPISuccess:[responseObject objectForKey:kR]];
+            } else {
+                // Fail
+                [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPIFail:kErrorDict];
+            }
+            
         } else {
             
             // Fail
@@ -169,9 +191,15 @@
     [self.manager.requestSerializer setValue:[User share].accessToken forHTTPHeaderField:kHTTPHeaderAccessToken];
     [self.manager GET:[strUrl encodeNSUTF8:strUrl] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([[responseObject objectForKey:kError] integerValue] == kRequestSuccess) {
-            
             // Success
-            [searchMovieDelegate searchMovieAPISuccess:[[responseObject objectForKey:kData] objectForKey:kResponse]];
+            if ([Utilities convertNullDictionary:[[responseObject objectForKey:kData] objectForKey:kResponse]]) {
+                // Success
+                [searchMovieDelegate searchMovieAPISuccess:[[responseObject objectForKey:kData] objectForKey:kResponse]];
+            } else {
+                // Fail
+                [searchMovieDelegate searchMovieAPIFail:kErrorDict];
+            }
+            
         } else {
             
             // Fail

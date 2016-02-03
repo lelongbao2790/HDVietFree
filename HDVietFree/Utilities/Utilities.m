@@ -196,4 +196,12 @@
     return [self.imageCache objectForKey:key];
 }
 
++ (NSDictionary *)convertNullDictionary:(NSDictionary *)dict {
+    if ([dict isKindOfClass:[NSNull class]]) {
+        return nil;
+    }else {
+        return dict;
+    }
+}
+
 @end

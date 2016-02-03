@@ -54,5 +54,8 @@
 #define kResolution12422208 @"1242_2208"
 #define kResolution15362048 @"1536_2048"
 #define kResolution17921008 @"1792_1008"
+#define kSecretKey @"anDroidhdv1et20130924"
+#define kMessageErrorAboutMovie @"Hiện chưa có thông tin film này."
+#define kErrorDict @"Có lỗi xảy ra"
 
 @end

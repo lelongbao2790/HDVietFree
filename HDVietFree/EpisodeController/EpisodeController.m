@@ -77,19 +77,24 @@
 #pragma mark - ** Load Link Movie Delegate **
 
 - (void)loadLinkPlayMovieAPISuccess:(NSDictionary *)response {
-    
-    NSString *linkPlay = [response objectForKey:kLinkPlay];
-    NSString *linkSub = [[[response objectForKey:kSubtitleExt]
-                          objectForKey:kSubtitleVIE]
-                         objectForKey:kSubtitleSource];
-    
-    if (![linkPlay isEqualToString:kEmptyString]) {
-        if ([linkPlay containsString:kResolution320480]) {
-            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution320480 withString:self.convertResolution];
-        } else if ([linkPlay containsString:kResolution3201024]) {
-            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
+    if (![response isKindOfClass:[NSNull class]]) {
+        NSString *linkPlay = [response objectForKey:kLinkPlay];
+        NSString *linkSub = [[[response objectForKey:kSubtitleExt]
+                              objectForKey:kSubtitleVIE]
+                             objectForKey:kSubtitleSource];
+        
+        if (![linkPlay isEqualToString:kEmptyString]) {
+            if ([linkPlay containsString:kResolution320480]) {
+                linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution320480 withString:self.convertResolution];
+            } else if ([linkPlay containsString:kResolution3201024]) {
+                linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
+            }
+            [self playMediaControllerWithUrl:linkPlay andSub:linkSub];
         }
-        [self playMediaControllerWithUrl:linkPlay andSub:linkSub];
+
+    }
+    else {
+        [Utilities showiToastMessage:kMessageErrorAboutMovie];
     }
     
     ProgressBarDismissLoading(kEmptyString);
