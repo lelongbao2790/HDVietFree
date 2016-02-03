@@ -22,6 +22,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) JASidePanelController *mainPanel;
 @property (strong, nonatomic) MainController *mainController;
-
+@property (strong, nonatomic) LoginController *loginController;
 @end
 

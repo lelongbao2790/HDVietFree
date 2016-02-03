@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, PlayMovieTagTableView) {
     kSectionCategoryFilm = 1,
     kNumberOfSectionPlayMovie = 2,
     kSpaceWidthTextField = 80,
+    kSpaceTrailingWidthTextField = 8,
     kHeightTextField = 32,
     kHeightOfRightButton = 36,
     kCornerRadius = 5,
@@ -42,6 +43,7 @@ typedef NS_ENUM(NSInteger, ControllerTag) {
     kTagMainController = 1,
     kTagPlayController = 2,
     kTimeOutIntervalSession = 60,
+    kTopConstantTableView = 540,
 };
 
 #endif /* Enumeration_h */

@@ -113,6 +113,8 @@
     newMovie.knownAs = [json objectForKey:kDocKnownAs];
     newMovie.poster = [json objectForKey:kDocPoster];
     newMovie.plotVI = [json objectForKey:kDocMoviePlotVi];
+    newMovie.sequence = [[json objectForKey:kDocMoreSequene] integerValue];
+    newMovie.episode = [[json objectForKey:kDocEpisode] integerValue];
     return newMovie;
 }
 

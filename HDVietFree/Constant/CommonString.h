@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SearchController.h"
 
 @interface CommonString : NSObject
 #define kLoadImageInBackground "backgroundDownloadImage"

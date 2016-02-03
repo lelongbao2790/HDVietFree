@@ -49,7 +49,32 @@
 - (void)configView {
     self.user = [User share];
     [DataManager shared].loginDelegate = self;
+    [AppDelegate share].loginController = self;
+    [self handleLogin];
 }
+
+- (void)handleLogin {
+    if ([self checkAccessTokenSave]) {
+        [Utilities setMainPageSlide];
+    }
+}
+
+- (BOOL)checkAccessTokenSave {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessToken];
+    
+    if (accessToken) {
+        [User share].accessToken = accessToken;
+        [User share].userName = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
+        self.txtUsername.text = [User share].userName;
+        self.txtPassword.text = [[NSUserDefaults standardUserDefaults] objectForKey:kPassword];
+        return YES;
+    } else {
+        return NO;
+    }
+    
+    //    return NO;
+}
+
 
 //*****************************************************************************
 #pragma mark -
@@ -88,6 +113,7 @@
     // Save access token
     [[NSUserDefaults standardUserDefaults] setObject:self.user.accessToken forKey:kAccessToken];
     [[NSUserDefaults standardUserDefaults] setObject:self.user.userName forKey:kUserName];
+    [[NSUserDefaults standardUserDefaults] setObject:self.txtPassword.text forKey:kPassword];
     
     [Utilities setMainPageSlide];
     
@@ -96,9 +122,6 @@
 - (void)loginAPIFail:(NSString *)resultMessage {
      ProgressBarDismissLoading(kEmptyString);
     [Utilities showiToastMessage:resultMessage];
-    
-    // Remove access token save
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
 }
 
 @end

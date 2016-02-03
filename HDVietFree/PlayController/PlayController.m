@@ -7,18 +7,15 @@
 //
 
 #import "PlayController.h"
-#define kResolution320480 @"320_480"
-#define kResolution3201024 @"320_1024"
-#define kResolution320568 @"320_568"
-#define kResolution6401136 @"640_1136"
 
 @import MediaPlayer;
 
-@interface PlayController ()<MPMediaPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, DetailInformationMovieDelegate, LoadLinkPlayMovieDelegate>
+@interface PlayController ()<MPMediaPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, DetailInformationMovieDelegate, LoadLinkPlayMovieDelegate, FixAutolayoutDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imagePoster;
 @property (weak, nonatomic) IBOutlet UITableView *tbvInforMovie;
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayMovie;
-
+@property (strong, nonatomic) NSString *convertResolution;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topLayoutTableView;
 @end
 
 @implementation PlayController
@@ -87,7 +84,15 @@
     }];
     
     // Show video
-    [self.navigationController presentMoviePlayerViewControllerAnimated:player];
+    // Force landscape show video
+    CGAffineTransform landscapeTransform;
+    landscapeTransform = CGAffineTransformMakeRotation(90*M_PI/180.0f);
+    landscapeTransform = CGAffineTransformTranslate(landscapeTransform, 80, 80);
+    [player.moviePlayer.view setTransform: landscapeTransform];
+    
+    // Present video
+    [self presentMoviePlayerViewControllerAnimated:player];
+    [player.moviePlayer setFullscreen:YES animated:YES];
     [player.moviePlayer play];
 }
 
@@ -111,6 +116,8 @@
     
     [DataManager shared].detailInfoMovieDelegate = self;
     [DataManager shared].loadLinkPlayMovieDelegate = self;
+    [Utilities fixAutolayoutWithDelegate:self];
+    [self initEpisodeBarButton];
 }
 
 - (void)loadImage {
@@ -161,6 +168,23 @@
 - (void)reloadView {
     [self loadImage];
     [self.tbvInforMovie reloadData];
+}
+
+- (void)initEpisodeBarButton {
+    if (self.movie.episode > 0) {
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Episode" style:UIBarButtonItemStylePlain target:self action:@selector(handleEpisode)];
+        self.navigationItem.rightBarButtonItem = barButton;
+    }
+}
+
+- (void)handleEpisode {
+    if (self.movie.episode > 0) {
+       
+        EpisodeController *episodeController = InitStoryBoardWithIdentifier(kEpisodeController);
+        episodeController.movie = self.movie;
+        [AppDelegate share].mainPanel.rightPanel = episodeController;
+        [[AppDelegate share].mainPanel showRightPanelAnimated:YES];
+    }
 }
 
 //*****************************************************************************
@@ -295,17 +319,15 @@
                                     objectForKey:kSubtitleVIE]
                                     objectForKey:kSubtitleSource];
     
-    NSString *convertResolution = [NSString stringWithFormat:@"%d_%d",(int)[Utilities widthOfScreen],(int)[Utilities heightOfScreen]];
-    
     if (linkSub) {
         self.movie.urlLinkSubtitleMovie = linkSub;
     }
     
     if (![linkPlay isEqualToString:kEmptyString]) {
         if ([linkPlay containsString:kResolution320480]) {
-            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution320480 withString:convertResolution];
+            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution320480 withString:self.convertResolution];
         } else if ([linkPlay containsString:kResolution3201024]) {
-            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:convertResolution];
+            linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
         }
         self.movie.urlLinkPlayMovie = linkPlay;
         [self playMediaControllerWithUrl];
@@ -317,8 +339,6 @@
 - (void)loadLinkPlayMovieAPIFail:(NSString *)resultMessage {
     ProgressBarDismissLoading(kEmptyString);
     [Utilities showiToastMessage:resultMessage];
-    // Remove access token save
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
 }
 
 //*****************************************************************************
@@ -326,7 +346,30 @@
 #pragma mark - ** IBAction **
 - (IBAction)btnPlayMovie:(id)sender {
     ProgressBarShowLoading(kLoading);
-    [[ManageAPI share] loadLinkToPlayMovie:self.movie];
+    [[ManageAPI share] loadLinkToPlayMovie:self.movie andEpisode:0];
 }
 
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** FixAutoLayoutDelegate **
+- (void)fixAutolayoutFor35 {
+    self.convertResolution = kResolution320480;
+}
+
+- (void)fixAutolayoutFor40 {
+    self.convertResolution = kResolution320568;
+}
+
+- (void)fixAutolayoutFor47 {
+    self.convertResolution = kResolution375667;
+}
+
+- (void)fixAutolayoutFor55 {
+    self.convertResolution = kResolution12422208;
+}
+
+-(void)fixAutolayoutForIpad {
+    self.convertResolution = kResolution15362048;
+    self.topLayoutTableView.constant = kTopConstantTableView;
+}
 @end

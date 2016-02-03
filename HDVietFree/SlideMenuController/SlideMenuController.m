@@ -85,11 +85,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    // Assign tag menu
-    [MovieSearch share].genreMovie = [self.dictMenu.allKeys[indexPath.row] integerValue];
-    [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
-    [[AppDelegate share].mainController configView];
-    
+    NSString *stringValue = self.dictMenu.allValues[indexPath.row];
+    if ([stringValue isEqualToString:@"Log out"]) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[AppDelegate share].loginController];
+        [AppDelegate share].window.rootViewController = navController;
+    } else {
+        // Assign tag menu
+        [MovieSearch share].genreMovie = [self.dictMenu.allKeys[indexPath.row] integerValue];
+        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+        [[AppDelegate share].mainController configView];
+    }
 }
 
 

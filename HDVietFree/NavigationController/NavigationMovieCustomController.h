@@ -10,7 +10,7 @@
 
 @interface NavigationMovieCustomController : UINavigationController
 @property (nonatomic, strong) UITextField *txtSearch;
-
+@property (strong, nonatomic) SearchController *searchController;
 /*
  * Init text field
  */

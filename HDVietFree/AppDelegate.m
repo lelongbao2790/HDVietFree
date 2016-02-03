@@ -77,27 +77,10 @@
 }
 
 - (void)handleLogin {
-    if ([self checkAccessTokenSave]) {
-        [Utilities setMainPageSlide];
-    } else {
-        LoginController *loginController = InitStoryBoardWithIdentifier(kLoginController);
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
-        self.window.rootViewController = navController;
-    }
-}
-
-- (BOOL)checkAccessTokenSave {
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessToken];
-
-    if (accessToken) {
-        [User share].accessToken = accessToken;
-        [User share].userName = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
-        return YES;
-    } else {
-        return NO;
-    }
     
-//    return NO;
-}
+    LoginController *loginController = InitStoryBoardWithIdentifier(kLoginController);
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+    self.window.rootViewController = navController;
 
+}
 @end

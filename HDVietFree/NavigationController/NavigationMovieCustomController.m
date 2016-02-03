@@ -9,10 +9,11 @@
 #import "NavigationMovieCustomController.h"
 
 @interface NavigationMovieCustomController ()<UITextFieldDelegate>
-@property (strong, nonatomic) SearchController *searchController;
+
 @end
 
 @implementation NavigationMovieCustomController
+@synthesize searchController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,10 +41,8 @@
  */
 - (void)configView {
     [self initTextField];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(textDidChange:)
-                                                 name:UITextFieldTextDidChangeNotification object:self.txtSearch];
-    self.searchController = nil;
+    
+    searchController = nil;
 }
 
 /*
@@ -52,7 +51,7 @@
 - (void)initTextField {
     NSInteger widthTextField = [Utilities widthOfScreen] - kSpaceWidthTextField;
     CGRect frameTextField = CGRectMake([Utilities widthOfScreen] - widthTextField - kCornerRadius, 0,
-                                       widthTextField, kHeightTextField);
+                                       widthTextField - kSpaceTrailingWidthTextField, kHeightTextField);
     self.txtSearch = [[UITextField alloc]initWithFrame:frameTextField];
     self.txtSearch.backgroundColor = [UIColor whiteColor];
     [self.txtSearch setAutocorrectionType:UITextAutocorrectionTypeNo];
@@ -69,10 +68,14 @@
     self.txtSearch.rightView = deleteButton;
     
     [self.navigationBar addSubview:self.txtSearch];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textDidChange:)
+                                                 name:UITextFieldTextDidChangeNotification object:self.txtSearch];
 }
 
 - (void)deleteAction {
-    if (self.searchController) {
+    if (searchController) {
         [self.txtSearch resignFirstResponder];
     }
     
@@ -83,10 +86,11 @@
 #pragma mark - ** Text field delegate **
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if (!self.searchController) {
-        self.searchController = InitStoryBoardWithIdentifier(kSearchController);
-        [self pushViewController:self.searchController animated:YES];
+    if (![[self getChildRootViewController] isKindOfClass:[SearchController class]]) {
+        searchController = InitStoryBoardWithIdentifier(kSearchController);
+        [self pushViewController:searchController animated:YES];
     }
+
     return YES;
 }
 
@@ -102,6 +106,20 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     return [textField resignFirstResponder];
+}
+
+/*
+ * Get child root view controller
+ */
+- (UIViewController*) getChildRootViewController{
+    NSArray *s_viewController = @[kSearchController];
+    for (NSString *stringViewController in s_viewController) {
+        if ([self.topViewController isKindOfClass:NSClassFromString(stringViewController)]) {
+            return self.topViewController;
+        }
+    }
+    
+    return nil;
 }
 
 @end

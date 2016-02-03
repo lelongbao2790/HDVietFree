@@ -63,6 +63,7 @@
 		D365796C1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.m in Sources */ = {isa = PBXBuildFile; fileRef = D365796B1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.m */; };
 		D36579701C6088E800F51DA3 /* NavigationMovieCustomController.m in Sources */ = {isa = PBXBuildFile; fileRef = D365796F1C6088E800F51DA3 /* NavigationMovieCustomController.m */; };
 		D36579721C608B5500F51DA3 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = D36579711C608B5500F51DA3 /* delete.png */; };
+		D36579761C61E39500F51DA3 /* EpisodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579751C61E39500F51DA3 /* EpisodeController.m */; };
 		D38CBE771C51D7AC00084126 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE761C51D7AC00084126 /* PlayController.m */; };
 		D38CBE791C51D83A00084126 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38CBE781C51D83A00084126 /* MediaPlayer.framework */; };
 		D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE7E1C51DFD400084126 /* NSString+MD5.m */; };
@@ -211,6 +212,8 @@
 		D365796E1C6088E800F51DA3 /* NavigationMovieCustomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NavigationMovieCustomController.h; path = NavigationController/NavigationMovieCustomController.h; sourceTree = "<group>"; };
 		D365796F1C6088E800F51DA3 /* NavigationMovieCustomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationMovieCustomController.m; path = NavigationController/NavigationMovieCustomController.m; sourceTree = "<group>"; };
 		D36579711C608B5500F51DA3 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		D36579741C61E39500F51DA3 /* EpisodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EpisodeController.h; path = EpisodeController/EpisodeController.h; sourceTree = "<group>"; };
+		D36579751C61E39500F51DA3 /* EpisodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EpisodeController.m; path = EpisodeController/EpisodeController.m; sourceTree = "<group>"; };
 		D38CBE751C51D7AC00084126 /* PlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayController.h; path = PlayController/PlayController.h; sourceTree = "<group>"; };
 		D38CBE761C51D7AC00084126 /* PlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayController.m; path = PlayController/PlayController.m; sourceTree = "<group>"; };
 		D38CBE781C51D83A00084126 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -521,6 +524,15 @@
 			name = NavigationController;
 			sourceTree = "<group>";
 		};
+		D36579731C61E36100F51DA3 /* EpisodeController */ = {
+			isa = PBXGroup;
+			children = (
+				D36579741C61E39500F51DA3 /* EpisodeController.h */,
+				D36579751C61E39500F51DA3 /* EpisodeController.m */,
+			);
+			name = EpisodeController;
+			sourceTree = "<group>";
+		};
 		D38CBE741C51D77D00084126 /* PlayController */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,6 +666,7 @@
 		D3EA87E21C50C74900D593A1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D36579731C61E36100F51DA3 /* EpisodeController */,
 				D365796D1C6088A900F51DA3 /* NavigationController */,
 				D36579621C5F408300F51DA3 /* SearchController */,
 				D36579151C55D10100F51DA3 /* FilmController */,
@@ -857,6 +870,7 @@
 				D32916EA1C55BA0700CE46B6 /* User.m in Sources */,
 				D32916991C55B6CA00CE46B6 /* UIColor+HexColor.m in Sources */,
 				D365791B1C55D1B300F51DA3 /* SlideMenuController.m in Sources */,
+				D36579761C61E39500F51DA3 /* EpisodeController.m in Sources */,
 				D3EA87A41C50BF6200D593A1 /* main.m in Sources */,
 				D32916A11C55B75D00CE46B6 /* SNLoading.m in Sources */,
 				D32916DC1C55B7DF00CE46B6 /* UIAlertView+AFNetworking.m in Sources */,

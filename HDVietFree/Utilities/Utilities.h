@@ -14,6 +14,11 @@
 + (Utilities *)share;
 
 /**
+ * fix auto layout for iPhone 5/5S, iPhone 6/6S, iPhone 6/6S Plus
+ */
++ (void) fixAutolayoutWithDelegate:(nonnull id /*<UIFixAutolayoutDelegate>*/)delegate;
+
+/**
  * Show iToast message for informing.
  * @param message
  */

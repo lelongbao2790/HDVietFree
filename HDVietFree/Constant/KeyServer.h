@@ -12,6 +12,7 @@
 // User
 #define kUserId @"UserID"
 #define kUserName @"UserName"
+#define kPassword @"Password"
 #define kEmail @"Email"
 #define kDisplayName @"DisplayName"
 #define kAccessToken @"AccessTokenKey"
@@ -61,6 +62,9 @@
 #define kDocCategory @"category"
 #define kDocReleaseDate @"mo_releamo_date"
 #define kDocMovieId @"id"
+#define kDocMoreSequene @"mo_sequence"
+#define kDocEpisode @"mo_episode"
+#define kDocSeason @"mo_season"
 #define kDocs @"docs"
 
 // Response server

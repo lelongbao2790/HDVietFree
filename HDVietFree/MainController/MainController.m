@@ -201,7 +201,6 @@
     ProgressBarDismissLoading(kEmptyString);
     [Utilities showiToastMessage:resultMessage];
     // Remove access token save
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
     
 }
 

@@ -45,4 +45,9 @@ extern NSString *const kDetailMovieCell;
  */
 extern NSString *const kSearchController;
 
+/*
+ * EpisodeController
+ */
+extern NSString *const kEpisodeController;
+
 @end

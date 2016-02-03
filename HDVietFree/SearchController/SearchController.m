@@ -36,6 +36,8 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    NavigationMovieCustomController *navCustom = (NavigationMovieCustomController *)self.navigationController;
+    navCustom.searchController = nil;
     [self dismissView];
     
 }

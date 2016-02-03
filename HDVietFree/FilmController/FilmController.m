@@ -22,7 +22,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.title = kDicMainMenu.allValues[self.view.tag];
     [DataManager shared].listMovieDelegate = self;
     [self.collectionFilmController registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     [self.collectionFilmController reloadData];

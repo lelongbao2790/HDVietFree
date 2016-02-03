@@ -22,7 +22,7 @@
 #define kUrlCategory @"category/menu?mini=1&sequence=0"
 #define kUrlDetailMovie @"movie?movieid=%@"
 #define kUrlListMovieByGenre @"api/v3/movie/filter?genre=%d&tag=%@&page=%d&limit=0"
-#define kUrlPlayMovie @"movie/play?movieid=%@&accesstokenkey=%@&ep=0"
+#define kUrlPlayMovie @"movie/play?movieid=%@&accesstokenkey=%@&ep=%d"
 #define kUrlSearchMovieWithKeyword @"api/v3/search?keyword=%@&page=1&limit=100"
 
 #endif /* BaseUrl_h */

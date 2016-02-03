@@ -45,4 +45,9 @@ NSString *const kDetailMovieCell = @"DetailMovieCell";
  */
 NSString *const kSearchController = @"SearchController";
 
+/*
+ * EpisodeController
+ */
+NSString *const kEpisodeController = @"EpisodeController";
+
 @end

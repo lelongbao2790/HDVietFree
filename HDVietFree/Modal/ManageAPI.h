@@ -33,7 +33,7 @@
 /*
  * Load link play movie
  */
-- (void)loadLinkToPlayMovie:(Movie*)movie;
+- (void)loadLinkToPlayMovie:(Movie*)movie andEpisode:(NSInteger)episode;
 
 /*
  * Search movie
