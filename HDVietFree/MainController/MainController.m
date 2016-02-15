@@ -116,6 +116,7 @@
     FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
     filmController.view.tag = section;
     filmController.listMovie = [[NSMutableArray alloc] initWithArray:listDBInLocal];
+    filmController.totalItemOnOnePage = listDBInLocal.count;
     [self.navigationController pushViewController:filmController animated:YES];
 }
 

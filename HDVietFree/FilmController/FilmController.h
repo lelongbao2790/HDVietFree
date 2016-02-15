@@ -14,5 +14,5 @@
 #pragma mark -
 #pragma mark - ** Property **
 @property (strong, nonatomic) NSMutableArray *listMovie;
-
+@property (assign, nonatomic) NSInteger totalItemOnOnePage;
 @end

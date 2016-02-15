@@ -9,8 +9,6 @@
 #import "FilmController.h"
 
 @interface FilmController ()<ListMovieByGenreDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
-
-@property (assign, nonatomic) NSInteger totalItemOnOnePage;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionFilmController;
 
 @end
@@ -27,7 +25,6 @@
     [self.collectionFilmController reloadData];
     self.collectionFilmController.delegate = self;
     self.collectionFilmController.dataSource = self;
-    self.totalItemOnOnePage = self.listMovie.count;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,12 +52,6 @@
     
     // Load more row when scroll on last row
     DLOG(@"Row : %d", (int)indexPath.row);
-    
-//    NSInteger numberOfItemPerRow = (NSInteger)([Utilities widthOfScreen] /
-//                                               [self collectionView:collectionView
-//                                                             layout:collectionView.collectionViewLayout
-//                                             sizeForItemAtIndexPath:indexPath].width);
-//    NSInteger lastRow = (self.listMovie.count / numberOfItemPerRow);
     
     // Check last item
     if(indexPath.item == (self.listMovie.count - 1)) {
@@ -103,12 +94,12 @@
     Movie *randomMovie = self.listMovie[0];
     if (self.listMovie.count < randomMovie.totalRecord + 1) {
         NSInteger nextPage = (self.listMovie.count / self.totalItemOnOnePage) + 1;
+        DLOG(@"Get list movie of next page :%d",(int)nextPage);
         
         if ([[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie)
                                                    andTag:kDicMainMenu.allKeys[self.view.tag]
                                                   andPage:nextPage]) {
             // Exist
-            DLOG(@"Get list movie of next page from local:%d",(int)nextPage);
             [self refreshListMovieWithPage:nextPage];
             
         } else {
@@ -134,23 +125,21 @@
     if (response.count > 0) {
         DLOG(@"loadListMovieAPISuccess with: %@ %@", tagMovie, genre );
         
-        // Fixed crash of next page is same of previous page
-        NSInteger nextPage = (self.listMovie.count / self.totalItemOnOnePage) + 1;
-        
         // Get list movie from response
         NSArray *listData = [response objectForKey:kList];
         NSInteger totalRecord = [[[response objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
+        NSInteger pageResponse = [[[response objectForKey:kMetadata] objectForKey:kPage] integerValue];
         
         // Get detail movie and init object movie
         for (int i = 0; i < listData.count; i++) {
             NSDictionary *dictObjectMovie = listData[i];
             Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie withTag:tagMovie andGenre:genre];
-            newMovie.pageNumber = nextPage;
+            newMovie.pageNumber = pageResponse;
             newMovie.totalRecord = totalRecord;
             [newMovie commit];
         }
         
-        [self refreshListMovieWithPage:nextPage];
+        [self refreshListMovieWithPage:pageResponse];
     }
     
 }
