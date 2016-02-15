@@ -74,7 +74,7 @@
  * Save image
  */
 + (void)saveImage:(nonnull UIImage*)image withName:(nonnull NSString *)nameImage {
-    if (image != nil)
+    if (image !=nil && nameImage!=nil)
     {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                              NSUserDomainMask, YES);
@@ -104,12 +104,15 @@
  * Load image
  */
 + (nonnull UIImage*)loadImageFromName:(nonnull NSString *)nameImage {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                         NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString* path = [documentsDirectory stringByAppendingPathComponent:
-                      [NSString stringWithString: nameImage] ];
-    UIImage* image = [UIImage imageWithContentsOfFile:path];
+    UIImage* image = nil;
+    if (nameImage) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                             NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString* path = [documentsDirectory stringByAppendingPathComponent:
+                          [NSString stringWithString: nameImage] ];
+        image = [UIImage imageWithContentsOfFile:path];
+    }
     return image;
 }
 
@@ -215,31 +218,36 @@
 + (void)playMediaLink:(nonnull NSString *)linkPlay
                andSub:(nonnull NSString *)linkSub
         andController:(nonnull UIViewController *)controller {
-    NSURL *url = [[NSURL alloc] initWithString:linkPlay];
-    MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlaybackDidFinish:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:nil];
-    
-    player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
-    player.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
-    player.moviePlayer.view.transform = CGAffineTransformConcat(player.moviePlayer.view.transform, CGAffineTransformMakeRotation(M_PI_2));
-    [player.moviePlayer.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-    NSString *subString = [Utilities getDataSubFromUrl:linkSub];
-    [player.moviePlayer openWithSRTString:subString completion:^(BOOL finished) {
-        // Activate subtitles
-        [player.moviePlayer showSubtitles];
+    if (linkPlay && linkSub) {
+        NSURL *url = [[NSURL alloc] initWithString:linkPlay];
+        MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(moviePlaybackDidFinish:)
+                                                     name:MPMoviePlayerPlaybackDidFinishNotification
+                                                   object:nil];
         
-    } failure:^(NSError *error) {
-        NSLog(@"Error: %@", error.description);
+        player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+        player.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+        player.moviePlayer.view.transform = CGAffineTransformConcat(player.moviePlayer.view.transform, CGAffineTransformMakeRotation(M_PI_2));
+        [player.moviePlayer.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
+        NSString *subString = [Utilities getDataSubFromUrl:linkSub];
+        [player.moviePlayer openWithSRTString:subString completion:^(BOOL finished) {
+            // Activate subtitles
+            [player.moviePlayer showSubtitles];
+            
+        } failure:^(NSError *error) {
+            NSLog(@"Error: %@", error.description);
+            
+            [Utilities showiToastMessage:@"Phim này hiện chưa có sub việt"];
+        }];
         
-        [Utilities showiToastMessage:@"Phim này hiện chưa có sub việt"];
-    }];
-    
-    // Present video
-    [controller presentMoviePlayerViewControllerAnimated:player];
-    [player.moviePlayer play];
+        // Present video
+        [controller presentMoviePlayerViewControllerAnimated:player];
+        [player.moviePlayer play];
+    } else {
+        [Utilities showiToastMessage:@"Phim này hiện chưa có link"];
+    }
+   
 }
 
 + (void)moviePlaybackDidFinish:(NSNotification*)aNotification{
@@ -250,6 +258,15 @@
             [getChildController dismissMoviePlayerViewControllerAnimated];
         }
     }
+}
+
++ (NSArray *)sortArrayFromDict:(NSDictionary *)dict {
+    NSArray *reverseOrder=[[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
+//    NSMutableDictionary *finalDict = [[NSMutableDictionary alloc] init];
+//    for (int i = 0; i<reverseOrder.count; i++) {
+//        [finalDict setObject:[dict objectForKey:reverseOrder[i]] forKey: reverseOrder[i]];
+//    }
+    return reverseOrder;
 }
 
 @end

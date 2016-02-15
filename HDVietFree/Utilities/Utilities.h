@@ -86,4 +86,6 @@
 
 + (void)moviePlaybackDidFinish:(NSNotification*)aNotification;
 
++ (NSArray *)sortArrayFromDict:(NSDictionary *)dict;
+
 @end

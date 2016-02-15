@@ -36,6 +36,43 @@
 @"Âm nhạc", @"am-nhac", \
 @"Thể thao", @"the-thao", \
 @"Tâm lý", @"tam-ly", \
+@"Âu mỹ", @"au-my", \
+@"Gia đình", @"gia-dinh", \
+@"Châu á", @"chau-a", \
+@"Hồng kông", @"hong-kong", \
+@"Hàn quốc", @"han-quoc", \
+@"Lịch sử", @"lich-su", \
+@"Tài liệu", @"tai-lieu", \
+@"Phim chiếu rạp", @"chieu-rap", \
+@"Sắp chiếu", @"sap-chieu", \
+@"Thần thoại", @"than-thoai", nil]
+
+// Dict for main menu
+#define kDicMainMenuPhimBo [[NSDictionary alloc] initWithObjectsAndKeys: \
+@"Mới cập nhật", @"moi-cap-nhat", \
+@"Hot trong tháng", @"hot-trong-thang", \
+@"HDViệt đề cử", @"hdviet-de-cu", \
+@"Hành động", @"hanh-dong", \
+@"Kinh dị", @"kinh-di", \
+@"Hài", @"hai", \
+@"Chiến tranh", @"chien-tranh", \
+@"Khoa học viễn tưởng", @"khoa-hoc-vien-tuong", \
+@"Hình sự tội phạm", @"hinh-su-toi-pham", \
+@"Võ thuật", @"vo-thuat", \
+@"Tình cảm", @"tinh-cam", \
+@"Hoạt hình", @"hoat-hinh", \
+@"Anime", @"anime", \
+@"Hoạt hình", @"hoat-hinh", \
+@"Âm nhạc", @"am-nhac", \
+@"Thể thao", @"the-thao", \
+@"Tâm lý", @"tam-ly", \
+@"Âu mỹ", @"au-my", \
+@"Gia đình", @"gia-dinh", \
+@"Châu á", @"chau-a", \
+@"Hồng kông", @"hong-kong", \
+@"Hàn quốc", @"han-quoc", \
+@"Lịch sử", @"lich-su", \
+@"Tài liệu", @"tai-lieu", \
 @"Thần thoại", @"than-thoai", nil]
 
 // Fixed auto layout for multiple device

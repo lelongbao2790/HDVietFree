@@ -81,4 +81,9 @@ extern NSString *const kSearchMovieTitle;
  */
 extern NSString *const kSearchMovie;
 
+/**
+ * Relative movie
+ */
+extern NSString *const kUpdateMovieSuccess;
+
 @end

@@ -80,4 +80,9 @@ NSString *const kSearchMovieTitle = @"TÌM KIẾM";
  */
 NSString *const kSearchMovie = @"Tìm kiếm phim";
 
+/**
+ * Relative movie
+ */
+NSString *const kUpdateMovieSuccess = @"Cập nhập dữ liệu thành công";
+
 @end

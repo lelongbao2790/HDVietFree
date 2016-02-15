@@ -49,7 +49,12 @@
 - (void)configView {
     // Init
     [AppDelegate share].mainController = self;
-    self.dictMenu = kDicMainMenu;
+    if ([MovieSearch share].genreMovie == kGenrePhimLe) {
+        self.dictMenu = kDicMainMenu;
+    } else {
+        self.dictMenu = kDicMainMenuPhimBo;
+    }
+    
     [DataManager shared].listMovieDelegate = self;
     self.lastListMovie = 0;
 //    [self initSearchBarButton];
@@ -85,12 +90,12 @@
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
+    NSArray *arrayKey = [Utilities sortArrayFromDict:self.dictMenu];
     UILabel *headerLabel = [[UILabel alloc]init];
     headerLabel.tag = section;
     headerLabel.userInteractionEnabled = YES;
     headerLabel.backgroundColor = [UIColor colorWithHexString:kBackgroundColorOfSection];
-    headerLabel.text = self.dictMenu.allValues[section];
+    headerLabel.text = [self.dictMenu objectForKey:arrayKey[section]];
     headerLabel.frame = CGRectMake(0, 0, tableView.tableHeaderView.frame.size.width, tableView.tableHeaderView.frame.size.height);
     headerLabel.textAlignment = NSTextAlignmentCenter;
 
@@ -105,7 +110,7 @@
 
 - (void)didTapHeader:(UITapGestureRecognizer *)recognizer {
     NSInteger section = recognizer.view.tag;
-    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[section]
+    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][section]
                                                             andGenre:stringFromInteger([MovieSearch share].genreMovie)
                                                              andPage:kPageDefault];
     FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
@@ -128,7 +133,7 @@
     }
     
     // Config cell
-    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[indexPath.section]
+    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][indexPath.section]
                                                             andGenre:stringFromInteger([MovieSearch share].genreMovie)
                                                              andPage:kPageDefault];
     self.listMovieOnMain = [listDBInLocal mutableCopy];
@@ -144,11 +149,11 @@
 #pragma mark - ** Handle list movie **
 
 - (void)checkListMovie {
+    [self.tbvListMovie reloadData];
+    DLOG(@"Total menu : %d", (int)self.dictMenu.allKeys.count);
     
-    DLOG(@"Total menu : %d", (int)kDicMainMenu.allKeys.count);
-    
-    for (int i = 0; i < kDicMainMenu.allKeys.count; i++) {
-        if ([[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie) andTag:kDicMainMenu.allKeys[i] andPage:kPageDefault]) {
+    for (int i = 0; i < self.dictMenu.allKeys.count; i++) {
+        if ([[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie) andTag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault]) {
             // Exist
             [self.tbvListMovie reloadData];
             self.lastListMovie += 1;
@@ -158,7 +163,7 @@
             ProgressBarShowLoading(kLoading);
             
             // Not exist - Request server to get list
-            [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie tag:kDicMainMenu.allKeys[i] andPage:kPageDefault];
+            [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
         }
     }
 }
@@ -182,7 +187,7 @@
         [newMovie commit];
     }
     
-    if (self.lastListMovie == kDicMainMenu.allKeys.count - 1) {
+    if (self.lastListMovie == self.dictMenu.allKeys.count - 1) {
         // Last list loaded
         ProgressBarDismissLoading(kEmptyString);
         [self.tbvListMovie reloadData];
