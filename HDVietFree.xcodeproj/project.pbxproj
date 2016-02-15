@@ -38,6 +38,7 @@
 		D32916E41C55B84100CE46B6 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = D32916E31C55B84100CE46B6 /* Movie.m */; };
 		D32916E71C55B98E00CE46B6 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D32916E61C55B98E00CE46B6 /* DataManager.m */; };
 		D32916EA1C55BA0700CE46B6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D32916E91C55BA0700CE46B6 /* User.m */; };
+		D35C601F1C718A670026A710 /* UpdateMovieController.m in Sources */ = {isa = PBXBuildFile; fileRef = D35C601E1C718A670026A710 /* UpdateMovieController.m */; };
 		D365791B1C55D1B300F51DA3 /* SlideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = D365791A1C55D1B300F51DA3 /* SlideMenuController.m */; };
 		D365791E1C55DAB000F51DA3 /* MovieSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = D365791D1C55DAB000F51DA3 /* MovieSearch.m */; };
 		D36579241C55F38E00F51DA3 /* ManageAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579231C55F38E00F51DA3 /* ManageAPI.m */; };
@@ -167,6 +168,8 @@
 		D32916E81C55BA0700CE46B6 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Modal/User.h; sourceTree = "<group>"; };
 		D32916E91C55BA0700CE46B6 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Modal/User.m; sourceTree = "<group>"; };
 		D32916EB1C55BA5600CE46B6 /* KeyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyServer.h; path = Constant/KeyServer.h; sourceTree = "<group>"; };
+		D35C601D1C718A670026A710 /* UpdateMovieController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpdateMovieController.h; path = UpdateMovieController/UpdateMovieController.h; sourceTree = "<group>"; };
+		D35C601E1C718A670026A710 /* UpdateMovieController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpdateMovieController.m; path = UpdateMovieController/UpdateMovieController.m; sourceTree = "<group>"; };
 		D36579101C55C2C200F51DA3 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Log.h; path = Debug/Log.h; sourceTree = "<group>"; };
 		D36579191C55D1B300F51DA3 /* SlideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideMenuController.h; path = SlideMenuController/SlideMenuController.h; sourceTree = "<group>"; };
 		D365791A1C55D1B300F51DA3 /* SlideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideMenuController.m; path = SlideMenuController/SlideMenuController.m; sourceTree = "<group>"; };
@@ -431,6 +434,15 @@
 			path = "UIKit+AFNetworking";
 			sourceTree = "<group>";
 		};
+		D35C601C1C718A3E0026A710 /* UpdateMovieController */ = {
+			isa = PBXGroup;
+			children = (
+				D35C601D1C718A670026A710 /* UpdateMovieController.h */,
+				D35C601E1C718A670026A710 /* UpdateMovieController.m */,
+			);
+			name = UpdateMovieController;
+			sourceTree = "<group>";
+		};
 		D36579141C55D0F900F51DA3 /* SlideMenuController */ = {
 			isa = PBXGroup;
 			children = (
@@ -666,6 +678,7 @@
 		D3EA87E21C50C74900D593A1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D35C601C1C718A3E0026A710 /* UpdateMovieController */,
 				D36579731C61E36100F51DA3 /* EpisodeController */,
 				D365796D1C6088A900F51DA3 /* NavigationController */,
 				D36579621C5F408300F51DA3 /* SearchController */,
@@ -866,6 +879,7 @@
 				D32916E41C55B84100CE46B6 /* Movie.m in Sources */,
 				D36579501C58B07300F51DA3 /* PlayMovieCell.m in Sources */,
 				D32916841C55B36400CE46B6 /* CommonString.m in Sources */,
+				D35C601F1C718A670026A710 /* UpdateMovieController.m in Sources */,
 				D32916D91C55B7DF00CE46B6 /* README.md in Sources */,
 				D32916EA1C55BA0700CE46B6 /* User.m in Sources */,
 				D32916991C55B6CA00CE46B6 /* UIColor+HexColor.m in Sources */,

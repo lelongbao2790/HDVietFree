@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 @class CollectionMovie;
 
-@interface MovieCell : UITableViewCell
+@interface MovieCell : UITableViewCell<FixAutolayoutDelegate>
 @property (strong, nonatomic) IBOutlet CollectionMovie *collectionViewMovie;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csWidth;
 
 @end

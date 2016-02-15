@@ -48,5 +48,6 @@
 #import "MPMoviePlayerController+Subtitles.h"
 #import "NavigationMovieCustomController.h"
 #import "EpisodeController.h"
+#import "UpdateMovieController.h"
 
 #endif /* HDVietPrefix_pch */

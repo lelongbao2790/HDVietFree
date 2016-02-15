@@ -14,7 +14,8 @@
 #define kDicLeftMenu [[NSDictionary alloc] initWithObjectsAndKeys: \
 @"Phim lẻ", [NSNumber numberWithInteger:1], \
 @"Phim bộ", [NSNumber numberWithInteger:2], \
-@"Log out", [NSNumber numberWithInteger:3], nil]
+@"Cập nhập dữ liệu", [NSNumber numberWithInteger:3], \
+@"Log out", [NSNumber numberWithInteger:4], nil]
 
 // Dict for main menu
 #define kDicMainMenu [[NSDictionary alloc] initWithObjectsAndKeys: \

@@ -50,4 +50,9 @@ NSString *const kSearchController = @"SearchController";
  */
 NSString *const kEpisodeController = @"EpisodeController";
 
+/*
+ * Update movie controller
+ */
+NSString *const kUpdateMovieController = @"UpdateMovieController";
+
 @end

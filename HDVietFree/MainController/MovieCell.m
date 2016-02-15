@@ -15,6 +15,30 @@
     [super layoutSubviews];
     
     self.collectionViewMovie.frame = self.contentView.bounds;
+    [Utilities fixAutolayoutWithDelegate:self];
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** FixAutoLayoutDelegate **
+- (void)fixAutolayoutFor35 {
+    self.csWidth.constant = 590;
+}
+
+- (void)fixAutolayoutFor40 {
+    self.csWidth.constant = 590;
+}
+
+- (void)fixAutolayoutFor47 {
+   self.csWidth.constant = 590;
+}
+
+- (void)fixAutolayoutFor55 {
+self.csWidth.constant = 590;
+}
+
+-(void)fixAutolayoutForIpad {
+    self.csWidth.constant = 759;
 }
 
 @end

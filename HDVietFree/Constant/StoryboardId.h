@@ -50,4 +50,9 @@ extern NSString *const kSearchController;
  */
 extern NSString *const kEpisodeController;
 
+/*
+ * Update movie controller
+ */
+extern NSString *const kUpdateMovieController;
+
 @end

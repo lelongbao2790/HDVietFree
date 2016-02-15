@@ -90,9 +90,15 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[AppDelegate share].loginController];
         [AppDelegate share].window.rootViewController = navController;
-    } else {
+    } else if ([stringValue isEqualToString:@"Cập nhập dữ liệu"]) {
+        UpdateMovieController *updateMovie = InitStoryBoardWithIdentifier(kUpdateMovieController);
+        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:updateMovie];;
+        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+    }
+    else {
         // Assign tag menu
         [MovieSearch share].genreMovie = [self.dictMenu.allKeys[indexPath.row] integerValue];
+        [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:[AppDelegate share].mainController];
         [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
         [[AppDelegate share].mainController configView];
     }

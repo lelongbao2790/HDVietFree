@@ -345,7 +345,7 @@
 }
 
 -(void)fixAutolayoutForIpad {
-    self.convertResolution = kResolution15362048;
+    self.convertResolution = kResolution7681024;
     self.topLayoutTableView.constant = kTopConstantTableView;
 }
 @end

@@ -223,6 +223,9 @@
                                                object:nil];
     
     player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+    player.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+    player.moviePlayer.view.transform = CGAffineTransformConcat(player.moviePlayer.view.transform, CGAffineTransformMakeRotation(M_PI_2));
+    [player.moviePlayer.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     NSString *subString = [Utilities getDataSubFromUrl:linkSub];
     [player.moviePlayer openWithSRTString:subString completion:^(BOOL finished) {
         // Activate subtitles
@@ -234,16 +237,8 @@
         [Utilities showiToastMessage:@"Phim này hiện chưa có sub việt"];
     }];
     
-    // Show video
-    // Force landscape show video
-    CGAffineTransform landscapeTransform;
-    landscapeTransform = CGAffineTransformMakeRotation(90*M_PI/180.0f);
-    landscapeTransform = CGAffineTransformTranslate(landscapeTransform, 80, 80);
-    [player.moviePlayer.view setTransform: landscapeTransform];
-    
     // Present video
     [controller presentMoviePlayerViewControllerAnimated:player];
-    [player.moviePlayer setFullscreen:YES animated:YES];
     [player.moviePlayer play];
 }
 
