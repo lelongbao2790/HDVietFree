@@ -37,16 +37,18 @@
 - (void)viewWillAppear:(BOOL)animated {
      NavigationMovieCustomController *navCustom = (NavigationMovieCustomController *)self.navigationController;
     [navCustom.txtSearch removeFromSuperview];
+    
     [self getInformationMovie];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     NavigationMovieCustomController *navCustom = (NavigationMovieCustomController *)self.navigationController;
     [navCustom initTextField];
+    kPlayViewController = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    
+    kPlayViewController = self;
 }
 
 /*
@@ -63,49 +65,18 @@
 #pragma mark -
 #pragma mark - ** Media play controller **
 
-- (void)playMediaControllerWithUrl {
-    NSURL *url = [[NSURL alloc] initWithString:self.movie.urlLinkPlayMovie];
-    MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlaybackDidFinish:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:nil];
-    
-    player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
-    NSString *subString = [Utilities getDataSubFromUrl:self.movie.urlLinkSubtitleMovie];
-    [player.moviePlayer openWithSRTString:subString completion:^(BOOL finished) {
-        // Activate subtitles
-        [player.moviePlayer showSubtitles];
-
-    } failure:^(NSError *error) {
-        NSLog(@"Error: %@", error.description);
-        
-        [Utilities showiToastMessage:@"Phim này hiện chưa có sub việt"];
-    }];
-    
-    // Show video
-    // Force landscape show video
-    CGAffineTransform landscapeTransform;
-    landscapeTransform = CGAffineTransformMakeRotation(90*M_PI/180.0f);
-    landscapeTransform = CGAffineTransformTranslate(landscapeTransform, 80, 80);
-    [player.moviePlayer.view setTransform: landscapeTransform];
-    
-    // Present video
-    [self presentMoviePlayerViewControllerAnimated:player];
-    [player.moviePlayer setFullscreen:YES animated:YES];
-    [player.moviePlayer play];
-}
-
--(void)moviePlaybackDidFinish:(NSNotification*)aNotification{
-    int value = [[aNotification.userInfo valueForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
-    if (value == MPMovieFinishReasonUserExited) {
-        [self dismissMoviePlayerViewControllerAnimated];
-    }
-}
 
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Helper Method **
+
+- (void)resetView {
+    self.movie = nil;
+    self.imagePoster.image = nil;
+    self.title = kEmptyString;
+    [self.tbvInforMovie reloadData];
+    [self configView];
+}
 
 - (void)configView {
     // Config table view
@@ -166,6 +137,7 @@
 }
 
 - (void)reloadView {
+    self.title = [self.movie.movieName uppercaseString];
     [self loadImage];
     [self.tbvInforMovie reloadData];
 }
@@ -330,13 +302,12 @@
                 linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
             }
             self.movie.urlLinkPlayMovie = linkPlay;
-            [self playMediaControllerWithUrl];
+            [Utilities playMediaLink:self.movie.urlLinkPlayMovie andSub:self.movie.urlLinkSubtitleMovie andController:self];
         }
     }
     else {
          [Utilities showiToastMessage:kMessageErrorAboutMovie];
     }
-    
     
     ProgressBarDismissLoading(kEmptyString);
 }

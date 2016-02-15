@@ -14,4 +14,7 @@
 
 @property (strong, nonatomic) Movie *movie;
 
+- (void)getInformationMovie;
+- (void)resetView;
+
 @end

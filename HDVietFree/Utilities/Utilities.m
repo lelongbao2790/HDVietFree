@@ -187,20 +187,73 @@
     return screenRect.size.height;
 }
 
-// set
+/*
+ * Cache Image
+ */
 - (void)cacheImage:(nonnull UIImage*)image forKey:(nonnull NSString*)key {
     [self.imageCache setObject:image forKey:key];
 }
-// get
+
+/*
+ * Get image
+ */
 -  (nonnull UIImage*)getCachedImageForKey:(nonnull NSString*)key {
     return [self.imageCache objectForKey:key];
 }
 
-+ (NSDictionary *)convertNullDictionary:(NSDictionary *)dict {
++ (NSDictionary * _Nullable )convertNullDictionary:(NSDictionary * _Nullable )dict {
     if ([dict isKindOfClass:[NSNull class]]) {
         return nil;
     }else {
         return dict;
+    }
+}
+
+/*
+ * Play media controller
+ */
++ (void)playMediaLink:(nonnull NSString *)linkPlay
+               andSub:(nonnull NSString *)linkSub
+        andController:(nonnull UIViewController *)controller {
+    NSURL *url = [[NSURL alloc] initWithString:linkPlay];
+    MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlaybackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:nil];
+    
+    player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+    NSString *subString = [Utilities getDataSubFromUrl:linkSub];
+    [player.moviePlayer openWithSRTString:subString completion:^(BOOL finished) {
+        // Activate subtitles
+        [player.moviePlayer showSubtitles];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"Error: %@", error.description);
+        
+        [Utilities showiToastMessage:@"Phim này hiện chưa có sub việt"];
+    }];
+    
+    // Show video
+    // Force landscape show video
+    CGAffineTransform landscapeTransform;
+    landscapeTransform = CGAffineTransformMakeRotation(90*M_PI/180.0f);
+    landscapeTransform = CGAffineTransformTranslate(landscapeTransform, 80, 80);
+    [player.moviePlayer.view setTransform: landscapeTransform];
+    
+    // Present video
+    [controller presentMoviePlayerViewControllerAnimated:player];
+    [player.moviePlayer setFullscreen:YES animated:YES];
+    [player.moviePlayer play];
+}
+
++ (void)moviePlaybackDidFinish:(NSNotification*)aNotification{
+    int value = [[aNotification.userInfo valueForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
+    if (value == MPMovieFinishReasonUserExited) {
+        if ([getChildController isKindOfClass:[PlayController class]] ||
+            [getChildController isKindOfClass:[EpisodeController class]] ) {
+            [getChildController dismissMoviePlayerViewControllerAnimated];
+        }
     }
 }
 

@@ -15,6 +15,15 @@
 @implementation NavigationMovieCustomController
 @synthesize searchController;
 
++ (NavigationMovieCustomController *)share {
+    static dispatch_once_t once;
+    static NavigationMovieCustomController *share;
+    dispatch_once(&once, ^{
+        share = [self new];
+    });
+    return share;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -41,8 +50,8 @@
  */
 - (void)configView {
     [self initTextField];
-    
     searchController = nil;
+     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
 }
 
 /*
@@ -50,7 +59,7 @@
  */
 - (void)initTextField {
     NSInteger widthTextField = [Utilities widthOfScreen] - kSpaceWidthTextField;
-    CGRect frameTextField = CGRectMake([Utilities widthOfScreen] - widthTextField - kCornerRadius, 0,
+    CGRect frameTextField = CGRectMake([Utilities widthOfScreen] - widthTextField - kCornerRadius, kCornerRadius,
                                        widthTextField - kSpaceTrailingWidthTextField, kHeightTextField);
     self.txtSearch = [[UITextField alloc]initWithFrame:frameTextField];
     self.txtSearch.backgroundColor = [UIColor whiteColor];
@@ -111,8 +120,10 @@
 /*
  * Get child root view controller
  */
-- (UIViewController*) getChildRootViewController{
-    NSArray *s_viewController = @[kSearchController];
+- (UIViewController*) getChildRootViewController {
+    NSArray *s_viewController = @[kEpisodeController,
+                                  kPlayController,
+                                  kSearchController];
     for (NSString *stringViewController in s_viewController) {
         if ([self.topViewController isKindOfClass:NSClassFromString(stringViewController)]) {
             return self.topViewController;

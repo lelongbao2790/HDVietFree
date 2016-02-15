@@ -75,6 +75,15 @@
 // get
 - (nonnull UIImage*)getCachedImageForKey:(nonnull NSString*)key;
 
-+ (NSDictionary *)convertNullDictionary:(NSDictionary *)dict;
++ ( NSDictionary * _Nullable )convertNullDictionary:(NSDictionary * _Nullable )dict;
+
+/*
+ * Play media controller
+ */
++ (void)playMediaLink:(nonnull NSString *)linkPlay
+               andSub:(nonnull NSString *)linkSub
+        andController:(nonnull UIViewController *)controller;
+
++ (void)moviePlaybackDidFinish:(NSNotification*)aNotification;
 
 @end

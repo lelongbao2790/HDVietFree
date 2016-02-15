@@ -89,7 +89,7 @@
             } else if ([linkPlay containsString:kResolution3201024]) {
                 linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
             }
-            [self playMediaControllerWithUrl:linkPlay andSub:linkSub];
+             [Utilities playMediaLink:linkPlay andSub:linkSub andController:self];
         }
 
     }
@@ -108,46 +108,6 @@
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Media play controller **
-
-- (void)playMediaControllerWithUrl:(NSString *)urlLinkPlay andSub:(NSString *)urlLinkSub {
-    NSURL *url = [[NSURL alloc] initWithString:urlLinkPlay];
-    MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlaybackDidFinish:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:nil];
-    
-    player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
-    NSString *subString = [Utilities getDataSubFromUrl:urlLinkSub];
-    [player.moviePlayer openWithSRTString:subString completion:^(BOOL finished) {
-        // Activate subtitles
-        [player.moviePlayer showSubtitles];
-        
-    } failure:^(NSError *error) {
-        NSLog(@"Error: %@", error.description);
-        
-        [Utilities showiToastMessage:@"Phim này hiện chưa có sub việt"];
-    }];
-    
-    // Show video
-    // Force landscape show video
-    CGAffineTransform landscapeTransform;
-    landscapeTransform = CGAffineTransformMakeRotation(90*M_PI/180.0f);
-    landscapeTransform = CGAffineTransformTranslate(landscapeTransform, 80, 80);
-    [player.moviePlayer.view setTransform: landscapeTransform];
-    
-    // Present video
-    [self presentMoviePlayerViewControllerAnimated:player];
-    [player.moviePlayer setFullscreen:YES animated:YES];
-    [player.moviePlayer play];
-}
-
--(void)moviePlaybackDidFinish:(NSNotification*)aNotification{
-    int value = [[aNotification.userInfo valueForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
-    if (value == MPMovieFinishReasonUserExited) {
-        [self dismissMoviePlayerViewControllerAnimated];
-    }
-}
 
 //*****************************************************************************
 #pragma mark -

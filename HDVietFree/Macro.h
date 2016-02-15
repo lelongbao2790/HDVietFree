@@ -26,5 +26,6 @@
 
 // String
 #define stringFromInteger(value) [NSString stringWithFormat:@"%d", (int)value]
+#define getChildController [[NavigationMovieCustomController share] getChildRootViewController]
 
 #endif /* Macro_h */

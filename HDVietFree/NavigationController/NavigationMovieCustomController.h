@@ -15,4 +15,12 @@
  * Init text field
  */
 - (void)initTextField;
+
+/*
+ * Get child root view controller
+ */
+- (UIViewController*) getChildRootViewController;
+
++ (NavigationMovieCustomController *)share;
+
 @end

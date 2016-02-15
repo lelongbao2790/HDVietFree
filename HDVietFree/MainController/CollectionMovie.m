@@ -38,9 +38,17 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    PlayController *playController = InitStoryBoardWithIdentifier(kPlayController);
-    playController.movie = self.listMovie[indexPath.row];
-    [[AppDelegate share].mainController.navigationController pushViewController:playController animated:YES];
+    PlayController *playController = nil;
+    if (kPlayViewController) {
+        playController = kPlayViewController;
+        [playController resetView];
+        playController.movie = self.listMovie[indexPath.row];
+        [playController getInformationMovie];
+    } else {
+        playController = InitStoryBoardWithIdentifier(kPlayController);
+        playController.movie = self.listMovie[indexPath.row];
+        [[AppDelegate share].mainController.navigationController pushViewController:playController animated:YES];
+    }
 }
 
 @end

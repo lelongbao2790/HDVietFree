@@ -15,4 +15,9 @@
  */
 extern NSString *const kSearchIcon;
 
+/*
+ * Set pair view controller
+ */
+extern PlayController *kPlayViewController;
+
 @end

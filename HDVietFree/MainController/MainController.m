@@ -91,14 +91,9 @@
     headerLabel.userInteractionEnabled = YES;
     headerLabel.backgroundColor = [UIColor colorWithHexString:kBackgroundColorOfSection];
     headerLabel.text = self.dictMenu.allValues[section];
-    headerLabel.frame = CGRectMake(0, 0, tableView.tableHeaderView.frame.size.width-100, tableView.tableHeaderView.frame.size.height);
-    
-    UILabel *dotLabel = [[UILabel alloc]init];
-    dotLabel.text = @"...";
-    dotLabel.frame = CGRectMake(tableView.tableHeaderView.frame.size.width - 100, 0, 100, tableView.tableHeaderView.frame.size.height);
-    
-    [headerLabel addSubview:dotLabel];
-    
+    headerLabel.frame = CGRectMake(0, 0, tableView.tableHeaderView.frame.size.width, tableView.tableHeaderView.frame.size.height);
+    headerLabel.textAlignment = NSTextAlignmentCenter;
+
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapHeader:)];
     tapGesture.cancelsTouchesInView = NO;
     [headerLabel addGestureRecognizer:tapGesture];

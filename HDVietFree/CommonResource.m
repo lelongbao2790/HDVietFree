@@ -15,4 +15,10 @@
  */
 NSString *const kSearchIcon = @"search_icon.png";
 
+/*
+ * Set pair view controller
+ */
+PlayController *kPlayViewController = nil;
+
+
 @end
