@@ -37,6 +37,7 @@
 - (void)configView {
     [self updateTotalMovie];
     [DataManager shared].listMovieDelegate = self;
+    self.title = kUpdateData;
 }
 
 /*

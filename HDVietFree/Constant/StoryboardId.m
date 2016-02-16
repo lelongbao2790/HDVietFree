@@ -55,4 +55,6 @@ NSString *const kEpisodeController = @"EpisodeController";
  */
 NSString *const kUpdateMovieController = @"UpdateMovieController";
 
+NSString *const kListMenuController = @"ListMenuController";
+
 @end

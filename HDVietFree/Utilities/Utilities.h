@@ -90,4 +90,6 @@
 
 + (void)alertMessage:(NSString*)message withController:(UIViewController *)controller;
 
++ (void)setColorOfSelectCell:(UITableViewCell *)cell;
+
 @end

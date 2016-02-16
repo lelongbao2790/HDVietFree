@@ -56,5 +56,6 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
     kTralingTableViewMainIphone = -16,
     kLeadingTableViewMainIpad = -20,
     kTralingTableViewMainIpad = -20,
+    kSpaceBottomListMenu = 500,
 };
 #endif /* Enumeration_h */

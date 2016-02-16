@@ -25,4 +25,9 @@ extern NSString *const kBackgroundColorOfSection;
  */
 extern NSString *const kTextColorOfTitleNav;
 
+/**
+ * Text color of title navigation bar
+ */
+extern NSString *const kBgColorOfSlideBar;
+
 @end

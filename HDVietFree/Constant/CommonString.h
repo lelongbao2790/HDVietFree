@@ -101,4 +101,24 @@ extern NSString *const kInvalidSession;
  */
 extern NSString *const k400BadRequestString;
 
+/**
+ * Log out
+ */
+extern NSString *const kLogOut;
+
+/**
+ * Update
+ */
+extern NSString *const kUpdateData;
+
+/**
+ * Update
+ */
+extern NSString *const kPhimLeString;
+
+/**
+ * Update
+ */
+extern NSString *const kPhimBoString;
+
 @end

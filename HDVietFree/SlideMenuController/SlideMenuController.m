@@ -8,12 +8,13 @@
 
 #import "SlideMenuController.h"
 
-@interface SlideMenuController ()<UITableViewDelegate, UITableViewDataSource>
+@interface SlideMenuController ()<UITableViewDataSource, UITableViewDelegate>
 
 // Property
 @property (strong, nonatomic) NSDictionary *dictMenu;
 @property (weak, nonatomic) IBOutlet UILabel *nameUser;
-
+@property (strong, nonatomic) NSIndexPath *expandedIndexPath;
+@property (strong, nonatomic) NSMutableIndexSet *expandedSections;
 // IBOutlet
 @property (weak, nonatomic) IBOutlet UITableView *tbvListMenu;
 
@@ -34,14 +35,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Helper Method **
 - (void)configView {
     
     // Config table view
-    self.tbvListMenu.delegate = self;
     self.tbvListMenu.dataSource = self;
+    self.tbvListMenu.delegate = self;
     self.tbvListMenu.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tbvListMenu.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -49,30 +51,173 @@
     self.dictMenu = kDicLeftMenu;
     [self.tbvListMenu reloadData];
     self.nameUser.text = [User share].userName;
+    [self.tbvListMenu setAllowsMultipleSelection:YES];
+    
 }
 
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Table view delegate **
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+- (BOOL)tableView:(UITableView *)tableView canCollapseSection:(NSInteger)section
+{
+    NSString *stringValue = self.dictMenu.allValues[section];
+    if ([stringValue isEqualToString:kPhimLeString] ||
+        [stringValue isEqualToString:kPhimBoString]) {
+        return YES;
+    }
+    
+    return NO;
 }
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return self.dictMenu.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if ([self tableView:tableView canCollapseSection:section])
+    {
+        if (self.expandedIndexPath) {
+            
+            if (self.expandedIndexPath.section == section) {
+                NSString *stringValue = self.dictMenu.allValues[self.expandedIndexPath.section];
+                if ([stringValue isEqualToString:kPhimLeString]) {
+                    return kDicMainMenu.allValues.count;
+                } else if ([stringValue isEqualToString:kPhimBoString]) {
+                    return kDicMainMenuPhimBo.allValues.count;
+                } else {
+                    return 0;
+                }
+            }
+            else {
+                return 0;
+            }
+            
+        }
+        else {
+            return 0;
+        }
+    }
     
+    // Return the number of rows in the section.
+    return 0;
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    UIView *viewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tbvListMenu.frame.size.width, 44)];
+    viewHeader.backgroundColor = [UIColor colorWithHexString:kBgColorOfSlideBar];
+    viewHeader.tag = section;
+    
+    // Header label
+    UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(38, 8, self.tbvListMenu.frame.size.width, 28)];
+    headerLabel.tag = section+100;
+    headerLabel.userInteractionEnabled = YES;
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.text = self.dictMenu.allValues[section];
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.textAlignment = NSTextAlignmentLeft;
+    [viewHeader addSubview:headerLabel];
+    
+    // Header image
+    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(5, 7, 30, 30)];
+    image.image = [UIImage imageNamed:kDicLeftMenuImage.allValues[section][0]];
+    [viewHeader addSubview:image];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapHeader:)];
+    tapGesture.cancelsTouchesInView = NO;
+    [viewHeader addGestureRecognizer:tapGesture];
+    
+    return viewHeader;
+
+}
+
+
+- (void)didTapHeader:(UITapGestureRecognizer *)recognizer {
+    NSInteger section = recognizer.view.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:recognizer.view.tag];
+    NSString *stringValue = self.dictMenu.allValues[section];
+    
+    if ([stringValue isEqualToString:kLogOut]) {
+        [self resetExpandTableView];
+        // Log out
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[AppDelegate share].loginController];
+        [AppDelegate share].window.rootViewController = navController;
+        
+    } else if ([stringValue isEqualToString:kUpdateData]) {
+        // Update data movie
+        [self resetExpandTableView];
+        UpdateMovieController *updateMovie = InitStoryBoardWithIdentifier(kUpdateMovieController);
+        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:updateMovie];;
+        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+    }
+    
+    else if ([stringValue isEqualToString:kPhimLeString] ||
+             [stringValue isEqualToString:kPhimBoString]) {
+        if (self.expandedIndexPath) {
+            self.expandedIndexPath = nil;
+            [self updateTableView];
+        } else {
+            self.expandedIndexPath = indexPath;
+            [self updateTableView];
+        }
+    }
+    
+    else {
+        [MovieSearch share].genreMovie = kGenrePhimLe;
+        [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:[AppDelegate share].mainController];
+        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+        [[AppDelegate share].mainController configView];
+    }
+//    
+//    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][section]
+//                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)
+//                                                             andPage:kPageDefault];
+//    FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
+//    filmController.view.tag = section;
+//    filmController.listMovie = [[NSMutableArray alloc] initWithArray:listDBInLocal];
+//    filmController.totalItemOnOnePage = listDBInLocal.count;
+//    [self.navigationController pushViewController:filmController animated:YES];
+}
+
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     // Init cell
-    SlideMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:kTableViewLeftMenuIdentifier];
-    if(!cell) { cell = [[SlideMenuCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kTableViewLeftMenuIdentifier]; }
+    static NSString *cellid=@"hello";
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellid];
+    if (cell==nil) {
+        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellid];
+    }
     
-    [cell setInformationCell:self.dictMenu.allValues[indexPath.row]];
-    
+    if ([self tableView:tableView canCollapseSection:indexPath.section]) {
+        
+        NSString *stringValue = self.dictMenu.allValues[indexPath.section];
+        if ([stringValue isEqualToString:kPhimLeString]) {
+            cell.textLabel.text = kDicMainMenu.allValues[indexPath.row];
+        } else if ([stringValue isEqualToString:kPhimBoString]) {
+            cell.textLabel.text = kDicMainMenuPhimBo.allValues[indexPath.row];
+        }
+        UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tbvListMenu.frame.size.width-15, 1)];
+        separatorLineView.backgroundColor = [UIColor lightGrayColor];
+        [cell.contentView addSubview:separatorLineView];
+        
+    } else {
+        cell.backgroundColor=[UIColor clearColor];
+        cell.textLabel.text=@"";
+        
+    }
+//    
+//    SlideMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:kTableViewLeftMenuIdentifier];
+//    if(!cell) { cell = [[SlideMenuCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kTableViewLeftMenuIdentifier]; }
+//    [cell setInformationCell:self.dictMenu.allValues[indexPath.row]];
+//    cell.row = indexPath.row;
+//    [Utilities setColorOfSelectCell:cell];
     return cell;
 }
 
@@ -84,25 +229,91 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *dict = nil;
+    NSString *stringValue = self.dictMenu.allValues[indexPath.section];
+    if ([stringValue isEqualToString:kPhimLeString]) {
+        dict = kDicMainMenu;
+    } else if ([stringValue isEqualToString:kPhimBoString]) {
+        dict = kDicMainMenuPhimBo;
+    }
     
-    NSString *stringValue = self.dictMenu.allValues[indexPath.row];
-    if ([stringValue isEqualToString:@"Log out"]) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[AppDelegate share].loginController];
-        [AppDelegate share].window.rootViewController = navController;
-    } else if ([stringValue isEqualToString:@"Cập nhập dữ liệu"]) {
-        UpdateMovieController *updateMovie = InitStoryBoardWithIdentifier(kUpdateMovieController);
-        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:updateMovie];;
-        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
-    }
-    else {
-        // Assign tag menu
-        [MovieSearch share].genreMovie = [self.dictMenu.allKeys[indexPath.row] integerValue];
-        [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:[AppDelegate share].mainController];
-        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
-        [[AppDelegate share].mainController configView];
-    }
+    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:dict.allKeys[indexPath.row]
+                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                                             andPage:kPageDefault];
+    FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
+    filmController.view.tag = indexPath.row;
+    filmController.listMovie = [[NSMutableArray alloc] initWithArray:listDBInLocal];
+    filmController.totalItemOnOnePage = listDBInLocal.count;
+    
+    [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:filmController];
+    [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+    
+//    NSString *stringValue = self.dictMenu.allValues[indexPath.row];
+//    if ([stringValue isEqualToString:kLogOut]) {
+//        [self resetExpandTableView];
+//        // Log out
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
+//        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[AppDelegate share].loginController];
+//        [AppDelegate share].window.rootViewController = navController;
+//        
+//    } else if ([stringValue isEqualToString:kUpdateData]) {
+//        // Update data movie
+//        [self resetExpandTableView];
+//        UpdateMovieController *updateMovie = InitStoryBoardWithIdentifier(kUpdateMovieController);
+//        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:updateMovie];;
+//        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+//    }
+//    
+//    else if ([stringValue isEqualToString:kPhimLeString] ||
+//             [stringValue isEqualToString:kPhimBoString]) {
+//        // Add new expand
+//        [MovieSearch share].genreMovie = [MovieSearch share].genreMovie = [self.dictMenu.allKeys[indexPath.row] integerValue];
+//        
+//        [tableView beginUpdates];
+//        
+//        if ([indexPath compare:self.expandedIndexPath] == NSOrderedSame) {
+//            self.expandedIndexPath = nil;
+//            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//            [[cell.contentView viewWithTag:indexPath.row]removeFromSuperview] ;
+//        } else {
+//            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//            self.expandedIndexPath = indexPath;
+//            ListMenuController *listMenu = InitStoryBoardWithIdentifier(kListMenuController);
+//            listMenu.view.frame = CGRectMake(0, 44, self.tbvListMenu.frame.size.width, listMenu.view.frame.size.height);
+//            listMenu.view.tag = indexPath.row;
+//            [cell.contentView addSubview:listMenu.view];
+//        }
+//        
+//        [tableView endUpdates];
+//    }
+//    
+//    else {
+//        [MovieSearch share].genreMovie = kGenrePhimLe;
+//        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//        [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:[AppDelegate share].mainController];
+//        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+//        [[AppDelegate share].mainController configView];
+//    }
 }
 
+- (void)updateTableView
+{
+    [UIView transitionWithView:self.tbvListMenu
+                      duration:0.35f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^(void)
+     {
+         [self.tbvListMenu reloadData];
+     }
+                    completion:nil];
+}
+
+- (void)resetExpandTableView {
+    if (self.expandedIndexPath) {
+        [self.tbvListMenu beginUpdates];
+        self.expandedIndexPath = nil;
+        [self.tbvListMenu endUpdates];
+    }
+}
 
 @end

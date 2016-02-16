@@ -55,4 +55,6 @@ extern NSString *const kEpisodeController;
  */
 extern NSString *const kUpdateMovieController;
 
+extern NSString *const kListMenuController;
+
 @end

@@ -100,4 +100,24 @@ NSString *const kInvalidSession = @"Phiên đăng nhập hết hạn! Login đ�
  */
 NSString *const k400BadRequestString = @"Request failed: bad request (400)";
 
+/**
+ * Log out
+ */
+NSString *const kLogOut = @"Đăng xuất";
+
+/**
+ * Update
+ */
+NSString *const kUpdateData = @"Cập nhập dữ liệu";
+
+/**
+ * Update
+ */
+NSString *const kPhimLeString = @"Phim lẻ";
+
+/**
+ * Update
+ */
+NSString *const kPhimBoString = @"Phim bộ";
+
 @end

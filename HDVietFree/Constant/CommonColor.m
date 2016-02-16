@@ -25,4 +25,9 @@ NSString *const kBackgroundColorOfSection = @"dbdad5";
  */
 NSString *const kTextColorOfTitleNav = @"fd3946";
 
+/**
+ * Text color of title navigation bar
+ */
+NSString *const kBgColorOfSlideBar =@"1F2124";
+
 @end

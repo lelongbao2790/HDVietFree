@@ -11,7 +11,7 @@
 @interface SlideMenuCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageItem;
 @property (weak, nonatomic) IBOutlet UILabel *nameItem;
-
+@property (assign, nonatomic) NSInteger row;
 - (void)setInformationCell:(NSString *)name;
 
 @end

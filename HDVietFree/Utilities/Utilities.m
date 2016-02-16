@@ -292,4 +292,10 @@
     }
 }
 
++ (void)setColorOfSelectCell:(UITableViewCell *)cell {
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor colorWithHexString:kColorBgNavigationBar];
+    [cell setSelectedBackgroundView:bgColorView];
+}
+
 @end

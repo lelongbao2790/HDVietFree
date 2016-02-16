@@ -49,5 +49,7 @@
 #import "NavigationMovieCustomController.h"
 #import "EpisodeController.h"
 #import "UpdateMovieController.h"
+#import "ListMenuController.h"
+
 
 #endif /* HDVietPrefix_pch */
