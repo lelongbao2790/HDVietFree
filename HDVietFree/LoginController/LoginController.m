@@ -8,12 +8,13 @@
 
 #import "LoginController.h"
 
-@interface LoginController () <LoginDelegate>
+@interface LoginController () <LoginDelegate, FixAutolayoutDelegate>
 
 @property (strong, nonatomic) User *user;
 
 @property (weak, nonatomic) IBOutlet UITextField *txtUsername;
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopConstant;
 
 @end
 
@@ -51,6 +52,7 @@
     [DataManager shared].loginDelegate = self;
     [AppDelegate share].loginController = self;
     [self handleLogin];
+    [Utilities fixAutolayoutWithDelegate:self];
 }
 
 - (void)handleLogin {
@@ -122,6 +124,30 @@
 - (void)loginAPIFail:(NSString *)resultMessage {
      ProgressBarDismissLoading(kEmptyString);
     [Utilities showiToastMessage:resultMessage];
+    [Utilities alertMessage:resultMessage withController:self];
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** FixAutoLayoutDelegate **
+- (void)fixAutolayoutFor35 {
+    self.csTopConstant.constant = kTopConstantIp5;
+}
+
+- (void)fixAutolayoutFor40 {
+    self.csTopConstant.constant = kTopConstantIp5;
+}
+
+- (void)fixAutolayoutFor47 {
+    self.csTopConstant.constant = kTopConstantIp6;
+}
+
+- (void)fixAutolayoutFor55 {
+    self.csTopConstant.constant = kTopConstantIp6Plus;
+}
+
+-(void)fixAutolayoutForIpad {
+    self.csTopConstant.constant = kTopConstantIpad;
 }
 
 @end

@@ -98,6 +98,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Qwn-jy-Lww"/>
                     <connections>
+                        <outlet property="csTopConstant" destination="lJX-FU-wdN" id="jjz-Ha-K7q"/>
                         <outlet property="txtPassword" destination="Jaa-1N-fLh" id="uQm-hT-zj0"/>
                         <outlet property="txtUsername" destination="VBJ-0j-C0L" id="9g0-Jt-wLs"/>
                     </connections>
@@ -369,14 +370,14 @@
                             <constraint firstItem="6M5-az-aNy" firstAttribute="top" secondItem="wXw-pu-ERH" secondAttribute="bottom" id="H9u-O5-nr5"/>
                             <constraint firstItem="6M5-az-aNy" firstAttribute="top" secondItem="wXw-pu-ERH" secondAttribute="bottom" id="IZz-C5-bPc"/>
                             <constraint firstItem="wXw-pu-ERH" firstAttribute="top" secondItem="CoC-Q8-1nt" secondAttribute="bottom" id="Nu6-oA-7DQ"/>
-                            <constraint firstItem="wXw-pu-ERH" firstAttribute="leading" secondItem="Deu-xI-dJm" secondAttribute="leadingMargin" constant="-16" id="NyX-lr-WJq"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="wXw-pu-ERH" secondAttribute="trailing" constant="-16" id="W5i-XJ-m6l"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6hu-sl-eR2"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="csLeadingConstraint" destination="DnM-hg-ZoH" id="aaQ-Je-0a1"/>
+                        <outlet property="csTrailingConstraint" destination="Exy-kU-gA0" id="5nN-gi-6aS"/>
                         <outlet property="tbvListMovie" destination="wXw-pu-ERH" id="0ZQ-m0-4Bq"/>
                     </connections>
                 </viewController>
@@ -478,7 +479,7 @@
                                     <constraint firstAttribute="height" constant="36" id="fUQ-7e-Mzt"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Gc-R0-eou">
@@ -487,7 +488,7 @@
                                     <constraint firstAttribute="height" constant="28" id="PJh-6U-a9s"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5d-vF-7A3">

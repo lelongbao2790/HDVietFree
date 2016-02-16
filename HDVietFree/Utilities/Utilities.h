@@ -88,4 +88,6 @@
 
 + (NSArray *)sortArrayFromDict:(NSDictionary *)dict;
 
++ (void)alertMessage:(NSString*)message withController:(UIViewController *)controller;
+
 @end

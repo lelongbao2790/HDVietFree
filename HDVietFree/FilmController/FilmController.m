@@ -147,6 +147,7 @@
 - (void)loadListMovieAPIFail:(NSString *)resultMessage {
     ProgressBarDismissLoading(kEmptyString);
     [Utilities showiToastMessage:resultMessage];
+    [Utilities alertMessage:resultMessage withController:self];
 }
 
 /*

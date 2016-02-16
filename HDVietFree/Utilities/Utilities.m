@@ -243,6 +243,7 @@
         
         // Present video
         [controller presentMoviePlayerViewControllerAnimated:player];
+        [player.moviePlayer prepareToPlay];
         [player.moviePlayer play];
     } else {
         [Utilities showiToastMessage:@"Phim này hiện chưa có link"];
@@ -251,6 +252,11 @@
 }
 
 + (void)moviePlaybackDidFinish:(NSNotification*)aNotification{
+    NSError *error = [[aNotification userInfo] objectForKey:@"error"];
+    if (error) {
+        [Utilities showiToastMessage:kErrorPlayMovie];
+    }
+    
     int value = [[aNotification.userInfo valueForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
     if (value == MPMovieFinishReasonUserExited) {
         if ([getChildController isKindOfClass:[PlayController class]] ||
@@ -262,11 +268,28 @@
 
 + (NSArray *)sortArrayFromDict:(NSDictionary *)dict {
     NSArray *reverseOrder=[[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
-//    NSMutableDictionary *finalDict = [[NSMutableDictionary alloc] init];
-//    for (int i = 0; i<reverseOrder.count; i++) {
-//        [finalDict setObject:[dict objectForKey:reverseOrder[i]] forKey: reverseOrder[i]];
-//    }
     return reverseOrder;
+}
+
++ (void)alertMessage:(NSString*)message withController:(UIViewController *)controller
+{
+    if ([message isEqualToString:kInvalidSession]) {
+        UIAlertController* alert = [UIAlertController
+                                    alertControllerWithTitle:@"Lỗi"
+                                    message:message
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction
+                                        actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                        handler:^(UIAlertAction * action) {
+                                            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
+                                            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[AppDelegate share].loginController];
+                                            [AppDelegate share].window.rootViewController = navController;
+                                        }];
+        
+        [alert addAction:defaultAction];
+        [controller presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 @end

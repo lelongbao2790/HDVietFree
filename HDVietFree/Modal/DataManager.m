@@ -83,16 +83,17 @@
             } else {
                 [loginDelegate loginAPIFail:kErrorDict];
             }
-            
-            
         } else {
-            
             // Fail
             [loginDelegate loginAPIFail:[responseObject objectForKey:kR]];
         }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [loginDelegate loginAPIFail:[error localizedDescription]];
+        if ([[error localizedDescription] isEqualToString:k400BadRequestString]) {
+            [loginDelegate loginAPIFail:kInvalidSession];
+        } else {
+            [loginDelegate loginAPIFail:[error localizedDescription]];
+        }
     }];
 }
 
@@ -119,8 +120,12 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [listMovieDelegate loadListMovieAPIFail:[error localizedDescription]];
-
+        if ([[error localizedDescription] isEqualToString:k400BadRequestString]) {
+            [listMovieDelegate loadListMovieAPIFail:kInvalidSession];
+        } else {
+            [listMovieDelegate loadListMovieAPIFail:[error localizedDescription]];
+        }
+        
     }];
 }
 
@@ -142,13 +147,17 @@
             }
             
         } else {
-            
             // Fail
             [detailInfoMovieDelegate loadDetailInformationMovieAPIFail:[responseObject objectForKey:kR]];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [detailInfoMovieDelegate loadDetailInformationMovieAPIFail:[error localizedDescription]];
+        if ([[error localizedDescription] isEqualToString:k400BadRequestString]) {
+            [detailInfoMovieDelegate loadDetailInformationMovieAPIFail:kInvalidSession];
+        }else {
+           [detailInfoMovieDelegate loadDetailInformationMovieAPIFail:[error localizedDescription]];
+        }
+        
     }];
 }
 
@@ -178,7 +187,12 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPIFail:[error localizedDescription]];
+        if ([[error localizedDescription] isEqualToString:k400BadRequestString]) {
+            [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPIFail:kInvalidSession];
+        } else {
+            [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPIFail:[error localizedDescription]];
+        }
+        
     }];
 }
 
@@ -207,8 +221,11 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [searchMovieDelegate searchMovieAPIFail:[error localizedDescription]];
-        
+        if ([[error localizedDescription] isEqualToString:k400BadRequestString]) {
+            [searchMovieDelegate searchMovieAPIFail:kInvalidSession];
+        } else {
+            [searchMovieDelegate searchMovieAPIFail:[error localizedDescription]];
+        }
     }];
 }
 

@@ -138,6 +138,7 @@
 
 - (void)searchMovieAPIFail:(NSString *)resultMessage {
     [Utilities showiToastMessage:resultMessage];
+    [Utilities alertMessage:resultMessage withController:self];
 }
 
 

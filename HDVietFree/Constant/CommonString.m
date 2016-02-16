@@ -71,18 +71,33 @@ NSString *const kNameDatabase = @"dbHDViet";
 NSString *const kRelativeMovie = @"Phim liên quan";
 
 /**
- * Relative movie
+ * Search movie
  */
 NSString *const kSearchMovieTitle = @"TÌM KIẾM";
 
 /**
- * Relative movie
+ * Search
  */
 NSString *const kSearchMovie = @"Tìm kiếm phim";
 
 /**
- * Relative movie
+ * Update string
  */
 NSString *const kUpdateMovieSuccess = @"Cập nhập dữ liệu thành công";
+
+/**
+ * Error play film
+ */
+NSString *const kErrorPlayMovie = @"Lỗi! Link film bị lỗi";
+
+/**
+ * Error play film
+ */
+NSString *const kInvalidSession = @"Phiên đăng nhập hết hạn! Login để tiếp tục sử dụng";
+
+/**
+ * Error play film
+ */
+NSString *const k400BadRequestString = @"Request failed: bad request (400)";
 
 @end

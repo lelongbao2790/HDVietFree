@@ -102,6 +102,7 @@
 
 - (void)loadLinkPlayMovieAPIFail:(NSString *)resultMessage {
     ProgressBarDismissLoading(kEmptyString);
+    [Utilities alertMessage:resultMessage withController:self];
     [Utilities showiToastMessage:resultMessage];
 }
 

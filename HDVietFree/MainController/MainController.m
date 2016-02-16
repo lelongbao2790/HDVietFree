@@ -8,14 +8,15 @@
 
 #import "MainController.h"
 
-@interface MainController ()<UITableViewDataSource, UITableViewDelegate, ListMovieByGenreDelegate>
+@interface MainController ()<UITableViewDataSource, UITableViewDelegate, ListMovieByGenreDelegate, FixAutolayoutDelegate>
 
 // Property
 @property (strong, nonatomic) NSDictionary *dictMenu;
 @property (strong, nonatomic) NSDictionary *dictMovie;
 @property (assign, nonatomic) NSInteger lastListMovie;
 @property (strong, nonatomic) NSMutableArray *listMovieOnMain;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTrailingConstraint;
 @property (weak, nonatomic) IBOutlet UITableView *tbvListMovie;
 
 @end
@@ -57,7 +58,6 @@
     
     [DataManager shared].listMovieDelegate = self;
     self.lastListMovie = 0;
-//    [self initSearchBarButton];
     
     // Config table view
     self.tbvListMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -68,6 +68,8 @@
     // Check list data
     self.listMovieOnMain = [[NSMutableArray alloc] init];
     [self checkListMovie];
+    
+    [Utilities fixAutolayoutWithDelegate:self];
 }
 
 - (void)initSearchBarButton {
@@ -201,8 +203,36 @@
 - (void)loadListMovieAPIFail:(NSString *)resultMessage {
     ProgressBarDismissLoading(kEmptyString);
     [Utilities showiToastMessage:resultMessage];
-    // Remove access token save
-    
+    [Utilities alertMessage:resultMessage withController:self];
 }
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** FixAutoLayoutDelegate **
+- (void)fixAutolayoutFor35 {
+    self.csLeadingConstraint.constant = kLeadingTableViewMainIphone;
+    self.csTrailingConstraint.constant = kTralingTableViewMainIphone;
+}
+
+- (void)fixAutolayoutFor40 {
+    self.csLeadingConstraint.constant = kLeadingTableViewMainIphone;
+    self.csTrailingConstraint.constant = kTralingTableViewMainIphone;
+}
+
+- (void)fixAutolayoutFor47 {
+    self.csLeadingConstraint.constant = kLeadingTableViewMainIphone;
+    self.csTrailingConstraint.constant = kTralingTableViewMainIphone;
+}
+
+- (void)fixAutolayoutFor55 {
+    self.csLeadingConstraint.constant = kLeadingTableViewMainIphone;
+    self.csTrailingConstraint.constant = kTralingTableViewMainIphone;
+}
+
+-(void)fixAutolayoutForIpad {
+    self.csLeadingConstraint.constant = kLeadingTableViewMainIpad;
+    self.csTrailingConstraint.constant = kTralingTableViewMainIpad;
+}
+
 
 @end

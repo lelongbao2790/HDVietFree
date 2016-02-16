@@ -86,4 +86,19 @@ extern NSString *const kSearchMovie;
  */
 extern NSString *const kUpdateMovieSuccess;
 
+/**
+ * Error play film
+ */
+extern NSString *const kErrorPlayMovie;
+
+/**
+ * Error play film
+ */
+extern NSString *const kInvalidSession;
+
+/**
+ * Error play film
+ */
+extern NSString *const k400BadRequestString;
+
 @end

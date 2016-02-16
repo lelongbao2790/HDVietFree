@@ -44,6 +44,17 @@ typedef NS_ENUM(NSInteger, ControllerTag) {
     kTagPlayController = 2,
     kTimeOutIntervalSession = 60,
     kTopConstantTableView = 540,
+    k400BadRequest = 400,
 };
 
+typedef NS_ENUM(NSInteger, LoginConstant) {
+    kTopConstantIp5 = 30,
+    kTopConstantIp6 = 40,
+    kTopConstantIp6Plus = 50,
+    kTopConstantIpad = 60,
+    kLeadingTableViewMainIphone = -16,
+    kTralingTableViewMainIphone = -16,
+    kLeadingTableViewMainIpad = -20,
+    kTralingTableViewMainIpad = -20,
+};
 #endif /* Enumeration_h */

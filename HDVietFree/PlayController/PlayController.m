@@ -278,6 +278,7 @@
     DLOG(@"Load detail information api fail");
     [Utilities showiToastMessage:resultMessage];
     ProgressBarDismissLoading(kEmptyString);
+    [Utilities alertMessage:resultMessage withController:self];
 }
 
 //*****************************************************************************
@@ -315,6 +316,7 @@
 - (void)loadLinkPlayMovieAPIFail:(NSString *)resultMessage {
     ProgressBarDismissLoading(kEmptyString);
     [Utilities showiToastMessage:resultMessage];
+    [Utilities alertMessage:resultMessage withController:self];
 }
 
 //*****************************************************************************
