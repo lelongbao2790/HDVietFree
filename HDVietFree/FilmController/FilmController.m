@@ -10,26 +10,49 @@
 
 @interface FilmController ()<ListMovieByGenreDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionFilmController;
-
+@property (assign, nonatomic) NSInteger previousPage;
 @end
 
 @implementation FilmController
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Life Cycle **
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [DataManager shared].listMovieDelegate = self;
-    [self.collectionFilmController registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
-    [self.collectionFilmController reloadData];
-    self.collectionFilmController.delegate = self;
-    self.collectionFilmController.dataSource = self;
+    [self configView];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Helper Method **
+
+- (void)configView {
+    // Init
+    [DataManager shared].listMovieDelegate = self;
+    [self.collectionFilmController registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
+    [self.collectionFilmController reloadData];
+    
+    // Check request list movie
+    [self requestListMovieFromLocal];
+}
+
+- (void)requestListMovieFromLocal {
+    if ([Utilities isEmptyArray:self.listMovie]) {
+        
+        // Load first page
+        ProgressBarShowLoading(kLoading);
+        [self requestGetListMovie:kPageDefault];
+    }
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -45,17 +68,12 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // Configure the cell
     DetailMovieCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionDetailMovieIdentifier forIndexPath:indexPath];
-    if (cell == nil) {
-        DLOG(@"Cell nil");
-    }
     [cell loadInformationWithMovie:self.listMovie[indexPath.row]];
-    
-    // Load more row when scroll on last row
     DLOG(@"Row : %d", (int)indexPath.row);
     
     // Check last item
+     DLOG(@"Last item : %d", (int)indexPath.item);
     if(indexPath.item == (self.listMovie.count - 1)) {
-        // Load more item when scroll to last item
         [self checkListMovie];
     }
     
@@ -65,7 +83,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PlayController *playController = InitStoryBoardWithIdentifier(kPlayController);
     playController.movie = self.listMovie[indexPath.row];
-    [[AppDelegate share].mainController.navigationController pushViewController:playController animated:YES];
+    [self.navigationController pushViewController:playController animated:YES];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -97,24 +115,22 @@
         DLOG(@"Get list movie of next page :%d",(int)nextPage);
         
         if ([[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                                   andTag:kDicMainMenu.allKeys[self.view.tag]
+                                                   andTag:self.tagMovie
                                                   andPage:nextPage]) {
             // Exist
             [self refreshListMovieWithPage:nextPage];
             
         } else {
             // Not exist - Request server to get list
-            [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie
-                                            tag:kDicMainMenu.allKeys[self.view.tag]
-                                        andPage:nextPage];
+            [self requestGetListMovie:nextPage];
         }
     }
 }
 
-- (void)requestGetListMovie:(NSNumber *)nextPage {
+- (void)requestGetListMovie:(NSInteger)nextPage {
     [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie
-                                    tag:kDicMainMenu.allKeys[self.view.tag]
-                                andPage:[nextPage integerValue]];
+                                    tag:self.tagMovie
+                                andPage:nextPage];
 }
 
 //*****************************************************************************
@@ -122,53 +138,56 @@
 #pragma mark - ** List movie delegate **
 
 - (void)loadListMovieAPISuccess:(NSDictionary *)response atTag:(NSString *)tagMovie andGenre:(NSString *)genre {
+    ProgressBarDismissLoading(kEmptyString);
+    
     if (response.count > 0) {
         DLOG(@"loadListMovieAPISuccess with: %@ %@", tagMovie, genre );
         
-        // Get list movie from response
-        NSArray *listData = [response objectForKey:kList];
-        NSInteger totalRecord = [[[response objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
-        NSInteger pageResponse = [[[response objectForKey:kMetadata] objectForKey:kPage] integerValue];
+        // Add list movie to local
+        [[DataAccess share] addListMovieToLocal:response];
         
-        // Get detail movie and init object movie
-        for (int i = 0; i < listData.count; i++) {
-            NSDictionary *dictObjectMovie = listData[i];
-            Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie withTag:tagMovie andGenre:genre];
-            newMovie.pageNumber = pageResponse;
-            newMovie.totalRecord = totalRecord;
-            [newMovie commit];
-        }
-        
-        [self refreshListMovieWithPage:pageResponse];
+        // Refresh list movie
+        [self refreshListMovieWithPage:numberToInteger(dictToArray(response)[kPageResponsePosition])];
     }
     
 }
 
 - (void)loadListMovieAPIFail:(NSString *)resultMessage {
-    ProgressBarDismissLoading(kEmptyString);
-    [Utilities showiToastMessage:resultMessage];
-    [Utilities alertMessage:resultMessage withController:self];
+    [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 
 /*
  * Refresh list movie
  */
 - (void)refreshListMovieWithPage:(NSInteger)page {
-    NSMutableArray *indexPaths = [NSMutableArray new];
-    NSInteger totalCount = [self.listMovie count];
-    NSArray *listMovieForPage = [[DataAccess share] listMovieLocalByTag:kDicMainMenu.allKeys[self.view.tag]
-                                                               andGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                                                andPage:page];
-    for (int i = 0; i < listMovieForPage.count; i++) {
-        Movie *newMovie = listMovieForPage[i];
-        [self.listMovie addObject:newMovie];
-        [indexPaths addObject:[NSIndexPath indexPathForRow:totalCount + i
-                                                 inSection:0]];
+
+    if (self.previousPage != page) {
+        // Init and get db in local
+        NSMutableArray *indexPaths = [NSMutableArray new];
+        NSInteger totalCount = [self.listMovie count];
+        NSArray *listMovieForPage = [[DataAccess share] listMovieLocalByTag:self.tagMovie
+                                                                   andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                                                    andPage:page];
+        
+        // Assign total item if list is empty
+        if ([Utilities isEmptyArray:self.listMovie]) {
+            self.totalItemOnOnePage = listMovieForPage.count;
+        }
+        
+        // Add object to current list and refresh
+        for (int i = 0; i < listMovieForPage.count; i++) {
+            Movie *newMovie = listMovieForPage[i];
+            [self.listMovie addObject:newMovie];
+            [indexPaths addObject:[NSIndexPath indexPathForRow:totalCount + i
+                                                     inSection:0]];
+        }
+        
+        [self.collectionView performBatchUpdates:^{
+            [self.collectionView insertItemsAtIndexPaths:indexPaths];
+        } completion:nil];
+        self.previousPage = page;
     }
     
-    [self.collectionView performBatchUpdates:^{
-        [self.collectionView insertItemsAtIndexPaths:indexPaths];
-    } completion:nil];
 }
 
 @end

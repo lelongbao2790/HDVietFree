@@ -11,6 +11,7 @@
 @interface UpdateMovieController ()<ListMovieByGenreDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *lbTotalMovie;
 @property (assign, nonatomic) NSInteger lastListMovie;
+@property (strong, nonatomic) NSDictionary *dictMenu;
 @end
 
 @implementation UpdateMovieController
@@ -26,10 +27,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)btnUpdate:(id)sender {
-    
-    [self requestUpdateMovie];
-}
+
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Helper Method **
 
 /*
  * Config view
@@ -38,6 +40,7 @@
     [self updateTotalMovie];
     [DataManager shared].listMovieDelegate = self;
     self.title = kUpdateData;
+     self.dictMenu = getDictTitleMenu([MovieSearch share].genreMovie);
 }
 
 /*
@@ -53,11 +56,16 @@
     DLOG(@"Total menu : %d", (int)kDicMainMenu.allKeys.count);
     ProgressBarShowLoading(kLoading);
     
-    for (int i = 0; i < kDicMainMenu.allKeys.count; i++) {
+    for (int i = 0; i < self.dictMenu.allKeys.count; i++) {
         // Not exist - Request server to get list
-        [[ManageAPI share] loadListMovieAPI:kGenrePhimLe tag:kDicMainMenu.allKeys[i] andPage:kPageDefault];
-        [[ManageAPI share] loadListMovieAPI:kGenrePhimBo tag:kDicMainMenu.allKeys[i] andPage:kPageDefault];
+        [[ManageAPI share] loadListMovieAPI:kGenrePhimLe tag:self.dictMenu.allKeys[i] andPage:kPageDefault];
+        [[ManageAPI share] loadListMovieAPI:kGenrePhimBo tag:self.dictMenu.allKeys[i] andPage:kPageDefault];
     }
+}
+
+- (IBAction)btnUpdate:(id)sender {
+    
+    [self requestUpdateMovie];
 }
 
 //*****************************************************************************
@@ -66,23 +74,11 @@
 
 - (void)loadListMovieAPISuccess:(NSDictionary *)response atTag:(NSString *)tagMovie andGenre:(NSString *)genre {
     
+    // Add list movie to local
+    [[DataAccess share] addListMovieToLocal:response];
     
-    // Get list movie from response
-    NSArray *listData = [response objectForKey:kList];
-    NSInteger totalRecord = [[[response objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
-    NSInteger pageResponse = [[[response objectForKey:kMetadata] objectForKey:kPage] integerValue];
-    NSInteger genreNumber = [[[response objectForKey:kMetadata] objectForKey:kGenre] integerValue];
-    DLOG(@"loadListMovieAPISuccess with: %@ %d", tagMovie, (int)genreNumber );
-    
-    // Get detail movie and init object movie
-    for (NSDictionary *dictObjectMovie in listData) {
-        Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie withTag:tagMovie andGenre:stringFromInteger(genreNumber)];
-        newMovie.pageNumber = pageResponse;
-        newMovie.totalRecord = totalRecord;
-        [newMovie commit];
-    }
-    
-    if (self.lastListMovie == kDicMainMenu.allKeys.count*2 - 1) {
+    // Check last list category
+    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:YES]) {
         // Last list loaded
         ProgressBarDismissLoading(kEmptyString);
         self.lastListMovie = 0;
@@ -91,15 +87,10 @@
     } else {
         self.lastListMovie += 1;
     }
-    
 }
 
 - (void)loadListMovieAPIFail:(NSString *)resultMessage {
-    ProgressBarDismissLoading(kEmptyString);
-    [Utilities showiToastMessage:resultMessage];
-    [Utilities alertMessage:resultMessage withController:self];
-    // Remove access token save
-    
+    [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 
 @end

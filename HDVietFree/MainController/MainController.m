@@ -50,11 +50,7 @@
 - (void)configView {
     // Init
     [AppDelegate share].mainController = self;
-    if ([MovieSearch share].genreMovie == kGenrePhimLe) {
-        self.dictMenu = kDicMainMenu;
-    } else {
-        self.dictMenu = kDicMainMenuPhimBo;
-    }
+    self.dictMenu = getDictTitleMenu([MovieSearch share].genreMovie);
     
     [DataManager shared].listMovieDelegate = self;
     self.lastListMovie = 0;
@@ -112,13 +108,14 @@
 
 - (void)didTapHeader:(UITapGestureRecognizer *)recognizer {
     NSInteger section = recognizer.view.tag;
+    
     NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][section]
                                                             andGenre:stringFromInteger([MovieSearch share].genreMovie)
                                                              andPage:kPageDefault];
-    FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
-    filmController.view.tag = section;
-    filmController.listMovie = [[NSMutableArray alloc] initWithArray:listDBInLocal];
-    filmController.totalItemOnOnePage = listDBInLocal.count;
+    
+    FilmController *filmController = [Utilities initFilmControllerWithTag:[Utilities sortArrayFromDict:self.dictMenu][section]
+                                                                numberTag:section
+                                                                andListDb:listDBInLocal];
     [self.navigationController pushViewController:filmController animated:YES];
 }
 
@@ -177,33 +174,22 @@
 - (void)loadListMovieAPISuccess:(NSDictionary *)response atTag:(NSString *)tagMovie andGenre:(NSString *)genre {
     DLOG(@"loadListMovieAPISuccess with: %@ %@", tagMovie, genre );
     
-    // Get list movie from response
-    NSArray *listData = [response objectForKey:kList];
-    NSInteger totalRecord = [[[response objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
+    // Add list movie to local
+    [[DataAccess share] addListMovieToLocal:response];
     
-    // Get detail movie and init object movie
-    for (NSDictionary *dictObjectMovie in listData) {
-        Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie withTag:tagMovie andGenre:genre];
-        newMovie.pageNumber = kPageDefault;
-        newMovie.totalRecord = totalRecord;
-        [newMovie commit];
-    }
-    
-    if (self.lastListMovie == self.dictMenu.allKeys.count - 1) {
+    // Check last list category
+    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:YES]) {
         // Last list loaded
         ProgressBarDismissLoading(kEmptyString);
         [self.tbvListMovie reloadData];
         self.lastListMovie = 0;
-        
     } else {
         self.lastListMovie += 1;
     }
 }
 
 - (void)loadListMovieAPIFail:(NSString *)resultMessage {
-    ProgressBarDismissLoading(kEmptyString);
-    [Utilities showiToastMessage:resultMessage];
-    [Utilities alertMessage:resultMessage withController:self];
+    [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 
 //*****************************************************************************

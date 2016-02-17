@@ -26,6 +26,9 @@
 
 // String
 #define stringFromInteger(value) [NSString stringWithFormat:@"%d", (int)value]
+#define numberToInteger(value) [value integerValue]
+#define dictToArray(value) [Utilities getObjectResponse:value]
 #define getChildController [[NavigationMovieCustomController share] getChildRootViewController]
+#define getDictTitleMenu(value) (value == kGenrePhimLe) ? kDicMainMenu: kDicMainMenuPhimBo
 
 #endif /* Macro_h */

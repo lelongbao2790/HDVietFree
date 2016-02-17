@@ -122,9 +122,7 @@
 }
 
 - (void)loginAPIFail:(NSString *)resultMessage {
-     ProgressBarDismissLoading(kEmptyString);
-    [Utilities showiToastMessage:resultMessage];
-    [Utilities alertMessage:resultMessage withController:self];
+     [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 
 //*****************************************************************************

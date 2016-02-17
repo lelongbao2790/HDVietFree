@@ -113,7 +113,7 @@
     viewHeader.tag = section;
     
     // Header label
-    UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(38, 8, self.tbvListMenu.frame.size.width, 28)];
+    UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(42, 8, self.tbvListMenu.frame.size.width, 28)];
     headerLabel.tag = section+100;
     headerLabel.userInteractionEnabled = YES;
     headerLabel.backgroundColor = [UIColor clearColor];
@@ -158,6 +158,7 @@
     
     else if ([stringValue isEqualToString:kPhimLeString] ||
              [stringValue isEqualToString:kPhimBoString]) {
+        [MovieSearch share].genreMovie = [self.dictMenu.allKeys[section] integerValue];
         if (self.expandedIndexPath) {
             self.expandedIndexPath = nil;
             [self updateTableView];
@@ -209,15 +210,9 @@
         
     } else {
         cell.backgroundColor=[UIColor clearColor];
-        cell.textLabel.text=@"";
+        cell.textLabel.text= kEmptyString;
         
     }
-//    
-//    SlideMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:kTableViewLeftMenuIdentifier];
-//    if(!cell) { cell = [[SlideMenuCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kTableViewLeftMenuIdentifier]; }
-//    [cell setInformationCell:self.dictMenu.allValues[indexPath.row]];
-//    cell.row = indexPath.row;
-//    [Utilities setColorOfSelectCell:cell];
     return cell;
 }
 
@@ -229,71 +224,25 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *dict = nil;
-    NSString *stringValue = self.dictMenu.allValues[indexPath.section];
-    if ([stringValue isEqualToString:kPhimLeString]) {
-        dict = kDicMainMenu;
-    } else if ([stringValue isEqualToString:kPhimBoString]) {
-        dict = kDicMainMenuPhimBo;
-    }
+    NSInteger keyGenre = [self.dictMenu.allKeys[indexPath.section] integerValue];
+    NSDictionary *dict = getDictTitleMenu(keyGenre);
     
+    // Get list movie in local
     NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:dict.allKeys[indexPath.row]
                                                             andGenre:stringFromInteger([MovieSearch share].genreMovie)
                                                              andPage:kPageDefault];
-    FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
-    filmController.view.tag = indexPath.row;
-    filmController.listMovie = [[NSMutableArray alloc] initWithArray:listDBInLocal];
-    filmController.totalItemOnOnePage = listDBInLocal.count;
+    
+    // Init film controler
+    FilmController *filmController = [Utilities initFilmControllerWithTag:dict.allKeys[indexPath.row]
+                                                                numberTag:indexPath.row
+                                                                andListDb:listDBInLocal];
+    
     
     [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:filmController];
     [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
     
-//    NSString *stringValue = self.dictMenu.allValues[indexPath.row];
-//    if ([stringValue isEqualToString:kLogOut]) {
-//        [self resetExpandTableView];
-//        // Log out
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
-//        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[AppDelegate share].loginController];
-//        [AppDelegate share].window.rootViewController = navController;
-//        
-//    } else if ([stringValue isEqualToString:kUpdateData]) {
-//        // Update data movie
-//        [self resetExpandTableView];
-//        UpdateMovieController *updateMovie = InitStoryBoardWithIdentifier(kUpdateMovieController);
-//        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:updateMovie];;
-//        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
-//    }
-//    
-//    else if ([stringValue isEqualToString:kPhimLeString] ||
-//             [stringValue isEqualToString:kPhimBoString]) {
-//        // Add new expand
-//        [MovieSearch share].genreMovie = [MovieSearch share].genreMovie = [self.dictMenu.allKeys[indexPath.row] integerValue];
-//        
-//        [tableView beginUpdates];
-//        
-//        if ([indexPath compare:self.expandedIndexPath] == NSOrderedSame) {
-//            self.expandedIndexPath = nil;
-//            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//            [[cell.contentView viewWithTag:indexPath.row]removeFromSuperview] ;
-//        } else {
-//            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//            self.expandedIndexPath = indexPath;
-//            ListMenuController *listMenu = InitStoryBoardWithIdentifier(kListMenuController);
-//            listMenu.view.frame = CGRectMake(0, 44, self.tbvListMenu.frame.size.width, listMenu.view.frame.size.height);
-//            listMenu.view.tag = indexPath.row;
-//            [cell.contentView addSubview:listMenu.view];
-//        }
-//        
-//        [tableView endUpdates];
-//    }
-//    
-//    else {
-//        [MovieSearch share].genreMovie = kGenrePhimLe;
-//        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//        [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:[AppDelegate share].mainController];
-//        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
-//        [[AppDelegate share].mainController configView];
-//    }
+    self.expandedIndexPath = nil;
+    [self updateTableView];
 }
 
 - (void)updateTableView
@@ -310,9 +259,9 @@
 
 - (void)resetExpandTableView {
     if (self.expandedIndexPath) {
-        [self.tbvListMenu beginUpdates];
         self.expandedIndexPath = nil;
-        [self.tbvListMenu endUpdates];
+        [self updateTableView];
+        
     }
 }
 

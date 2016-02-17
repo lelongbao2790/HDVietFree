@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "AppDelegate.h"
+#import "FilmController.h"
 
 @interface Utilities : NSObject
 
-+ (Utilities *)share;
++ (nonnull Utilities *)share;
 
 /**
  * fix auto layout for iPhone 5/5S, iPhone 6/6S, iPhone 6/6S Plus
@@ -84,12 +85,22 @@
                andSub:(nonnull NSString *)linkSub
         andController:(nonnull UIViewController *)controller;
 
-+ (void)moviePlaybackDidFinish:(NSNotification*)aNotification;
++ (void)moviePlaybackDidFinish:(nonnull NSNotification*)aNotification;
 
-+ (NSArray *)sortArrayFromDict:(NSDictionary *)dict;
++ (nonnull NSArray *)sortArrayFromDict:(nonnull NSDictionary *)dict;
 
-+ (void)alertMessage:(NSString*)message withController:(UIViewController *)controller;
++ (void)alertMessage:(nonnull NSString*)message withController:(nonnull UIViewController *)controller;
 
-+ (void)setColorOfSelectCell:(UITableViewCell *)cell;
++ (void)setColorOfSelectCell:(nonnull UITableViewCell *)cell;
+
++ (BOOL)isEmptyArray:(nonnull NSArray *)listArray;
+
++ (void)loadServerFail:(nonnull UIViewController *)controller withResultMessage:(nonnull NSString *)resultMessage;
+
++ (nonnull NSArray *)getObjectResponse:(nonnull NSDictionary *)response;
+
++ (BOOL)isLastListCategory:(nonnull NSDictionary *)dictCategory andCurrentIndex:(NSInteger)currentIndex andLoop:(BOOL)loop;
+
++ (nonnull FilmController *)initFilmControllerWithTag:(NSString *)nameTag numberTag:(NSInteger)numberTag andListDb:(NSArray *)listDb;
 
 @end

@@ -15,7 +15,7 @@
 
 @implementation Utilities
 
-+ (Utilities *)share {
++ (nonnull Utilities *)share {
     static dispatch_once_t once;
     static Utilities *share;
     dispatch_once(&once, ^{
@@ -251,7 +251,7 @@
    
 }
 
-+ (void)moviePlaybackDidFinish:(NSNotification*)aNotification{
++ (void)moviePlaybackDidFinish:(nonnull NSNotification*)aNotification{
     NSError *error = [[aNotification userInfo] objectForKey:@"error"];
     if (error) {
         [Utilities showiToastMessage:kErrorPlayMovie];
@@ -266,12 +266,12 @@
     }
 }
 
-+ (NSArray *)sortArrayFromDict:(NSDictionary *)dict {
++ (nonnull NSArray *)sortArrayFromDict:(nonnull NSDictionary *)dict {
     NSArray *reverseOrder=[[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];
     return reverseOrder;
 }
 
-+ (void)alertMessage:(NSString*)message withController:(UIViewController *)controller
++ (void)alertMessage:(nonnull NSString*)message withController:(nonnull UIViewController *)controller
 {
     if ([message isEqualToString:kInvalidSession]) {
         UIAlertController* alert = [UIAlertController
@@ -289,13 +289,69 @@
         
         [alert addAction:defaultAction];
         [controller presentViewController:alert animated:YES completion:nil];
+    } else {
+        [Utilities showiToastMessage:message];
     }
 }
 
-+ (void)setColorOfSelectCell:(UITableViewCell *)cell {
++ (void)setColorOfSelectCell:(nonnull UITableViewCell *)cell {
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [UIColor colorWithHexString:kColorBgNavigationBar];
     [cell setSelectedBackgroundView:bgColorView];
+}
+
++ (BOOL)isEmptyArray:(nonnull NSArray *)listArray {
+    if (listArray.count > 0)
+        return NO;
+    else
+        return YES;
+}
+
++ (void)loadServerFail:(nonnull UIViewController *)controller withResultMessage:(nonnull NSString *)resultMessage {
+    ProgressBarDismissLoading(kEmptyString);
+    [Utilities alertMessage:resultMessage withController:controller];
+}
+
++ (nonnull NSArray *)getObjectResponse:(nonnull NSDictionary *)response {
+    // Get object response
+    NSMutableArray *listResponse = [[NSMutableArray alloc] init];
+    NSArray *listData = [response objectForKey:kList];
+    NSInteger totalRecord = [[[response objectForKey:kMetadata] objectForKey:kTotalRecord] integerValue];
+    NSInteger pageResponse = [[[response objectForKey:kMetadata] objectForKey:kPage] integerValue];
+    NSInteger genreNumber = [[[response objectForKey:kMetadata] objectForKey:kGenre] integerValue];
+    NSString *tagMovie = [[response objectForKey:kMetadata] objectForKey:kTag];
+    
+    // Set object response
+    [listResponse addObject:listData];
+    [listResponse addObject:[NSNumber numberWithInteger:totalRecord]];
+    [listResponse addObject:[NSNumber numberWithInteger:pageResponse]];
+    [listResponse addObject:[NSNumber numberWithInteger:genreNumber]];
+    [listResponse addObject:tagMovie];
+    return listResponse;
+}
+
++ (BOOL)isLastListCategory:(nonnull NSDictionary *)dictCategory andCurrentIndex:(NSInteger)currentIndex andLoop:(BOOL)loop {
+    if (loop) {
+        if (currentIndex == dictCategory.allKeys.count*2 - 1) {
+            return YES;
+        } else {
+            return NO;
+        }
+    } else {
+        if (currentIndex == dictCategory.allKeys.count - 1)
+            return YES;
+        else
+            return NO;
+    }
+}
+
++ (nonnull FilmController *)initFilmControllerWithTag:(NSString *)nameTag numberTag:(NSInteger)numberTag andListDb:(NSArray *)listDb {
+    FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
+    filmController.view.tag = numberTag;
+    filmController.tagMovie = nameTag;
+    filmController.listMovie = [[NSMutableArray alloc] initWithArray:listDb];
+    filmController.totalItemOnOnePage = listDb.count;
+    return filmController;
 }
 
 @end

@@ -113,4 +113,24 @@
     return listTopMovie;
 }
 
+/*
+ * Load list movie api success
+ */
+- (void)addListMovieToLocal:(NSDictionary *)response {
+    // Get list movie from response
+    NSArray *listResponse = dictToArray(response);
+    NSArray *listData = listResponse[kListDataPosition];
+    
+    // Get detail movie and init object movie
+    for (NSDictionary *dictObjectMovie in listData) {
+        Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie
+                                                 withTag:listResponse[kTagMoviePosition]
+                                                andGenre:stringFromInteger(numberToInteger(listResponse[kGenreNumberPosition]))];
+        
+        newMovie.pageNumber = numberToInteger(listResponse[kPageResponsePosition]);
+        newMovie.totalRecord = numberToInteger(listResponse[kTotalRecordPosition]);
+        [newMovie commit];
+    }
+}
+
 @end

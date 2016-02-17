@@ -57,5 +57,14 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
     kLeadingTableViewMainIpad = -20,
     kTralingTableViewMainIpad = -20,
     kSpaceBottomListMenu = 500,
+    
+};
+
+typedef NS_ENUM(NSInteger, PositionArray) {
+    kListDataPosition = 0,
+    kTotalRecordPosition = 1,
+    kPageResponsePosition = 2,
+    kGenreNumberPosition = 3,
+    kTagMoviePosition = 4,
 };
 #endif /* Enumeration_h */

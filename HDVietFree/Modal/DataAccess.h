@@ -40,4 +40,9 @@
  */
 - (NSArray *)getListTopMovieWithReleaseDateInDB;
 
+/*
+ * Load list movie api success
+ */
+- (void)addListMovieToLocal:(NSDictionary *)response;
+
 @end
