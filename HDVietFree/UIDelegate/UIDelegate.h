@@ -55,4 +55,13 @@
 -(void) searchMovieAPIFail:(NSString *)resultMessage;
 @end
 
+/*
+ * Load detail information movie
+ */
+@protocol ReportBugDelegate
+@optional
+-(void) reportBugAPISuccess:(NSDictionary *)response;
+-(void) reportBugAPIFail:(NSString *)resultMessage;
+@end
+
 #endif /* UIDelegate_h */

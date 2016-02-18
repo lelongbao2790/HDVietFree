@@ -14,6 +14,7 @@
      NSObject<DetailInformationMovieDelegate> *detailInfoMovieDelegate;
      NSObject<LoadLinkPlayMovieDelegate> *loadLinkPlayMovieDelegate;
      NSObject<SearchMovieDelegate> *searchMovieDelegate;
+     NSObject<ReportBugDelegate> *reportBugDelegate;
 }
 // Init request operation manager
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
@@ -25,6 +26,7 @@
 @property (strong, nonatomic) NSObject *detailInfoMovieDelegate;
 @property (strong, nonatomic) NSObject *loadLinkPlayMovieDelegate;
 @property (strong, nonatomic) NSObject *searchMovieDelegate;
+@property (strong, nonatomic) NSObject *reportBugDelegate;
 //*****************************************************************************
 #pragma mark -
 #pragma mark ** Singleton object **
@@ -67,5 +69,12 @@
  * @param strUrl url string request
  */
 - (void)searchMovieWithUrl:(NSString *)strUrl;
+
+/*
+ * REPORT BUG
+ *
+ * @param strUrl url string request
+ */
+- (void)reportBugWithData:(NSString *)data;
 
 @end

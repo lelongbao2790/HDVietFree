@@ -7,8 +7,9 @@
 //
 
 #import "LoginController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface LoginController () <LoginDelegate, FixAutolayoutDelegate>
+@interface LoginController () <LoginDelegate, FixAutolayoutDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) User *user;
 
@@ -51,11 +52,60 @@
     self.user = [User share];
     [DataManager shared].loginDelegate = self;
     [AppDelegate share].loginController = self;
-    [self handleLogin];
     [Utilities fixAutolayoutWithDelegate:self];
+    [self handleLogin];
 }
 
+/*
+ * Method handle login app with token
+ */
 - (void)handleLogin {
+    if (![Utilities isCrashApp]) {
+        if ([self checkAccessTokenSave]) {
+            [Utilities setMainPageSlide];
+        }
+    } else {
+        [self presentCrashApp];
+    }
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Handle Crashed **
+
+/*
+ * Method show crash log
+ */
+- (void)presentCrashApp {
+    if ([MFMailComposeViewController canSendMail]) {
+        
+        // Get data log
+        // Attach the Crash Log..
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                             NSUserDomainMask, YES);NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *logPath = [documentsDirectory stringByAppendingPathComponent:kConsoleLog];
+        NSData *myData = [NSData dataWithContentsOfFile:logPath];
+        
+        // Init mail compose
+        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        mailViewController.mailComposeDelegate = self;
+        [mailViewController setSubject:kCrashTitle];
+        [mailViewController setMessageBody:[[NSString alloc] initWithData:myData encoding:NSUTF8StringEncoding] isHTML:NO];
+        NSArray *toRecipients = [NSArray arrayWithObject:kEmailSendCrash];
+        [mailViewController setToRecipients:toRecipients];
+        
+        [self presentViewController:mailViewController animated:YES completion:nil];
+        [Utilities removeCrashLogFileAtPath:logPath];
+    }
+    
+    else {
+        
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    
     if ([self checkAccessTokenSave]) {
         [Utilities setMainPageSlide];
     }
@@ -73,8 +123,6 @@
     } else {
         return NO;
     }
-    
-    //    return NO;
 }
 
 
@@ -109,7 +157,6 @@
 
 - (void)loginAPISuccess:(NSDictionary *)response {
     ProgressBarDismissLoading(kEmptyString);
-    
     self.user = [User userFromJSON:response];
     
     // Save access token

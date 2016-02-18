@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+
 @interface AppDelegate ()<DBDelegate>
 
 @end
@@ -32,10 +33,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    // Init
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:kColorBgNavigationBar]];
     [self connectLocalDatabase];
     [self handleLogin];
     [self setCustomNavigationBackButton];
+    [self initController];
+    
+    NSSetUncaughtExceptionHandler(&HandleException);
     
     return YES;
 }
@@ -64,7 +69,27 @@
 
 //*****************************************************************************
 #pragma mark -
+#pragma mark ** Detect crash app **
+void HandleException(NSException *exception) {
+    NSLog(@"App crashing with exception: %@", exception);
+    //Save somewhere that your app has crashed.
+#if TARGET_IPHONE_SIMULATOR == 0
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *logPath = [documentsDirectory stringByAppendingPathComponent:kConsoleLog];
+    freopen([logPath cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
+#endif
+}
+
+//*****************************************************************************
+#pragma mark -
 #pragma mark ** Helper Method **
+
+- (void)initController {
+    self.reportBugController = InitStoryBoardWithIdentifier(kReportBugController);
+    self.updateMovieController = InitStoryBoardWithIdentifier(kUpdateMovieController);
+}
+
 - (void)connectLocalDatabase {
     [DBAccess setDelegate:self];
     [DBAccess openDatabaseNamed:kNameDatabase];

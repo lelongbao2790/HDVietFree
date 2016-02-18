@@ -25,4 +25,7 @@
 #define kUrlPlayMovie @"movie/play?movieid=%@&accesstokenkey=%@&ep=%d"
 #define kUrlSearchMovieWithKeyword @"api/v3/search?keyword=%@&page=1&limit=100"
 
+// Google spread sheet for report bug
+#define kUrlGoogleReportBug @"https://docs.google.com/forms/d/1n9xqo59r-cyzvq5NudccyHbDS5m9QhpdongRz-buFsk/formResponse"
+
 #endif /* BaseUrl_h */

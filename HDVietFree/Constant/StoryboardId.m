@@ -57,4 +57,6 @@ NSString *const kUpdateMovieController = @"UpdateMovieController";
 
 NSString *const kListMenuController = @"ListMenuController";
 
+NSString *const kReportBugController = @"ReportBugController";
+
 @end

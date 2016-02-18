@@ -30,5 +30,6 @@
 #define dictToArray(value) [Utilities getObjectResponse:value]
 #define getChildController [[NavigationMovieCustomController share] getChildRootViewController]
 #define getDictTitleMenu(value) (value == kGenrePhimLe) ? kDicMainMenu: kDicMainMenuPhimBo
+#define stringToAccent(value) CFBridgingRelease( CFURLCreateStringByAddingPercentEscapes( kCFAllocatorDefault, (__bridge CFStringRef)value, NULL, NULL, kCFStringEncodingUTF8 ) )
 
 #endif /* Macro_h */

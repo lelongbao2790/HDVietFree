@@ -101,6 +101,12 @@
 
 + (BOOL)isLastListCategory:(nonnull NSDictionary *)dictCategory andCurrentIndex:(NSInteger)currentIndex andLoop:(BOOL)loop;
 
-+ (nonnull FilmController *)initFilmControllerWithTag:(NSString *)nameTag numberTag:(NSInteger)numberTag andListDb:(NSArray *)listDb;
++ (nonnull FilmController *)initFilmControllerWithTag:(nonnull NSString *)nameTag numberTag:(NSInteger)numberTag andListDb:(nonnull NSArray *)listDb;
+
++ (void)writeToPlist:(nonnull NSString *)stringWrite;
+
++ (BOOL)isCrashApp;
+
++ (void)removeCrashLogFileAtPath:(nonnull NSString *)path;
 
 @end

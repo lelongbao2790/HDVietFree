@@ -178,7 +178,7 @@
     [[DataAccess share] addListMovieToLocal:response];
     
     // Check last list category
-    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:YES]) {
+    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:NO]) {
         // Last list loaded
         ProgressBarDismissLoading(kEmptyString);
         [self.tbvListMovie reloadData];

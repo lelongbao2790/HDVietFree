@@ -9,7 +9,7 @@
 #import "DataManager.h"
 
 @implementation DataManager
-@synthesize loginDelegate, listMovieDelegate, detailInfoMovieDelegate, loadLinkPlayMovieDelegate, searchMovieDelegate;
+@synthesize loginDelegate, listMovieDelegate, detailInfoMovieDelegate, loadLinkPlayMovieDelegate, searchMovieDelegate, reportBugDelegate;
 
 //*****************************************************************************
 #pragma mark -
@@ -227,6 +227,32 @@
             [searchMovieDelegate searchMovieAPIFail:[error localizedDescription]];
         }
     }];
+}
+
+/*
+ * REPORT BUG
+ *
+ * @param strUrl url string request
+ */
+- (void)reportBugWithData:(NSString *)data {
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:kUrlGoogleReportBug]
+                                                           cachePolicy:NSURLRequestReloadIgnoringCacheData  timeoutInterval:10];
+    
+    [request setHTTPMethod:kPostMethod];
+    [request setValue: kHTTPHeaderValue forHTTPHeaderField:kHTTPHeaderContentType];
+    [request setHTTPBody: [stringToAccent(data) dataUsingEncoding:NSMacOSRomanStringEncoding  allowLossyConversion:YES]];
+    
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    op.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [reportBugDelegate reportBugAPISuccess:responseObject];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+       [reportBugDelegate reportBugAPIFail:kReportFail];
+        
+    }];
+    [op start];
 }
 
 @end

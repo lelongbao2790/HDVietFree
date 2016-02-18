@@ -50,6 +50,7 @@
 #import "EpisodeController.h"
 #import "UpdateMovieController.h"
 #import "ListMenuController.h"
+#import "ReportBugController.h"
 
 
 #endif /* HDVietPrefix_pch */

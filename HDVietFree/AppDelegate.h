@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UpdateMovieController.h"
+#import "ReportBugController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -23,5 +25,7 @@
 @property (strong, nonatomic) JASidePanelController *mainPanel;
 @property (strong, nonatomic) MainController *mainController;
 @property (strong, nonatomic) LoginController *loginController;
+@property (strong, nonatomic) UpdateMovieController *updateMovieController;
+@property (strong, nonatomic) ReportBugController *reportBugController;
 @end
 

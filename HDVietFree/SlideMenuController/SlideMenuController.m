@@ -113,7 +113,7 @@
     viewHeader.tag = section;
     
     // Header label
-    UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(42, 8, self.tbvListMenu.frame.size.width, 28)];
+    UILabel *headerLabel = [[UILabel alloc]initWithFrame:CGRectMake(44, 8, self.tbvListMenu.frame.size.width, 28)];
     headerLabel.tag = section+100;
     headerLabel.userInteractionEnabled = YES;
     headerLabel.backgroundColor = [UIColor clearColor];
@@ -123,7 +123,7 @@
     [viewHeader addSubview:headerLabel];
     
     // Header image
-    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(5, 7, 30, 30)];
+    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(5, 7, 25, 25)];
     image.image = [UIImage imageNamed:kDicLeftMenuImage.allValues[section][0]];
     [viewHeader addSubview:image];
     
@@ -147,13 +147,25 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[AppDelegate share].loginController];
         [AppDelegate share].window.rootViewController = navController;
+        [[AppDelegate share].window makeKeyAndVisible];
         
-    } else if ([stringValue isEqualToString:kUpdateData]) {
+    }
+    else if ([stringValue isEqualToString:kReportString]) {
+        // Report
+        [self resetExpandTableView];
+        ReportBugController *reportBug = [AppDelegate share].reportBugController;
+        [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:reportBug];
+        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+        [[AppDelegate share].window makeKeyAndVisible];
+    }
+
+    else if ([stringValue isEqualToString:kUpdateData]) {
         // Update data movie
         [self resetExpandTableView];
-        UpdateMovieController *updateMovie = InitStoryBoardWithIdentifier(kUpdateMovieController);
+        UpdateMovieController *updateMovie = [AppDelegate share].updateMovieController;
         [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:updateMovie];;
         [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+        [[AppDelegate share].window makeKeyAndVisible];
     }
     
     else if ([stringValue isEqualToString:kPhimLeString] ||
@@ -174,15 +186,6 @@
         [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
         [[AppDelegate share].mainController configView];
     }
-//    
-//    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][section]
-//                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)
-//                                                             andPage:kPageDefault];
-//    FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
-//    filmController.view.tag = section;
-//    filmController.listMovie = [[NSMutableArray alloc] initWithArray:listDBInLocal];
-//    filmController.totalItemOnOnePage = listDBInLocal.count;
-//    [self.navigationController pushViewController:filmController animated:YES];
 }
 
 

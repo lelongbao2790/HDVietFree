@@ -345,7 +345,7 @@
     }
 }
 
-+ (nonnull FilmController *)initFilmControllerWithTag:(NSString *)nameTag numberTag:(NSInteger)numberTag andListDb:(NSArray *)listDb {
++ (nonnull FilmController *)initFilmControllerWithTag:(nonnull NSString *)nameTag numberTag:(NSInteger)numberTag andListDb:(nonnull NSArray *)listDb {
     FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
     filmController.view.tag = numberTag;
     filmController.tagMovie = nameTag;
@@ -353,5 +353,49 @@
     filmController.totalItemOnOnePage = listDb.count;
     return filmController;
 }
+
++ (void)writeToPlist:(nonnull NSString *)stringWrite
+{
+    NSString *myFile = @"crashed.plist";
+    NSArray *filePaths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory,  NSUserDomainMask, YES);
+    NSString *documentsDirectory = [filePaths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:myFile];
+    
+    NSMutableDictionary* plistDict = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
+    
+    [plistDict setValue:stringWrite forKey:@"Crashed"];
+    [plistDict writeToFile:path atomically: YES];
+}
+
++ (BOOL)isCrashApp
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask, YES);NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *logPath = [documentsDirectory stringByAppendingPathComponent:kConsoleLog];
+    NSData *myData = [NSData dataWithContentsOfFile:logPath];
+    
+    if (myData) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
++ (void)removeCrashLogFileAtPath:(nonnull NSString *)path
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    NSString *filePath = path;
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:filePath error:&error];
+    if (success) {
+        DLOG(@"Remove log success");
+    }
+    else
+    {
+        DLOG(@"Can not remove log success");
+    }
+}
+
 
 @end

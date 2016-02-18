@@ -87,5 +87,7 @@
 #define kHTTPHeaderApplication @"application/json"
 #define kHTTPHeaderAccessToken @"Access-Token"
 #define kHTTPHeaderContentType @"Content-Type"
+#define kHTTPHeaderValue @"application/x-www-form-urlencoded; charset=utf-8"
+#define kPostMethod @"POST"
 
 #endif /* KeyServer_h */

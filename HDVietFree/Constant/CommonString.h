@@ -121,4 +121,24 @@ extern NSString *const kPhimLeString;
  */
 extern NSString *const kPhimBoString;
 
+/**
+ * Update
+ */
+extern NSString *const kReportFail;
+
+/**
+ * Update
+ */
+extern NSString *const kReportSuccess;
+
+/**
+ * Bug description
+ */
+extern NSString *const kBugDescription;
+
+/**
+ * Bug description
+ */
+extern NSString *const kReportString ;
+
 @end

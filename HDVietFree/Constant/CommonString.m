@@ -120,4 +120,26 @@ NSString *const kPhimLeString = @"Phim lẻ";
  */
 NSString *const kPhimBoString = @"Phim bộ";
 
+/**
+ * Update
+ */
+NSString *const kReportFail = @"Báo cáo lỗi thất bại";
+
+/**
+ * Update
+ */
+NSString *const kReportSuccess = @"Cảm ơn bạn đã report lỗi.";
+
+/**
+ * Bug description
+ */
+NSString *const kBugDescription = @"entry.1561439694=%@";
+
+/**
+ * Bug description
+ */
+NSString *const kReportString = @"Report lỗi";
+
+
+
 @end

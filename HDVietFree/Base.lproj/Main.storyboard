@@ -254,6 +254,96 @@
             </objects>
             <point key="canvasLocation" x="1135" y="1798"/>
         </scene>
+        <!--Report Bug Controller-->
+        <scene sceneID="97A-ej-ixL">
+            <objects>
+                <viewController storyboardIdentifier="ReportBugController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HJb-hG-X1s" customClass="ReportBugController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PD8-hj-xQV"/>
+                        <viewControllerLayoutGuide type="bottom" id="gwJ-Oe-SET"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9Oi-Gu-3SL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhập lỗi app tại đây:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cu2-6Z-UHT">
+                                <rect key="frame" x="26" y="124" width="213" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="FMC-sd-bx9"/>
+                                    <constraint firstAttribute="width" constant="213" id="XbP-3q-qp9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QTi-LP-XKU">
+                                <rect key="frame" x="28" y="162" width="544" height="238"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="HJb-hG-X1s" id="ut7-5G-BiD"/>
+                                </connections>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5LS-36-MsP">
+                                <rect key="frame" x="167" y="420" width="267" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="267" id="IjT-Sh-szr"/>
+                                    <constraint firstAttribute="height" constant="45" id="Zpq-Da-wwH"/>
+                                </constraints>
+                                <state key="normal" title="Submit" backgroundImage="button_active.png">
+                                    <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnSubmit:" destination="HJb-hG-X1s" eventType="touchUpInside" id="7eh-V2-tn3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REPORT LỖI APP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhH-WO-p6V">
+                                <rect key="frame" x="194" y="72" width="213" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="213" id="Nbm-td-akT"/>
+                                    <constraint firstAttribute="height" constant="30" id="nfR-c1-WhP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FL4-nH-MNp">
+                                <rect key="frame" x="0.0" y="113" width="601" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="OJ4-Fb-XtN"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5LS-36-MsP" firstAttribute="centerX" secondItem="9Oi-Gu-3SL" secondAttribute="centerX" id="1EP-8V-FFu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QTi-LP-XKU" secondAttribute="trailing" constant="8" id="5JG-bn-c6i"/>
+                            <constraint firstItem="gwJ-Oe-SET" firstAttribute="top" secondItem="QTi-LP-XKU" secondAttribute="bottom" constant="200" id="921-4G-5Hn"/>
+                            <constraint firstItem="cu2-6Z-UHT" firstAttribute="leading" secondItem="9Oi-Gu-3SL" secondAttribute="leadingMargin" constant="6" id="KqA-vm-oyJ"/>
+                            <constraint firstItem="rhH-WO-p6V" firstAttribute="centerX" secondItem="9Oi-Gu-3SL" secondAttribute="centerX" id="OQg-n3-7W8"/>
+                            <constraint firstItem="5LS-36-MsP" firstAttribute="top" secondItem="QTi-LP-XKU" secondAttribute="bottom" constant="20" id="P29-YJ-Daw"/>
+                            <constraint firstItem="QTi-LP-XKU" firstAttribute="top" secondItem="cu2-6Z-UHT" secondAttribute="bottom" constant="8" id="Vcp-iI-z9a"/>
+                            <constraint firstItem="QTi-LP-XKU" firstAttribute="leading" secondItem="9Oi-Gu-3SL" secondAttribute="leadingMargin" constant="8" id="dNg-h6-Ew5"/>
+                            <constraint firstItem="cu2-6Z-UHT" firstAttribute="top" secondItem="PD8-hj-xQV" secondAttribute="bottom" constant="60" id="gVq-kj-JxG"/>
+                            <constraint firstItem="FL4-nH-MNp" firstAttribute="centerX" secondItem="9Oi-Gu-3SL" secondAttribute="centerX" id="nUp-hF-JFw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FL4-nH-MNp" secondAttribute="trailing" constant="-21" id="tsT-Pd-YuZ"/>
+                            <constraint firstItem="FL4-nH-MNp" firstAttribute="leading" secondItem="9Oi-Gu-3SL" secondAttribute="leadingMargin" constant="-20" id="uvd-a4-3bX"/>
+                            <constraint firstItem="FL4-nH-MNp" firstAttribute="top" secondItem="rhH-WO-p6V" secondAttribute="bottom" constant="11" id="vQL-au-fPQ"/>
+                            <constraint firstItem="rhH-WO-p6V" firstAttribute="top" secondItem="PD8-hj-xQV" secondAttribute="bottom" constant="8" id="xLQ-gi-OOW"/>
+                        </constraints>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="tvReport" destination="QTi-LP-XKU" id="fOd-nt-FgJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q9I-HM-IcA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1808" y="1798"/>
+        </scene>
         <!--Episode Controller-->
         <scene sceneID="k1c-d5-see">
             <objects>
