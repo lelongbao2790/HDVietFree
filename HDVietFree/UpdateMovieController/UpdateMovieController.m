@@ -51,17 +51,28 @@
 }
 
 - (void)requestUpdateMovie {
-    [[[Movie query] fetch] removeAll];
-    self.lastListMovie = 0;
-    DLOG(@"Total menu : %d", (int)kDicMainMenu.allKeys.count);
     ProgressBarShowLoading(kLoading);
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        // Download
+        [[[Movie query] fetch] removeAll];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            self.lastListMovie = 0;
+            DLOG(@"Total menu : %d", (int)kDicMainMenu.allKeys.count);
+            
+            for (int i = 0; i < self.dictMenu.allKeys.count; i++) {
+                // Not exist - Request server to get list
+                [[ManageAPI share] loadListMovieAPI:kGenrePhimLe tag:self.dictMenu.allKeys[i] andPage:kPageDefault];
+                [[ManageAPI share] loadListMovieAPI:kGenrePhimBo tag:self.dictMenu.allKeys[i] andPage:kPageDefault];
+            }
+
+        });
+    });
+
     
-    for (int i = 0; i < self.dictMenu.allKeys.count; i++) {
-        // Not exist - Request server to get list
-        [[ManageAPI share] loadListMovieAPI:kGenrePhimLe tag:self.dictMenu.allKeys[i] andPage:kPageDefault];
-        [[ManageAPI share] loadListMovieAPI:kGenrePhimBo tag:self.dictMenu.allKeys[i] andPage:kPageDefault];
+    
     }
-}
 
 - (IBAction)btnUpdate:(id)sender {
     

@@ -51,6 +51,8 @@
 #import "UpdateMovieController.h"
 #import "ListMenuController.h"
 #import "ReportBugController.h"
+#import "NSObject+Associating.h"
+#import "UIImageLoader.h"
 
 
 #endif /* HDVietPrefix_pch */

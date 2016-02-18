@@ -38,6 +38,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     NavigationMovieCustomController *navCustom = (NavigationMovieCustomController *)self.navigationController;
     navCustom.searchController = nil;
+    navCustom.txtSearch.text = kEmptyString;
     [self dismissView];
     
 }

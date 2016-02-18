@@ -59,6 +59,12 @@
 @"Lịch sử", @"lich-su", \
 @"Tài liệu", @"tai-lieu", \
 @"Phim chiếu rạp", @"chieu-rap", \
+@"Phim bí ẩn", @"bi-an", \
+@"Phim cổ trang", @"co-trang", \
+@"Phim lãng mạn", @"lang-man", \
+@"Phim trinh thám", @"trinh-tham", \
+@"Phim viễn tây", @"vien-tay", \
+@"Phim chiếu rạp", @"chieu-rap", \
 @"Sắp chiếu", @"sap-chieu", \
 @"Thần thoại", @"than-thoai", nil]
 
@@ -88,6 +94,11 @@
 @"Hàn quốc", @"han-quoc", \
 @"Lịch sử", @"lich-su", \
 @"Tài liệu", @"tai-lieu", \
+@"Phim bí ẩn", @"bi-an", \
+@"Phim cổ trang", @"co-trang", \
+@"Phim lãng mạn", @"lang-man", \
+@"Phim trinh thám", @"trinh-tham", \
+@"Phim viễn tây", @"vien-tay", \
 @"Thần thoại", @"than-thoai", nil]
 
 // Fixed auto layout for multiple device

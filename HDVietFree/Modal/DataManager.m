@@ -255,4 +255,42 @@
     [op start];
 }
 
+/*
+ * DOWNLOAD IMAGE
+ *
+ * @param strUrl url string request
+ */
+- (void)downloadImageWithUrl:(NSString *)url completionBlock:(completionBlock)completionBlock {
+    NSURL *urlImage = [NSURL URLWithString:url];
+    [[UIImageLoader defaultLoader] loadImageWithURL:urlImage
+                                           hasCache:^(UIImageLoaderImage * image, UIImageLoadSource loadedFromSource) {
+                                               
+                                               //there was a cached image available. use that.
+                                               if (completionBlock) {
+                                                   completionBlock(YES, image);
+                                               }
+                                               
+                                           } sendingRequest:^(BOOL didHaveCachedImage) {
+                                               
+                                               //a request is being made for the image.
+                                               
+                                               if(!didHaveCachedImage) {
+                                                   
+                                                   if (completionBlock) {
+                                                       completionBlock(NO, nil);
+                                                   }
+                                               }
+                                               
+                                           } requestCompleted:^(NSError *error, UIImageLoaderImage * image, UIImageLoadSource loadedFromSource) {
+                                               
+                                               //network request finished.
+                                               
+                                               if(loadedFromSource == UIImageLoadSourceNetworkToDisk) {
+                                                   if (completionBlock) {
+                                                       completionBlock(YES, image);
+                                                   }
+                                               }
+                                           }];
+}
+
 @end

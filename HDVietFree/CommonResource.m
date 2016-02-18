@@ -15,6 +15,11 @@
  */
 NSString *const kSearchIcon = @"search_icon.png";
 
+/**
+ * No image
+ */
+NSString *const kNoImage = @"no_image.png";
+
 /*
  * Set pair view controller
  */

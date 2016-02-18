@@ -7,6 +7,9 @@
 //
 
 #import "AFHTTPSessionManager.h"
+#import "UIImageLoader.h"
+
+typedef void (^completionBlock)(BOOL success, UIImageLoaderImage * image);
 
 @interface DataManager : NSObject {
      NSObject<LoginDelegate> *loginDelegate;
@@ -76,5 +79,12 @@
  * @param strUrl url string request
  */
 - (void)reportBugWithData:(NSString *)data;
+
+/*
+ * DOWNLOAD IMAGE
+ *
+ * @param strUrl url string request
+ */
+- (void)downloadImageWithUrl:(NSString *)url completionBlock:(completionBlock)completionBlock;
 
 @end

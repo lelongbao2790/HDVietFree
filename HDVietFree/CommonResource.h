@@ -15,6 +15,11 @@
  */
 extern NSString *const kSearchIcon;
 
+/**
+ * No image
+ */
+extern NSString *const kNoImage;
+
 /*
  * Set pair view controller
  */

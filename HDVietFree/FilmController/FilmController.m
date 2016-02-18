@@ -14,7 +14,6 @@
 @end
 
 @implementation FilmController
-
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Life Cycle **
@@ -141,7 +140,7 @@
     ProgressBarDismissLoading(kEmptyString);
     
     if (response.count > 0) {
-        DLOG(@"loadListMovieAPISuccess with: %@ %@", tagMovie, genre );
+        DLOG(@"loadListMovieAPISuccess with: %@ %d", tagMovie, (int)numberToInteger(dictToArray(response)[kPageResponsePosition]));
         
         // Add list movie to local
         [[DataAccess share] addListMovieToLocal:response];

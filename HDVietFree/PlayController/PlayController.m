@@ -92,43 +92,40 @@
 }
 
 - (void)loadImage {
-    
-    UIImage *imageFromCache = [[Utilities share]getCachedImageForKey:self.movie.backdrop945530];
-    
-    if (imageFromCache) {
-        [self updateUIImageAvatar:imageFromCache];
-    } else {
-        if ([Utilities isExistImage:self.movie.backdrop945530]) {
-            // Exist image
-            [[Utilities share]cacheImage:[Utilities loadImageFromName:self.movie.backdrop945530] forKey:self.movie.backdrop945530];
-            [self updateUIImageAvatar:[Utilities loadImageFromName:self.movie.backdrop945530]];
-        } else {
-            [self downloadImage];
-            
-        }
-    }
-}
-
-- (void)downloadImage {
-    // Not exist
-    __block NSData *data = nil;
-    NSString *strImageUrl = self.movie.backdrop945530;
-    NSURL *urlImage = [NSURL URLWithString:strImageUrl];
-    
-    dispatch_queue_t backgroundQueue = dispatch_queue_create(kLoadImageInBackground, 0);
-    dispatch_async(backgroundQueue, ^{
-        
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
         // Download
-        data = [NSData dataWithContentsOfURL:urlImage];
-        UIImage *image = [UIImage imageWithData:data];
-        [Utilities saveImage:image withName:self.movie.backdrop945530];
-        [[Utilities share]cacheImage:image forKey:self.movie.backdrop945530];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            // Load image on UI
-            [self updateUIImageAvatar:image];
+        UIImage *imageFromCache = [[Utilities share]getCachedImageForKey:self.movie.backdrop945530];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if (imageFromCache) {
+                [self updateUIImageAvatar:imageFromCache];
+            } else {
+                if ([Utilities isExistImage:self.movie.backdrop945530]) {
+                    // Exist image
+                    [[Utilities share]cacheImage:[Utilities loadImageFromName:self.movie.backdrop945530] forKey:self.movie.backdrop945530];
+                    [self updateUIImageAvatar:[Utilities loadImageFromName:self.movie.backdrop945530]];
+                } else {
+                    [self downloadImageWithLibrary:self.movie];
+                    
+                }
+            }
         });
     });
+}
+
+- (void)downloadImageWithLibrary:(Movie *)movie {
+    if (movie.backdrop945530) {
+        NSString *strImageUrl = [Utilities getStringUrlPoster:movie];
+        [[DataManager shared] downloadImageWithUrl:strImageUrl completionBlock:^(BOOL success, UIImageLoaderImage *image) {
+            if (success) {
+                [self updateUIImageAvatar:image];
+            } else {
+                [self updateUIImageAvatar:[UIImage imageNamed:kNoImage]];
+            }
+        }];
+    } else {
+        [self updateUIImageAvatar:[UIImage imageNamed:kNoImage]];
+    }
 }
 
 // This method will update image avatar

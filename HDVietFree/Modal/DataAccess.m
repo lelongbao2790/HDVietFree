@@ -130,6 +130,7 @@
         newMovie.pageNumber = numberToInteger(listResponse[kPageResponsePosition]);
         newMovie.totalRecord = numberToInteger(listResponse[kTotalRecordPosition]);
         [newMovie commit];
+        DLOG(@"Add movie %@ to page %d", newMovie.movieName, (int)newMovie.pageNumber);
     }
 }
 
