@@ -83,8 +83,8 @@
 		D3DF762F1C74495E00CF6C52 /* ReportBugController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF762E1C74495E00CF6C52 /* ReportBugController.m */; };
 		D3DF76311C74765500CF6C52 /* crashed.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3DF76301C74765500CF6C52 /* crashed.plist */; };
 		D3DF76341C757B5600CF6C52 /* NSObject+Associating.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF76331C757B5600CF6C52 /* NSObject+Associating.m */; };
-		D3DF76381C758FCD00CF6C52 /* UIImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF76371C758FCD00CF6C52 /* UIImageLoader.m */; };
 		D3DF763A1C75992500CF6C52 /* no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D3DF76391C75992500CF6C52 /* no_image.png */; };
+		D3DF763D1C75B8D000CF6C52 /* UIImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF763C1C75B8D000CF6C52 /* UIImageLoader.m */; };
 		D3EA87A41C50BF6200D593A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA87A31C50BF6200D593A1 /* main.m */; };
 		D3EA87A71C50BF6200D593A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA87A61C50BF6200D593A1 /* AppDelegate.m */; };
 		D3EA87AD1C50BF6200D593A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3EA87AB1C50BF6200D593A1 /* Main.storyboard */; };
@@ -257,9 +257,9 @@
 		D3DF76301C74765500CF6C52 /* crashed.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = crashed.plist; sourceTree = "<group>"; };
 		D3DF76321C757B5600CF6C52 /* NSObject+Associating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Associating.h"; path = "Category/NSObject+Associating.h"; sourceTree = "<group>"; };
 		D3DF76331C757B5600CF6C52 /* NSObject+Associating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Associating.m"; path = "Category/NSObject+Associating.m"; sourceTree = "<group>"; };
-		D3DF76361C758FCD00CF6C52 /* UIImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageLoader.h; sourceTree = "<group>"; };
-		D3DF76371C758FCD00CF6C52 /* UIImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageLoader.m; sourceTree = "<group>"; };
 		D3DF76391C75992500CF6C52 /* no_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_image.png; sourceTree = "<group>"; };
+		D3DF763B1C75B8D000CF6C52 /* UIImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageLoader.h; sourceTree = "<group>"; };
+		D3DF763C1C75B8D000CF6C52 /* UIImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageLoader.m; sourceTree = "<group>"; };
 		D3EA879F1C50BF6200D593A1 /* HDVietFree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HDVietFree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3EA87A31C50BF6200D593A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D3EA87A51C50BF6200D593A1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -383,7 +383,8 @@
 		D329169A1C55B73B00CE46B6 /* ThirdParties */ = {
 			isa = PBXGroup;
 			children = (
-				D3DF76351C758FBD00CF6C52 /* UIImageLoader */,
+				D3DF763B1C75B8D000CF6C52 /* UIImageLoader.h */,
+				D3DF763C1C75B8D000CF6C52 /* UIImageLoader.m */,
 				D36579691C60503A00F51DA3 /* MPMoviePlayerController+Subtitles */,
 				D36579451C58565500F51DA3 /* DBAccess */,
 				D329169B1C55B75D00CE46B6 /* MBProgressHUD */,
@@ -615,15 +616,6 @@
 				D3DF762E1C74495E00CF6C52 /* ReportBugController.m */,
 			);
 			name = ReportBugController;
-			sourceTree = "<group>";
-		};
-		D3DF76351C758FBD00CF6C52 /* UIImageLoader */ = {
-			isa = PBXGroup;
-			children = (
-				D3DF76361C758FCD00CF6C52 /* UIImageLoader.h */,
-				D3DF76371C758FCD00CF6C52 /* UIImageLoader.m */,
-			);
-			name = UIImageLoader;
 			sourceTree = "<group>";
 		};
 		D3EA87961C50BF6200D593A1 = {
@@ -994,7 +986,7 @@
 				D32916DB1C55B7DF00CE46B6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				D365795D1C5EEFA000F51DA3 /* FilmController.m in Sources */,
 				D32916871C55B37800CE46B6 /* StoryboardId.m in Sources */,
-				D3DF76381C758FCD00CF6C52 /* UIImageLoader.m in Sources */,
+				D3DF763D1C75B8D000CF6C52 /* UIImageLoader.m in Sources */,
 				D365791E1C55DAB000F51DA3 /* MovieSearch.m in Sources */,
 				D32916D61C55B7DF00CE46B6 /* AFURLResponseSerialization.m in Sources */,
 			);

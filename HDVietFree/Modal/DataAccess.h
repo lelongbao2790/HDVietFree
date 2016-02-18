@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+typedef void (^completionDataBlock)(BOOL success, NSMutableArray * array);
 
 @interface DataAccess : NSObject
 
@@ -18,7 +19,7 @@
 /*
  * Get list movie local
  */
-- (NSMutableArray *)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page;
+- (void)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock;
 
 /*
  * Check exist data

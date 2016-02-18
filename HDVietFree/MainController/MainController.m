@@ -41,7 +41,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     // Hidden navigation bar
     [self.navigationController.navigationBar setHidden:NO];
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
 }
 
 //*****************************************************************************
@@ -66,6 +68,7 @@
     [self checkListMovie];
     
     [Utilities fixAutolayoutWithDelegate:self];
+    [self.tbvListMovie reloadData];
 }
 
 - (void)initSearchBarButton {
@@ -109,14 +112,18 @@
 - (void)didTapHeader:(UITapGestureRecognizer *)recognizer {
     NSInteger section = recognizer.view.tag;
     
-    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][section]
-                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                                             andPage:kPageDefault];
+    [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][section]
+                                   andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                    andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
+                                        if (success) {
+                                            FilmController *filmController = [Utilities initFilmControllerWithTag:[Utilities sortArrayFromDict:self.dictMenu][section]
+                                                                                                        numberTag:section
+                                                                                                        andListDb:array];
+                                            [self.navigationController pushViewController:filmController animated:YES];
+                                        }
+                                    }];
     
-    FilmController *filmController = [Utilities initFilmControllerWithTag:[Utilities sortArrayFromDict:self.dictMenu][section]
-                                                                numberTag:section
-                                                                andListDb:listDBInLocal];
-    [self.navigationController pushViewController:filmController animated:YES];
+
 }
 
 
@@ -131,16 +138,17 @@
         cell = [[MovieCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTableViewMoviedentifier];
     }
     
-    // Config cell
-    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][indexPath.section]
-                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                                             andPage:kPageDefault];
-    self.listMovieOnMain = [listDBInLocal mutableCopy];
+    [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][indexPath.section]
+                                   andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                    andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
+                                        if (success) {
+                                            self.listMovieOnMain = [array mutableCopy];
+                                            [cell.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagMainController
+                                                                                                           andListMovie:self.listMovieOnMain];
+                                        }
+                                    }];
     
-    [cell.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagMainController
-                                                                   andListMovie:self.listMovieOnMain];
     return cell;
-    
 }
 
 //*****************************************************************************

@@ -227,25 +227,27 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     NSInteger keyGenre = [self.dictMenu.allKeys[indexPath.section] integerValue];
     NSDictionary *dict = getDictTitleMenu(keyGenre);
-    
+
     // Get list movie in local
-    NSArray *listDBInLocal = [[DataAccess share] listMovieLocalByTag:dict.allKeys[indexPath.row]
-                                                            andGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                                             andPage:kPageDefault];
-    
-    // Init film controler
-    FilmController *filmController = [Utilities initFilmControllerWithTag:dict.allKeys[indexPath.row]
-                                                                numberTag:indexPath.row
-                                                                andListDb:listDBInLocal];
-    
-    
-    [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:filmController];
-    [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
-    
-    self.expandedIndexPath = nil;
-    [self updateTableView];
+    // Using GCD to get list db local
+    [[DataAccess share] listMovieLocalByTag:dict.allKeys[indexPath.row]
+                                   andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                    andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
+                                        // Init film controler
+                                        FilmController *filmController = [Utilities initFilmControllerWithTag:dict.allKeys[indexPath.row]
+                                                                                                    numberTag:indexPath.row
+                                                                                                    andListDb:array];
+                                        
+                                        
+                                        [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:filmController];
+                                        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+                                        
+                                        self.expandedIndexPath = nil;
+                                        [self updateTableView];
+                                    }];
 }
 
 - (void)updateTableView

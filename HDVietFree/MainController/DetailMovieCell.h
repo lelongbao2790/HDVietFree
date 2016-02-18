@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageMovie;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityLoading;
 @property (weak, nonatomic) IBOutlet UILabel *lbNameMovie;
+@property (assign, nonatomic) BOOL isLoaded;
 
 - (void)loadInformationWithMovie:(Movie *)movie;
 

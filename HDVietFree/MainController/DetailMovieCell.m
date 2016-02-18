@@ -12,6 +12,7 @@
 @implementation DetailMovieCell
 
 - (void)loadInformationWithMovie:(Movie *)movie {
+    self.isLoaded = NO;
     self.lbNameMovie.text = movie.movieName;
     [self setImagePoster:movie];
     DLOG(@"Movie name: %@", movie.movieName);
@@ -25,7 +26,9 @@
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
         // Download
+        
         UIImage *imageFromCache = [[Utilities share]getCachedImageForKey:movie.poster];
+        
         dispatch_sync(dispatch_get_main_queue(), ^{
             if (imageFromCache) {
                 [self updateUIImageAvatar:imageFromCache withMovie:movie];
@@ -59,6 +62,29 @@
     }
 }
 
+//- (void)downloadImage:(Movie *)movie {
+//    // Not exist
+//    self.imageMovie.image = nil;
+//    [self.activityLoading startAnimating];
+//    NSString *strImageUrl = [Utilities getStringUrlPoster:movie];
+//    NSURL *urlImage = [NSURL URLWithString:strImageUrl];
+//    
+//    // Using GCD to download image
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+//    dispatch_async(queue, ^{
+//        // Download
+//        NSData *data = [NSData dataWithContentsOfURL:urlImage];
+//        UIImage *image = [UIImage imageWithData:data];
+//        [Utilities saveImage:image withName:movie.poster];
+//        [[Utilities share]cacheImage:image forKey:movie.poster];
+//        dispatch_sync(dispatch_get_main_queue(), ^{
+//            
+//            // Load image on UI main thread
+//            [self updateUIImageAvatar:image withMovie:movie];
+//        });
+//    });
+//}
+
 
 // This method will update image avatar
 - (void)updateUIImageAvatar:(UIImage*)images withMovie:(Movie *)movie {
@@ -69,6 +95,8 @@
     } else {
         self.imageMovie.image = [UIImage imageNamed:kNoImage];
     }
+    
+    self.isLoaded = YES;
 }
 
 @end

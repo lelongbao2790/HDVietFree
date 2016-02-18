@@ -32,8 +32,9 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DetailMovieCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionDetailMovieIdentifier forIndexPath:indexPath];
-    [cell loadInformationWithMovie:self.listMovie[indexPath.row]];
-    
+    if (!cell.isLoaded) {
+        [cell loadInformationWithMovie:self.listMovie[indexPath.row]];
+    }
     return cell;
 }
 

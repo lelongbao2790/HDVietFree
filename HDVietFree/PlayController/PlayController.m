@@ -115,7 +115,7 @@
 
 - (void)downloadImageWithLibrary:(Movie *)movie {
     if (movie.backdrop945530) {
-        NSString *strImageUrl = [Utilities getStringUrlPoster:movie];
+        NSString *strImageUrl = movie.backdrop945530;
         [[DataManager shared] downloadImageWithUrl:strImageUrl completionBlock:^(BOOL success, UIImageLoaderImage *image) {
             if (success) {
                 [self updateUIImageAvatar:image];

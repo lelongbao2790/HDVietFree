@@ -25,20 +25,33 @@
 /*
  * Get list movie local
  */
-- (NSMutableArray *)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page {
-    NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
-    DBResultSet* r = [[[Movie query] whereWithFormat:@"tagMovie = %@ and genreMovie = %@ and pageNumber = %d", tagMovie, genreMovie, (int)page]
-                                                fetch];
-    if (r.count > 0) {
-        for (Movie* newMovie in r) {
-            [listMovieLocal addObject:newMovie];
+- (void)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        // Download
+        NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
+        DBResultSet* r = [[[Movie query] whereWithFormat:@"tagMovie = %@ and genreMovie = %@ and pageNumber = %d", tagMovie, genreMovie, (int)page]
+                          fetch];
+        if (r.count > 0) {
+            for (Movie* newMovie in r) {
+                [listMovieLocal addObject:newMovie];
+            }
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (completionBlock) {
+                    completionBlock(YES, listMovieLocal);
+                }
+            });
+            
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (completionBlock) {
+                    completionBlock(NO, listMovieLocal);
+                }
+            });
+            
         }
-        
-        return listMovieLocal;
-        
-    } else {
-        return nil;
-    }
+    });
 }
 
 /*

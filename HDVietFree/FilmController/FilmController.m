@@ -43,6 +43,8 @@
     
     // Check request list movie
     [self requestListMovieFromLocal];
+    
+    self.previousPage = 1;
 }
 
 - (void)requestListMovieFromLocal {
@@ -67,11 +69,12 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // Configure the cell
     DetailMovieCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionDetailMovieIdentifier forIndexPath:indexPath];
-    [cell loadInformationWithMovie:self.listMovie[indexPath.row]];
-    DLOG(@"Row : %d", (int)indexPath.row);
     
+    [cell loadInformationWithMovie:self.listMovie[indexPath.row]];
+    
+    DLOG(@"Row : %d", (int)indexPath.row);
     // Check last item
-     DLOG(@"Last item : %d", (int)indexPath.item);
+    DLOG(@"Last item : %d", (int)indexPath.item);
     if(indexPath.item == (self.listMovie.count - 1)) {
         [self checkListMovie];
     }
@@ -113,16 +116,24 @@
         NSInteger nextPage = (self.listMovie.count / self.totalItemOnOnePage) + 1;
         DLOG(@"Get list movie of next page :%d",(int)nextPage);
         
-        if ([[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                                   andTag:self.tagMovie
-                                                  andPage:nextPage]) {
-            // Exist
-            [self refreshListMovieWithPage:nextPage];
+        // Using GCD to get list db local
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_async(queue, ^{
             
-        } else {
-            // Not exist - Request server to get list
-            [self requestGetListMovie:nextPage];
-        }
+            BOOL isExist = [[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                                                  andTag:self.tagMovie
+                                                                 andPage:nextPage];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (isExist) {
+                    // Exist
+                    [self refreshListMovieWithPage:nextPage];
+                    
+                } else {
+                    // Not exist - Request server to get list
+                    [self requestGetListMovie:nextPage];
+                }
+            });
+        });
     }
 }
 
@@ -145,10 +156,8 @@
         // Add list movie to local
         [[DataAccess share] addListMovieToLocal:response];
         
-        // Refresh list movie
         [self refreshListMovieWithPage:numberToInteger(dictToArray(response)[kPageResponsePosition])];
     }
-    
 }
 
 - (void)loadListMovieAPIFail:(NSString *)resultMessage {
@@ -161,32 +170,46 @@
 - (void)refreshListMovieWithPage:(NSInteger)page {
 
     if (self.previousPage != page) {
-        // Init and get db in local
-        NSMutableArray *indexPaths = [NSMutableArray new];
-        NSInteger totalCount = [self.listMovie count];
-        NSArray *listMovieForPage = [[DataAccess share] listMovieLocalByTag:self.tagMovie
-                                                                   andGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                                                    andPage:page];
+        [self addNextListMovie:page];
         
-        // Assign total item if list is empty
-        if ([Utilities isEmptyArray:self.listMovie]) {
-            self.totalItemOnOnePage = listMovieForPage.count;
+    } else {
+        if (self.listMovie.count == 0) {
+            [self addNextListMovie:page];
         }
-        
-        // Add object to current list and refresh
-        for (int i = 0; i < listMovieForPage.count; i++) {
-            Movie *newMovie = listMovieForPage[i];
-            [self.listMovie addObject:newMovie];
-            [indexPaths addObject:[NSIndexPath indexPathForRow:totalCount + i
-                                                     inSection:0]];
-        }
-        
-        [self.collectionView performBatchUpdates:^{
-            [self.collectionView insertItemsAtIndexPaths:indexPaths];
-        } completion:nil];
-        self.previousPage = page;
     }
+}
+
+- (void)addNextListMovie:(NSInteger)page {
+    // Init and get db in local
+    NSMutableArray *indexPaths = [NSMutableArray new];
+    NSInteger totalCount = [self.listMovie count];
     
+    // Using GCD to get list db local
+    [[DataAccess share] listMovieLocalByTag:self.tagMovie
+                                   andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                    andPage:page completionBlock:^(BOOL success, NSMutableArray *array) {
+                                        
+                                        if (success) {
+                                            // Assign total item if list is empty
+                                            if ([Utilities isEmptyArray:self.listMovie]) {
+                                                self.totalItemOnOnePage = array.count;
+                                                self.previousPage = 1;
+                                            }
+                                            
+                                            // Add object to current list and refresh
+                                            for (int i = 0; i < array.count; i++) {
+                                                Movie *newMovie = array[i];
+                                                [self.listMovie addObject:newMovie];
+                                                [indexPaths addObject:[NSIndexPath indexPathForItem:totalCount + i inSection:0]];
+                                            }
+                                            
+                                            [self.collectionView performBatchUpdates:^{
+                                                [self.collectionView insertItemsAtIndexPaths:indexPaths];
+                                            } completion:nil];
+                                            self.previousPage = page;
+                                        }
+                                    }];
+
 }
 
 @end
