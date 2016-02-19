@@ -8,19 +8,39 @@
 
 #import "CollectionMovie.h"
 
+@interface CollectionMovie ()
+
+@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
+
+@end
 @implementation CollectionMovie
 
-- (void)awakeFromNib {
+-(void)awakeFromNib {
     
-}
-
-- (void)setCollectionViewDataSourceDelegateWithController:(NSInteger)typeController andListMovie:(NSArray *)listMovieInDB
-{
-    // Lag in here
-    self.listMovie = listMovieInDB;
+    [super awakeFromNib];
     [self registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     self.dataSource = self;
     self.delegate = self;
+//    [self setCollectionViewLayout:self.flowLayout];
+}
+
+-(UICollectionViewFlowLayout *)flowLayout{
+    
+    // set your layout here
+    _flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [_flowLayout setSectionInset:UIEdgeInsetsMake(0, 2, 0, 2)];
+    [_flowLayout setMinimumInteritemSpacing:2];
+    [_flowLayout setMinimumLineSpacing:2];
+    [_flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    [_flowLayout setItemSize:CGSizeMake(124, 217)];
+    
+    return _flowLayout;
+}
+
+- (void)setListMovieDb:(NSArray *)listMovieInDB
+{
+    // Lag in here
+    self.listMovie = listMovieInDB;
     [self reloadData];
     
 }

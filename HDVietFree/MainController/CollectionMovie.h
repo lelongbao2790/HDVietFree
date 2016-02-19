@@ -19,6 +19,6 @@
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Helper Method **
-- (void)setCollectionViewDataSourceDelegateWithController:(NSInteger)typeController andListMovie:(NSArray *)listMovieInDB;
+- (void)setListMovieDb:(NSArray *)listMovieInDB;
 
 @end

@@ -69,6 +69,8 @@
     
     [Utilities fixAutolayoutWithDelegate:self];
     [self.tbvListMovie reloadData];
+    
+    
 }
 
 - (void)initSearchBarButton {
@@ -142,9 +144,9 @@
                                    andGenre:stringFromInteger([MovieSearch share].genreMovie)
                                     andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
                                         if (success) {
-                                            self.listMovieOnMain = [array mutableCopy];
-                                            [cell.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagMainController
-                                                                                                           andListMovie:self.listMovieOnMain];
+                                            [cell.collectionViewMovie setListMovieDb:array];
+//                                            [cell.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagMainController
+//                                                                                                           andListMovie:self.listMovieOnMain];
                                         }
                                     }];
     

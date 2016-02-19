@@ -240,8 +240,9 @@
             
             // Config cell
             NSArray *listRelativeMovieInLocal = [[DataAccess share] getRelativeMovieInDB:self.movie.movieID];
-            [cellMovie.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagPlayController
-                                                                                andListMovie:listRelativeMovieInLocal];
+            [cellMovie.collectionViewMovie setListMovie:listRelativeMovieInLocal];
+//            [cellMovie.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagPlayController
+//                                                                                andListMovie:listRelativeMovieInLocal];
             cell = cellMovie;
         }
             break;
