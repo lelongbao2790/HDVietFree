@@ -21,20 +21,6 @@
     [self registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     self.dataSource = self;
     self.delegate = self;
-//    [self setCollectionViewLayout:self.flowLayout];
-}
-
--(UICollectionViewFlowLayout *)flowLayout{
-    
-    // set your layout here
-    _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    [_flowLayout setSectionInset:UIEdgeInsetsMake(0, 2, 0, 2)];
-    [_flowLayout setMinimumInteritemSpacing:2];
-    [_flowLayout setMinimumLineSpacing:2];
-    [_flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    [_flowLayout setItemSize:CGSizeMake(124, 217)];
-    
-    return _flowLayout;
 }
 
 - (void)setListMovieDb:(NSArray *)listMovieInDB
