@@ -96,20 +96,26 @@
     dispatch_async(queue, ^{
         // Download
         UIImage *imageFromCache = [[Utilities share]getCachedImageForKey:self.movie.backdrop945530];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            if (imageFromCache) {
+        if (imageFromCache) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
                 [self updateUIImageAvatar:imageFromCache];
-            } else {
-                if ([Utilities isExistImage:self.movie.backdrop945530]) {
-                    // Exist image
-                    [[Utilities share]cacheImage:[Utilities loadImageFromName:self.movie.backdrop945530] forKey:self.movie.backdrop945530];
+            });
+            
+        } else {
+            if ([Utilities isExistImage:self.movie.backdrop945530]) {
+                // Exist image
+                [[Utilities share] cacheImage:[Utilities loadImageFromName:self.movie.backdrop945530] forKey:self.movie.backdrop945530];
+                dispatch_sync(dispatch_get_main_queue(), ^{
                     [self updateUIImageAvatar:[Utilities loadImageFromName:self.movie.backdrop945530]];
-                } else {
+                });
+                
+            } else {
+                dispatch_sync(dispatch_get_main_queue(), ^{
                     [self downloadImageWithLibrary:self.movie];
-                    
-                }
+                });
             }
-        });
+        }  
+        
     });
 }
 
@@ -118,13 +124,22 @@
         NSString *strImageUrl = movie.backdrop945530;
         [[DataManager shared] downloadImageWithUrl:strImageUrl completionBlock:^(BOOL success, UIImageLoaderImage *image) {
             if (success) {
-                [self updateUIImageAvatar:image];
+                dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+                dispatch_async(queue, ^{
+                    // Download
+                    [Utilities saveImage:image withName:movie.backdrop945530];
+                    [[Utilities share] cacheImage:image forKey:movie.backdrop945530];
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                       [self updateUIImageAvatar:image];
+                    });
+                });
+                
             } else {
-                [self updateUIImageAvatar:[UIImage imageNamed:kNoImage]];
+                [self updateUIImageAvatar:[UIImage imageNamed:kNoBannerImage]];
             }
         }];
     } else {
-        [self updateUIImageAvatar:[UIImage imageNamed:kNoImage]];
+        [self updateUIImageAvatar:[UIImage imageNamed:kNoBannerImage]];
     }
 }
 
@@ -251,6 +266,7 @@
     if ([[DataAccess share] getRelativeMovieInDB:self.movie.movieID].count > 0 && self.movie.backdrop945530 != nil) {
         [self reloadView];
     } else {
+        [self updateUIImageAvatar:[UIImage imageNamed:kNoBannerImage]];
         ProgressBarShowLoading(kLoading);
         [[ManageAPI share] loadDetailInfoMovieAPI:self.movie];
     }

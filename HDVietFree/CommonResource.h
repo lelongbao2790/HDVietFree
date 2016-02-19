@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class MPMoviePlayerViewController;
 
 @interface CommonResource : NSObject
 
@@ -20,9 +21,18 @@ extern NSString *const kSearchIcon;
  */
 extern NSString *const kNoImage;
 
+/**
+ * No image
+ */
+extern NSString *const kNoBannerImage;
+
 /*
  * Set pair view controller
  */
 extern PlayController *kPlayViewController;
+
+extern MPMoviePlayerViewController *kMoviePlayer;
+
+extern UIViewController *kViewControllerPlay;
 
 @end

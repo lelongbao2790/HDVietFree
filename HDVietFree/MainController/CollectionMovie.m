@@ -16,6 +16,7 @@
 
 - (void)setCollectionViewDataSourceDelegateWithController:(NSInteger)typeController andListMovie:(NSArray *)listMovieInDB
 {
+    // Lag in here
     self.listMovie = listMovieInDB;
     [self registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     self.dataSource = self;
@@ -32,9 +33,7 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DetailMovieCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionDetailMovieIdentifier forIndexPath:indexPath];
-    if (!cell.isLoaded) {
-        [cell loadInformationWithMovie:self.listMovie[indexPath.row]];
-    }
+    [cell loadInformationWithMovie:self.listMovie[indexPath.row]];
     return cell;
 }
 

@@ -12,7 +12,6 @@
 @implementation DetailMovieCell
 
 - (void)loadInformationWithMovie:(Movie *)movie {
-    self.isLoaded = NO;
     self.lbNameMovie.text = movie.movieName;
     [self setImagePoster:movie];
     DLOG(@"Movie name: %@", movie.movieName);
@@ -22,26 +21,34 @@
  * Set avatar image
  */
 - (void)setImagePoster:(Movie *)movie {
-    // Using GCD to download image
+    self.imageMovie.image = nil;
+    [self.activityLoading startAnimating];
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
         // Download
         
         UIImage *imageFromCache = [[Utilities share]getCachedImageForKey:movie.poster];
         
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            if (imageFromCache) {
-                [self updateUIImageAvatar:imageFromCache withMovie:movie];
-            } else {
-                if ([Utilities isExistImage:movie.poster]) {
+        if (imageFromCache) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                 [self updateUIImageAvatar:imageFromCache withMovie:movie];
+            });
+            
+        } else {
+            
+            if ([Utilities isExistImage:movie.poster]) {
+                [[Utilities share] cacheImage:[Utilities loadImageFromName:movie.poster] forKey:movie.poster];
+                dispatch_sync(dispatch_get_main_queue(), ^{
                     // Exist image
                     [self updateUIImageAvatar:[Utilities loadImageFromName:movie.poster] withMovie:movie];
-                } else {
+                });
+                
+            } else {
+                dispatch_sync(dispatch_get_main_queue(), ^{
                     [self downloadImageWithLibrary:movie];
-                    
-                }
+                });
             }
-        });
+        }
     });
 }
 
@@ -50,7 +57,17 @@
         NSString *strImageUrl = [Utilities getStringUrlPoster:movie];
         [[DataManager shared] downloadImageWithUrl:strImageUrl completionBlock:^(BOOL success, UIImageLoaderImage *image) {
             if (success) {
-                [self updateUIImageAvatar:image withMovie:movie];
+                dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+                dispatch_async(queue, ^{
+                    // Download
+                    [Utilities saveImage:image withName:movie.poster];
+                    [[Utilities share] cacheImage:image forKey:movie.poster];
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        [self updateUIImageAvatar:image withMovie:movie];
+                    });
+                });
+                
+                
             } else {
                 //there was not a cached image available, set a placeholder or do nothing.
                 self.imageMovie.image = nil;
@@ -70,19 +87,7 @@
 //    NSURL *urlImage = [NSURL URLWithString:strImageUrl];
 //    
 //    // Using GCD to download image
-//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-//    dispatch_async(queue, ^{
-//        // Download
-//        NSData *data = [NSData dataWithContentsOfURL:urlImage];
-//        UIImage *image = [UIImage imageWithData:data];
-//        [Utilities saveImage:image withName:movie.poster];
-//        [[Utilities share]cacheImage:image forKey:movie.poster];
-//        dispatch_sync(dispatch_get_main_queue(), ^{
-//            
-//            // Load image on UI main thread
-//            [self updateUIImageAvatar:image withMovie:movie];
-//        });
-//    });
+
 //}
 
 
@@ -95,8 +100,6 @@
     } else {
         self.imageMovie.image = [UIImage imageNamed:kNoImage];
     }
-    
-    self.isLoaded = YES;
 }
 
 @end

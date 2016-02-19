@@ -19,12 +19,17 @@ typedef void (^completionDataBlock)(BOOL success, NSMutableArray * array);
 /*
  * Get list movie local
  */
+- (NSArray *)listMovieLocalByTag2:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page;
+
+/*
+ * Get list movie local
+ */
 - (void)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock;
 
 /*
  * Check exist data
  */
-- (BOOL)isExistDataMovieWithGenre:(NSString *)genreMovie andTag:(NSString *)tagMovie andPage:(NSInteger)page;
+- (void)checkExistDataMovieWithGenre:(NSString *)genreMovie andTag:(NSString *)tagMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock;
 
 /*
  * Get movie from Id

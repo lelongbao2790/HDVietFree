@@ -14,7 +14,6 @@
 @end
 
 @implementation Utilities
-
 + (nonnull Utilities *)share {
     static dispatch_once_t once;
     static Utilities *share;
@@ -220,10 +219,14 @@
         andController:(nonnull UIViewController *)controller {
     if (linkPlay && linkSub) {
         NSURL *url = [[NSURL alloc] initWithString:linkPlay];
-        MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+         MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(moviePlaybackDidFinish:)
                                                      name:MPMoviePlayerPlaybackDidFinishNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(moviePlayerLoadStateDidChange:)
+                                                     name:MPMoviePlayerLoadStateDidChangeNotification
                                                    object:nil];
         
         player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
@@ -242,6 +245,7 @@
         }];
         
         // Present video
+        kMoviePlayer = player;
         [controller presentMoviePlayerViewControllerAnimated:player];
         [player.moviePlayer prepareToPlay];
         [player.moviePlayer play];
@@ -252,6 +256,7 @@
 }
 
 + (void)moviePlaybackDidFinish:(nonnull NSNotification*)aNotification{
+    
     NSError *error = [[aNotification userInfo] objectForKey:@"error"];
     if (error) {
         [Utilities showiToastMessage:kErrorPlayMovie];
@@ -262,9 +267,50 @@
         if ([getChildController isKindOfClass:[PlayController class]] ||
             [getChildController isKindOfClass:[EpisodeController class]] ) {
             [getChildController dismissMoviePlayerViewControllerAnimated];
+            kMoviePlayer = nil;
         }
     }
 }
+
++ (void)moviePlayerLoadStateDidChange:(NSNotification *)notification
+{
+    if ([getChildController isKindOfClass:[PlayController class]] ||
+        [getChildController isKindOfClass:[EpisodeController class]] ) {
+        
+        if([kMoviePlayer.moviePlayer loadState] != MPMovieLoadStateUnknown)
+        {
+            
+            [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                            name:MPMoviePlayerLoadStateDidChangeNotification
+                                                          object:nil];
+        }
+    }
+}
+
+static NSInteger timePlay;
+// Call this on applicationWillResignActive
++ (void) pauseMovieInBackGround
+{
+    if (kMoviePlayer) {
+        [kMoviePlayer.moviePlayer pause];
+        timePlay = round([kMoviePlayer.moviePlayer currentPlaybackTime]);
+        [getChildController dismissMoviePlayerViewControllerAnimated];
+    }
+}
+
+// Call this on applicationWillEnterForeground
++ (void) resumeMovieInFrontGround:(UIViewController *)controller
+{
+    if (kMoviePlayer) {
+        DLOG(@"Time resume: %d",(int)timePlay);
+        [controller presentMoviePlayerViewControllerAnimated:kMoviePlayer];
+        
+        [kMoviePlayer.moviePlayer setInitialPlaybackTime:timePlay];
+        [kMoviePlayer.moviePlayer prepareToPlay];
+        [kMoviePlayer.moviePlayer play];
+    }
+}
+
 
 + (nonnull NSArray *)sortArrayFromDict:(nonnull NSDictionary *)dict {
     NSArray *reverseOrder=[[dict allKeys] sortedArrayUsingSelector:@selector(compare:)];

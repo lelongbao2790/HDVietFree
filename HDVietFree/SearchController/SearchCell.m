@@ -36,19 +36,28 @@
     dispatch_async(queue, ^{
         // Download
         UIImage *imageFromCache = [[Utilities share]getCachedImageForKey:movie.poster];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            if (imageFromCache) {
+        if (imageFromCache) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
                 [self updateUIImageAvatar:imageFromCache withMovie:movie];
-            } else {
-                if ([Utilities isExistImage:movie.poster]) {
+            });
+            
+        } else {
+            
+            if ([Utilities isExistImage:movie.poster]) {
+                [[Utilities share] cacheImage:[Utilities loadImageFromName:movie.poster] forKey:movie.backdrop945530];
+                dispatch_sync(dispatch_get_main_queue(), ^{
                     // Exist image
                     [self updateUIImageAvatar:[Utilities loadImageFromName:movie.poster] withMovie:movie];
-                } else {
+                });
+                
+            } else {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    // Exist image
                     [self downloadImage:movie];
-                    
-                }
+                }); 
             }
-        });
+        }
+        
     });
 }
 
@@ -57,7 +66,16 @@
         NSString *strImageUrl = [Utilities getStringUrlPoster:movie];
         [[DataManager shared] downloadImageWithUrl:strImageUrl completionBlock:^(BOOL success, UIImageLoaderImage *image) {
             if (success) {
-                [self updateUIImageAvatar:image withMovie:movie];
+                dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+                dispatch_async(queue, ^{
+                    // Download
+                    [Utilities saveImage:image withName:movie.backdrop945530];
+                    [[Utilities share] cacheImage:image forKey:movie.backdrop945530];
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                         [self updateUIImageAvatar:image withMovie:movie];
+                    });
+                });
+               
             } else {
                 self.imgPoster.image = nil;
                 [self.activityLoading startAnimating];

@@ -184,7 +184,6 @@
         [MovieSearch share].genreMovie = kGenrePhimLe;
         [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:[AppDelegate share].mainController];
         [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
-        [[AppDelegate share].mainController configView];
     }
 }
 

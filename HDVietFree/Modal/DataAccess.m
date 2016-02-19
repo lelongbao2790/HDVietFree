@@ -25,6 +25,25 @@
 /*
  * Get list movie local
  */
+- (NSArray *)listMovieLocalByTag2:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page {
+    NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
+    DBResultSet* r = [[[Movie query] whereWithFormat:@"tagMovie = %@ and genreMovie = %@ and pageNumber = %d", tagMovie, genreMovie, (int)page]
+                      fetch];
+    if (r.count > 0) {
+        for (Movie* newMovie in r) {
+            [listMovieLocal addObject:newMovie];
+        }
+        
+        return listMovieLocal;
+        
+    } else {
+        return nil;
+    }
+}
+
+/*
+ * Get list movie local
+ */
 - (void)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
@@ -57,15 +76,35 @@
 /*
  * Check exist data
  */
-- (BOOL)isExistDataMovieWithGenre:(NSString *)genreMovie andTag:(NSString *)tagMovie andPage:(NSInteger)page {
-    DBResultSet* r = [[[Movie query]
-                       whereWithFormat:@"genreMovie = %@ and tagMovie = %@ and pageNumber = %d", genreMovie, tagMovie, (int)page]
-                      fetch];
+- (void)checkExistDataMovieWithGenre:(NSString *)genreMovie andTag:(NSString *)tagMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock {
     
-    if (r.count > 0)
-        return YES;
-    else
-        return NO;
+    // Using GCD to get list db local
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        
+        DBResultSet* r = [[[Movie query]
+                           whereWithFormat:@"genreMovie = %@ and tagMovie = %@ and pageNumber = %d", genreMovie, tagMovie, (int)page]
+                          fetch];
+        
+        if (r.count > 0) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (completionBlock) {
+                    completionBlock(YES, nil);
+                }
+            });
+            
+        }
+        else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (completionBlock) {
+                    completionBlock(NO, nil);
+                }
+            });
+            
+        }
+
+        
+    });
 }
 
 /*
@@ -143,7 +182,6 @@
         newMovie.pageNumber = numberToInteger(listResponse[kPageResponsePosition]);
         newMovie.totalRecord = numberToInteger(listResponse[kTotalRecordPosition]);
         [newMovie commit];
-        DLOG(@"Add movie %@ to page %d", newMovie.movieName, (int)newMovie.pageNumber);
     }
 }
 

@@ -33,6 +33,13 @@
 [NSArray arrayWithObjects: @"logout_icon.png", @"logout_select_icon.png",nil], [NSNumber numberWithInteger:6], nil]
 
 // Dict for main menu
+
+#define kDicMainMenuOnMain [[NSDictionary alloc] initWithObjectsAndKeys: \
+@"Mới cập nhật", @"moi-cap-nhat", \
+@"Hot trong tháng", @"hot-trong-thang", \
+@"HDViệt đề cử", @"hdviet-de-cu", \
+@"Hành động", @"hanh-dong", nil]
+
 #define kDicMainMenu [[NSDictionary alloc] initWithObjectsAndKeys: \
 @"Mới cập nhật", @"moi-cap-nhat", \
 @"Hot trong tháng", @"hot-trong-thang", \

@@ -160,18 +160,19 @@
     DLOG(@"Total menu : %d", (int)self.dictMenu.allKeys.count);
     
     for (int i = 0; i < self.dictMenu.allKeys.count; i++) {
-        if ([[DataAccess share] isExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie) andTag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault]) {
-            // Exist
-            [self.tbvListMovie reloadData];
-            self.lastListMovie += 1;
-            ProgressBarDismissLoading(kEmptyString);
-            
-        } else {
-            ProgressBarShowLoading(kLoading);
-            
-            // Not exist - Request server to get list
-            [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
-        }
+        [[DataAccess share] checkExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie) andTag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
+            if (success) {
+                [self.tbvListMovie reloadData];
+                self.lastListMovie += 1;
+                ProgressBarDismissLoading(kEmptyString);
+            }
+            else {
+                ProgressBarShowLoading(kLoading);
+                
+                // Not exist - Request server to get list
+                [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
+            }
+        }];
     }
 }
 

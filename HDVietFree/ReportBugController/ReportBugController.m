@@ -55,15 +55,15 @@
 #pragma mark -
 #pragma mark - ** Text View Delegate **
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    NSRange resultRange = [text rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:NSBackwardsSearch];
-    if ([text length] == 1 && resultRange.location != NSNotFound) {
-        [textView resignFirstResponder];
-        return NO;
-    }
-    
-    return YES;
-}
+//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+//    NSRange resultRange = [text rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:NSBackwardsSearch];
+//    if ([text length] == 1 && resultRange.location != NSNotFound) {
+//        [textView resignFirstResponder];
+//        return NO;
+//    }
+//    
+//    return YES;
+//}
 
 - (IBAction)btnSubmit:(id)sender {
     if (self.tvReport.text.length > 0) {

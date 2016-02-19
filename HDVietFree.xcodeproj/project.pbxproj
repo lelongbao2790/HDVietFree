@@ -54,7 +54,6 @@
 		D365794A1C5889F700F51DA3 /* user_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D36579491C5889F700F51DA3 /* user_icon.png */; };
 		D365794D1C58A65E00F51DA3 /* SlideMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D365794C1C58A65E00F51DA3 /* SlideMenuCell.m */; };
 		D36579501C58B07300F51DA3 /* PlayMovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D365794F1C58B07300F51DA3 /* PlayMovieCell.m */; };
-		D36579541C58CE1E00F51DA3 /* play_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D36579531C58CE1E00F51DA3 /* play_icon.png */; };
 		D36579571C59F1B800F51DA3 /* TopMovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579561C59F1B800F51DA3 /* TopMovieCell.m */; };
 		D365795D1C5EEFA000F51DA3 /* FilmController.m in Sources */ = {isa = PBXBuildFile; fileRef = D365795C1C5EEFA000F51DA3 /* FilmController.m */; };
 		D365795F1C5EFF7800F51DA3 /* play_youtube_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D365795E1C5EFF7800F51DA3 /* play_youtube_icon.png */; };
@@ -68,6 +67,9 @@
 		D38CBE771C51D7AC00084126 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE761C51D7AC00084126 /* PlayController.m */; };
 		D38CBE791C51D83A00084126 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38CBE781C51D83A00084126 /* MediaPlayer.framework */; };
 		D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE7E1C51DFD400084126 /* NSString+MD5.m */; };
+		D3C4A9661C76EABF0057B7F9 /* hdviet_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C4A9641C76EABF0057B7F9 /* hdviet_banner.png */; };
+		D3C4A9671C76EABF0057B7F9 /* hdviet_no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C4A9651C76EABF0057B7F9 /* hdviet_no_image.png */; };
+		D3C4A96D1C76ECB30057B7F9 /* play_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C4A96C1C76ECB30057B7F9 /* play_icon.png */; };
 		D3DF75DF1C72C61100CF6C52 /* ListMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF75DE1C72C61100CF6C52 /* ListMenuController.m */; };
 		D3DF75E91C72F5D300CF6C52 /* home_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3DF75E41C72F5D300CF6C52 /* home_icon.png */; };
 		D3DF75EA1C72F5D300CF6C52 /* logout_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3DF75E51C72F5D300CF6C52 /* logout_icon.png */; };
@@ -216,7 +218,6 @@
 		D365794C1C58A65E00F51DA3 /* SlideMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideMenuCell.m; path = SlideMenuController/SlideMenuCell.m; sourceTree = "<group>"; };
 		D365794E1C58B07300F51DA3 /* PlayMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayMovieCell.h; path = PlayController/PlayMovieCell.h; sourceTree = "<group>"; };
 		D365794F1C58B07300F51DA3 /* PlayMovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayMovieCell.m; path = PlayController/PlayMovieCell.m; sourceTree = "<group>"; };
-		D36579531C58CE1E00F51DA3 /* play_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon.png; sourceTree = "<group>"; };
 		D36579551C59F1B800F51DA3 /* TopMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopMovieCell.h; path = MainController/TopMovieCell.h; sourceTree = "<group>"; };
 		D36579561C59F1B800F51DA3 /* TopMovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopMovieCell.m; path = MainController/TopMovieCell.m; sourceTree = "<group>"; };
 		D365795B1C5EEFA000F51DA3 /* FilmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilmController.h; path = FilmController/FilmController.h; sourceTree = "<group>"; };
@@ -239,6 +240,9 @@
 		D38CBE781C51D83A00084126 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D38CBE7D1C51DFD400084126 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "Category/NSString+MD5.h"; sourceTree = "<group>"; };
 		D38CBE7E1C51DFD400084126 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MD5.m"; path = "Category/NSString+MD5.m"; sourceTree = "<group>"; };
+		D3C4A9641C76EABF0057B7F9 /* hdviet_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdviet_banner.png; sourceTree = "<group>"; };
+		D3C4A9651C76EABF0057B7F9 /* hdviet_no_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdviet_no_image.png; sourceTree = "<group>"; };
+		D3C4A96C1C76ECB30057B7F9 /* play_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon.png; sourceTree = "<group>"; };
 		D3DF75DD1C72C61100CF6C52 /* ListMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListMenuController.h; path = ListMenu/ListMenuController.h; sourceTree = "<group>"; };
 		D3DF75DE1C72C61100CF6C52 /* ListMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ListMenuController.m; path = ListMenu/ListMenuController.m; sourceTree = "<group>"; };
 		D3DF75E41C72F5D300CF6C52 /* home_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_icon.png; sourceTree = "<group>"; };
@@ -697,6 +701,9 @@
 		D3EA87DF1C50C72000D593A1 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				D3C4A96C1C76ECB30057B7F9 /* play_icon.png */,
+				D3C4A9641C76EABF0057B7F9 /* hdviet_banner.png */,
+				D3C4A9651C76EABF0057B7F9 /* hdviet_no_image.png */,
 				D3DF76391C75992500CF6C52 /* no_image.png */,
 				D3DF75EE1C72F9FE00CF6C52 /* home__select_icon.png */,
 				D3DF75EF1C72F9FE00CF6C52 /* logout_select_icon.png */,
@@ -712,7 +719,6 @@
 				D36579711C608B5500F51DA3 /* delete.png */,
 				D36579601C5F3F5F00F51DA3 /* search_icon.png */,
 				D365795E1C5EFF7800F51DA3 /* play_youtube_icon.png */,
-				D36579531C58CE1E00F51DA3 /* play_icon.png */,
 				D36579491C5889F700F51DA3 /* user_icon.png */,
 				D3EA87D91C50C3A400D593A1 /* ic_launcher.png */,
 				D3EA87D51C50C1B300D593A1 /* loading_bg.png */,
@@ -887,9 +893,9 @@
 				D3DF75F71C72F9FE00CF6C52 /* update_select_icon.png in Resources */,
 				D3DF75EA1C72F5D300CF6C52 /* logout_icon.png in Resources */,
 				D3EA87B21C50BF6200D593A1 /* LaunchScreen.storyboard in Resources */,
-				D36579541C58CE1E00F51DA3 /* play_icon.png in Resources */,
 				D3EA87DA1C50C3A400D593A1 /* ic_launcher.png in Resources */,
 				D3EA87D81C50C22B00D593A1 /* button_active.png in Resources */,
+				D3C4A96D1C76ECB30057B7F9 /* play_icon.png in Resources */,
 				D365795F1C5EFF7800F51DA3 /* play_youtube_icon.png in Resources */,
 				D3DF75F61C72F9FE00CF6C52 /* phimle_select_icon.png in Resources */,
 				D3DF75EC1C72F5D300CF6C52 /* phimle_icon.png in Resources */,
@@ -900,10 +906,12 @@
 				D3EA87D61C50C1B300D593A1 /* loading_bg.png in Resources */,
 				D3DF762B1C74465800CF6C52 /* report_icon.png in Resources */,
 				D3DF75ED1C72F5D300CF6C52 /* update_icon.png in Resources */,
+				D3C4A9661C76EABF0057B7F9 /* hdviet_banner.png in Resources */,
 				D3DF75F41C72F9FE00CF6C52 /* logout_select_icon.png in Resources */,
 				D365794A1C5889F700F51DA3 /* user_icon.png in Resources */,
 				D3DF75F31C72F9FE00CF6C52 /* home__select_icon.png in Resources */,
 				D3DF75F51C72F9FE00CF6C52 /* phimbo_select_icon.png in Resources */,
+				D3C4A9671C76EABF0057B7F9 /* hdviet_no_image.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

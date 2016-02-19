@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "AppDelegate.h"
 #import "FilmController.h"
-
 @interface Utilities : NSObject
 
 + (nonnull Utilities *)share;
@@ -86,6 +85,11 @@
         andController:(nonnull UIViewController *)controller;
 
 + (void)moviePlaybackDidFinish:(nonnull NSNotification*)aNotification;
+
++ (void) pauseMovieInBackGround;
+
+// Call this on applicationWillEnterForeground
++ (void) resumeMovieInFrontGround:(UIViewController *)controller;
 
 + (nonnull NSArray *)sortArrayFromDict:(nonnull NSDictionary *)dict;
 
