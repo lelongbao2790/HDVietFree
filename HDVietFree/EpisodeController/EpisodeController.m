@@ -34,6 +34,13 @@
 }
 
 - (void)config {
+    // Config table
+    self.tbvEpisode.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tbvEpisode.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self setAutomaticallyAdjustsScrollViewInsets:NO];
+    
+    // Check episode
     if (self.movie.episode > 0) {
         NSMutableArray *listEpisode = [[NSMutableArray alloc] init];
         for (int i= 0; i< self.movie.episode; i++) {
@@ -66,6 +73,13 @@
     cell.textLabel.textColor = [ UIColor blackColor];
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell     forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) { [tableView setSeparatorInset:UIEdgeInsetsZero]; }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) { [tableView setLayoutMargins:UIEdgeInsetsZero]; }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) { [cell setLayoutMargins:UIEdgeInsetsZero]; }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

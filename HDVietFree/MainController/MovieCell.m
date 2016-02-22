@@ -22,23 +22,23 @@
 #pragma mark -
 #pragma mark - ** FixAutoLayoutDelegate **
 - (void)fixAutolayoutFor35 {
-    self.csWidth.constant = 590;
+    self.csTrailing.constant = -8;
 }
 
 - (void)fixAutolayoutFor40 {
-    self.csWidth.constant = 590;
+    self.csTrailing.constant = -8;
 }
 
 - (void)fixAutolayoutFor47 {
-   self.csWidth.constant = 590;
+   self.csTrailing.constant = -8;
 }
 
 - (void)fixAutolayoutFor55 {
-self.csWidth.constant = 590;
+    self.csTrailing.constant = -8;
 }
 
 -(void)fixAutolayoutForIpad {
-    self.csWidth.constant = 759;
+    self.csTrailing.constant = -8;
 }
 
 @end

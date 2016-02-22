@@ -88,7 +88,6 @@
     [DataManager shared].detailInfoMovieDelegate = self;
     [DataManager shared].loadLinkPlayMovieDelegate = self;
     [Utilities fixAutolayoutWithDelegate:self];
-    [self initEpisodeBarButton];
 }
 
 - (void)loadImage {
@@ -118,7 +117,7 @@
 
 - (void)initEpisodeBarButton {
     if (self.movie.episode > 0) {
-        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Episode" style:UIBarButtonItemStylePlain target:self action:@selector(handleEpisode)];
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Tập" style:UIBarButtonItemStylePlain target:self action:@selector(handleEpisode)];
         self.navigationItem.rightBarButtonItem = barButton;
     }
 }
@@ -231,6 +230,8 @@
         ProgressBarShowLoading(kLoading);
         [[ManageAPI share] loadDetailInfoMovieAPI:self.movie];
     }
+    
+    [self initEpisodeBarButton];
 }
 
 //*****************************************************************************

@@ -818,18 +818,17 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="598" height="177"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="598" id="8DZ-qJ-6Dg"/>
                                                         <constraint firstAttribute="height" constant="177" id="nfF-H4-Zwa"/>
                                                     </constraints>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="2" minimumInteritemSpacing="2" id="RNc-cI-Kfr">
                                                         <size key="itemSize" width="126" height="176"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="sectionInset" minX="2" minY="0.0" maxX="2" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionViewMovieIdentifier" id="4kj-M6-zhU" customClass="DetailMovieCell">
-                                                            <rect key="frame" x="0.0" y="1" width="126" height="176"/>
+                                                            <rect key="frame" x="2" y="1" width="126" height="176"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                 <rect key="frame" x="0.0" y="0.0" width="126" height="176"/>
@@ -878,13 +877,14 @@
                                                 </collectionView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="8S4-HH-tBo" secondAttribute="trailing" constant="-8" id="0nm-hO-uEC"/>
                                                 <constraint firstItem="8S4-HH-tBo" firstAttribute="top" secondItem="clT-hK-cTE" secondAttribute="topMargin" constant="-8" id="L12-Ub-dK9"/>
                                                 <constraint firstItem="8S4-HH-tBo" firstAttribute="leading" secondItem="clT-hK-cTE" secondAttribute="leadingMargin" constant="-8" id="lT0-X0-tm8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="collectionViewMovie" destination="8S4-HH-tBo" id="bNP-Nc-gSy"/>
-                                            <outlet property="csWidth" destination="8DZ-qJ-6Dg" id="etB-GF-4Qn"/>
+                                            <outlet property="csTrailing" destination="0nm-hO-uEC" id="Kex-UW-WCA"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
