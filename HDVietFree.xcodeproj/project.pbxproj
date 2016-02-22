@@ -387,8 +387,7 @@
 		D329169A1C55B73B00CE46B6 /* ThirdParties */ = {
 			isa = PBXGroup;
 			children = (
-				D3DF763B1C75B8D000CF6C52 /* UIImageLoader.h */,
-				D3DF763C1C75B8D000CF6C52 /* UIImageLoader.m */,
+				D3AC46831C7ADEF9000490AB /* UIImageLoader */,
 				D36579691C60503A00F51DA3 /* MPMoviePlayerController+Subtitles */,
 				D36579451C58565500F51DA3 /* DBAccess */,
 				D329169B1C55B75D00CE46B6 /* MBProgressHUD */,
@@ -611,6 +610,15 @@
 				D32916801C55B30200CE46B6 /* Category */,
 			);
 			name = Config;
+			sourceTree = "<group>";
+		};
+		D3AC46831C7ADEF9000490AB /* UIImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				D3DF763B1C75B8D000CF6C52 /* UIImageLoader.h */,
+				D3DF763C1C75B8D000CF6C52 /* UIImageLoader.m */,
+			);
+			name = UIImageLoader;
 			sourceTree = "<group>";
 		};
 		D3DF762C1C74493E00CF6C52 /* ReportBugController */ = {

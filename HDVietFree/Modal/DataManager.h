@@ -10,6 +10,7 @@
 #import "UIImageLoader.h"
 
 typedef void (^completionBlock)(BOOL success, UIImageLoaderImage * image);
+typedef void (^completionDownload)(BOOL success, UIImage * image);
 
 @interface DataManager : NSObject {
      NSObject<LoginDelegate> *loginDelegate;

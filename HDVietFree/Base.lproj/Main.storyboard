@@ -36,7 +36,6 @@
                                 <rect key="frame" x="24" y="264" width="552" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="25e-45-7tp"/>
-                                    <constraint firstAttribute="height" constant="40" id="sgc-L0-nRg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -45,12 +44,8 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="auu-0E-0j9">
-                                <rect key="frame" x="24" y="331" width="135" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="S0K-Wo-ezD"/>
-                                    <constraint firstAttribute="width" constant="135" id="tI9-Va-Biw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <rect key="frame" x="24" y="331" width="552" height="40"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                 <state key="normal" title="Đăng nhập" backgroundImage="button_active.png">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.65445523650000004" colorSpace="calibratedRGB"/>
                                 </state>
@@ -65,40 +60,34 @@
                                     <constraint firstAttribute="width" constant="126" id="jbD-tW-nXA"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIs-ks-v8s">
-                                <rect key="frame" x="441" y="331" width="135" height="45"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="Đăng ký" backgroundImage="button_active.png">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.65445523650000004" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QIs-ks-v8s" firstAttribute="width" secondItem="auu-0E-0j9" secondAttribute="width" id="1QW-ig-55P"/>
                             <constraint firstAttribute="trailingMargin" secondItem="VBJ-0j-C0L" secondAttribute="trailing" constant="4" id="45i-BZ-HNF"/>
-                            <constraint firstItem="QIs-ks-v8s" firstAttribute="top" secondItem="Jaa-1N-fLh" secondAttribute="bottom" constant="27" id="85z-Au-SJK"/>
+                            <constraint firstItem="auu-0E-0j9" firstAttribute="leading" secondItem="Jaa-1N-fLh" secondAttribute="leading" id="5W7-br-hnz"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="MkP-I6-Ui7" secondAttribute="bottom" id="88n-Gd-jkD"/>
                             <constraint firstItem="MkP-I6-Ui7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="8oD-4l-amV"/>
                             <constraint firstItem="98v-e7-a0l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="94k-bG-xuW"/>
                             <constraint firstItem="VBJ-0j-C0L" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="ATh-21-l0h"/>
-                            <constraint firstItem="auu-0E-0j9" firstAttribute="leading" secondItem="Jaa-1N-fLh" secondAttribute="leading" id="CDS-bC-kUp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MkP-I6-Ui7" secondAttribute="trailing" constant="-20" id="DmE-jd-vLg"/>
+                            <constraint firstItem="auu-0E-0j9" firstAttribute="height" secondItem="Jaa-1N-fLh" secondAttribute="height" id="E7e-r5-3Fp"/>
                             <constraint firstItem="Jaa-1N-fLh" firstAttribute="trailing" secondItem="VBJ-0j-C0L" secondAttribute="trailing" id="FIq-Vk-FCx"/>
                             <constraint firstItem="Jaa-1N-fLh" firstAttribute="leading" secondItem="VBJ-0j-C0L" secondAttribute="leading" id="JiD-m2-4zp"/>
                             <constraint firstItem="MkP-I6-Ui7" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="Rt8-dG-iB2"/>
+                            <constraint firstItem="auu-0E-0j9" firstAttribute="trailing" secondItem="Jaa-1N-fLh" secondAttribute="trailing" id="TTq-kx-dMY"/>
                             <constraint firstItem="Jaa-1N-fLh" firstAttribute="height" secondItem="VBJ-0j-C0L" secondAttribute="height" id="U25-6N-PGv"/>
                             <constraint firstItem="Jaa-1N-fLh" firstAttribute="top" secondItem="VBJ-0j-C0L" secondAttribute="bottom" constant="18" id="Y9V-4a-G0V"/>
                             <constraint firstItem="VBJ-0j-C0L" firstAttribute="top" secondItem="98v-e7-a0l" secondAttribute="bottom" constant="30" id="Ytk-in-usl"/>
-                            <constraint firstItem="QIs-ks-v8s" firstAttribute="height" secondItem="auu-0E-0j9" secondAttribute="height" id="hWF-pI-1cq"/>
+                            <constraint firstItem="auu-0E-0j9" firstAttribute="top" secondItem="Jaa-1N-fLh" secondAttribute="bottom" constant="27" id="a8v-XL-pjo"/>
                             <constraint firstItem="98v-e7-a0l" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="lJX-FU-wdN"/>
-                            <constraint firstItem="auu-0E-0j9" firstAttribute="top" secondItem="Jaa-1N-fLh" secondAttribute="bottom" constant="27" id="qVA-VA-l1k"/>
-                            <constraint firstItem="QIs-ks-v8s" firstAttribute="trailing" secondItem="Jaa-1N-fLh" secondAttribute="trailing" id="tC5-PJ-7kT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Qwn-jy-Lww"/>
                     <connections>
+                        <outlet property="csHeight" destination="mR7-E6-9Qx" id="UuI-O7-cfu"/>
+                        <outlet property="csLeading" destination="ATh-21-l0h" id="7SF-UE-1bk"/>
                         <outlet property="csTopConstant" destination="lJX-FU-wdN" id="jjz-Ha-K7q"/>
+                        <outlet property="csTrailing" destination="45i-BZ-HNF" id="Rvc-fh-0ZL"/>
                         <outlet property="txtPassword" destination="Jaa-1N-fLh" id="uQm-hT-zj0"/>
                         <outlet property="txtUsername" destination="VBJ-0j-C0L" id="9g0-Jt-wLs"/>
                     </connections>
@@ -474,10 +463,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="h6A-sO-nPN" id="5Uy-Cp-w3e"/>
-                                    <outlet property="delegate" destination="h6A-sO-nPN" id="Teh-zl-h6x"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

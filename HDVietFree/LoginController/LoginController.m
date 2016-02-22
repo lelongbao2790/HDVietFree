@@ -16,6 +16,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtUsername;
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopConstant;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTrailing;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeight;
 
 @end
 
@@ -193,6 +196,9 @@
 
 -(void)fixAutolayoutForIpad {
     self.csTopConstant.constant = kTopConstantIpad;
+    self.csLeading.constant = kTopConstantIpad;
+    self.csTrailing.constant = kTopConstantIpad;
+    self.csHeight.constant = kTopConstantIp6Plus;
 }
 
 @end

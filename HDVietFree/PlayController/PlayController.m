@@ -92,55 +92,17 @@
 }
 
 - (void)loadImage {
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
-        // Download
-        UIImage *imageFromCache = [[Utilities share]getCachedImageForKey:self.movie.backdrop945530];
-        if (imageFromCache) {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [self updateUIImageAvatar:imageFromCache];
-            });
-            
-        } else {
-            if ([Utilities isExistImage:self.movie.backdrop945530]) {
-                // Exist image
-                [[Utilities share] cacheImage:[Utilities loadImageFromName:self.movie.backdrop945530] forKey:self.movie.backdrop945530];
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [self updateUIImageAvatar:[Utilities loadImageFromName:self.movie.backdrop945530]];
-                });
-                
-            } else {
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    [self downloadImageWithLibrary:self.movie];
-                });
-            }
-        }  
-        
-    });
-}
-
-- (void)downloadImageWithLibrary:(Movie *)movie {
-    if (movie.backdrop945530) {
-        NSString *strImageUrl = movie.backdrop945530;
-        [[DataManager shared] downloadImageWithUrl:strImageUrl completionBlock:^(BOOL success, UIImageLoaderImage *image) {
-            if (success) {
-                dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-                dispatch_async(queue, ^{
-                    // Download
-                    [Utilities saveImage:image withName:movie.backdrop945530];
-                    [[Utilities share] cacheImage:image forKey:movie.backdrop945530];
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                       [self updateUIImageAvatar:image];
-                    });
-                });
-                
-            } else {
-                [self updateUIImageAvatar:[UIImage imageNamed:kNoBannerImage]];
-            }
-        }];
-    } else {
-        [self updateUIImageAvatar:[UIImage imageNamed:kNoBannerImage]];
-    }
+    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.movie.backdrop945530]
+                                                  cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                              timeoutInterval:60];
+    
+    [self.imagePoster setImageWithURLRequest:imageRequest
+                           placeholderImage:[UIImage imageNamed:kNoBannerImage]
+                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                        self.imagePoster.image = image;
+                                    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                        self.imagePoster.image = [UIImage imageNamed:kNoBannerImage];
+                                    }];
 }
 
 // This method will update image avatar

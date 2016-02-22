@@ -62,15 +62,14 @@
     self.tbvListMovie.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
+    self.tbvListMovie.delegate = self;
+    self.tbvListMovie.dataSource = self;
     
     // Check list data
     self.listMovieOnMain = [[NSMutableArray alloc] init];
     [self checkListMovie];
     
     [Utilities fixAutolayoutWithDelegate:self];
-    [self.tbvListMovie reloadData];
-    
-    
 }
 
 - (void)initSearchBarButton {
@@ -145,8 +144,6 @@
                                     andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
                                         if (success) {
                                             [cell.collectionViewMovie setListMovieDb:array];
-//                                            [cell.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagMainController
-//                                                                                                           andListMovie:self.listMovieOnMain];
                                         }
                                     }];
     
@@ -158,15 +155,14 @@
 #pragma mark - ** Handle list movie **
 
 - (void)checkListMovie {
-    [self.tbvListMovie reloadData];
     DLOG(@"Total menu : %d", (int)self.dictMenu.allKeys.count);
     
     for (int i = 0; i < self.dictMenu.allKeys.count; i++) {
         [[DataAccess share] checkExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie) andTag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
             if (success) {
-                [self.tbvListMovie reloadData];
                 self.lastListMovie += 1;
                 ProgressBarDismissLoading(kEmptyString);
+                [self lastList];
             }
             else {
                 ProgressBarShowLoading(kLoading);
@@ -192,10 +188,20 @@
     if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:NO]) {
         // Last list loaded
         ProgressBarDismissLoading(kEmptyString);
-        [self.tbvListMovie reloadData];
         self.lastListMovie = 0;
+        [self lastList];
     } else {
         self.lastListMovie += 1;
+    }
+    
+    [self lastList];
+}
+
+- (void)lastList {
+    // Check last list category
+    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:NO]) {
+        
+        [self.tbvListMovie reloadData];
     }
 }
 

@@ -27,5 +27,6 @@
 
 // Google spread sheet for report bug
 #define kUrlGoogleReportBug @"https://docs.google.com/forms/d/1n9xqo59r-cyzvq5NudccyHbDS5m9QhpdongRz-buFsk/formResponse"
+#define kRegisterUrl @"https://id.hdviet.com/dang-ki-moi?token=dXJsPWh0dHA6Ly9tb3ZpZXMuaGR2aWV0LmNvbSYmdXJsX3JlZGlyZWN0PWh0dHA6Ly9tb3ZpZXMuaGR2aWV0LmNvbQ=="
 
 #endif /* BaseUrl_h */

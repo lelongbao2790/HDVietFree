@@ -22,8 +22,8 @@
 
 - (void)loadInformationWithMovie:(Movie *)movie {
     self.lbNameMovie.text = movie.movieName;
-    [self setImagePoster:movie];
     self.lbPlot.text = movie.plotVI;
+    [self setImagePoster:movie];
 }
 
 /*
@@ -31,59 +31,17 @@
  */
 - (void)setImagePoster:(Movie *)movie {
     
-    // Using GCD to download image
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
-        // Download
-        UIImage *imageFromCache = [[Utilities share]getCachedImageForKey:movie.poster];
-        if (imageFromCache) {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [self updateUIImageAvatar:imageFromCache withMovie:movie];
-            });
-            
-        } else {
-            
-            if ([Utilities isExistImage:movie.poster]) {
-                [[Utilities share] cacheImage:[Utilities loadImageFromName:movie.poster] forKey:movie.backdrop945530];
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    // Exist image
-                    [self updateUIImageAvatar:[Utilities loadImageFromName:movie.poster] withMovie:movie];
-                });
-                
-            } else {
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    // Exist image
-                    [self downloadImage:movie];
-                }); 
-            }
-        }
-        
-    });
-}
-
-- (void)downloadImage:(Movie *)movie {
-    if (movie.poster) {
-        NSString *strImageUrl = [Utilities getStringUrlPoster:movie];
-        [[DataManager shared] downloadImageWithUrl:strImageUrl completionBlock:^(BOOL success, UIImageLoaderImage *image) {
-            if (success) {
-                dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-                dispatch_async(queue, ^{
-                    // Download
-                    [Utilities saveImage:image withName:movie.backdrop945530];
-                    [[Utilities share] cacheImage:image forKey:movie.backdrop945530];
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                         [self updateUIImageAvatar:image withMovie:movie];
-                    });
-                });
-               
-            } else {
-                self.imgPoster.image = nil;
-                [self.activityLoading startAnimating];
-            }
-        }];
-    } else {
-        [self updateUIImageAvatar:nil withMovie:movie];
-    }
+    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[Utilities getStringUrlPoster:movie]]
+                                                  cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                              timeoutInterval:60];
+    
+    [self.imgPoster setImageWithURLRequest:imageRequest
+                            placeholderImage:[UIImage imageNamed:kNoImage]
+                                     success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                         self.imgPoster.image = image;
+                                     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                         self.imgPoster.image = [UIImage imageNamed:kNoImage];
+                                     }];
 }
 
 // This method will update image avatar
