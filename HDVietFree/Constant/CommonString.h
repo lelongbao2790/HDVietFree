@@ -97,9 +97,24 @@ extern NSString *const kErrorPlayMovie;
 extern NSString *const kInvalidSession;
 
 /**
+ * Server overload
+ */
+extern NSString *const kServerOverload;
+
+/**
  * Error play film
  */
 extern NSString *const k400BadRequestString;
+
+/**
+ * Error 502
+ */
+extern NSString *const k502BadRequestString;
+
+/**
+ * Error 500
+ */
+extern NSString *const k500BadRequestString;
 
 /**
  * Log out

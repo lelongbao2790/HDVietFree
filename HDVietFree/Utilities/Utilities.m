@@ -14,6 +14,11 @@
 @end
 
 @implementation Utilities
+
+static NSInteger timePlay;
+BOOL playbackDurationSet=NO;
+MPMoviePlayerController *mediaPlayerController = nil;
+
 + (nonnull Utilities *)share {
     static dispatch_once_t once;
     static Utilities *share;
@@ -220,6 +225,8 @@
     if (linkPlay && linkSub) {
         NSURL *url = [[NSURL alloc] initWithString:linkPlay];
          MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+        mediaPlayerController = player.moviePlayer;
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(moviePlaybackDidFinish:)
                                                      name:MPMoviePlayerPlaybackDidFinishNotification
@@ -229,6 +236,12 @@
                                                      name:MPMoviePlayerLoadStateDidChangeNotification
                                                    object:nil];
         
+        //Add Absorver
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(moviePlayerPlaybackStateChanged:)
+                                                     name:MPMoviePlayerPlaybackStateDidChangeNotification
+                                                   object:player.moviePlayer];
+        player.view.tag = kTagMPMoviePlayerController;
         player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
         player.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
         player.moviePlayer.view.transform = CGAffineTransformConcat(player.moviePlayer.view.transform, CGAffineTransformMakeRotation(M_PI_2));
@@ -268,8 +281,32 @@
             [getChildController isKindOfClass:[EpisodeController class]] ) {
             [getChildController dismissMoviePlayerViewControllerAnimated];
             kMoviePlayer = nil;
+            [Utilities resetPlayerDurationVar];
+        } else {
+            kMoviePlayer = nil;
+            [Utilities resetPlayerDurationVar];
         }
     }
+}
++ (void)moviePlayerPlaybackStateChanged:(NSNotification*)notification{
+    MPMoviePlayerController* player = (MPMoviePlayerController*)notification.object;
+    
+    switch ( player.playbackState ) {
+        case MPMoviePlaybackStatePlaying:
+            
+            if(!playbackDurationSet){
+                [mediaPlayerController setCurrentPlaybackTime:player.initialPlaybackTime];
+                playbackDurationSet=YES;
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
++ (void)resetPlayerDurationVar{
+    playbackDurationSet=NO;
 }
 
 + (void)moviePlayerLoadStateDidChange:(NSNotification *)notification
@@ -287,7 +324,7 @@
     }
 }
 
-static NSInteger timePlay;
+
 // Call this on applicationWillResignActive
 + (void) pauseMovieInBackGround
 {
@@ -305,9 +342,11 @@ static NSInteger timePlay;
         DLOG(@"Time resume: %d",(int)timePlay);
         [controller presentMoviePlayerViewControllerAnimated:kMoviePlayer];
         
-        [kMoviePlayer.moviePlayer setInitialPlaybackTime:timePlay];
         [kMoviePlayer.moviePlayer prepareToPlay];
         [kMoviePlayer.moviePlayer play];
+//        [kMoviePlayer.moviePlayer setInitialPlaybackTime:-1];
+        [kMoviePlayer.moviePlayer setCurrentPlaybackTime:timePlay];
+
     }
 }
 
@@ -443,5 +482,30 @@ static NSInteger timePlay;
     }
 }
 
+
++ (nonnull id)nullToObject:(nonnull NSDictionary *)dict key:(nonnull NSString *)key andType:(NSInteger)type {
+    id object = [dict objectForKey:key];
+    if ([object isKindOfClass:[NSNull class]]) {
+        switch (type) {
+            case kTypeString:
+                return kEmptyString;
+                break;
+            
+            case kTypeInteger:
+                return 0;
+                break;
+            
+            case kTypeArray:
+                return nil;
+                break;
+                
+            default:
+                return kEmptyString;
+                break;
+        }
+    } else {
+        return object;
+    }
+}
 
 @end

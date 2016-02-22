@@ -93,12 +93,26 @@ NSString *const kErrorPlayMovie = @"Lỗi! Link film bị lỗi";
 /**
  * Error play film
  */
-NSString *const kInvalidSession = @"Phiên đăng nhập hết hạn! Login để tiếp tục sử dụng";
+NSString *const kInvalidSession = @"Phiên đăng nhập không hợp lệ! Login để tiếp tục sử dụng";
 
 /**
- * Error play film
+ * Server overload
+ */
+NSString *const kServerOverload = @"Server quá tải";
+
+/**
+ * Error 400
  */
 NSString *const k400BadRequestString = @"Request failed: bad request (400)";
+/**
+ * Error 502
+ */
+NSString *const k502BadRequestString =@"Request failed: bad gateway (502)";
+
+/**
+ * Error 500
+ */
+NSString *const k500BadRequestString =@"Request failed: internal server error (500)";
 
 /**
  * Log out

@@ -113,4 +113,6 @@
 
 + (void)removeCrashLogFileAtPath:(nonnull NSString *)path;
 
++ (nonnull id)nullToObject:(nonnull NSDictionary *)dict key:(nonnull NSString *)key andType:(NSInteger)type;
+
 @end

@@ -12,6 +12,6 @@
 
 #define sizeCellFilmIp5 CGSizeMake(157, 292)
 #define sizeCellFilmIp6 CGSizeMake(185, 312)
-#define sizeCellFilmIp6Plus CGSizeMake(195, 322)
+#define sizeCellFilmIp6Plus CGSizeMake(203, 330)
 
 @end

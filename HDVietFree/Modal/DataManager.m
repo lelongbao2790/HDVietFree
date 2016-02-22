@@ -89,8 +89,10 @@
         }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if ([[error localizedDescription] isEqualToString:k400BadRequestString]) {
+        if (errorString(k400BadRequestString)) {
             [loginDelegate loginAPIFail:kInvalidSession];
+        } else if (errorString(k502BadRequestString) || errorString(k500BadRequestString) ) {
+            [loginDelegate loginAPIFail:kServerOverload];
         } else {
             [loginDelegate loginAPIFail:[error localizedDescription]];
         }
@@ -120,8 +122,10 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if ([[error localizedDescription] isEqualToString:k400BadRequestString]) {
+        if (errorString(k400BadRequestString)) {
             [listMovieDelegate loadListMovieAPIFail:kInvalidSession];
+        } else if (errorString(k502BadRequestString) || errorString(k500BadRequestString) ) {
+            [listMovieDelegate loadListMovieAPIFail:kServerOverload];
         } else {
             [listMovieDelegate loadListMovieAPIFail:[error localizedDescription]];
         }
@@ -152,8 +156,10 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if ([[error localizedDescription] isEqualToString:k400BadRequestString]) {
+        if (errorString(k400BadRequestString)) {
             [detailInfoMovieDelegate loadDetailInformationMovieAPIFail:kInvalidSession];
+        }else if (errorString(k502BadRequestString) || errorString(k500BadRequestString) ) {
+            [detailInfoMovieDelegate loadDetailInformationMovieAPIFail:kServerOverload];
         }else {
            [detailInfoMovieDelegate loadDetailInformationMovieAPIFail:[error localizedDescription]];
         }
@@ -187,8 +193,10 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if ([[error localizedDescription] isEqualToString:k400BadRequestString]) {
+        if (errorString(k400BadRequestString)) {
             [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPIFail:kInvalidSession];
+        } else if (errorString(k502BadRequestString) || errorString(k500BadRequestString) ) {
+            [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPIFail:kServerOverload];
         } else {
             [loadLinkPlayMovieDelegate  loadLinkPlayMovieAPIFail:[error localizedDescription]];
         }
@@ -221,8 +229,10 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if ([[error localizedDescription] isEqualToString:k400BadRequestString]) {
+        if (errorString(k400BadRequestString)) {
             [searchMovieDelegate searchMovieAPIFail:kInvalidSession];
+        } else if (errorString(k502BadRequestString) || errorString(k500BadRequestString) ) {
+            [searchMovieDelegate searchMovieAPIFail:kServerOverload];
         } else {
             [searchMovieDelegate searchMovieAPIFail:[error localizedDescription]];
         }

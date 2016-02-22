@@ -102,7 +102,7 @@
     } else if (kDeviceIsPhoneSmallerOrEqual47) {
         returnSize = sizeCellFilmIp6;
     } else if (kDeviceIsPhoneSmallerOrEqual55) {
-        returnSize = sizeCellFilmIp6;
+        returnSize = sizeCellFilmIp6Plus;
     } else if (kDeviceIpad) {
         returnSize = sizeCellFilmIp6;
     }

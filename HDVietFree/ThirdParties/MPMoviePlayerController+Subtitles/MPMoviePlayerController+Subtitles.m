@@ -230,57 +230,64 @@ static NSString *const kText = @"kText";
 
 - (void)searchAndShowSubtitle {
     
-    // Search for timeInterval
-    NSPredicate *initialPredicate = [NSPredicate predicateWithFormat:@"(%@ >= %K) AND (%@ <= %K)", @(self.currentPlaybackTime), kStart, @(self.currentPlaybackTime), kEnd];
-    NSArray *objectsFound = [[self.subtitlesParts allValues] filteredArrayUsingPredicate:initialPredicate];
-    NSDictionary *lastFounded = (NSDictionary *)[objectsFound lastObject];
-    
-    // Show text
-    if (lastFounded) {
+    if(![self isVisibleControll]) {
+        // Search for timeInterval
+        NSPredicate *initialPredicate = [NSPredicate predicateWithFormat:@"(%@ >= %K) AND (%@ <= %K)", @(self.currentPlaybackTime), kStart, @(self.currentPlaybackTime), kEnd];
+        NSArray *objectsFound = [[self.subtitlesParts allValues] filteredArrayUsingPredicate:initialPredicate];
+        NSDictionary *lastFounded = (NSDictionary *)[objectsFound lastObject];
         
-        // Get text
-        self.subtitleLabel.text = [lastFounded objectForKey:kText];
-
-        // Update label constraints
-        // Add label
-        if (!self.subtitleLabel) {
+        // Show text
+        if (lastFounded) {
             
-            // Add label
-            CGFloat fontSize = 0.0;
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                fontSize = 40.0;
-            } else {
-                fontSize = 20.0;
-            }
-            self.subtitleLabel = [[UILabel alloc] init];
-            self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-            self.subtitleLabel.backgroundColor = [UIColor clearColor];
-            self.subtitleLabel.font = [UIFont boldSystemFontOfSize:fontSize];
-            self.subtitleLabel.textColor = [UIColor whiteColor];
-            self.subtitleLabel.numberOfLines = 0;
-            self.subtitleLabel.textAlignment = NSTextAlignmentCenter;
-            self.subtitleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
-            self.subtitleLabel.layer.shadowOffset = CGSizeMake(6.0, 6.0);
-            self.subtitleLabel.layer.shadowOpacity = 0.9;
-            self.subtitleLabel.layer.shadowRadius = 4.0;
-            self.subtitleLabel.layer.shouldRasterize = YES;
-            self.subtitleLabel.layer.rasterizationScale = [[UIScreen mainScreen] scale];
-            [self.view addSubview:self.subtitleLabel];
+            // Get text
+            self.subtitleLabel.text = [lastFounded objectForKey:kText];
             
             // Update label constraints
-            [self updateLabelConstraints];
+            // Add label
+            if (!self.subtitleLabel) {
+                
+                // Add label
+                CGFloat fontSize = 0.0;
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                    fontSize = 40.0;
+                } else {
+                    fontSize = 20.0;
+                }
+                self.subtitleLabel = [[UILabel alloc] init];
+                self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+                self.subtitleLabel.backgroundColor = [UIColor clearColor];
+                self.subtitleLabel.font = [UIFont boldSystemFontOfSize:fontSize];
+                self.subtitleLabel.textColor = [UIColor whiteColor];
+                self.subtitleLabel.numberOfLines = 0;
+                self.subtitleLabel.textAlignment = NSTextAlignmentCenter;
+                self.subtitleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+                self.subtitleLabel.layer.shadowOffset = CGSizeMake(6.0, 6.0);
+                self.subtitleLabel.layer.shadowOpacity = 0.9;
+                self.subtitleLabel.layer.shadowRadius = 4.0;
+                self.subtitleLabel.layer.shouldRasterize = YES;
+                self.subtitleLabel.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+                [self.view addSubview:self.subtitleLabel];
+                
+                // Update label constraints
+                [self updateLabelConstraints];
+                
+            } else {
+                // Update label constraints
+                [self updateLabelConstraints];
+            }
             
         } else {
-            // Update label constraints
-            [self updateLabelConstraints];
+            
+            self.subtitleLabel.text = kEmptyString;
+            
         }
 
     } else {
-        
-        self.subtitleLabel.text = @"";
-        
+        // Do not show subtitle
+        if (self.subtitleLabel) {
+            self.subtitleLabel.text = kEmptyString;
+        }
     }
-    
 }
 
 - (void)updateLabelConstraints {
@@ -290,6 +297,7 @@ static NSString *const kText = @"kText";
     NSString *vertical = @"V:[weakSubtitleLabel]-(15)-|";
     
     UIView *weakSubtitleLabel = self.subtitleLabel;
+    
     NSDictionary *views = NSDictionaryOfVariableBindings(weakSubtitleLabel);
     NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:horizontal
                                                                    options:0
@@ -308,9 +316,8 @@ static NSString *const kText = @"kText";
                                                        attributes:@{NSFontAttributeName : self.subtitleLabel.font}
                                                           context:nil];
     self.heightConstraint.constant = bounds.size.height + 10.0;
-
-    [self.subtitleLabel.superview layoutIfNeeded];
     
+    [self.subtitleLabel.superview layoutIfNeeded];
 }
 
 #pragma mark - Notifications
@@ -584,5 +591,25 @@ static NSString *const kText = @"kText";
     return objc_getAssociatedObject(self, @"heightConstraint");
     
 }
+
+- (BOOL)isVisibleControll {
+    BOOL controlsVisible = NO;
+    for(id views in [[self view] subviews])
+    {
+        for(id subViews in [views subviews])
+        {
+            for (id controlView in [subViews subviews])
+            {
+                if ([controlView isKindOfClass:[UIView class]] && ((UIView*)controlView).tag == kTagMPMoviePlayerController)
+                {
+                    controlsVisible = ([controlView alpha] <= 0.0) ? (NO) : (YES);
+                }
+            }
+            
+        }
+    }
+    return controlsVisible;
+}
+
 
 @end

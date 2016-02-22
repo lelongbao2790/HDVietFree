@@ -222,8 +222,8 @@
 }
 
 - (void)fixAutolayoutFor55 {
-    self.csLeadingConstraint.constant = kLeadingTableViewMainIphone;
-    self.csTrailingConstraint.constant = kTralingTableViewMainIphone;
+    self.csLeadingConstraint.constant = kLeadingTableViewMainIphone55;
+    self.csTrailingConstraint.constant = kTralingTableViewMainIphone55;
 }
 
 -(void)fixAutolayoutForIpad {

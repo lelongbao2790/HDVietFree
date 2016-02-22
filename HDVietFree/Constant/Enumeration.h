@@ -21,6 +21,7 @@ typedef NS_ENUM(NSInteger, TagMainController) {
     kTagCollectionDetailMovie = 100,
     kTagImageCollectionTop = 105,
     kTagActivityLoadingTop = 106,
+    kTagMPMoviePlayerController = 1004,
 };
 
 typedef NS_ENUM(NSInteger, ServerResponseKey) {
@@ -44,6 +45,7 @@ typedef NS_ENUM(NSInteger, ControllerTag) {
     kTagPlayController = 2,
     kTimeOutIntervalSession = 60,
     kTopConstantTableView = 540,
+    kTopConstantTableViewIp6Plus = 260,
     k400BadRequest = 400,
 };
 
@@ -54,6 +56,8 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
     kTopConstantIpad = 60,
     kLeadingTableViewMainIphone = -16,
     kTralingTableViewMainIphone = -16,
+    kLeadingTableViewMainIphone55 = -20,
+    kTralingTableViewMainIphone55 = -20,
     kLeadingTableViewMainIpad = -20,
     kTralingTableViewMainIpad = -20,
     kSpaceBottomListMenu = 500,
@@ -66,5 +70,11 @@ typedef NS_ENUM(NSInteger, PositionArray) {
     kPageResponsePosition = 2,
     kGenreNumberPosition = 3,
     kTagMoviePosition = 4,
+};
+
+typedef NS_ENUM(NSInteger, Type) {
+    kTypeString = 0,
+    kTypeInteger = 1,
+    kTypeArray = 2,
 };
 #endif /* Enumeration_h */

@@ -240,9 +240,7 @@
             
             // Config cell
             NSArray *listRelativeMovieInLocal = [[DataAccess share] getRelativeMovieInDB:self.movie.movieID];
-            [cellMovie.collectionViewMovie setListMovie:listRelativeMovieInLocal];
-//            [cellMovie.collectionViewMovie setCollectionViewDataSourceDelegateWithController:kTagPlayController
-//                                                                                andListMovie:listRelativeMovieInLocal];
+            [cellMovie.collectionViewMovie setListMovieDb:listRelativeMovieInLocal];
             cell = cellMovie;
         }
             break;
@@ -354,6 +352,7 @@
 
 - (void)fixAutolayoutFor55 {
     self.convertResolution = kResolution12422208;
+    self.topLayoutTableView.constant = kTopConstantTableViewIp6Plus;
 }
 
 -(void)fixAutolayoutForIpad {

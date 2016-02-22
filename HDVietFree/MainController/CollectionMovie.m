@@ -15,6 +15,9 @@
 @end
 @implementation CollectionMovie
 
+/*
+ * Use awake from nib when init some thing in one time.
+ */
 -(void)awakeFromNib {
     
     [super awakeFromNib];
