@@ -286,6 +286,9 @@ MPMoviePlayerController *mediaPlayerController = nil;
             kMoviePlayer = nil;
             [Utilities resetPlayerDurationVar];
         }
+    } else {
+        kMoviePlayer = nil;
+        [Utilities resetPlayerDurationVar];
     }
 }
 + (void)moviePlayerPlaybackStateChanged:(NSNotification*)notification{

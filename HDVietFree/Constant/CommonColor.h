@@ -30,4 +30,14 @@ extern NSString *const kTextColorOfTitleNav;
  */
 extern NSString *const kBgColorOfSlideBar;
 
+/**
+ * Text color of title navigation bar
+ */
+extern NSString *const kBgColorOfHeader;
+
+/**
+ * Text color of title navigation bar
+ */
+extern NSString *const kTextColorOfHeader;
+
 @end

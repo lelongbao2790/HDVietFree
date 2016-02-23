@@ -98,6 +98,7 @@
     headerLabel.userInteractionEnabled = YES;
     headerLabel.backgroundColor = [UIColor colorWithHexString:kBackgroundColorOfSection];
     headerLabel.text = [self.dictMenu objectForKey:arrayKey[section]];
+    [headerLabel setTextColor:[UIColor blackColor]];
     headerLabel.frame = CGRectMake(0, 0, tableView.tableHeaderView.frame.size.width, tableView.tableHeaderView.frame.size.height);
     headerLabel.textAlignment = NSTextAlignmentCenter;
 
@@ -106,8 +107,6 @@
     [headerLabel addGestureRecognizer:tapGesture];
     
     return headerLabel;
-    
-    //return nil;
 }
 
 - (void)didTapHeader:(UITapGestureRecognizer *)recognizer {

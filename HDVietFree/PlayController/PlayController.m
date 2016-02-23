@@ -164,6 +164,14 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
+//    // Background color
+//    view.tintColor = [UIColor colorWithHexString:kBgColorOfHeader];
+//    // Text Color
+//    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+//    [header.textLabel setTextColor:[UIColor colorWithHexString:kTextColorOfHeader]];
+//    header.textLabel.font = [UIFont systemFontOfSize:kFontSize15];
+//    header.textLabel.textAlignment = NSTextAlignmentCenter;
+    
     // Background color
     view.tintColor = [UIColor colorWithHexString:kBackgroundColorOfSection];
     
