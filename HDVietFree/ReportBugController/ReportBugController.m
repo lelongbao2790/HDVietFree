@@ -37,6 +37,7 @@
 
 - (void)configView {
     // Init
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
     [DataManager shared].reportBugDelegate = self;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnView)];
     tapGesture.cancelsTouchesInView = NO;
@@ -45,6 +46,7 @@
     // Customize color of text view
     self.tvReport.layer.borderWidth = 1.0;
     self.tvReport.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.title = @"REPORT LỖI APP";
 }
 
 - (void)tapOnView {

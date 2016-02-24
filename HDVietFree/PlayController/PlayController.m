@@ -80,6 +80,7 @@
 
 - (void)configView {
     // Config table view
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
     self.tbvInforMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tbvInforMovie.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -164,23 +165,12 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-//    // Background color
-//    view.tintColor = [UIColor colorWithHexString:kBgColorOfHeader];
-//    // Text Color
-//    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-//    [header.textLabel setTextColor:[UIColor colorWithHexString:kTextColorOfHeader]];
-//    header.textLabel.font = [UIFont systemFontOfSize:kFontSize15];
-//    header.textLabel.textAlignment = NSTextAlignmentCenter;
-    
     // Background color
-    view.tintColor = [UIColor colorWithHexString:kBackgroundColorOfSection];
-    
+    view.tintColor = [UIColor colorWithHexString:kBgColorOfHeader];
     // Text Color
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setTextColor:[UIColor blackColor]];
-    header.textLabel.font = [UIFont systemFontOfSize:16];
-    CGRect headerFrame = header.frame;
-    header.textLabel.frame = headerFrame;
+    [header.textLabel setTextColor:[UIColor colorWithHexString:kTextColorOfHeader]];
+    header.textLabel.font = [UIFont systemFontOfSize:kFontSize15];
     header.textLabel.textAlignment = NSTextAlignmentCenter;
 }
 

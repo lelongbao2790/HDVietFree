@@ -52,6 +52,7 @@
 }
 
 - (void)configView {
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
     [DataManager shared].searchMovieDelegate = self;
     self.listResult = [[NSMutableArray alloc] init];
     [self initData];

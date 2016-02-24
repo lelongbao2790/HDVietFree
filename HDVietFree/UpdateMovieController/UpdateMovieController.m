@@ -37,9 +37,10 @@
  * Config view
  */
 - (void)configView {
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
     [self updateTotalMovie];
     [DataManager shared].listMovieDelegate = self;
-    self.title = kUpdateData;
+    self.title = [kUpdateData uppercaseString];
      self.dictMenu = getDictTitleMenu([MovieSearch share].genreMovie);
 }
 

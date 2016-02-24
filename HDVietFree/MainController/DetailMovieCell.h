@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageMovie;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityLoading;
 @property (weak, nonatomic) IBOutlet UILabel *lbNameMovie;
+@property (assign, nonatomic) NSInteger typeCell;
 @property (strong, nonatomic) Movie *movie;
 - (void)loadInformationWithMovie:(Movie *)movie;
 

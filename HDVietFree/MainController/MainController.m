@@ -8,13 +8,15 @@
 
 #import "MainController.h"
 
-@interface MainController ()<UITableViewDataSource, UITableViewDelegate, ListMovieByGenreDelegate, FixAutolayoutDelegate>
+@interface MainController ()<UITableViewDataSource, UITableViewDelegate, ListMovieByGenreDelegate, FixAutolayoutDelegate, iCarouselDataSource, iCarouselDelegate>
 
 // Property
+@property (weak, nonatomic) IBOutlet iCarousel *bannerView;
 @property (strong, nonatomic) NSDictionary *dictMenu;
 @property (strong, nonatomic) NSDictionary *dictMovie;
 @property (assign, nonatomic) NSInteger lastListMovie;
 @property (strong, nonatomic) NSMutableArray *listMovieOnMain;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeadingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTrailingConstraint;
 @property (weak, nonatomic) IBOutlet UITableView *tbvListMovie;
@@ -46,11 +48,22 @@
 - (void)viewDidAppear:(BOOL)animated {
 }
 
+- (void)dealloc
+{
+    //it's a good idea to set these to nil here to avoid
+    //sending messages to a deallocated viewcontroller
+    self.bannerView.delegate = nil;
+    self.bannerView.dataSource = nil;
+    
+}
+
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Helper Method **
+
 - (void)configView {
     // Init
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
     [AppDelegate share].mainController = self;
     self.dictMenu = getDictTitleMenu([MovieSearch share].genreMovie);
     
@@ -58,18 +71,30 @@
     self.lastListMovie = 0;
     
     // Config table view
+    
     self.tbvListMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tbvListMovie.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     self.tbvListMovie.delegate = self;
     self.tbvListMovie.dataSource = self;
+    [self fixedTableViewScrollHeader];
     
     // Check list data
     self.listMovieOnMain = [[NSMutableArray alloc] init];
-    [self checkListMovie];
     
     [Utilities fixAutolayoutWithDelegate:self];
+    self.bannerView.delegate = self;
+    self.bannerView.dataSource = self;
+     self.bannerView.type = iCarouselTypeCoverFlow2;
+    [self checkListMovie];
+}
+
+- (void)fixedTableViewScrollHeader {
+    CGFloat dummyViewHeight = 28;
+    UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tbvListMovie.bounds.size.width, dummyViewHeight)];
+    self.tbvListMovie.tableHeaderView = dummyView;
+    self.tbvListMovie.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, 0, 0);
 }
 
 - (void)initSearchBarButton {
@@ -82,12 +107,23 @@
     [self.navigationController pushViewController:searchController animated:YES];
 }
 
+- (void)getListMovieShowOnBanner {
+    [[DataAccess share] listMovieLocalByTag:kShowMovieTop
+                                   andGenre:stringFromInteger([MovieSearch share].genreMovie)
+                                    andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
+                                        if (success) {
+                                            self.listMovieOnMain = [array mutableCopy];
+                                            [self.bannerView reloadData];
+                                        }
+                                    }];
+}
+
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Table view delegate **
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.dictMenu.count;
+    return (NSInteger)self.dictMenu.count;
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -96,11 +132,12 @@
     UILabel *headerLabel = [[UILabel alloc]init];
     headerLabel.tag = section;
     headerLabel.userInteractionEnabled = YES;
-    headerLabel.backgroundColor = [UIColor colorWithHexString:kBackgroundColorOfSection];
-    headerLabel.text = [self.dictMenu objectForKey:arrayKey[section]];
-    [headerLabel setTextColor:[UIColor blackColor]];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.text = [NSString stringWithFormat:@"    %@",[self.dictMenu objectForKey:arrayKey[section]]];
+    headerLabel.font = [UIFont boldSystemFontOfSize:kFontSize17];
+    [headerLabel setTextColor:[UIColor whiteColor]];
     headerLabel.frame = CGRectMake(0, 0, tableView.tableHeaderView.frame.size.width, tableView.tableHeaderView.frame.size.height);
-    headerLabel.textAlignment = NSTextAlignmentCenter;
+    headerLabel.textAlignment = NSTextAlignmentLeft;
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapHeader:)];
     tapGesture.cancelsTouchesInView = NO;
@@ -138,6 +175,8 @@
         cell = [[MovieCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTableViewMoviedentifier];
     }
     
+    [Utilities setColorOfSelectCell:cell];
+    
     [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][indexPath.section]
                                    andGenre:stringFromInteger([MovieSearch share].genreMovie)
                                     andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
@@ -173,6 +212,128 @@
     }
 }
 
+#pragma mark iCarousel methods
+
+- (void)requestBannerImage:(Movie *)movie andImage:(UIImageView *)imageView {
+    __weak UIImageView  *newImageView =imageView;
+    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:kUrlImageBannerHdViet,movie.backdrop]]
+                                                  cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                              timeoutInterval:60];
+    
+    
+    [newImageView setImageWithURLRequest:imageRequest
+                           placeholderImage:[UIImage imageNamed:kNoBannerImage]
+                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                        newImageView.image = image;
+                                    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                        newImageView.image = [UIImage imageNamed:kNoBannerImage];
+                                    }];
+    
+    imageView.image = newImageView.image;
+}
+
+- (NSInteger)numberOfItemsInCarousel:(__unused iCarousel *)carousel
+{
+    return [self.listMovieOnMain count];
+}
+
+- (UIView *)carousel:(__unused iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
+{
+    view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bannerView.frame.size.width, self.bannerView.frame.size.height)];
+    [self requestBannerImage:self.listMovieOnMain[index] andImage:((UIImageView *)view)];
+    [Utilities customLayer:view];
+    
+    return view;
+    
+}
+
+- (NSInteger)numberOfPlaceholdersInCarousel:(__unused iCarousel *)carousel
+{
+    //note: placeholder views are only displayed on some carousels if wrapping is disabled
+    return 0;
+}
+
+- (UIView *)carousel:(__unused iCarousel *)carousel placeholderViewAtIndex:(NSInteger)index reusingView:(UIView *)view
+{
+    view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bannerView.frame.size.width - 10, self.bannerView.frame.size.height - 10)];
+    ((UIImageView *)view).image = [UIImage imageNamed:kNoBannerImage];
+    view.contentMode = UIViewContentModeCenter;
+    
+    return view;
+}
+
+- (CATransform3D)carousel:(__unused iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform
+{
+    //implement 'flip3D' style carousel
+    transform = CATransform3DRotate(transform, M_PI / 8.0f, 0.0f, 1.0f, 0.0f);
+    return CATransform3DTranslate(transform, 0.0f, 0.0f, offset * self.bannerView.itemWidth);
+}
+
+- (CGFloat)carousel:(__unused iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+{
+    //customize carousel display
+    switch (option)
+    {
+        case iCarouselOptionWrap:
+        {
+            //normally you would hard-code this to YES or NO
+            return 0;
+        }
+        case iCarouselOptionSpacing:
+        {
+            //add a bit of spacing between the item views
+            return value * 1.05f;
+        }
+        case iCarouselOptionFadeMax:
+        {
+            if (self.bannerView.type == iCarouselTypeCustom)
+            {
+                //set opacity based on distance from camera
+                return 0.0f;
+            }
+            return value;
+        }
+        case iCarouselOptionShowBackfaces:
+        case iCarouselOptionRadius:
+        case iCarouselOptionAngle:
+        case iCarouselOptionArc:
+        case iCarouselOptionTilt:
+        case iCarouselOptionCount:
+        case iCarouselOptionFadeMin:
+        case iCarouselOptionFadeMinAlpha:
+        case iCarouselOptionFadeRange:
+        case iCarouselOptionOffsetMultiplier:
+        case iCarouselOptionVisibleItems:
+        {
+            return value;
+        }
+    }
+}
+
+#pragma mark -
+#pragma mark iCarousel taps
+
+- (void)carousel:(__unused iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
+{
+    PlayController *playController = nil;
+    if (kPlayViewController) {
+        playController = kPlayViewController;
+        [playController resetView];
+        playController.movie = self.listMovieOnMain[index];
+        [playController getInformationMovie];
+    } else {
+        playController = InitStoryBoardWithIdentifier(kPlayController);
+        playController.movie = self.listMovieOnMain[index];
+        [[AppDelegate share].mainController.navigationController pushViewController:playController animated:YES];
+    }
+}
+
+- (void)carouselCurrentItemIndexDidChange:(__unused iCarousel *)carousel
+{
+
+}
+
+
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** List movie delegate **
@@ -201,6 +362,7 @@
     if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:NO]) {
         
         [self.tbvListMovie reloadData];
+        [self getListMovieShowOnBanner];
     }
 }
 

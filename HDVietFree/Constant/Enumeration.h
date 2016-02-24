@@ -76,5 +76,7 @@ typedef NS_ENUM(NSInteger, Type) {
     kTypeString = 0,
     kTypeInteger = 1,
     kTypeArray = 2,
+    kTypeFilm = 3,
+    kTypeMain = 4,
 };
 #endif /* Enumeration_h */

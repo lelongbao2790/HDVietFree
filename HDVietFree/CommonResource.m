@@ -25,6 +25,16 @@ NSString *const kNoImage = @"hdviet_no_image.png";
  */
 NSString *const kNoBannerImage = @"hdviet_banner.png";
 
+/**
+ * Left menu
+ */
+NSString *const kLeftMenu = @"left_menu@1x";
+
+/**
+ * Left menu
+ */
+NSString *const kBackgroundImage = @"background@1x";
+
 /*
  * Set pair view controller
  */

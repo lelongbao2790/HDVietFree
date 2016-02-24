@@ -10,9 +10,9 @@
 
 @interface CommonSize : NSObject
 
-#define sizeCellFilmIp5 CGSizeMake(157, 292)
-#define sizeCellFilmIp6 CGSizeMake(185, 312)
-#define sizeCellFilmIp6Plus CGSizeMake(203, 330)
+#define sizeCellFilmIp5 CGSizeMake(145, 268)
+#define sizeCellFilmIp6 CGSizeMake(180, 307)
+#define sizeCellFilmIp6Plus CGSizeMake(198, 325)
 
 #define kFontSize15 15
 #define kFontSize17 17

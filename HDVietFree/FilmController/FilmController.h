@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FilmController : UICollectionViewController
+@interface FilmController : UIViewController
 
 //*****************************************************************************
 #pragma mark -

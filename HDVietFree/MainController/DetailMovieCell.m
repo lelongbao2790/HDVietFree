@@ -12,7 +12,6 @@
 @implementation DetailMovieCell
 
 - (void)awakeFromNib {
-    
 }
 
 - (void)loadInformationWithMovie:(Movie *)movie {
@@ -27,6 +26,7 @@
     NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[Utilities getStringUrlPoster:movie]]
                                                   cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                               timeoutInterval:60];
+
     
     [self.imageMovie setImageWithURLRequest:imageRequest
                      placeholderImage:[UIImage imageNamed:kNoImage]
@@ -35,6 +35,10 @@
                               } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                   self.imageMovie.image = [UIImage imageNamed:kNoImage];
                               }];
+    if (self.typeCell == kTypeFilm) {
+        [Utilities customLayer:self.imageMovie];
+    }
+    
 }
 
 // This method will update image avatar

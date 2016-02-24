@@ -52,6 +52,10 @@
     [self initTextField];
     searchController = nil;
      [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    
+    self.view.backgroundColor = [UIColor clearColor];
+    self.navigationBar.backgroundColor = [UIColor clearColor];
+    
 }
 
 /*
@@ -69,6 +73,7 @@
     self.txtSearch.textAlignment=NSTextAlignmentCenter;
     self.txtSearch.layer.cornerRadius = kCornerRadius;
     self.txtSearch.layer.masksToBounds = YES;
+    self.txtSearch.returnKeyType = UIReturnKeyDone;
     
     // Init right button
     UIButton *deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];

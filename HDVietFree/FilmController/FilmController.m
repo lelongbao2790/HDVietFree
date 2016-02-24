@@ -8,7 +8,7 @@
 
 #import "FilmController.h"
 
-@interface FilmController ()<ListMovieByGenreDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface FilmController ()<ListMovieByGenreDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionFilmController;
 @property (assign, nonatomic) NSInteger previousPage;
 @end
@@ -31,16 +31,20 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+}
+
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Helper Method **
 
 - (void)configView {
     // Init
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
     [DataManager shared].listMovieDelegate = self;
     [self.collectionFilmController registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     [self.collectionFilmController reloadData];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     // Check request list movie
     [self requestListMovieFromLocal];
     
@@ -61,7 +65,6 @@
 }
 
 #pragma mark <UICollectionViewDataSource>
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
@@ -73,7 +76,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // Configure the cell
     DetailMovieCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionDetailMovieIdentifier forIndexPath:indexPath];
-    
+    cell.typeCell = kTypeFilm;
     [cell loadInformationWithMovie:self.listMovie[indexPath.row]];
     
     DLOG(@"Row : %d", (int)indexPath.row);
@@ -108,6 +111,7 @@
     }
     return returnSize;
 }
+
 
 //*****************************************************************************
 #pragma mark -
@@ -202,8 +206,8 @@
                                                 [indexPaths addObject:[NSIndexPath indexPathForItem:totalCount + i inSection:0]];
                                             }
                                             
-                                            [self.collectionView performBatchUpdates:^{
-                                                [self.collectionView insertItemsAtIndexPaths:indexPaths];
+                                            [self.collectionFilmController performBatchUpdates:^{
+                                                [self.collectionFilmController insertItemsAtIndexPaths:indexPaths];
                                             } completion:nil];
                                             
                                             self.previousPage = page;

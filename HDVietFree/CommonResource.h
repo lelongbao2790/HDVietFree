@@ -26,6 +26,16 @@ extern NSString *const kNoImage;
  */
 extern NSString *const kNoBannerImage;
 
+/**
+ * Left menu
+ */
+extern NSString *const kLeftMenu;
+
+/**
+ * Left menu
+ */
+extern NSString *const kBackgroundImage;
+
 /*
  * Set pair view controller
  */

@@ -67,6 +67,9 @@
 		D38CBE771C51D7AC00084126 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE761C51D7AC00084126 /* PlayController.m */; };
 		D38CBE791C51D83A00084126 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38CBE781C51D83A00084126 /* MediaPlayer.framework */; };
 		D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE7E1C51DFD400084126 /* NSString+MD5.m */; };
+		D3AC46941C7C449B000490AB /* play_icon_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AC46931C7C449B000490AB /* play_icon_white.png */; };
+		D3AC469A1C7D8954000490AB /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AC46991C7D8954000490AB /* banner.png */; };
+		D3AC469E1C7D8C2E000490AB /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC469D1C7D8C2E000490AB /* iCarousel.m */; };
 		D3C4A9661C76EABF0057B7F9 /* hdviet_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C4A9641C76EABF0057B7F9 /* hdviet_banner.png */; };
 		D3C4A9671C76EABF0057B7F9 /* hdviet_no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C4A9651C76EABF0057B7F9 /* hdviet_no_image.png */; };
 		D3C4A96D1C76ECB30057B7F9 /* play_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C4A96C1C76ECB30057B7F9 /* play_icon.png */; };
@@ -240,6 +243,10 @@
 		D38CBE781C51D83A00084126 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D38CBE7D1C51DFD400084126 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "Category/NSString+MD5.h"; sourceTree = "<group>"; };
 		D38CBE7E1C51DFD400084126 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MD5.m"; path = "Category/NSString+MD5.m"; sourceTree = "<group>"; };
+		D3AC46931C7C449B000490AB /* play_icon_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon_white.png; sourceTree = "<group>"; };
+		D3AC46991C7D8954000490AB /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
+		D3AC469C1C7D8C2E000490AB /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		D3AC469D1C7D8C2E000490AB /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		D3C4A9641C76EABF0057B7F9 /* hdviet_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdviet_banner.png; sourceTree = "<group>"; };
 		D3C4A9651C76EABF0057B7F9 /* hdviet_no_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdviet_no_image.png; sourceTree = "<group>"; };
 		D3C4A96C1C76ECB30057B7F9 /* play_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon.png; sourceTree = "<group>"; };
@@ -387,6 +394,7 @@
 		D329169A1C55B73B00CE46B6 /* ThirdParties */ = {
 			isa = PBXGroup;
 			children = (
+				D3AC469B1C7D8C2E000490AB /* iCarousel */,
 				D3AC46831C7ADEF9000490AB /* UIImageLoader */,
 				D36579691C60503A00F51DA3 /* MPMoviePlayerController+Subtitles */,
 				D36579451C58565500F51DA3 /* DBAccess */,
@@ -621,6 +629,15 @@
 			name = UIImageLoader;
 			sourceTree = "<group>";
 		};
+		D3AC469B1C7D8C2E000490AB /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				D3AC469C1C7D8C2E000490AB /* iCarousel.h */,
+				D3AC469D1C7D8C2E000490AB /* iCarousel.m */,
+			);
+			path = iCarousel;
+			sourceTree = "<group>";
+		};
 		D3DF762C1C74493E00CF6C52 /* ReportBugController */ = {
 			isa = PBXGroup;
 			children = (
@@ -709,6 +726,8 @@
 		D3EA87DF1C50C72000D593A1 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				D3AC46991C7D8954000490AB /* banner.png */,
+				D3AC46931C7C449B000490AB /* play_icon_white.png */,
 				D3C4A96C1C76ECB30057B7F9 /* play_icon.png */,
 				D3C4A9641C76EABF0057B7F9 /* hdviet_banner.png */,
 				D3C4A9651C76EABF0057B7F9 /* hdviet_no_image.png */,
@@ -893,6 +912,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3AC46941C7C449B000490AB /* play_icon_white.png in Resources */,
 				D3DF75EB1C72F5D300CF6C52 /* phimbo_icon.png in Resources */,
 				D3DF76311C74765500CF6C52 /* crashed.plist in Resources */,
 				D3DF75E91C72F5D300CF6C52 /* home_icon.png in Resources */,
@@ -900,6 +920,7 @@
 				D3DF763A1C75992500CF6C52 /* no_image.png in Resources */,
 				D3DF75F71C72F9FE00CF6C52 /* update_select_icon.png in Resources */,
 				D3DF75EA1C72F5D300CF6C52 /* logout_icon.png in Resources */,
+				D3AC469A1C7D8954000490AB /* banner.png in Resources */,
 				D3EA87B21C50BF6200D593A1 /* LaunchScreen.storyboard in Resources */,
 				D3EA87DA1C50C3A400D593A1 /* ic_launcher.png in Resources */,
 				D3EA87D81C50C22B00D593A1 /* button_active.png in Resources */,
@@ -983,6 +1004,7 @@
 				D365791B1C55D1B300F51DA3 /* SlideMenuController.m in Sources */,
 				D36579761C61E39500F51DA3 /* EpisodeController.m in Sources */,
 				D3EA87A41C50BF6200D593A1 /* main.m in Sources */,
+				D3AC469E1C7D8C2E000490AB /* iCarousel.m in Sources */,
 				D32916A11C55B75D00CE46B6 /* SNLoading.m in Sources */,
 				D32916DC1C55B7DF00CE46B6 /* UIAlertView+AFNetworking.m in Sources */,
 				D3DF76341C757B5600CF6C52 /* NSObject+Associating.m in Sources */,

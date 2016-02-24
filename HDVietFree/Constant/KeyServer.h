@@ -82,6 +82,7 @@
 #define kGenre @"genre"
 #define kTag @"tag"
 #define kPage @"page"
+#define kShowMovieTop @"moi-cap-nhat"
 
 // Request header
 #define kHTTPHeaderApplication @"application/json"

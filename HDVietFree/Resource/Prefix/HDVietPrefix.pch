@@ -53,5 +53,6 @@
 #import "ReportBugController.h"
 #import "NSObject+Associating.h"
 #import "UIImageView+AFNetworking.h"
+#import "iCarousel.h"
 
 #endif /* HDVietPrefix_pch */

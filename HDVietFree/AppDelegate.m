@@ -105,8 +105,14 @@ void HandleException(NSException *exception) {
 - (void)setCustomNavigationBackButton
 {
     [[UINavigationBar appearance] setTitleTextAttributes:
-     @{NSForegroundColorAttributeName:[UIColor colorWithHexString:kTextColorOfTitleNav]}];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithHexString:kTextColorOfTitleNav]];
+     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    [UINavigationBar appearance].shadowImage = [UIImage new];
+    [UINavigationBar appearance].translucent = YES;
+    
 }
 
 - (void)handleLogin {

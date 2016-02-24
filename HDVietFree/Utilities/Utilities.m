@@ -167,6 +167,13 @@ MPMoviePlayerController *mediaPlayerController = nil;
     return [NSString stringWithFormat:@"%d",(int)[components year]];
 }
 
++ (void)customLayer:(UIView *)view {
+    view.layer.cornerRadius = 1.0;
+    view.layer.masksToBounds = YES;
+    view.layer.borderColor = [UIColor whiteColor].CGColor;
+    view.layer.borderWidth = 1.0;
+}
+
 /*
  * Get string url poster image
  */
@@ -384,7 +391,7 @@ MPMoviePlayerController *mediaPlayerController = nil;
 
 + (void)setColorOfSelectCell:(nonnull UITableViewCell *)cell {
     UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor colorWithHexString:kColorBgNavigationBar];
+    bgColorView.backgroundColor = [UIColor clearColor];
     [cell setSelectedBackgroundView:bgColorView];
 }
 

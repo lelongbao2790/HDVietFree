@@ -154,7 +154,7 @@
         // Report
         [self resetExpandTableView];
         ReportBugController *reportBug = [AppDelegate share].reportBugController;
-        [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:reportBug];
+        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:reportBug];
         [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
         [[AppDelegate share].window makeKeyAndVisible];
     }
@@ -163,7 +163,7 @@
         // Update data movie
         [self resetExpandTableView];
         UpdateMovieController *updateMovie = [AppDelegate share].updateMovieController;
-        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:updateMovie];;
+        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:updateMovie];
         [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
         [[AppDelegate share].window makeKeyAndVisible];
     }
@@ -239,8 +239,7 @@
                                         FilmController *filmController = [Utilities initFilmControllerWithTag:dict.allKeys[indexPath.row]
                                                                                                     numberTag:indexPath.row
                                                                                                     andListDb:array];
-                                        
-                                        
+                                    
                                         [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:filmController];
                                         [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
                                         

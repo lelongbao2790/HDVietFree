@@ -54,6 +54,8 @@
  */
 + (nonnull NSString *)getYearOfDateFromString:(nonnull NSString *)strDate;
 
++ (void)customLayer:(UIView *)view;
+
 /*
  * Get string url poster image
  */
