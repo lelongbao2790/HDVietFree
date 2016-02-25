@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightButtonYoutube;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeadingButtonYoutube;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopButtonYoutube;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopSubviewInfo;
 @property (weak, nonatomic) IBOutlet UILabel *lbImdbRating;
 
 @end
@@ -276,6 +277,7 @@
     self.csWidthButtonYoutube.constant += kTopConstantIp6 /2;
     self.csLeadingButtonYoutube.constant -= kTopConstantIp6 /2;
     self.csTopButtonYoutube.constant -= kTopConstantIp6 /2;
+    self.csTopSubviewInfo.constant += kTopConstantIp5;
     [self.lbNameMovie setFont:[UIFont boldSystemFontOfSize:kFontSize20]];
 }
 @end

@@ -12,10 +12,19 @@
 @implementation DetailMovieCell
 
 - (void)awakeFromNib {
+    self.lbEpsiode.layer.cornerRadius = self.lbEpsiode.frame.size.width / 2;
+    self.lbEpsiode.layer.masksToBounds = YES;
 }
 
 - (void)loadInformationWithMovie:(Movie *)movie {
     [self setImagePoster:movie];
+    
+    if (movie.episode > 0) {
+        self.lbEpsiode.hidden = NO;
+        self.lbEpsiode.text = [NSString stringWithFormat:@"Tập %d",(int)movie.episode];
+    } else {
+        self.lbEpsiode.hidden = YES;
+    }
 }
 
 /*
@@ -43,7 +52,6 @@
 
 // This method will update image avatar
 - (void)updateUIImageAvatar:(UIImage*)images withMovie:(Movie *)movie {
-    [self.activityLoading stopAnimating];
     self.lbNameMovie.text = movie.movieName;
     if (images) {
         self.imageMovie.image = images;

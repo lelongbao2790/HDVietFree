@@ -474,10 +474,6 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pi9-Kn-UYz">
                                                     <rect key="frame" x="0.0" y="8" width="157" height="229"/>
                                                 </imageView>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="iE0-CV-kSi">
-                                                    <rect key="frame" x="60" y="122" width="37" height="37"/>
-                                                    <color key="color" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </activityIndicatorView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBg-8I-uXu">
                                                     <rect key="frame" x="0.0" y="237" width="157" height="28"/>
                                                     <constraints>
@@ -485,6 +481,16 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tập 12" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDT-ng-qSv">
+                                                    <rect key="frame" x="109" y="15" width="42" height="42"/>
+                                                    <color key="backgroundColor" red="1" green="0.84524064357105255" blue="0.023529411760000001" alpha="0.80603357263513509" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="42" id="2Sa-cg-7o0"/>
+                                                        <constraint firstAttribute="height" constant="42" id="Jj1-7h-m36"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -496,15 +502,15 @@
                                             <constraint firstAttribute="trailingMargin" secondItem="cBg-8I-uXu" secondAttribute="trailing" constant="-8" id="FD1-SB-ZN8"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="cBg-8I-uXu" secondAttribute="bottom" constant="-2" id="Ldf-Lh-Ad1"/>
                                             <constraint firstItem="pi9-Kn-UYz" firstAttribute="top" secondItem="ggg-Ey-N6C" secondAttribute="topMargin" id="MUg-xr-mot"/>
-                                            <constraint firstItem="iE0-CV-kSi" firstAttribute="centerX" secondItem="ggg-Ey-N6C" secondAttribute="centerX" id="Qdt-Ik-HK2"/>
                                             <constraint firstItem="cBg-8I-uXu" firstAttribute="leading" secondItem="ggg-Ey-N6C" secondAttribute="leadingMargin" constant="-8" id="Yx2-yX-0sz"/>
-                                            <constraint firstItem="iE0-CV-kSi" firstAttribute="centerY" secondItem="ggg-Ey-N6C" secondAttribute="centerY" constant="5" id="hLz-hf-J0u"/>
+                                            <constraint firstItem="pi9-Kn-UYz" firstAttribute="top" secondItem="XDT-ng-qSv" secondAttribute="bottom" constant="-49" id="clg-Rq-ANY"/>
+                                            <constraint firstItem="XDT-ng-qSv" firstAttribute="leading" secondItem="pi9-Kn-UYz" secondAttribute="trailing" constant="-48" id="d2m-f3-9SS"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="pi9-Kn-UYz" secondAttribute="bottom" constant="26" id="hnT-BK-0Ic"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="pi9-Kn-UYz" secondAttribute="trailing" constant="-8" id="xRf-G5-D0v"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="activityLoading" destination="iE0-CV-kSi" id="v24-OK-MSn"/>
                                             <outlet property="imageMovie" destination="pi9-Kn-UYz" id="cMQ-mE-gkF"/>
+                                            <outlet property="lbEpsiode" destination="XDT-ng-qSv" id="iw6-g0-d8i"/>
                                             <outlet property="lbNameMovie" destination="cBg-8I-uXu" id="lH5-8a-Oku"/>
                                         </connections>
                                     </collectionViewCell>
@@ -961,6 +967,7 @@
                         <outlet property="csLeadingButtonYoutube" destination="Wgd-l0-CQt" id="9SG-Lu-KrI"/>
                         <outlet property="csTopButtonYoutube" destination="bTF-Za-zsc" id="isr-oY-McS"/>
                         <outlet property="csTopImageLeftView" destination="euk-WG-Kbc" id="fXG-vO-TX0"/>
+                        <outlet property="csTopSubviewInfo" destination="bRL-wh-Wnp" id="Qtw-Et-atO"/>
                         <outlet property="csWidthButtonYoutube" destination="aJN-jT-2N3" id="sKs-jP-osS"/>
                         <outlet property="csWidthImageLeft" destination="d64-cr-SEe" id="Tdd-CG-2W0"/>
                         <outlet property="heightConstant" destination="4bM-71-DAG" id="PJq-6d-QiY"/>
