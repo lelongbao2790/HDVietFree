@@ -12,6 +12,10 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    [self setBackgroundColor:[UIColor clearColor]];
+    self.imgPoster.layer.cornerRadius = 5.0;
+    self.imgPoster.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

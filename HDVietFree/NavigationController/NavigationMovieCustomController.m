@@ -63,7 +63,7 @@
  */
 - (void)initTextField {
     NSInteger widthTextField = [Utilities widthOfScreen] - kSpaceWidthTextField;
-    CGRect frameTextField = CGRectMake([Utilities widthOfScreen] - widthTextField - kCornerRadius, kCornerRadius,
+    CGRect frameTextField = CGRectMake([Utilities widthOfScreen] - widthTextField - kPositionYTextField, kPositionYTextField,
                                        widthTextField - kSpaceTrailingWidthTextField, kHeightTextField);
     self.txtSearch = [[UITextField alloc]initWithFrame:frameTextField];
     self.txtSearch.backgroundColor = [UIColor whiteColor];

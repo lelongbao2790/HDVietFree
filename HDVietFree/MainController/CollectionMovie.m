@@ -51,7 +51,6 @@
     PlayController *playController = nil;
     if (kPlayViewController) {
         playController = kPlayViewController;
-        [playController resetView];
         playController.movie = self.listMovie[indexPath.row];
         [playController getInformationMovie];
     } else {

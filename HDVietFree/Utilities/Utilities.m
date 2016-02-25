@@ -168,7 +168,7 @@ MPMoviePlayerController *mediaPlayerController = nil;
 }
 
 + (void)customLayer:(UIView *)view {
-    view.layer.cornerRadius = 1.0;
+    view.layer.cornerRadius = 5.0;
     view.layer.masksToBounds = YES;
     view.layer.borderColor = [UIColor whiteColor].CGColor;
     view.layer.borderWidth = 1.0;
@@ -444,7 +444,7 @@ MPMoviePlayerController *mediaPlayerController = nil;
     FilmController *filmController = InitStoryBoardWithIdentifier(kFilmController);
     filmController.view.tag = numberTag;
     filmController.tagMovie = nameTag;
-    filmController.listMovie = [[NSMutableArray alloc] initWithArray:listDb];
+    filmController.listMovie = [listDb mutableCopy];
     filmController.totalItemOnOnePage = listDb.count;
     return filmController;
 }

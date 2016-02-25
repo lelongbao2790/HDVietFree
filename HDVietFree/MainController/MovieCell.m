@@ -15,6 +15,7 @@
     [super layoutSubviews];
     
     self.collectionViewMovie.frame = self.contentView.bounds;
+    [self setBackgroundColor:[UIColor clearColor]];
     [Utilities fixAutolayoutWithDelegate:self];
 }
 

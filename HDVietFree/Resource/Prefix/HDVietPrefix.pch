@@ -49,10 +49,10 @@
 #import "NavigationMovieCustomController.h"
 #import "EpisodeController.h"
 #import "UpdateMovieController.h"
-#import "ListMenuController.h"
 #import "ReportBugController.h"
 #import "NSObject+Associating.h"
 #import "UIImageView+AFNetworking.h"
 #import "iCarousel.h"
+#import "InformationController.h"
 
 #endif /* HDVietPrefix_pch */

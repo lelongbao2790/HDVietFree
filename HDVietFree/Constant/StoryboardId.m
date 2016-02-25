@@ -51,11 +51,15 @@ NSString *const kSearchController = @"SearchController";
 NSString *const kEpisodeController = @"EpisodeController";
 
 /*
+ * InformationController
+ */
+NSString *const kInformationController = @"InformationController";
+
+/*
  * Update movie controller
  */
 NSString *const kUpdateMovieController = @"UpdateMovieController";
 
-NSString *const kListMenuController = @"ListMenuController";
 
 NSString *const kReportBugController = @"ReportBugController";
 

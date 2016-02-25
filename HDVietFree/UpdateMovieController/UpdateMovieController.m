@@ -37,7 +37,6 @@
  * Config view
  */
 - (void)configView {
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
     [self updateTotalMovie];
     [DataManager shared].listMovieDelegate = self;
     self.title = [kUpdateData uppercaseString];

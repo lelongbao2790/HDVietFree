@@ -52,7 +52,6 @@
 }
 
 - (void)configView {
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
     [DataManager shared].searchMovieDelegate = self;
     self.listResult = [[NSMutableArray alloc] init];
     [self initData];
@@ -107,6 +106,7 @@
         cell = [[SearchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kSearchCellIdentifier];
     }
 
+    [Utilities setColorOfSelectCell:cell];
     [cell loadInformationWithMovie:self.listResult[indexPath.row]];
     
     return cell;

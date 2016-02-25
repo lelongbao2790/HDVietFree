@@ -9,7 +9,7 @@
 #import "FilmController.h"
 
 @interface FilmController ()<ListMovieByGenreDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
-@property (strong, nonatomic) IBOutlet UICollectionView *collectionFilmController;
+
 @property (assign, nonatomic) NSInteger previousPage;
 @end
 
@@ -20,10 +20,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self configView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self configView];
+    // Check request list movie
+    [self requestListMovieFromLocal];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,6 +35,7 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
+    kFilmViewController = nil;
 }
 
 //*****************************************************************************
@@ -40,13 +44,11 @@
 
 - (void)configView {
     // Init
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
+    kFilmViewController = self;
     [DataManager shared].listMovieDelegate = self;
     [self.collectionFilmController registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     [self.collectionFilmController reloadData];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    // Check request list movie
-    [self requestListMovieFromLocal];
     
     if (self.previousPage) {
         
@@ -85,7 +87,6 @@
     if(indexPath.item == (self.listMovie.count - 1)) {
         [self checkListMovie];
     }
-    
     return cell;
 }
 

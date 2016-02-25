@@ -78,6 +78,7 @@
 #define kList @"lists"
 #define kTotalRecord @"totalRecord"
 #define kResponse @"response"
+#define kImdbRating @"ImdbRating"
 
 #define kGenre @"genre"
 #define kTag @"tag"

@@ -16,10 +16,13 @@
 @property (strong, nonatomic) NSDictionary *dictMovie;
 @property (assign, nonatomic) NSInteger lastListMovie;
 @property (strong, nonatomic) NSMutableArray *listMovieOnMain;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightBanner;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopTableMovieMain;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeadingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTrailingConstraint;
-@property (weak, nonatomic) IBOutlet UITableView *tbvListMovie;
+
 
 @end
 
@@ -63,7 +66,6 @@
 
 - (void)configView {
     // Init
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
     [AppDelegate share].mainController = self;
     self.dictMenu = getDictTitleMenu([MovieSearch share].genreMovie);
     
@@ -240,6 +242,8 @@
 - (UIView *)carousel:(__unused iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
 {
     view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bannerView.frame.size.width, self.bannerView.frame.size.height)];
+    ((UIImageView *)view).contentMode = UIViewContentModeScaleAspectFill;
+    ((UIImageView *)view).clipsToBounds = YES;
     [self requestBannerImage:self.listMovieOnMain[index] andImage:((UIImageView *)view)];
     [Utilities customLayer:view];
     
@@ -257,7 +261,8 @@
 {
     view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bannerView.frame.size.width - 10, self.bannerView.frame.size.height - 10)];
     ((UIImageView *)view).image = [UIImage imageNamed:kNoBannerImage];
-    view.contentMode = UIViewContentModeCenter;
+    ((UIImageView *)view).contentMode = UIViewContentModeScaleAspectFill;
+    ((UIImageView *)view).clipsToBounds = YES;
     
     return view;
 }
@@ -318,7 +323,6 @@
     PlayController *playController = nil;
     if (kPlayViewController) {
         playController = kPlayViewController;
-        [playController resetView];
         playController.movie = self.listMovieOnMain[index];
         [playController getInformationMovie];
     } else {
@@ -396,6 +400,8 @@
 -(void)fixAutolayoutForIpad {
     self.csLeadingConstraint.constant = kLeadingTableViewMainIpad;
     self.csTrailingConstraint.constant = kTralingTableViewMainIpad;
+    self.csHeightBanner.constant += kTopConstantIpad;
+    self.csTopTableMovieMain.constant += kTopConstantIpad;
 }
 
 

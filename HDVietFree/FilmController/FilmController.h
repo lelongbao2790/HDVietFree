@@ -16,4 +16,5 @@
 @property (strong, nonatomic) NSMutableArray *listMovie;
 @property (strong, nonatomic) NSString *tagMovie;
 @property (assign, nonatomic) NSInteger totalItemOnOnePage;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionFilmController;
 @end

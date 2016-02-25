@@ -37,6 +37,7 @@
 @property (assign, nonatomic) NSInteger totalRecord;
 @property (strong, nonatomic) NSString *urlLinkPlayMovie;
 @property (strong, nonatomic) NSString *urlLinkSubtitleMovie;
+@property (strong, nonatomic) NSString *imdbRating;
 
 // Init movie from json
 + (Movie *)detailRelativeMovieFromJson:(NSDictionary *)json;

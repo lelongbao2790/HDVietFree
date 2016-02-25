@@ -37,16 +37,24 @@ typedef NS_ENUM(NSInteger, PlayMovieTagTableView) {
     kSpaceTrailingWidthTextField = 8,
     kHeightTextField = 32,
     kHeightOfRightButton = 36,
-    kCornerRadius = 5,
+    kPositionYTextField = 5,
+    kCornerRadius = 15,
 };
 
 typedef NS_ENUM(NSInteger, ControllerTag) {
     kTagMainController = 1,
     kTagPlayController = 2,
     kTimeOutIntervalSession = 60,
-    kTopConstantTableView = 550,
-    kTopConstantTableViewIp6Plus = 260,
+    kTopConstantTableView = 386,
+    kTopConstantTableViewIp6Plus = 186,
+    kConstantInformationViewIp5 = 340,
+    kConstantInformationViewIp6Plus = 500,
+    kConstantInformationViewIpad = 700,
     k400BadRequest = 400,
+};
+
+typedef NS_ENUM(NSInteger, PlayConstant) {
+    kWidthConstantIp5 = 138,
 };
 
 typedef NS_ENUM(NSInteger, LoginConstant) {
@@ -54,6 +62,8 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
     kTopConstantIp6 = 40,
     kTopConstantIp6Plus = 50,
     kTopConstantIpad = 100,
+    kBottomConstantIpad = 120,
+    kHeighSpaceImageLeftConstantIpad = 90,
     kLeadingTableViewMainIphone = -16,
     kTralingTableViewMainIphone = -16,
     kLeadingTableViewMainIphone55 = -20,
@@ -61,6 +71,13 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
     kLeadingTableViewMainIpad = -20,
     kTralingTableViewMainIpad = -20,
     kSpaceBottomListMenu = 500,
+    
+};
+
+
+typedef NS_ENUM(NSInteger, InformationConstant) {
+    kWidthConstantPlot = 20,
+    kWidthConstantCollectionView = 10,
     
 };
 
@@ -78,5 +95,7 @@ typedef NS_ENUM(NSInteger, Type) {
     kTypeArray = 2,
     kTypeFilm = 3,
     kTypeMain = 4,
+    kTagFilmController = 101,
+    kTagInformation = 102,
 };
 #endif /* Enumeration_h */

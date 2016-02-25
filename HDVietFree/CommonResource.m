@@ -33,12 +33,17 @@ NSString *const kLeftMenu = @"left_menu@1x";
 /**
  * Left menu
  */
-NSString *const kBackgroundImage = @"background@1x";
+NSString *const kBackgroundImage = @"background.png";
 
 /*
  * Set pair view controller
  */
 PlayController *kPlayViewController = nil;
+
+/*
+ * Set pair view controller
+ */
+FilmController *kFilmViewController = nil;
 
 MPMoviePlayerViewController *kMoviePlayer = nil;
 

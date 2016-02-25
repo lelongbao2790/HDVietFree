@@ -37,7 +37,6 @@
 
 - (void)configView {
     // Init
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
     [DataManager shared].reportBugDelegate = self;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnView)];
     tapGesture.cancelsTouchesInView = NO;

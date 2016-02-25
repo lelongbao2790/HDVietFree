@@ -9,7 +9,7 @@
 #import "Movie.h"
 
 @implementation Movie
-@dynamic movieID, movieName, knownAs, trailer, poster, poster124x184, sequence, currentSeason, episode, runtime, cast, plotVI, country, releaseDate, tagMovie, genreMovie, bannerMovie, backdrop, backdrop945530, relativeMovie, category, pageNumber, totalRecord, urlLinkPlayMovie, urlLinkSubtitleMovie;
+@dynamic movieID, movieName, knownAs, trailer, poster, poster124x184, sequence, currentSeason, episode, runtime, cast, plotVI, country, releaseDate, tagMovie, genreMovie, bannerMovie, backdrop, backdrop945530, relativeMovie, category, pageNumber, totalRecord, urlLinkPlayMovie, urlLinkSubtitleMovie, imdbRating;
 
 + (DBIndexDefinition *)indexDefinitionForEntity {
     
@@ -51,6 +51,7 @@
     newMovie.country = [Utilities nullToObject:json key:kCountry andType:kTypeString];
     newMovie.bannerMovie = [Utilities nullToObject:json key:kBannerFilm andType:kTypeString];
     newMovie.backdrop = [Utilities nullToObject:json key:kBackDrop andType:kTypeString];
+    newMovie.imdbRating = [NSString stringWithFormat:@"%.02f",[[json objectForKey:kImdbRating] floatValue]];
     newMovie.tagMovie = tagMovie;
     newMovie.genreMovie = genreMovie;
     return newMovie;
@@ -72,7 +73,8 @@
     movie.country = [Utilities nullToObject:json key:kCountry andType:kTypeString];
     movie.releaseDate = [Utilities nullToObject:json key:kReleaseDate andType:kTypeString];
     movie.genreMovie = stringFromInteger([MovieSearch share].genreMovie);
-    
+    movie.runtime = [[json objectForKey:kRuntime] integerValue];
+    movie.imdbRating = [NSString stringWithFormat:@"%.02f",[[json objectForKey:kImdbRating] floatValue]];
     // Update category
     NSArray *listCategory = (NSArray *)[Utilities nullToObject:json key:kCategoryFilm andType:kTypeArray];
     movie.category = kEmptyString;

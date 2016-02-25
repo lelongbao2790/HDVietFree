@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class MPMoviePlayerViewController;
+@class FilmController;
 
 @interface CommonResource : NSObject
 
@@ -40,6 +41,11 @@ extern NSString *const kBackgroundImage;
  * Set pair view controller
  */
 extern PlayController *kPlayViewController;
+
+/*
+ * Set pair view controller
+ */
+extern FilmController *kFilmViewController;
 
 extern MPMoviePlayerViewController *kMoviePlayer;
 

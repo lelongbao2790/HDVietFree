@@ -10,12 +10,25 @@
 
 @import MediaPlayer;
 
-@interface PlayController ()<MPMediaPickerControllerDelegate, UITableViewDataSource, UITableViewDelegate, DetailInformationMovieDelegate, LoadLinkPlayMovieDelegate, FixAutolayoutDelegate>
+@interface PlayController ()<MPMediaPickerControllerDelegate, DetailInformationMovieDelegate, LoadLinkPlayMovieDelegate, FixAutolayoutDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imagePoster;
-@property (weak, nonatomic) IBOutlet UITableView *tbvInforMovie;
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayMovie;
 @property (strong, nonatomic) NSString *convertResolution;
+@property (weak, nonatomic) IBOutlet UIView *informationView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topLayoutTableView;
+@property (strong, nonatomic) InformationController *infor;
+@property (weak, nonatomic) IBOutlet UIImageView *imageLeftView;
+@property (weak, nonatomic) IBOutlet UILabel *lbNameMovie;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstant;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightImageLeft;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csWidthImageLeft;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopImageLeftView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csWidthButtonYoutube;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightButtonYoutube;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeadingButtonYoutube;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopButtonYoutube;
+@property (weak, nonatomic) IBOutlet UILabel *lbImdbRating;
+
 @end
 
 @implementation PlayController
@@ -37,7 +50,7 @@
 - (void)viewWillAppear:(BOOL)animated {
      NavigationMovieCustomController *navCustom = (NavigationMovieCustomController *)self.navigationController;
     [navCustom.txtSearch removeFromSuperview];
-    
+
     [self getInformationMovie];
 }
 
@@ -45,50 +58,53 @@
     NavigationMovieCustomController *navCustom = (NavigationMovieCustomController *)self.navigationController;
     [navCustom initTextField];
     kPlayViewController = nil;
+    
+    [AppDelegate share].mainPanel.rightPanel = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     kPlayViewController = self;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 //*****************************************************************************
 #pragma mark -
-#pragma mark - ** Media play controller **
+#pragma mark - ** IBAction **
+- (IBAction)btnTrailer:(id)sender {
+    if (![self.movie.trailer isEqualToString:kEmptyString]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.movie.trailer]];
+    }
+}
 
 
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Helper Method **
 
-- (void)resetView {
-    self.movie = nil;
-    self.imagePoster.image = nil;
-    self.title = kEmptyString;
-    [self.tbvInforMovie reloadData];
-    [self configView];
+- (void)addViewInformation {
+    if (!self.infor) {
+        self.infor = InitStoryBoardWithIdentifier(kInformationController);
+        CGRect frameInfor = CGRectMake(0, 0, self.informationView.frame.size.width , self.informationView.frame.size.height);
+        self.infor.view.frame = frameInfor;
+        [self.informationView addSubview:self.infor.view];
+    }
+    
+    self.infor.movie = self.movie;
+    [self.infor setInformationMovie];
+    
 }
 
 - (void)configView {
-    // Config table view
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:kBackgroundImage]]];
-    self.tbvInforMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tbvInforMovie.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.tbvInforMovie reloadData];
     
+    [Utilities fixAutolayoutWithDelegate:self];
+    // Config table view
+    self.imageLeftView.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.imageLeftView.layer.borderWidth = 1.0;
+    self.imagePoster.layer.borderColor = [UIColor blackColor].CGColor;
+    self.imagePoster.layer.borderWidth = 1.0;
     [DataManager shared].detailInfoMovieDelegate = self;
     [DataManager shared].loadLinkPlayMovieDelegate = self;
-    [Utilities fixAutolayoutWithDelegate:self];
+    [self.lbNameMovie sizeToFit];
+    [super awakeFromNib];
 }
 
 - (void)loadImage {
@@ -103,22 +119,37 @@
                                     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                         self.imagePoster.image = [UIImage imageNamed:kNoBannerImage];
                                     }];
+    
+    NSURLRequest *imageRequestLeftImage = [NSURLRequest requestWithURL:[NSURL URLWithString:[Utilities getStringUrlPoster:self.movie]]
+                                                  cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                              timeoutInterval:60];
+    
+    [self.imageLeftView setImageWithURLRequest:imageRequestLeftImage
+                            placeholderImage:[UIImage imageNamed:kNoImage]
+                                     success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                         self.imageLeftView.image = image;
+                                     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                         self.imageLeftView.image = [UIImage imageNamed:kNoImage];
+                                     }];
 }
 
 // This method will update image avatar
 - (void)updateUIImageAvatar:(UIImage*)images {
     self.imagePoster.image = images;
+    self.imageLeftView.image = [UIImage imageNamed:kNoImage];
 }
 
 - (void)reloadView {
-    self.title = [self.movie.movieName uppercaseString];
+    self.title = kEmptyString;
+    self.lbNameMovie.text = self.movie.movieName;
+    self.lbImdbRating.text = self.movie.imdbRating;
     [self loadImage];
-    [self.tbvInforMovie reloadData];
+    [self addViewInformation];
 }
 
 - (void)initEpisodeBarButton {
     if (self.movie.episode > 0) {
-        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Tập" style:UIBarButtonItemStylePlain target:self action:@selector(handleEpisode)];
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"TẬP" style:UIBarButtonItemStylePlain target:self action:@selector(handleEpisode)];
         self.navigationItem.rightBarButtonItem = barButton;
     }
 }
@@ -131,90 +162,6 @@
         [AppDelegate share].mainPanel.rightPanel = episodeController;
         [[AppDelegate share].mainPanel showRightPanelAnimated:YES];
     }
-}
-
-//*****************************************************************************
-#pragma mark -
-#pragma mark - ** Table view delegate **
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return kNumberOfSectionPlayMovie;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    switch (section) {
-        case kSectionInformationMovie:
-            return self.movie.movieName;
-            break;
-            
-        case kSectionCategoryFilm:
-            return kRelativeMovie;
-            break;
-        default:
-            break;
-    }
-    
-    return kEmptyString;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-{
-    // Background color
-    view.tintColor = [UIColor colorWithHexString:kBgColorOfHeader];
-    // Text Color
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setTextColor:[UIColor colorWithHexString:kTextColorOfHeader]];
-    header.textLabel.font = [UIFont systemFontOfSize:kFontSize15];
-    header.textLabel.textAlignment = NSTextAlignmentCenter;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = nil;
-    switch (indexPath.section) {
-        case kSectionInformationMovie: {
-            PlayMovieCell *cellPlayMovie = (PlayMovieCell *)[tableView dequeueReusableCellWithIdentifier:kPlayMovieCellIdentifier];
-            if (!cellPlayMovie) {
-                cellPlayMovie = [[PlayMovieCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kPlayMovieCellIdentifier];
-            }
-            cellPlayMovie.movie = self.movie;
-            [cellPlayMovie setDetailInformation];
-            
-            cell = cellPlayMovie;
-
-        }
-            break;
-            
-        case kSectionCategoryFilm: {
-            MovieCell *cellMovie = (MovieCell *)[tableView dequeueReusableCellWithIdentifier:kTableViewMoviedentifier];
-            if (!cellMovie) {
-                cellMovie = [[MovieCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTableViewMoviedentifier];
-            }
-            
-            // Config cell
-            NSArray *listRelativeMovieInLocal = [[DataAccess share] getRelativeMovieInDB:self.movie.movieID];
-            [cellMovie.collectionViewMovie setListMovieDb:listRelativeMovieInLocal];
-            cell = cellMovie;
-        }
-            break;
-        default:
-            break;
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell     forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) { [tableView setSeparatorInset:UIEdgeInsetsZero]; }
-    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) { [tableView setLayoutMargins:UIEdgeInsetsZero]; }
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) { [cell setLayoutMargins:UIEdgeInsetsZero]; }
 }
 
 //*****************************************************************************
@@ -305,6 +252,7 @@
 
 - (void)fixAutolayoutFor40 {
     self.convertResolution = kResolution320568;
+    self.heightConstant.constant = kConstantInformationViewIp5;
 }
 
 - (void)fixAutolayoutFor47 {
@@ -314,10 +262,20 @@
 - (void)fixAutolayoutFor55 {
     self.convertResolution = kResolution12422208;
     self.topLayoutTableView.constant = kTopConstantTableViewIp6Plus;
+    self.heightConstant.constant = kConstantInformationViewIp6Plus;
 }
 
 -(void)fixAutolayoutForIpad {
     self.convertResolution = kResolution7681024;
+    self.heightConstant.constant = kConstantInformationViewIpad;
     self.topLayoutTableView.constant = kTopConstantTableView;
+    self.csHeightImageLeft.constant += kHeighSpaceImageLeftConstantIpad;
+    self.csWidthImageLeft.constant += kTopConstantIpad;
+    self.csTopImageLeftView.constant -= kTopConstantIpad/2;
+    self.csHeightButtonYoutube.constant += kTopConstantIp6 /2;
+    self.csWidthButtonYoutube.constant += kTopConstantIp6 /2;
+    self.csLeadingButtonYoutube.constant -= kTopConstantIp6 /2;
+    self.csTopButtonYoutube.constant -= kTopConstantIp6 /2;
+    [self.lbNameMovie setFont:[UIFont boldSystemFontOfSize:kFontSize20]];
 }
 @end

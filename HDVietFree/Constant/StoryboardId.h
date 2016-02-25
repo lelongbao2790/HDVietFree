@@ -51,11 +51,15 @@ extern NSString *const kSearchController;
 extern NSString *const kEpisodeController;
 
 /*
+ * InformationController
+ */
+extern NSString *const kInformationController;
+
+/*
  * Update movie controller
  */
 extern NSString *const kUpdateMovieController;
 
-extern NSString *const kListMenuController;
 
 extern NSString *const kReportBugController;
 

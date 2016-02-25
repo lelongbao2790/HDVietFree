@@ -57,6 +57,14 @@
     [AppDelegate share].loginController = self;
     [Utilities fixAutolayoutWithDelegate:self];
     [self handleLogin];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnView)];
+    tapGesture.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapGesture];
+}
+
+- (void)tapOnView {
+    [self.view endEditing:YES];
 }
 
 /*

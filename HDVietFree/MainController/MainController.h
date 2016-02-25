@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface MainController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UITableView *tbvListMovie;
+
 // IBOutlet
 - (void)configView;
 @end
