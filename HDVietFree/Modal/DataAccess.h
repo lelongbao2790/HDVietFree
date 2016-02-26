@@ -42,6 +42,11 @@ typedef void (^completionDataBlock)(BOOL success, NSMutableArray * array);
 - (NSArray *)getRelativeMovieInDB:(NSString *)movieId;
 
 /*
+ * Get relative movie in db
+ */
+- (NSArray *)getAllSeasonMovieInDB:(NSString *)movieId;
+
+/*
  * Get movie with release 2015 - 2016
  */
 - (NSArray *)getListTopMovieWithReleaseDateInDB;

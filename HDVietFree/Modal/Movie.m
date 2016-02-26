@@ -9,7 +9,7 @@
 #import "Movie.h"
 
 @implementation Movie
-@dynamic movieID, movieName, knownAs, trailer, poster, poster124x184, sequence, currentSeason, episode, runtime, cast, plotVI, country, releaseDate, tagMovie, genreMovie, bannerMovie, backdrop, backdrop945530, relativeMovie, category, pageNumber, totalRecord, urlLinkPlayMovie, urlLinkSubtitleMovie, imdbRating;
+@dynamic movieID, movieName, knownAs, trailer, poster, poster124x184, sequence, currentSeason, episode, runtime, cast, plotVI, country, releaseDate, tagMovie, genreMovie, bannerMovie, backdrop, backdrop945530, relativeMovie, category, pageNumber, totalRecord, urlLinkPlayMovie, urlLinkSubtitleMovie, imdbRating, seasonId;
 
 + (DBIndexDefinition *)indexDefinitionForEntity {
     
@@ -118,6 +118,27 @@
     newMovie.sequence = [[json objectForKey:kDocMoreSequene] integerValue];
     newMovie.episode = [[json objectForKey:kDocEpisode] integerValue];
     return newMovie;
+}
+
+// Init season movie
++ (void)initSeasonMovieFromJSONSearch:(NSDictionary *)json andMovie:(Movie *)oldMovie {
+    Movie *newMovie = nil;
+    Movie *movieFromLocal = [[DataAccess share] getMovieFromId:[json objectForKey:kMovieId]];
+    
+    if (movieFromLocal == nil) {
+        newMovie = [Movie new];
+        newMovie.movieID = [Utilities nullToObject:json key:kMovieId andType:kTypeString];
+    }
+    else {
+        newMovie = movieFromLocal;
+    }
+    newMovie.movieName = [Utilities nullToObject:json key:kMovieName andType:kTypeString];
+    newMovie.sequence = [[json objectForKey:kSequence] integerValue];;
+    newMovie.episode = [[json objectForKey:kEpisode] integerValue];;
+    newMovie.poster = [Utilities nullToObject:json key:kPosterLink andType:kTypeString];
+    newMovie.backdrop = [Utilities nullToObject:json key:kBackDrop andType:kTypeString];
+    newMovie.seasonId = oldMovie.movieID;
+    [newMovie commit];
 }
 
 @end

@@ -75,6 +75,9 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
     kLeadingTableViewMainIpad = -20,
     kTralingTableViewMainIpad = -20,
     kSpaceBottomListMenu = 500,
+    kLeadingEpisodeIp5 = 50,
+    kLeadingEpisodeIp6 = 60,
+    kLeadingEpisodeIp6Plus = 65,
     
 };
 

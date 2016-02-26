@@ -38,6 +38,7 @@
 @property (strong, nonatomic) NSString *urlLinkPlayMovie;
 @property (strong, nonatomic) NSString *urlLinkSubtitleMovie;
 @property (strong, nonatomic) NSString *imdbRating;
+@property (strong, nonatomic) NSString *seasonId;
 
 // Init movie from json
 + (Movie *)detailRelativeMovieFromJson:(NSDictionary *)json;
@@ -50,5 +51,8 @@
 
 // Init movie from json search
 + (Movie *)initMovieFromJSONSearch:(NSDictionary *)json;
+
+// Init season movie
++ (void)initSeasonMovieFromJSONSearch:(NSDictionary *)json andMovie:(Movie *)oldMovie;
 
 @end

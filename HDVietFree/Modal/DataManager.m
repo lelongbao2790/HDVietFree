@@ -9,7 +9,7 @@
 #import "DataManager.h"
 
 @implementation DataManager
-@synthesize loginDelegate, listMovieDelegate, detailInfoMovieDelegate, loadLinkPlayMovieDelegate, searchMovieDelegate, reportBugDelegate;
+@synthesize loginDelegate, listMovieDelegate, detailInfoMovieDelegate, loadLinkPlayMovieDelegate, searchMovieDelegate, reportBugDelegate, allSeasonDelegate;
 
 //*****************************************************************************
 #pragma mark -
@@ -302,5 +302,40 @@
                                                }
                                            }];
 }
+
+/*
+ * GET ALL SEASON MOVIE
+ *
+ * @param strUrl url string request
+ */
+- (void)getAllSeasonMovieUrl:(NSString *)strUrl {
+    self.managerSSL.responseSerializer.acceptableContentTypes = nil;
+    [self.managerSSL GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([[responseObject objectForKey:kE] integerValue] == kRequestSuccess) {
+            
+            // Success
+            if ([Utilities convertNullDictionary:[responseObject objectForKey:kR]]) {
+                [allSeasonDelegate  getAllSeasonAPISuccess:[responseObject objectForKey:kR]];
+            } else {
+                [allSeasonDelegate getAllSeasonAPIFail:kErrorDict];
+            }
+            
+        } else {
+            // Fail
+            [allSeasonDelegate getAllSeasonAPIFail:[responseObject objectForKey:kR]];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (errorString(k400BadRequestString)) {
+            [allSeasonDelegate getAllSeasonAPIFail:kInvalidSession];
+        }else if (errorString(k502BadRequestString) || errorString(k500BadRequestString) ) {
+            [allSeasonDelegate getAllSeasonAPIFail:kServerOverload];
+        }else {
+            [allSeasonDelegate getAllSeasonAPIFail:[error localizedDescription]];
+        }
+        
+    }];
+}
+
 
 @end

@@ -38,7 +38,7 @@
 @end
 
 /*
- * Load detail information movie
+ * Load link play movie
  */
 @protocol LoadLinkPlayMovieDelegate
 @optional
@@ -47,7 +47,7 @@
 @end
 
 /*
- * Load detail information movie
+ * Search movie delegate
  */
 @protocol SearchMovieDelegate
 @optional
@@ -56,12 +56,21 @@
 @end
 
 /*
- * Load detail information movie
+ * Report bug delegate
  */
 @protocol ReportBugDelegate
 @optional
 -(void) reportBugAPISuccess:(NSDictionary *)response;
 -(void) reportBugAPIFail:(NSString *)resultMessage;
+@end
+
+/*
+ * Load detail information movie
+ */
+@protocol AllSeasonDelegate
+@optional
+-(void) getAllSeasonAPISuccess:(NSDictionary *)response;
+-(void) getAllSeasonAPIFail:(NSString *)resultMessage;
 @end
 
 #endif /* UIDelegate_h */

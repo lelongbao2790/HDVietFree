@@ -143,6 +143,21 @@
 }
 
 /*
+ * Get relative movie in db
+ */
+- (NSArray *)getAllSeasonMovieInDB:(NSString *)movieId {
+    DBResultSet* r = [[[Movie query]
+                        whereWithFormat:@"seasonId = %@", movieId]
+                       fetch];
+    
+    if (r.count > 0) {
+        return r;
+    }
+    else
+        return nil;
+}
+
+/*
  * Get movie with release 2015 - 2016
  */
 - (NSArray *)getListTopMovieWithReleaseDateInDB {

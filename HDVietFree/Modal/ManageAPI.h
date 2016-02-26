@@ -31,6 +31,11 @@
 - (void)loadDetailInfoMovieAPI:(Movie*)movie;
 
 /*
+ * Load all season movie
+ */
+- (void)loadAllSeasonMovieAPI:(Movie*)movie;
+
+/*
  * Load link play movie
  */
 - (void)loadLinkToPlayMovie:(Movie*)movie andEpisode:(NSInteger)episode;

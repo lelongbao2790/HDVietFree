@@ -15,9 +15,10 @@
 #define kUrlHdViet @"http://movies.hdviet.com/"
 #define kUrlImagePosterHdViet @"http://t.hdviet.com/thumbs/origins/%@"
 #define kUrlImageBannerHdViet @"http://t.hdviet.com/backdrops/origins/%@"
-#define kUrlHttpTHdViet @"http://t.hdviet.com"
+#define kUrlHttpTHdViet @"t.hdviet.com"
 
 // List api
+#define kUrlAllSeason @"movie/getallseason?movieid=%@"
 #define kUrlLogin @"user/login?email=%@&password=%@"
 #define kUrlCategory @"category/menu?mini=1&sequence=0"
 #define kUrlDetailMovie @"movie?movieid=%@"

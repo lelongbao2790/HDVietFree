@@ -33,7 +33,7 @@ NSString *const kBgColorOfSlideBar =@"1F2124";
 /**
  * Text color of title navigation bar
  */
-NSString *const kBgColorOfHeader = @"080807";
+NSString *const kBgColorOfHeader = @"2a2a28";
 
 /**
  * Text color of title navigation bar

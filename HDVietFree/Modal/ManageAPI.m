@@ -50,6 +50,15 @@
 }
 
 /*
+ * Load all season movie
+ */
+- (void)loadAllSeasonMovieAPI:(Movie*)movie {
+    NSString *strUrl = [NSString stringWithFormat:kUrlAllSeason, movie.movieID];
+    DLOG(@"Load all season movie with url:%@", strUrl);
+    [[DataManager shared] getAllSeasonMovieUrl:strUrl];
+}
+
+/*
  * Load detail information movie API
  */
 - (void)loadLinkToPlayMovie:(Movie*)movie andEpisode:(NSInteger)episode {

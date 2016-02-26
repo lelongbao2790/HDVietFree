@@ -10,7 +10,7 @@
 
 @import MediaPlayer;
 
-@interface PlayController ()<MPMediaPickerControllerDelegate, DetailInformationMovieDelegate, LoadLinkPlayMovieDelegate, FixAutolayoutDelegate>
+@interface PlayController ()<MPMediaPickerControllerDelegate, DetailInformationMovieDelegate, LoadLinkPlayMovieDelegate, FixAutolayoutDelegate, AllSeasonDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imagePoster;
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayMovie;
 @property (strong, nonatomic) NSString *convertResolution;
@@ -84,11 +84,14 @@
 - (void)configView {
     
     [Utilities fixAutolayoutWithDelegate:self];
+    [DataManager shared].detailInfoMovieDelegate = self;
+    [DataManager shared].loadLinkPlayMovieDelegate = self;
+    [DataManager shared].allSeasonDelegate = self;
+    
     // Config table view
     self.imagePoster.layer.borderColor = [UIColor blackColor].CGColor;
     self.imagePoster.layer.borderWidth = 1.0;
-    [DataManager shared].detailInfoMovieDelegate = self;
-    [DataManager shared].loadLinkPlayMovieDelegate = self;
+    
     [super awakeFromNib];
 }
 
@@ -141,11 +144,22 @@
 #pragma mark - ** Handle get information movie **
 - (void)getInformationMovie {
     if ([[DataAccess share] getRelativeMovieInDB:self.movie.movieID].count > 0 && self.movie.backdrop945530 != nil) {
+        
+        if ([[DataAccess share] getAllSeasonMovieInDB:self.movie.movieID].count == 0) {
+            // Check all season movie
+            ProgressBarShowLoading(kLoading);
+            [[ManageAPI share] loadAllSeasonMovieAPI:self.movie];
+        }
+        
+        
+        // Exist relative movie
         [self reloadView];
+        
     } else {
-        [self updateUIImageAvatar:[UIImage imageNamed:kNoBannerImage]];
         ProgressBarShowLoading(kLoading);
+        [self updateUIImageAvatar:[UIImage imageNamed:kNoBannerImage]];
         [[ManageAPI share] loadDetailInfoMovieAPI:self.movie];
+        [[ManageAPI share] loadAllSeasonMovieAPI:self.movie];
     }
     
     [self initEpisodeBarButton];
@@ -204,6 +218,21 @@
 }
 
 - (void)loadLinkPlayMovieAPIFail:(NSString *)resultMessage {
+    [Utilities loadServerFail:self withResultMessage:resultMessage];
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Load All Season Delegate **
+- (void)getAllSeasonAPISuccess:(NSDictionary *)response {
+    ProgressBarDismissLoading(kEmptyString);
+    NSArray *allValue = response.allValues;
+    for (NSDictionary *jsonMovie in allValue) {
+        [Movie initSeasonMovieFromJSONSearch:jsonMovie andMovie:self.movie];
+    }
+}
+
+- (void)getAllSeasonAPIFail:(NSString *)resultMessage {
     [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 
