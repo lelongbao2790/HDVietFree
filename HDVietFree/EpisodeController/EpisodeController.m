@@ -39,9 +39,6 @@
 
 - (void)config {
     // Config table
-    
-    self.lbNameSeason.text = [NSString stringWithFormat:@"   %@",self.movie.movieName];
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     // Config collection
@@ -57,7 +54,7 @@
 }
 
 - (void)configCollection {
-    
+    self.lbNameSeason.text = [NSString stringWithFormat:@"   %@",self.movie.movieName];
     // Check episode
     if (self.movie.episode > 0) {
         NSMutableArray *listEpisode = [[NSMutableArray alloc] init];

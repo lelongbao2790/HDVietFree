@@ -13,5 +13,5 @@
 @property (strong, nonatomic) NSArray *listEpisode;
 @property (strong, nonatomic) NSArray *listSeason;
 @property (strong, nonatomic) Movie *movie;
-
+- (void)configCollection;
 @end

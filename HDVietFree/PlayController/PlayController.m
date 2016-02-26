@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstant;
 @property (strong, nonatomic) InformationController *infor;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csBottomButtonPlay;
-
+@property (strong, nonatomic) EpisodeController *episodeController;
 
 @end
 
@@ -132,9 +132,12 @@
 - (void)handleEpisode {
     if (self.movie.episode > 0) {
        
-        EpisodeController *episodeController = InitStoryBoardWithIdentifier(kEpisodeController);
-        episodeController.movie = self.movie;
-        [AppDelegate share].mainPanel.rightPanel = episodeController;
+        if (self.episodeController == nil) {
+            self.episodeController = InitStoryBoardWithIdentifier(kEpisodeController);
+        }
+        self.episodeController.movie = self.movie;
+        [self.episodeController configCollection];
+        [AppDelegate share].mainPanel.rightPanel = self.episodeController;
         [[AppDelegate share].mainPanel showRightPanelAnimated:YES];
     }
 }
