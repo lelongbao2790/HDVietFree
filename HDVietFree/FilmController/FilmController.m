@@ -176,6 +176,8 @@
     } else {
         if (self.listMovie.count == 0) {
             [self addNextListMovie:page];
+        } else {
+            DLOG(@"Previous same with next page");
         }
     }
 }

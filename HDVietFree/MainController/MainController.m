@@ -68,7 +68,6 @@
     self.lastListMovie = 0;
     
     // Config table view
-    
     self.tbvListMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tbvListMovie.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self setAutomaticallyAdjustsScrollViewInsets:NO];

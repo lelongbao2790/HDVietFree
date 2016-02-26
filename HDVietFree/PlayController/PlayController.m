@@ -52,6 +52,8 @@
     kPlayViewController = nil;
     
     [AppDelegate share].mainPanel.rightPanel = nil;
+    
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -139,6 +141,9 @@
         [self.episodeController configCollection];
         [AppDelegate share].mainPanel.rightPanel = self.episodeController;
         [[AppDelegate share].mainPanel showRightPanelAnimated:YES];
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+        [AppDelegate share].mainPanel.rightPanel = nil;
     }
 }
 
@@ -146,15 +151,19 @@
 #pragma mark -
 #pragma mark - ** Handle get information movie **
 - (void)getInformationMovie {
-    if ([[DataAccess share] getRelativeMovieInDB:self.movie.movieID].count > 0 && self.movie.backdrop945530 != nil) {
-        
+    
+    if (self.movie.episode > 0) {
         if ([[DataAccess share] getAllSeasonMovieInDB:self.movie.movieID].count == 0) {
             // Check all season movie
             ProgressBarShowLoading(kLoading);
             [[ManageAPI share] loadAllSeasonMovieAPI:self.movie];
         }
-        
-        
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+        [AppDelegate share].mainPanel.rightPanel = nil;
+    }
+    
+    if ([[DataAccess share] getRelativeMovieInDB:self.movie.movieID].count > 0 && self.movie.backdrop945530 != nil) {
         // Exist relative movie
         [self reloadView];
         
@@ -162,7 +171,6 @@
         ProgressBarShowLoading(kLoading);
         [self updateUIImageAvatar:[UIImage imageNamed:kNoBannerImage]];
         [[ManageAPI share] loadDetailInfoMovieAPI:self.movie];
-        [[ManageAPI share] loadAllSeasonMovieAPI:self.movie];
     }
     
     [self initEpisodeBarButton];
