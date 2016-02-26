@@ -156,4 +156,9 @@ extern NSString *const kBugDescription;
  */
 extern NSString *const kReportString ;
 
+/**
+ * Bug description
+ */
+extern NSString *const kCellEpisodeIdentifier;
+
 @end

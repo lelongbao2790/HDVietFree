@@ -7,12 +7,14 @@
 //
 
 #import "EpisodeController.h"
+#import "EpisodeCell.h"
 
-@interface EpisodeController ()<UITableViewDataSource, UITableViewDelegate, LoadLinkPlayMovieDelegate, MPMediaPickerControllerDelegate, FixAutolayoutDelegate, UICollectionViewDataSource, UICollectionViewDelegate, AllSeasonDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tbvEpisode;
+@interface EpisodeController ()< LoadLinkPlayMovieDelegate, MPMediaPickerControllerDelegate, FixAutolayoutDelegate, UICollectionViewDataSource, UICollectionViewDelegate, AllSeasonDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionAllSeason;
 @property (strong, nonatomic) NSString *convertResolution;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeadingCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionEpisode;
+@property (weak, nonatomic) IBOutlet UILabel *lbNameSeason;
 @end
 
 @implementation EpisodeController
@@ -37,16 +39,18 @@
 
 - (void)config {
     // Config table
-    self.tbvEpisode.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tbvEpisode.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    
+    self.lbNameSeason.text = [NSString stringWithFormat:@"   %@",self.movie.movieName];
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self setAutomaticallyAdjustsScrollViewInsets:NO];
-    [self.tbvEpisode reloadData];
     
     // Config collection
     [self.collectionAllSeason registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
+     [self.collectionEpisode registerClass:[EpisodeCell class] forCellWithReuseIdentifier:@"EpisodeCell"];
     self.collectionAllSeason.dataSource = self;
     self.collectionAllSeason.delegate = self;
+    self.collectionEpisode.dataSource = self;
+    self.collectionEpisode.delegate = self;
     [DataManager shared].allSeasonDelegate = self;
     
     [self configCollection];
@@ -79,66 +83,9 @@
             break;
         }
     }
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:currentItem inSection:0];
-//    [self.collectionAllSeason scrollToItemAtIndexPath:indexPath
-//                               atScrollPosition:UICollectionViewScrollPositionNone
-//                                       animated:NO];
     
     [self.collectionAllSeason reloadData];
-    [self.tbvEpisode reloadData];
-}
-
-//*****************************************************************************
-#pragma mark -
-#pragma mark - ** Table view delegate **
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
--(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UILabel *headerLabel = [[UILabel alloc]init];
-    headerLabel.tag = section;
-    headerLabel.userInteractionEnabled = YES;
-    headerLabel.backgroundColor = [UIColor colorWithHexString:kBgColorOfHeader];
-    headerLabel.text = [NSString stringWithFormat:@"   %@",self.movie.movieName];
-    headerLabel.font = [UIFont boldSystemFontOfSize:kFontSize15];
-    [headerLabel setTextColor:[UIColor colorWithHexString:kTextColorOfHeader]];
-    headerLabel.frame = CGRectMake(0, 0, tableView.tableHeaderView.frame.size.width, tableView.tableHeaderView.frame.size.height);
-    headerLabel.textAlignment = NSTextAlignmentLeft;
-
-    return headerLabel;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.listEpisode.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    // Init cell
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListEpisodeTableViewIdentifier"];
-    if(!cell) { cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ListEpisodeTableViewIdentifier"]; }
-    
-    NSInteger nameEpisode = indexPath.row + 1;
-    cell.textLabel.text = [NSString stringWithFormat:@"Tập %d", (int)nameEpisode];
-    cell.textLabel.textColor = [ UIColor blackColor];
-    cell.textLabel.textAlignment = NSTextAlignmentLeft;
-    return cell;
-}
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell     forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) { [tableView setSeparatorInset:UIEdgeInsetsZero]; }
-    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) { [tableView setLayoutMargins:UIEdgeInsetsZero]; }
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) { [cell setLayoutMargins:UIEdgeInsetsZero]; }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ProgressBarShowLoading(kLoading);
-    [[ManageAPI share] loadLinkToPlayMovie:self.movie andEpisode:indexPath.row+1];
-    [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+    [self.collectionEpisode reloadData];
 }
 
 //*****************************************************************************
@@ -147,36 +94,68 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.listSeason.count;
+    switch (collectionView.tag) {
+        case kTagCollectionViewEpisode:
+            return self.listEpisode.count;
+            break;
+            
+        default:
+            return self.listSeason.count;
+            break;
+    }
+}
+
+- (void)setCellSelected:(UICollectionViewCell *)cell {
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor colorWithHexString:kColorBgNavigationBar];
+    [cell setSelectedBackgroundView:bgColorView];
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    DetailMovieCell *cell = (DetailMovieCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kCollectionDetailMovieIdentifier forIndexPath:indexPath];
-    cell.movie = self.listSeason[indexPath.row];
+    switch (collectionView.tag) {
+        case kTagCollectionViewEpisode: {
+            EpisodeCell *cell = (EpisodeCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kCellEpisodeIdentifier forIndexPath:indexPath];
+            NSInteger nameEpisode = indexPath.row + 1;
+            [cell loadInformation:[NSString stringWithFormat:@"Tập %d", (int)nameEpisode]];
+            [self setCellSelected:cell];
+            return cell;
+        }
+            break;
+            
+        default: {
+            DetailMovieCell *cell = (DetailMovieCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kCollectionDetailMovieIdentifier forIndexPath:indexPath];
+            cell.movie = self.listSeason[indexPath.row];
+            
+            [Utilities customLayer:cell.imageMovie];
+            [cell loadInformationWithMovie:self.listSeason[indexPath.row]];
+            return cell;
+        }
+            break;
+    }
     
-    [Utilities customLayer:cell.imageMovie];
-    
-//    if (cell.selected) {
-//        cell.backgroundColor = [UIColor colorWithHexString:kColorBgNavigationBar]; // highlight selection
-//    }
-//    else
-//    {
-//        cell.backgroundColor = [UIColor clearColor]; // Default color
-//    }
-    
-    [cell loadInformationWithMovie:self.listSeason[indexPath.row]];
-    return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (kPlayViewController) {
-        kPlayViewController.movie = self.listSeason[indexPath.row];
-        [kPlayViewController getInformationMovie];
+    switch (collectionView.tag) {
+        case kTagCollectionViewEpisode: {
+            ProgressBarShowLoading(kLoading);
+            [[ManageAPI share] loadLinkToPlayMovie:self.movie andEpisode:indexPath.row+1];
+            [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+        }
+            break;
+            
+        default: {
+            if (kPlayViewController) {
+                kPlayViewController.movie = self.listSeason[indexPath.row];
+                [kPlayViewController getInformationMovie];
+            }
+            
+            self.movie = self.listSeason[indexPath.row];
+            [self configCollection];
+        }
+            break;
     }
-    
-    self.movie = self.listSeason[indexPath.row];
-    [self configCollection];
 }
 
 

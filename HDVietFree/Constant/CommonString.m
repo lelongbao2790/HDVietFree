@@ -154,6 +154,11 @@ NSString *const kBugDescription = @"entry.1561439694=%@";
  */
 NSString *const kReportString = @"Report lỗi";
 
+/**
+ * Bug description
+ */
+NSString *const kCellEpisodeIdentifier = @"cellEpisode";
+
 
 
 @end

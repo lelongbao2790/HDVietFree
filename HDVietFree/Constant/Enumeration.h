@@ -78,6 +78,8 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
     kLeadingEpisodeIp5 = 50,
     kLeadingEpisodeIp6 = 60,
     kLeadingEpisodeIp6Plus = 65,
+    kTagLabelEpisode = 202,
+    kTagCollectionViewEpisode = 201,
     
 };
 

@@ -76,6 +76,7 @@
 		D3AC46A71C7EB6BE000490AB /* youtube.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AC46A61C7EB6BE000490AB /* youtube.png */; };
 		D3AC46A91C7EC4D5000490AB /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AC46A81C7EC4D5000490AB /* background.png */; };
 		D3AC46AB1C7EE961000490AB /* star_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AC46AA1C7EE961000490AB /* star_icon.png */; };
+		D3AC46AE1C805BA5000490AB /* EpisodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC46AD1C805BA4000490AB /* EpisodeCell.m */; };
 		D3C4A9661C76EABF0057B7F9 /* hdviet_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C4A9641C76EABF0057B7F9 /* hdviet_banner.png */; };
 		D3C4A9671C76EABF0057B7F9 /* hdviet_no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C4A9651C76EABF0057B7F9 /* hdviet_no_image.png */; };
 		D3C4A96D1C76ECB30057B7F9 /* play_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3C4A96C1C76ECB30057B7F9 /* play_icon.png */; };
@@ -259,6 +260,8 @@
 		D3AC46A61C7EB6BE000490AB /* youtube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = youtube.png; sourceTree = "<group>"; };
 		D3AC46A81C7EC4D5000490AB /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		D3AC46AA1C7EE961000490AB /* star_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_icon.png; sourceTree = "<group>"; };
+		D3AC46AC1C805BA4000490AB /* EpisodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeCell.h; sourceTree = "<group>"; };
+		D3AC46AD1C805BA4000490AB /* EpisodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeCell.m; sourceTree = "<group>"; };
 		D3C4A9641C76EABF0057B7F9 /* hdviet_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdviet_banner.png; sourceTree = "<group>"; };
 		D3C4A9651C76EABF0057B7F9 /* hdviet_no_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdviet_no_image.png; sourceTree = "<group>"; };
 		D3C4A96C1C76ECB30057B7F9 /* play_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon.png; sourceTree = "<group>"; };
@@ -604,6 +607,8 @@
 			children = (
 				D36579741C61E39500F51DA3 /* EpisodeController.h */,
 				D36579751C61E39500F51DA3 /* EpisodeController.m */,
+				D3AC46AC1C805BA4000490AB /* EpisodeCell.h */,
+				D3AC46AD1C805BA4000490AB /* EpisodeCell.m */,
 			);
 			name = EpisodeController;
 			sourceTree = "<group>";
@@ -986,6 +991,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D36579331C56049100F51DA3 /* UIViewController+JASidePanel.m in Sources */,
+				D3AC46AE1C805BA5000490AB /* EpisodeCell.m in Sources */,
 				D329168E1C55B3D800CE46B6 /* CommonColor.m in Sources */,
 				D365793F1C570C2E00F51DA3 /* MovieCell.m in Sources */,
 				D36579481C58574A00F51DA3 /* DataAccess.m in Sources */,
