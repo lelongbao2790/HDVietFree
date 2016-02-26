@@ -196,10 +196,14 @@
 
 - (void)fixAutolayoutFor47 {
     self.csTopConstant.constant = kTopConstantIp6;
+    self.csLeading.constant = kLeadingConstantLogin;
+    self.csTrailing.constant = kLeadingConstantLogin;
 }
 
 - (void)fixAutolayoutFor55 {
     self.csTopConstant.constant = kTopConstantIp6Plus;
+    self.csLeading.constant = kLeadingConstantLogin;
+    self.csTrailing.constant = kLeadingConstantLogin;
 }
 
 -(void)fixAutolayoutForIpad {

@@ -20,9 +20,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csWidthTag;
 @property (weak, nonatomic) IBOutlet CollectionMovie *collectionRelativeMovie;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csWidthCollectionView;
+@property (weak, nonatomic) IBOutlet UILabel *lbIMDBRating;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csBottomConstant;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadingTrailer;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) NSArray *listMovie;
-
 @end
 
 @implementation InformationController
@@ -51,7 +53,6 @@
     [self.collectionRelativeMovie registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     self.collectionRelativeMovie.dataSource = self;
     self.collectionRelativeMovie.delegate = self;
-    
 }
 
 - (void)configLabel {
@@ -68,10 +69,20 @@
     self.lbCast.text = self.movie.cast;
     self.lbGenre.text = self.movie.category;
     self.lbRuntime.text = [NSString stringWithFormat:@"%d phút",(int)self.movie.runtime];
+    self.lbIMDBRating.text = self.movie.imdbRating;
     self.lbReleaseDate.text = self.movie.releaseDate;
     
     self.listMovie = [[DataAccess share] getRelativeMovieInDB:self.movie.movieID];
     [self.collectionRelativeMovie reloadData];
+    
+    [self.scrollView setContentOffset:
+     CGPointMake(0, -self.scrollView.contentInset.top) animated:YES];
+}
+
+- (IBAction)btnTrailer:(id)sender {
+    if (![self.movie.trailer isEqualToString:kEmptyString]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.movie.trailer]];
+    }
 }
 
 //*****************************************************************************
@@ -112,23 +123,25 @@
 #pragma mark - ** FixAutoLayoutDelegate **
 - (void)fixAutolayoutFor35 {
     self.csWidthPlot.constant = [Utilities widthOfScreen] - kWidthConstantPlot;
-    self.csWidthCollectionView.constant = [Utilities widthOfScreen] - kWidthConstantPlot;
+    self.csWidthCollectionView.constant = [Utilities widthOfScreen] - kWidthConstantCollectionView;
     self.csWidthReleaseDate.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
     self.csWidthTag.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
     self.csWidthRuntime.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
+    self.leadingTrailer.constant = kLeadingTrailerConstant;
 }
 
 - (void)fixAutolayoutFor40 {
     self.csWidthPlot.constant = [Utilities widthOfScreen] - kWidthConstantPlot;
-    self.csWidthCollectionView.constant = [Utilities widthOfScreen] - kWidthConstantPlot;
+    self.csWidthCollectionView.constant = [Utilities widthOfScreen] - kWidthConstantCollectionView;
     self.csWidthReleaseDate.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
     self.csWidthTag.constant = [Utilities widthOfScreen] - 4.5*kWidthConstantPlot;
     self.csWidthRuntime.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
+    self.leadingTrailer.constant = kLeadingTrailerConstant;
 }
 
 - (void)fixAutolayoutFor47 {
     self.csWidthPlot.constant = [Utilities widthOfScreen] - kWidthConstantPlot;
-    self.csWidthCollectionView.constant = [Utilities widthOfScreen] - kWidthConstantCollectionView;
+    self.csWidthCollectionView.constant = [Utilities widthOfScreen];
     self.csWidthReleaseDate.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
     self.csWidthTag.constant = [Utilities widthOfScreen] -4.5*kWidthConstantPlot;
     self.csWidthRuntime.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
@@ -136,7 +149,7 @@
 
 - (void)fixAutolayoutFor55 {
     self.csWidthPlot.constant = [Utilities widthOfScreen] - kWidthConstantPlot;
-    self.csWidthCollectionView.constant = [Utilities widthOfScreen] - kWidthConstantPlot;
+    self.csWidthCollectionView.constant = [Utilities widthOfScreen];
     self.csWidthReleaseDate.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
     self.csWidthTag.constant = [Utilities widthOfScreen] - 4.5*kWidthConstantPlot;
     self.csWidthRuntime.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
@@ -144,7 +157,7 @@
 
 -(void)fixAutolayoutForIpad {
     self.csWidthPlot.constant = [Utilities widthOfScreen] - kWidthConstantPlot;
-    self.csWidthCollectionView.constant = [Utilities widthOfScreen] - kWidthConstantPlot;
+    self.csWidthCollectionView.constant = [Utilities widthOfScreen];
     self.csWidthReleaseDate.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
     self.csWidthTag.constant = [Utilities widthOfScreen] - 4.5*kWidthConstantPlot;
     self.csWidthRuntime.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;

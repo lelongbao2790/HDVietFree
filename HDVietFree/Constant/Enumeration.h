@@ -47,7 +47,10 @@ typedef NS_ENUM(NSInteger, ControllerTag) {
     kTimeOutIntervalSession = 60,
     kTopConstantTableView = 386,
     kTopConstantTableViewIp6Plus = 186,
+    kTopConstantTableViewIp6 = 170,
+    kConstantInformationViewIp4 = 300,
     kConstantInformationViewIp5 = 340,
+    kConstantInformationViewIp6 = 500,
     kConstantInformationViewIp6Plus = 500,
     kConstantInformationViewIpad = 700,
     k400BadRequest = 400,
@@ -62,6 +65,7 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
     kTopConstantIp6 = 40,
     kTopConstantIp6Plus = 50,
     kTopConstantIpad = 100,
+    kLeadingConstantLogin = 30,
     kBottomConstantIpad = 120,
     kHeighSpaceImageLeftConstantIpad = 90,
     kLeadingTableViewMainIphone = -16,
@@ -74,10 +78,19 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
     
 };
 
+typedef NS_ENUM(NSInteger, ScrollConstant) {
+    kHeightContentViewScrollViewIpad = 6950,
+    kHeightContentViewScrollViewIp4 = 7360,
+    kHeightContentViewScrollViewIp5 = 7300,
+    kHeightContentViewScrollViewIp6 = 7240,
+    kHeightContentViewScrollViewIp6Plus = 7220,
+};
+
 
 typedef NS_ENUM(NSInteger, InformationConstant) {
     kWidthConstantPlot = 20,
-    kWidthConstantCollectionView = 10,
+    kWidthConstantCollectionView = 2,
+    kLeadingTrailerConstant = 10,
     
 };
 

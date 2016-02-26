@@ -16,19 +16,10 @@
 @property (strong, nonatomic) NSString *convertResolution;
 @property (weak, nonatomic) IBOutlet UIView *informationView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topLayoutTableView;
-@property (strong, nonatomic) InformationController *infor;
-@property (weak, nonatomic) IBOutlet UIImageView *imageLeftView;
-@property (weak, nonatomic) IBOutlet UILabel *lbNameMovie;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstant;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightImageLeft;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csWidthImageLeft;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopImageLeftView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csWidthButtonYoutube;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightButtonYoutube;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeadingButtonYoutube;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopButtonYoutube;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopSubviewInfo;
-@property (weak, nonatomic) IBOutlet UILabel *lbImdbRating;
+@property (strong, nonatomic) InformationController *infor;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csBottomButtonPlay;
+
 
 @end
 
@@ -70,11 +61,7 @@
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** IBAction **
-- (IBAction)btnTrailer:(id)sender {
-    if (![self.movie.trailer isEqualToString:kEmptyString]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.movie.trailer]];
-    }
-}
+
 
 
 //*****************************************************************************
@@ -98,13 +85,10 @@
     
     [Utilities fixAutolayoutWithDelegate:self];
     // Config table view
-    self.imageLeftView.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.imageLeftView.layer.borderWidth = 1.0;
     self.imagePoster.layer.borderColor = [UIColor blackColor].CGColor;
     self.imagePoster.layer.borderWidth = 1.0;
     [DataManager shared].detailInfoMovieDelegate = self;
     [DataManager shared].loadLinkPlayMovieDelegate = self;
-    [self.lbNameMovie sizeToFit];
     [super awakeFromNib];
 }
 
@@ -121,29 +105,16 @@
                                         self.imagePoster.image = [UIImage imageNamed:kNoBannerImage];
                                     }];
     
-    NSURLRequest *imageRequestLeftImage = [NSURLRequest requestWithURL:[NSURL URLWithString:[Utilities getStringUrlPoster:self.movie]]
-                                                  cachePolicy:NSURLRequestReturnCacheDataElseLoad
-                                              timeoutInterval:60];
-    
-    [self.imageLeftView setImageWithURLRequest:imageRequestLeftImage
-                            placeholderImage:[UIImage imageNamed:kNoImage]
-                                     success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                         self.imageLeftView.image = image;
-                                     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                         self.imageLeftView.image = [UIImage imageNamed:kNoImage];
-                                     }];
 }
 
 // This method will update image avatar
 - (void)updateUIImageAvatar:(UIImage*)images {
     self.imagePoster.image = images;
-    self.imageLeftView.image = [UIImage imageNamed:kNoImage];
 }
 
 - (void)reloadView {
     self.title = kEmptyString;
-    self.lbNameMovie.text = self.movie.movieName;
-    self.lbImdbRating.text = self.movie.imdbRating;
+    self.title = self.movie.movieName;
     [self loadImage];
     [self addViewInformation];
 }
@@ -249,6 +220,7 @@
 #pragma mark - ** FixAutoLayoutDelegate **
 - (void)fixAutolayoutFor35 {
     self.convertResolution = kResolution320480;
+    self.heightConstant.constant = kConstantInformationViewIp4;
 }
 
 - (void)fixAutolayoutFor40 {
@@ -258,6 +230,8 @@
 
 - (void)fixAutolayoutFor47 {
     self.convertResolution = kResolution7501334;
+    self.heightConstant.constant = kConstantInformationViewIp6;
+    self.topLayoutTableView.constant = kTopConstantTableViewIp6;
 }
 
 - (void)fixAutolayoutFor55 {
@@ -268,16 +242,8 @@
 
 -(void)fixAutolayoutForIpad {
     self.convertResolution = kResolution7681024;
-    self.heightConstant.constant = kConstantInformationViewIpad;
     self.topLayoutTableView.constant = kTopConstantTableView;
-    self.csHeightImageLeft.constant += kHeighSpaceImageLeftConstantIpad;
-    self.csWidthImageLeft.constant += kTopConstantIpad;
-    self.csTopImageLeftView.constant -= kTopConstantIpad/2;
-    self.csHeightButtonYoutube.constant += kTopConstantIp6 /2;
-    self.csWidthButtonYoutube.constant += kTopConstantIp6 /2;
-    self.csLeadingButtonYoutube.constant -= kTopConstantIp6 /2;
-    self.csTopButtonYoutube.constant -= kTopConstantIp6 /2;
-    self.csTopSubviewInfo.constant += kTopConstantIp5;
-    [self.lbNameMovie setFont:[UIFont boldSystemFontOfSize:kFontSize20]];
+    self.heightConstant.constant = kConstantInformationViewIpad;
+    self.csBottomButtonPlay.constant -= kBottomConstantIpad;
 }
 @end

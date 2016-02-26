@@ -24,6 +24,8 @@
     [self registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     self.dataSource = self;
     self.delegate = self;
+    [self setContentOffset:
+     CGPointMake(0, -self.contentInset.top) animated:YES];
 }
 
 - (void)setListMovieDb:(NSArray *)listMovieInDB

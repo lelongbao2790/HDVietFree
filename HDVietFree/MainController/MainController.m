@@ -17,13 +17,9 @@
 @property (assign, nonatomic) NSInteger lastListMovie;
 @property (strong, nonatomic) NSMutableArray *listMovieOnMain;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightBanner;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopTableMovieMain;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeadingConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTrailingConstraint;
-
-
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollViewMain;
+@property (weak, nonatomic) IBOutlet UIView *contentViewOfScrollView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightContentViewScrollView;
 @end
 
 @implementation MainController
@@ -65,7 +61,6 @@
 #pragma mark - ** Helper Method **
 
 - (void)configView {
-    // Init
     [AppDelegate share].mainController = self;
     self.dictMenu = getDictTitleMenu([MovieSearch share].genreMovie);
     
@@ -76,11 +71,11 @@
     
     self.tbvListMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tbvListMovie.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.automaticallyAdjustsScrollViewInsets = NO;
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     self.tbvListMovie.delegate = self;
     self.tbvListMovie.dataSource = self;
     [self fixedTableViewScrollHeader];
+    self.tbvListMovie.scrollEnabled = NO;
     
     // Check list data
     self.listMovieOnMain = [[NSMutableArray alloc] init];
@@ -378,30 +373,24 @@
 #pragma mark -
 #pragma mark - ** FixAutoLayoutDelegate **
 - (void)fixAutolayoutFor35 {
-    self.csLeadingConstraint.constant = kLeadingTableViewMainIphone;
-    self.csTrailingConstraint.constant = kTralingTableViewMainIphone;
+    self.csHeightContentViewScrollView.constant = kHeightContentViewScrollViewIp4;
 }
 
 - (void)fixAutolayoutFor40 {
-    self.csLeadingConstraint.constant = kLeadingTableViewMainIphone;
-    self.csTrailingConstraint.constant = kTralingTableViewMainIphone;
+    self.csHeightContentViewScrollView.constant = kHeightContentViewScrollViewIp5;
 }
 
 - (void)fixAutolayoutFor47 {
-    self.csLeadingConstraint.constant = kLeadingTableViewMainIphone;
-    self.csTrailingConstraint.constant = kTralingTableViewMainIphone;
+    self.csHeightContentViewScrollView.constant = kHeightContentViewScrollViewIp6;
 }
 
 - (void)fixAutolayoutFor55 {
-    self.csLeadingConstraint.constant = kLeadingTableViewMainIphone55;
-    self.csTrailingConstraint.constant = kTralingTableViewMainIphone55;
+    self.csHeightContentViewScrollView.constant = kHeightContentViewScrollViewIp6Plus;
 }
 
 -(void)fixAutolayoutForIpad {
-    self.csLeadingConstraint.constant = kLeadingTableViewMainIpad;
-    self.csTrailingConstraint.constant = kTralingTableViewMainIpad;
     self.csHeightBanner.constant += kTopConstantIpad;
-    self.csTopTableMovieMain.constant += kTopConstantIpad;
+    self.csHeightContentViewScrollView.constant = kHeightContentViewScrollViewIpad;
 }
 
 
