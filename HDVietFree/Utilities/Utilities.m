@@ -297,8 +297,10 @@ MPMoviePlayerController *mediaPlayerController = nil;
         kMoviePlayer = nil;
         [Utilities resetPlayerDurationVar];
     } else if (value == MPMovieFinishReasonPlaybackEnded) {
-        kMoviePlayer = nil;
-        [Utilities resetPlayerDurationVar];
+        if (timePlay == round([kMoviePlayer.moviePlayer duration])) {
+            kMoviePlayer = nil;
+            [Utilities resetPlayerDurationVar];
+        }
     }
 }
 + (void)moviePlayerPlaybackStateChanged:(NSNotification*)notification{
@@ -311,6 +313,19 @@ MPMoviePlayerController *mediaPlayerController = nil;
                 [mediaPlayerController setCurrentPlaybackTime:player.initialPlaybackTime];
                 playbackDurationSet=YES;
             }
+            break;
+        
+        case MPMoviePlaybackStateInterrupted: {
+             timePlay = round([player currentPlaybackTime]);
+        }
+            break;
+        
+        case MPMoviePlaybackStateSeekingForward:
+             timePlay = round([player currentPlaybackTime]);
+            break;
+        
+        case MPMoviePlaybackStateSeekingBackward:
+             timePlay = round([player currentPlaybackTime]);
             break;
             
         default:
