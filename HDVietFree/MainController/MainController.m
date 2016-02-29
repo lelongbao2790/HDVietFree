@@ -87,8 +87,8 @@
     self.bannerView.delegate = self;
     self.bannerView.dataSource = self;
      self.bannerView.type = iCarouselTypeCoverFlow2;
-    [self checkListCategory];
     [self addRefreshController];
+    [self checkListMovie];
 }
 
 - (void)addRefreshController {
@@ -211,6 +211,17 @@
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Handle list movie **
+
+- (void)requestRefreshListMovie {
+    self.lastListMovie = 0;
+    DLOG(@"Refresh menu : %d", (int)self.dictMenu.allKeys.count);
+    
+    for (int i = 0; i < self.dictMenu.allKeys.count; i++) {
+
+        // Not exist - Request server to get list
+        [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
+    }
+}
 
 - (void)checkListMovie {
     DLOG(@"Total menu : %d", (int)self.dictMenu.allKeys.count);
@@ -372,6 +383,7 @@
         ProgressBarDismissLoading(kEmptyString);
         self.lastListMovie = 0;
         [self lastList];
+        [self endRefreshList];
     } else {
         self.lastListMovie += 1;
     }

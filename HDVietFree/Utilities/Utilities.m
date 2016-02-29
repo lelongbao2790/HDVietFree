@@ -293,7 +293,10 @@ MPMoviePlayerController *mediaPlayerController = nil;
             kMoviePlayer = nil;
             [Utilities resetPlayerDurationVar];
         }
-    } else {
+    } else if (value == MPMovieFinishReasonPlaybackError) {
+        kMoviePlayer = nil;
+        [Utilities resetPlayerDurationVar];
+    } else if (value == MPMovieFinishReasonPlaybackEnded) {
         kMoviePlayer = nil;
         [Utilities resetPlayerDurationVar];
     }
