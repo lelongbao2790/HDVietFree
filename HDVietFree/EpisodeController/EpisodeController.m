@@ -178,7 +178,34 @@
             self.movie.urlLinkSubtitleMovie = linkSub;
             
             [PlayMovieController share].aMovie = self.movie;
-            [[PlayMovieController share] playMovieWithController:self];
+            
+            if (self.movie.timePlay != 0) {
+                UIAlertController* alert = [UIAlertController
+                                            alertControllerWithTitle:@"Thông báo"
+                                            message:[NSString stringWithFormat:@"Bạn đã xem phim %@ tới phút %@, bạn muốn xem tiếp theo hay xem lại từ đầu.", self.movie.movieName,[Utilities stringFromTimeInterval:self.movie.timePlay]]
+                                            preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* defaultAction = [UIAlertAction
+                                                actionWithTitle:@"Xem tiếp" style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * action) {
+                                                    [[PlayMovieController share] playMovieWithController:self];
+                                                }];
+                
+                UIAlertAction* cancelAction = [UIAlertAction
+                                               actionWithTitle:@"Xem lại" style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   self.movie.timePlay = 0;
+                                                   [self.movie commit];
+                                                   [[PlayMovieController share] playMovieWithController:self];
+                                               }];
+                
+                [alert addAction:defaultAction];
+                [alert addAction:cancelAction];
+                [self presentViewController:alert animated:YES completion:nil];
+            } else {
+                [[PlayMovieController share] playMovieWithController:self];
+            }
+
         }
 
     }
