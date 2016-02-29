@@ -39,6 +39,8 @@
 @property (strong, nonatomic) NSString *urlLinkSubtitleMovie;
 @property (strong, nonatomic) NSString *imdbRating;
 @property (strong, nonatomic) NSString *seasonId;
+@property (assign, nonatomic) NSTimeInterval timePlay;
+
 
 // Init movie from json
 + (Movie *)detailRelativeMovieFromJson:(NSDictionary *)json;

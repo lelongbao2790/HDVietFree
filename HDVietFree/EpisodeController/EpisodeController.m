@@ -173,7 +173,12 @@
             } else if ([linkPlay containsString:kResolution3201024]) {
                 linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
             }
-             [Utilities playMediaLink:linkPlay andSub:linkSub andController:self];
+            
+            self.movie.urlLinkPlayMovie = linkPlay;
+            self.movie.urlLinkSubtitleMovie = linkSub;
+            
+            [PlayMovieController share].aMovie = self.movie;
+            [[PlayMovieController share] playMovieWithController:self];
         }
 
     }

@@ -11,6 +11,8 @@
 #import "FilmController.h"
 @interface Utilities : NSObject
 
+
+
 + (nonnull Utilities *)share;
 
 /**
@@ -98,6 +100,8 @@
 + (void)alertMessage:(nonnull NSString*)message withController:(nonnull UIViewController *)controller;
 
 + (void)setColorOfSelectCell:(nonnull UITableViewCell *)cell;
+
++ (NSString *)stringFromTimeInterval:(NSTimeInterval)interval;
 
 + (BOOL)isEmptyArray:(nonnull NSArray *)listArray;
 

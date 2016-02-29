@@ -14,7 +14,6 @@
 @end
 
 @implementation Utilities
-
 static NSInteger timePlay;
 BOOL playbackDurationSet=NO;
 MPMoviePlayerController *mediaPlayerController = nil;
@@ -275,86 +274,6 @@ MPMoviePlayerController *mediaPlayerController = nil;
    
 }
 
-+ (void)moviePlaybackDidFinish:(nonnull NSNotification*)aNotification{
-    
-    NSError *error = [[aNotification userInfo] objectForKey:@"error"];
-    if (error) {
-        [Utilities showiToastMessage:kErrorPlayMovie];
-    }
-    
-    int value = [[aNotification.userInfo valueForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
-    if (value == MPMovieFinishReasonUserExited) {
-        if ([getChildController isKindOfClass:[PlayController class]] ||
-            [getChildController isKindOfClass:[EpisodeController class]] ) {
-            [getChildController dismissMoviePlayerViewControllerAnimated];
-            kMoviePlayer = nil;
-            [Utilities resetPlayerDurationVar];
-        } else {
-            kMoviePlayer = nil;
-            [Utilities resetPlayerDurationVar];
-        }
-    } else if (value == MPMovieFinishReasonPlaybackError) {
-        kMoviePlayer = nil;
-        [Utilities resetPlayerDurationVar];
-    } else if (value == MPMovieFinishReasonPlaybackEnded) {
-        if (timePlay == round([kMoviePlayer.moviePlayer duration])) {
-            kMoviePlayer = nil;
-            [Utilities resetPlayerDurationVar];
-        } else if (round([kMoviePlayer.moviePlayer currentPlaybackTime]) == round([kMoviePlayer.moviePlayer duration])){
-            kMoviePlayer = nil;
-            [Utilities resetPlayerDurationVar];
-        }
-    }
-}
-+ (void)moviePlayerPlaybackStateChanged:(NSNotification*)notification{
-    MPMoviePlayerController* player = (MPMoviePlayerController*)notification.object;
-    
-    switch ( player.playbackState ) {
-        case MPMoviePlaybackStatePlaying:
-            
-            if(!playbackDurationSet){
-                [mediaPlayerController setCurrentPlaybackTime:player.initialPlaybackTime];
-                playbackDurationSet=YES;
-            } 
-            break;
-        
-        case MPMoviePlaybackStateInterrupted: {
-             timePlay = round([player currentPlaybackTime]);
-        }
-            break;
-        
-        case MPMoviePlaybackStateSeekingForward:
-             timePlay = round([player currentPlaybackTime]);
-            break;
-        
-        case MPMoviePlaybackStateSeekingBackward:
-             timePlay = round([player currentPlaybackTime]);
-            break;
-            
-        default:
-            break;
-    }
-}
-
-+ (void)resetPlayerDurationVar{
-    playbackDurationSet=NO;
-}
-
-+ (void)moviePlayerLoadStateDidChange:(NSNotification *)notification
-{
-    if ([getChildController isKindOfClass:[PlayController class]] ||
-        [getChildController isKindOfClass:[EpisodeController class]] ) {
-        
-        if([kMoviePlayer.moviePlayer loadState] != MPMovieLoadStateUnknown)
-        {
-            
-            [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                            name:MPMoviePlayerLoadStateDidChangeNotification
-                                                          object:nil];
-        }
-    }
-}
-
 
 // Call this on applicationWillResignActive
 + (void) pauseMovieInBackGround
@@ -372,10 +291,8 @@ MPMoviePlayerController *mediaPlayerController = nil;
     if (kMoviePlayer) {
         DLOG(@"Time resume: %d",(int)timePlay);
         [controller presentMoviePlayerViewControllerAnimated:kMoviePlayer];
-        
         [kMoviePlayer.moviePlayer prepareToPlay];
         [kMoviePlayer.moviePlayer play];
-//        [kMoviePlayer.moviePlayer setInitialPlaybackTime:-1];
         [kMoviePlayer.moviePlayer setCurrentPlaybackTime:timePlay];
 
     }
@@ -408,6 +325,19 @@ MPMoviePlayerController *mediaPlayerController = nil;
     } else {
         [Utilities showiToastMessage:message];
     }
+}
+
++ (NSString *)stringFromTimeInterval:(NSTimeInterval)interval {
+    NSInteger ti = (NSInteger)interval;
+    NSInteger seconds = ti % 60;
+    NSInteger minutes = (ti / 60) % 60;
+    NSInteger hours = (ti / 3600);
+    if (hours == 0) {
+        return [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
+    } else {
+        return [NSString stringWithFormat:@"%02ld:%02ld:%02ld", (long)hours, (long)minutes, (long)seconds];
+    }
+    
 }
 
 + (void)setColorOfSelectCell:(nonnull UITableViewCell *)cell {

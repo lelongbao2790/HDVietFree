@@ -54,5 +54,6 @@
 #import "UIImageView+AFNetworking.h"
 #import "iCarousel.h"
 #import "InformationController.h"
+#import "PlayMovieController.h"
 
 #endif /* HDVietPrefix_pch */
