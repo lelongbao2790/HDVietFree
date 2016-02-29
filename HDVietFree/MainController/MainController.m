@@ -19,7 +19,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightBanner;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewMain;
 @property (weak, nonatomic) IBOutlet UIView *contentViewOfScrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightContentViewScrollView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
+
+
 @end
 
 @implementation MainController
@@ -83,7 +87,20 @@
     self.bannerView.delegate = self;
     self.bannerView.dataSource = self;
      self.bannerView.type = iCarouselTypeCoverFlow2;
-    [self checkListMovie];
+    [self checkListCategory];
+    [self addRefreshController];
+}
+
+- (void)addRefreshController {
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Refreshing data..."
+                                                                attributes: @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithAttributedString:title];
+    [self.refreshControl setTintColor:[UIColor whiteColor]];
+    [self.refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
+    [self.scrollView addSubview:self.refreshControl];
+    
+    [self.view addSubview:self.scrollView];
 }
 
 - (void)fixedTableViewScrollHeader {
@@ -112,6 +129,13 @@
                                             [self.bannerView reloadData];
                                         }
                                     }];
+}
+
+- (void)refreshData:(UIRefreshControl *)refreshControl {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self requestRefreshListMovie];
+        [NSThread sleepForTimeInterval:3];
+    });
 }
 
 //*****************************************************************************
@@ -353,6 +377,24 @@
     }
     
     [self lastList];
+}
+
+- (void)endRefreshList {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.refreshControl) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"MMM d, h:mm a"];
+            NSString *lastUpdate = [NSString stringWithFormat:@"Last updated on %@", [formatter stringFromDate:[NSDate date]]];
+            NSAttributedString *title = [[NSAttributedString alloc] initWithString:lastUpdate
+                                                                        attributes: @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+            self.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithAttributedString:title];
+            [self.refreshControl endRefreshing];
+            
+            NSLog(@"refresh end");
+
+        }
+    });
+
 }
 
 - (void)lastList {

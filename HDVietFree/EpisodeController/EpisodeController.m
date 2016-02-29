@@ -55,12 +55,14 @@
 
 - (void)configCollection {
     self.lbNameSeason.text = [NSString stringWithFormat:@"   %@",self.movie.movieName];
+    
     // Check episode
     if (self.movie.episode > 0) {
         NSMutableArray *listEpisode = [[NSMutableArray alloc] init];
         for (int i= 0; i< self.movie.episode; i++) {
             [listEpisode addObject:[NSNumber numberWithInteger:i]];
         }
+        self.listEpisode = [[NSArray alloc] init];
         self.listEpisode = [listEpisode mutableCopy];
     }
     

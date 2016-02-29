@@ -410,7 +410,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="202" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tập 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lR4-5n-ts7">
                                                     <rect key="frame" x="0.0" y="0.0" width="118" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -603,6 +603,7 @@
                         <outlet property="contentViewOfScrollView" destination="Ivh-rm-nFT" id="fod-r9-e1c"/>
                         <outlet property="csHeightBanner" destination="DTs-Fa-wbn" id="FnY-0o-rNm"/>
                         <outlet property="csHeightContentViewScrollView" destination="T07-cH-nwO" id="FzV-w1-xvn"/>
+                        <outlet property="scrollView" destination="HYS-fP-AW5" id="Uw2-cV-a5g"/>
                         <outlet property="scrollViewMain" destination="HYS-fP-AW5" id="4vR-oR-Oky"/>
                         <outlet property="tbvListMovie" destination="wXw-pu-ERH" id="0ZQ-m0-4Bq"/>
                     </connections>
@@ -956,7 +957,7 @@
                                             <constraint firstAttribute="width" constant="55" id="V3M-y7-AH1"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMDB Rating:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FgB-7l-jBB">
@@ -1216,7 +1217,7 @@
                                                         <constraint firstAttribute="height" constant="59" id="6KL-W5-neN"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="CPQ-Rn-NYz">
