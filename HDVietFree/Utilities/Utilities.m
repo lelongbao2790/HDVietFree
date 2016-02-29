@@ -300,6 +300,9 @@ MPMoviePlayerController *mediaPlayerController = nil;
         if (timePlay == round([kMoviePlayer.moviePlayer duration])) {
             kMoviePlayer = nil;
             [Utilities resetPlayerDurationVar];
+        } else if (round([kMoviePlayer.moviePlayer currentPlaybackTime]) == round([kMoviePlayer.moviePlayer duration])){
+            kMoviePlayer = nil;
+            [Utilities resetPlayerDurationVar];
         }
     }
 }
@@ -312,7 +315,7 @@ MPMoviePlayerController *mediaPlayerController = nil;
             if(!playbackDurationSet){
                 [mediaPlayerController setCurrentPlaybackTime:player.initialPlaybackTime];
                 playbackDurationSet=YES;
-            }
+            } 
             break;
         
         case MPMoviePlaybackStateInterrupted: {
