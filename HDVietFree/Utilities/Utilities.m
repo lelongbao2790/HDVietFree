@@ -161,12 +161,12 @@ MPMoviePlayerController *mediaPlayerController = nil;
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZZZZ"];
     NSDate *currentDate = [dateFormatter dateFromString:strDate];
     NSCalendar* calendar = [NSCalendar currentCalendar];
-    NSDateComponents* components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:currentDate]; // Get necessary date components
+    NSDateComponents* components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentDate]; // Get necessary date components
     
     return [NSString stringWithFormat:@"%d",(int)[components year]];
 }
 
-+ (void)customLayer:(UIView *)view {
++ (void)customLayer:(nonnull UIView *)view {
     view.layer.cornerRadius = 5.0;
     view.layer.masksToBounds = YES;
     view.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -222,59 +222,6 @@ MPMoviePlayerController *mediaPlayerController = nil;
     }
 }
 
-/*
- * Play media controller
- */
-+ (void)playMediaLink:(nonnull NSString *)linkPlay
-               andSub:(nonnull NSString *)linkSub
-        andController:(nonnull UIViewController *)controller {
-    if (linkPlay && linkSub) {
-        NSURL *url = [[NSURL alloc] initWithString:linkPlay];
-         MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-        mediaPlayerController = player.moviePlayer;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(moviePlaybackDidFinish:)
-                                                     name:MPMoviePlayerPlaybackDidFinishNotification
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(moviePlayerLoadStateDidChange:)
-                                                     name:MPMoviePlayerLoadStateDidChangeNotification
-                                                   object:nil];
-        
-        //Add Absorver
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(moviePlayerPlaybackStateChanged:)
-                                                     name:MPMoviePlayerPlaybackStateDidChangeNotification
-                                                   object:player.moviePlayer];
-        player.view.tag = kTagMPMoviePlayerController;
-        player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
-        player.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
-        player.moviePlayer.view.transform = CGAffineTransformConcat(player.moviePlayer.view.transform, CGAffineTransformMakeRotation(M_PI_2));
-        [player.moviePlayer.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-        NSString *subString = [Utilities getDataSubFromUrl:linkSub];
-        [player.moviePlayer openWithSRTString:subString completion:^(BOOL finished) {
-            // Activate subtitles
-            [player.moviePlayer showSubtitles];
-            
-        } failure:^(NSError *error) {
-            NSLog(@"Error: %@", error.description);
-            
-            [Utilities showiToastMessage:@"Phim này hiện chưa có sub việt"];
-        }];
-        
-        // Present video
-        kMoviePlayer = player;
-        [controller presentMoviePlayerViewControllerAnimated:player];
-        [player.moviePlayer prepareToPlay];
-        [player.moviePlayer play];
-    } else {
-        [Utilities showiToastMessage:@"Phim này hiện chưa có link"];
-    }
-   
-}
-
-
 // Call this on applicationWillResignActive
 + (void) pauseMovieInBackGround
 {
@@ -286,7 +233,7 @@ MPMoviePlayerController *mediaPlayerController = nil;
 }
 
 // Call this on applicationWillEnterForeground
-+ (void) resumeMovieInFrontGround:(UIViewController *)controller
++ (void) resumeMovieInFrontGround:(nonnull UIViewController *)controller
 {
     if (kMoviePlayer) {
         DLOG(@"Time resume: %d",(int)timePlay);
@@ -321,13 +268,18 @@ MPMoviePlayerController *mediaPlayerController = nil;
                                         }];
         
         [alert addAction:defaultAction];
-        [controller presentViewController:alert animated:YES completion:nil];
-    } else {
+        
+        if (![[self getTopRootViewController] isKindOfClass:[UIAlertController class]]) {
+            [[self getTopRootViewController] presentViewController:alert animated:YES completion:nil];
+        }
+        
+        
+        } else {
         [Utilities showiToastMessage:message];
     }
 }
 
-+ (NSString *)stringFromTimeInterval:(NSTimeInterval)interval {
++ (nonnull NSString *)stringFromTimeInterval:(NSTimeInterval)interval {
     NSInteger ti = (NSInteger)interval;
     NSInteger seconds = ti % 60;
     NSInteger minutes = (ti / 60) % 60;
@@ -467,6 +419,36 @@ MPMoviePlayerController *mediaPlayerController = nil;
     } else {
         return object;
     }
+}
+
++ (void)writeContentToFile:(nonnull NSString *)name andContent:(NSTimeInterval)content {
+    NSString *timePlayString = [NSString stringWithFormat:@"%ld",(long)content];
+    NSString *filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat:@"/%@.txt",name];
+    NSString *fileAtPath = [filePath stringByAppendingString:fileName];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:fileAtPath]) {
+        [[NSFileManager defaultManager] createFileAtPath:fileAtPath contents:nil attributes:nil];
+    }
+    [[timePlayString dataUsingEncoding:NSUTF8StringEncoding] writeToFile:fileAtPath atomically:NO];
+}
+
++ (NSTimeInterval)readContentFromFile:(nonnull NSString *)name {
+    NSString *filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat:@"/%@.txt",name];
+    NSString *fileAtPath = [filePath stringByAppendingString:fileName];
+    NSString *timeString = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:fileAtPath] encoding:NSUTF8StringEncoding];
+    NSTimeInterval timeInterval = [timeString integerValue];
+    return timeInterval;
+}
+
++ (nonnull UIViewController *)getTopRootViewController {
+    UIViewController *topRootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (topRootViewController.presentedViewController)
+    {
+        topRootViewController = topRootViewController.presentedViewController;
+    }
+    return topRootViewController;
+
 }
 
 @end

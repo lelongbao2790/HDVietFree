@@ -51,9 +51,7 @@
     [navCustom initTextField];
     kPlayViewController = nil;
     
-    [AppDelegate share].mainPanel.rightPanel = nil;
-    
-    self.navigationItem.rightBarButtonItem = nil;
+    [self resetRightPanel];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -62,13 +60,13 @@
 
 //*****************************************************************************
 #pragma mark -
-#pragma mark - ** IBAction **
-
-
-
-//*****************************************************************************
-#pragma mark -
 #pragma mark - ** Helper Method **
+
+- (void)resetRightPanel {
+    self.episodeController = nil;
+    self.navigationItem.rightBarButtonItem = nil;
+    [AppDelegate share].mainPanel.rightPanel = nil;
+}
 
 - (void)addViewInformation {
     if (!self.infor) {
@@ -84,7 +82,7 @@
 }
 
 - (void)configView {
-    
+    kPlayViewController = self;
     [Utilities fixAutolayoutWithDelegate:self];
     [DataManager shared].detailInfoMovieDelegate = self;
     [DataManager shared].loadLinkPlayMovieDelegate = self;
@@ -142,8 +140,7 @@
         [AppDelegate share].mainPanel.rightPanel = self.episodeController;
         [[AppDelegate share].mainPanel showRightPanelAnimated:YES];
     } else {
-        self.navigationItem.rightBarButtonItem = nil;
-        [AppDelegate share].mainPanel.rightPanel = nil;
+        [self resetRightPanel];
     }
 }
 
@@ -218,25 +215,34 @@
                 linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
             }
             self.movie.urlLinkPlayMovie = linkPlay;
+            [PlayMovieController share].epiNumber = self.epiNumber;
             [PlayMovieController share].aMovie = self.movie;
+            NSTimeInterval timePlay = [Utilities readContentFromFile:[NSString stringWithFormat:@"%@_%d",self.movie.movieID,(int)self.epiNumber]];
             
-            if (self.movie.timePlay != 0) {
+            NSString *messageForAlert = nil;
+            if (self.movie.episode > 0) {
+                messageForAlert = [NSString stringWithFormat:kMessageTimePlayForEpi, self.movie.movieName, (int)self.epiNumber, [Utilities stringFromTimeInterval:timePlay]];
+            } else {
+                messageForAlert = [NSString stringWithFormat:kMessageForTimePlay, self.movie.movieName,[Utilities stringFromTimeInterval:timePlay]];
+            }
+            
+            if (timePlay > 0) {
                 UIAlertController* alert = [UIAlertController
-                                            alertControllerWithTitle:@"Thông báo"
-                                            message:[NSString stringWithFormat:@"Bạn đã xem phim %@ tới phút %@, bạn muốn xem tiếp theo hay xem lại từ đầu.", self.movie.movieName,[Utilities stringFromTimeInterval:self.movie.timePlay]]
+                                            alertControllerWithTitle:kAlertTitle
+                                            message:messageForAlert
                                             preferredStyle:UIAlertControllerStyleAlert];
                 
                 UIAlertAction* defaultAction = [UIAlertAction
-                                                actionWithTitle:@"Xem tiếp" style:UIAlertActionStyleDefault
+                                                actionWithTitle:kWatchMovieFromTime style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction * action) {
+                                                    [PlayMovieController share].timePlayMovie = timePlay;
                                                     [[PlayMovieController share] playMovieWithController:self];
                                                 }];
                 
                 UIAlertAction* cancelAction = [UIAlertAction
-                                               actionWithTitle:@"Xem lại" style:UIAlertActionStyleDefault
+                                               actionWithTitle:kWatchMovieFromStart style:UIAlertActionStyleDefault
                                                handler:^(UIAlertAction * action) {
-                                                   self.movie.timePlay = 0;
-                                                   [self.movie commit];
+                                                   [PlayMovieController share].timePlayMovie = 0;
                                                    [[PlayMovieController share] playMovieWithController:self];
                                                }];
                 
@@ -244,6 +250,7 @@
                 [alert addAction:cancelAction];
                 [self presentViewController:alert animated:YES completion:nil];
             } else {
+                [PlayMovieController share].timePlayMovie = 0;
                 [[PlayMovieController share] playMovieWithController:self];
             }
         }
@@ -278,8 +285,13 @@
 #pragma mark -
 #pragma mark - ** IBAction **
 - (IBAction)btnPlayMovie:(id)sender {
+    self.epiNumber = 1;
+    [self requestPlayMovie];
+}
+
+- (void)requestPlayMovie {
     ProgressBarShowLoading(kLoading);
-    [[ManageAPI share] loadLinkToPlayMovie:self.movie andEpisode:0];
+    [[ManageAPI share] loadLinkToPlayMovie:self.movie andEpisode:self.epiNumber];
 }
 
 //*****************************************************************************

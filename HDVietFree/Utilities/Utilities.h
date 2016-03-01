@@ -56,7 +56,7 @@
  */
 + (nonnull NSString *)getYearOfDateFromString:(nonnull NSString *)strDate;
 
-+ (void)customLayer:(UIView *)view;
++ (void)customLayer:(nonnull UIView *)view;
 
 /*
  * Get string url poster image
@@ -81,19 +81,10 @@
 
 + ( NSDictionary * _Nullable )convertNullDictionary:(NSDictionary * _Nullable )dict;
 
-/*
- * Play media controller
- */
-+ (void)playMediaLink:(nonnull NSString *)linkPlay
-               andSub:(nonnull NSString *)linkSub
-        andController:(nonnull UIViewController *)controller;
-
-+ (void)moviePlaybackDidFinish:(nonnull NSNotification*)aNotification;
-
 + (void) pauseMovieInBackGround;
 
 // Call this on applicationWillEnterForeground
-+ (void) resumeMovieInFrontGround:(UIViewController *)controller;
++ (void) resumeMovieInFrontGround:(nonnull UIViewController *)controller;
 
 + (nonnull NSArray *)sortArrayFromDict:(nonnull NSDictionary *)dict;
 
@@ -101,7 +92,7 @@
 
 + (void)setColorOfSelectCell:(nonnull UITableViewCell *)cell;
 
-+ (NSString *)stringFromTimeInterval:(NSTimeInterval)interval;
++ (nonnull NSString *)stringFromTimeInterval:(NSTimeInterval)interval;
 
 + (BOOL)isEmptyArray:(nonnull NSArray *)listArray;
 
@@ -120,5 +111,10 @@
 + (void)removeCrashLogFileAtPath:(nonnull NSString *)path;
 
 + (nonnull id)nullToObject:(nonnull NSDictionary *)dict key:(nonnull NSString *)key andType:(NSInteger)type;
+
++ (void)writeContentToFile:(nonnull NSString *)name andContent:(NSTimeInterval)content;
++ (NSTimeInterval)readContentFromFile:(nonnull NSString *)name;
+
++ (nonnull UIViewController *)getTopRootViewController;
 
 @end

@@ -16,7 +16,7 @@
 
 @implementation PlayMovieController
 
-+ (PlayMovieController *)share {
++ (nonnull PlayMovieController *)share {
     static dispatch_once_t once;
     static PlayMovieController *share;
     dispatch_once(&once, ^{
@@ -82,7 +82,7 @@
         [controller presentMoviePlayerViewControllerAnimated:player];
         [player.moviePlayer prepareToPlay];
         [player.moviePlayer play];
-        player.moviePlayer.currentPlaybackTime = aMovie.timePlay;
+        player.moviePlayer.currentPlaybackTime = self.timePlayMovie;
         
     } else {
         [Utilities showiToastMessage:@"Phim này hiện chưa có link"];
@@ -91,7 +91,7 @@
 }
 
 - (void)moviePlaybackDidFinish:(nonnull NSNotification*)aNotification{
-    
+    MPMoviePlayerController* player = (MPMoviePlayerController*)aNotification.object;
     NSError *error = [[aNotification userInfo] objectForKey:@"error"];
     if (error) {
         [Utilities showiToastMessage:kErrorPlayMovie];
@@ -102,15 +102,15 @@
         if ([getChildController isKindOfClass:[PlayController class]] ||
             [getChildController isKindOfClass:[EpisodeController class]] ) {
             [getChildController dismissMoviePlayerViewControllerAnimated];
-            if (round([kMoviePlayer.moviePlayer currentPlaybackTime]) != round([kMoviePlayer.moviePlayer duration])) {
-                self.aMovie.timePlay = [kMoviePlayer.moviePlayer currentPlaybackTime];
-                 [self.aMovie commit];
+            if (round([player currentPlaybackTime]) != round([player duration])) {
+                [Utilities writeContentToFile:[NSString stringWithFormat:@"%@_%d",self.aMovie.movieID,(int)self.epiNumber]
+                                   andContent:[player currentPlaybackTime]];
             }
             
         } else {
-            if (round([kMoviePlayer.moviePlayer currentPlaybackTime]) != round([kMoviePlayer.moviePlayer duration])) {
-                self.aMovie.timePlay = [kMoviePlayer.moviePlayer currentPlaybackTime];
-                [self.aMovie commit];
+            if (round([player currentPlaybackTime]) != round([player duration])) {
+                [Utilities writeContentToFile:[NSString stringWithFormat:@"%@_%d",self.aMovie.movieID,(int)self.epiNumber]
+                                   andContent:[player currentPlaybackTime]];
             }
         }
         
@@ -120,14 +120,14 @@
         kMoviePlayer = nil;
         [self resetPlayerDurationVar];
     } else if (value == MPMovieFinishReasonPlaybackEnded) {
-        if (self.timePlay == round([kMoviePlayer.moviePlayer duration])) {
-            self.aMovie.timePlay = 0;
-            [self.aMovie commit];
+        if (self.timePlay == round([player duration])) {
+            [Utilities writeContentToFile:[NSString stringWithFormat:@"%@_%d",self.aMovie.movieID,(int)self.epiNumber]
+                               andContent:0];
             kMoviePlayer = nil;
             [self resetPlayerDurationVar];
         } else if (round([kMoviePlayer.moviePlayer currentPlaybackTime]) == round([kMoviePlayer.moviePlayer duration])){
-            self.aMovie.timePlay = 0;
-            [self.aMovie commit];
+            [Utilities writeContentToFile:[NSString stringWithFormat:@"%@_%d",self.aMovie.movieID,(int)self.epiNumber]
+                               andContent:0];
             kMoviePlayer = nil;
             [self resetPlayerDurationVar];
         }
@@ -147,22 +147,22 @@
             
         case MPMoviePlaybackStateInterrupted: {
             self.timePlay = round([player currentPlaybackTime]);
-            self.aMovie.timePlay = [player currentPlaybackTime];
-            [self.aMovie commit];
+            [Utilities writeContentToFile:[NSString stringWithFormat:@"%@_%d",self.aMovie.movieID,(int)self.epiNumber]
+                               andContent:[player currentPlaybackTime]];
         }
             break;
             
         case MPMoviePlaybackStateSeekingForward:
             self.timePlay = round([player currentPlaybackTime]);
-            self.aMovie.timePlay = [player currentPlaybackTime];
-            [self.aMovie commit];
+            [Utilities writeContentToFile:[NSString stringWithFormat:@"%@_%d",self.aMovie.movieID,(int)self.epiNumber]
+                               andContent:[player currentPlaybackTime]];
             break;
             
         case MPMoviePlaybackStateSeekingBackward:
             if (round([player currentPlaybackTime]) != 0) {
                 self.timePlay = round([player currentPlaybackTime]);
-                self.aMovie.timePlay = [player currentPlaybackTime];
-                [self.aMovie commit];
+                [Utilities writeContentToFile:[NSString stringWithFormat:@"%@_%d",self.aMovie.movieID,(int)self.epiNumber]
+                                   andContent:[player currentPlaybackTime]];
             }
             
             break;

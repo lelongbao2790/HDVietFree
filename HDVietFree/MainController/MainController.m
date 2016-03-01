@@ -401,7 +401,7 @@
                                                                         attributes: @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
             self.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithAttributedString:title];
             [self.refreshControl endRefreshing];
-            
+            [self.tbvListMovie reloadData];
             NSLog(@"refresh end");
 
         }

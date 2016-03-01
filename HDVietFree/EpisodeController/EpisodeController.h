@@ -13,5 +13,6 @@
 @property (strong, nonatomic) NSArray *listEpisode;
 @property (strong, nonatomic) NSArray *listSeason;
 @property (strong, nonatomic) Movie *movie;
+@property (assign, nonatomic) NSInteger epiNumber;
 - (void)configCollection;
 @end

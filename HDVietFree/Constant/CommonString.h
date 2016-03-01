@@ -161,4 +161,30 @@ extern NSString *const kReportString ;
  */
 extern NSString *const kCellEpisodeIdentifier;
 
+/**
+ * Message for time play
+ */
+extern NSString *const kMessageForTimePlay;
+
+/**
+ * Message time play for epi
+ */
+extern NSString *const kMessageTimePlayForEpi;
+
+/**
+ * Alert title
+ */
+extern NSString *const kAlertTitle;
+
+/**
+ * Watch
+ */
+extern NSString *const kWatchMovieFromStart;
+
+/**
+ * Watch
+ */
+extern NSString *const kWatchMovieFromTime;
+
+
 @end

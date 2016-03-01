@@ -10,9 +10,11 @@
 
 @interface PlayMovieController : MPMoviePlayerViewController
 
-+ (PlayMovieController *)share;
++ (nonnull PlayMovieController *)share;
 
 @property (strong, nonatomic) Movie *aMovie;
+@property (assign, nonatomic) NSInteger epiNumber;
+@property (assign, nonatomic) NSTimeInterval timePlayMovie;
 
 /*
  * Play media controller

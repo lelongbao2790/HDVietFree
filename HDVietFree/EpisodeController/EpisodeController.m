@@ -9,12 +9,13 @@
 #import "EpisodeController.h"
 #import "EpisodeCell.h"
 
-@interface EpisodeController ()< LoadLinkPlayMovieDelegate, MPMediaPickerControllerDelegate, FixAutolayoutDelegate, UICollectionViewDataSource, UICollectionViewDelegate, AllSeasonDelegate>
+@interface EpisodeController ()< MPMediaPickerControllerDelegate, FixAutolayoutDelegate, UICollectionViewDataSource, UICollectionViewDelegate, AllSeasonDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionAllSeason;
 @property (strong, nonatomic) NSString *convertResolution;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeadingCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionEpisode;
 @property (weak, nonatomic) IBOutlet UILabel *lbNameSeason;
+
 @end
 
 @implementation EpisodeController
@@ -22,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [DataManager shared].loadLinkPlayMovieDelegate = self;
     [Utilities fixAutolayoutWithDelegate:self];
     [self config];
     
@@ -36,6 +36,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     
 }
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Helper method **
 
 - (void)config {
     // Config table
@@ -139,7 +143,9 @@
     switch (collectionView.tag) {
         case kTagCollectionViewEpisode: {
             ProgressBarShowLoading(kLoading);
-            [[ManageAPI share] loadLinkToPlayMovie:self.movie andEpisode:indexPath.row+1];
+            self.epiNumber = indexPath.row + 1;
+            kPlayViewController.epiNumber = self.epiNumber;
+            [kPlayViewController requestPlayMovie];
             [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
         }
             break;
@@ -155,69 +161,6 @@
         }
             break;
     }
-}
-
-
-#pragma mark - ** Load Link Movie Delegate **
-
-- (void)loadLinkPlayMovieAPISuccess:(NSDictionary *)response {
-    if (![response isKindOfClass:[NSNull class]]) {
-        NSString *linkPlay = [response objectForKey:kLinkPlay];
-        NSString *linkSub = [[[response objectForKey:kSubtitleExt]
-                              objectForKey:kSubtitleVIE]
-                             objectForKey:kSubtitleSource];
-        
-        if (![linkPlay isEqualToString:kEmptyString]) {
-            if ([linkPlay containsString:kResolution320480]) {
-                linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution320480 withString:self.convertResolution];
-            } else if ([linkPlay containsString:kResolution3201024]) {
-                linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
-            }
-            
-            self.movie.urlLinkPlayMovie = linkPlay;
-            self.movie.urlLinkSubtitleMovie = linkSub;
-            
-            [PlayMovieController share].aMovie = self.movie;
-            
-            if (self.movie.timePlay != 0) {
-                UIAlertController* alert = [UIAlertController
-                                            alertControllerWithTitle:@"Thông báo"
-                                            message:[NSString stringWithFormat:@"Bạn đã xem phim %@ tới phút %@, bạn muốn xem tiếp theo hay xem lại từ đầu.", self.movie.movieName,[Utilities stringFromTimeInterval:self.movie.timePlay]]
-                                            preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction* defaultAction = [UIAlertAction
-                                                actionWithTitle:@"Xem tiếp" style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction * action) {
-                                                    [[PlayMovieController share] playMovieWithController:self];
-                                                }];
-                
-                UIAlertAction* cancelAction = [UIAlertAction
-                                               actionWithTitle:@"Xem lại" style:UIAlertActionStyleDefault
-                                               handler:^(UIAlertAction * action) {
-                                                   self.movie.timePlay = 0;
-                                                   [self.movie commit];
-                                                   [[PlayMovieController share] playMovieWithController:self];
-                                               }];
-                
-                [alert addAction:defaultAction];
-                [alert addAction:cancelAction];
-                [self presentViewController:alert animated:YES completion:nil];
-            } else {
-                [[PlayMovieController share] playMovieWithController:self];
-            }
-
-        }
-
-    }
-    else {
-        [Utilities showiToastMessage:kMessageErrorAboutMovie];
-    }
-    
-    ProgressBarDismissLoading(kEmptyString);
-}
-
-- (void)loadLinkPlayMovieAPIFail:(NSString *)resultMessage {
-    [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 
 //*****************************************************************************
@@ -242,28 +185,23 @@
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** FixAutoLayoutDelegate **
-- (void)fixAutolayoutFor35 {
-    self.convertResolution = kResolution320480;
+- (void)fixAutolayoutFor35 {;
     self.csLeadingCollectionView.constant = kLeadingEpisodeIp5;
 }
 
 - (void)fixAutolayoutFor40 {
-    self.convertResolution = kResolution320568;
     self.csLeadingCollectionView.constant = kLeadingEpisodeIp5;
 }
 
 - (void)fixAutolayoutFor47 {
-    self.convertResolution = kResolution375667;
     self.csLeadingCollectionView.constant = kLeadingEpisodeIp6;
 }
 
 - (void)fixAutolayoutFor55 {
-    self.convertResolution = kResolution12422208;
     self.csLeadingCollectionView.constant = kLeadingEpisodeIp6Plus;
 }
 
 -(void)fixAutolayoutForIpad {
-    self.convertResolution = kResolution15362048;
 }
 
 @end

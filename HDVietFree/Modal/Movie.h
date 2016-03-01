@@ -40,6 +40,7 @@
 @property (strong, nonatomic) NSString *imdbRating;
 @property (strong, nonatomic) NSString *seasonId;
 @property (assign, nonatomic) NSTimeInterval timePlay;
+@property (assign, nonatomic) NSInteger epiNumber;
 
 
 // Init movie from json

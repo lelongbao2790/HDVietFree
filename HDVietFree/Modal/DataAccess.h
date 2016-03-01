@@ -10,7 +10,7 @@
 typedef void (^completionDataBlock)(BOOL success, NSMutableArray * array);
 
 @interface DataAccess : NSObject
-
+@property (nonatomic, copy) completionDataBlock callbackBlock;
 /*
  * Singleton
  */

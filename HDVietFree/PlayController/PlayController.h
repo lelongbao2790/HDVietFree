@@ -13,7 +13,10 @@
 @interface PlayController : UIViewController
 
 @property (strong, nonatomic) Movie *movie;
+@property (assign, nonatomic) NSInteger epiNumber;
 
 - (void)getInformationMovie;
+
+- (void)requestPlayMovie;
 
 @end

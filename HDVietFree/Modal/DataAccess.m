@@ -119,6 +119,7 @@
     if (r.count > 0)
         for (Movie *aMovie in r) {
             movieObj = aMovie;
+            break;
         }
     else
         movieObj = nil;

@@ -159,6 +159,30 @@ NSString *const kReportString = @"Report lỗi";
  */
 NSString *const kCellEpisodeIdentifier = @"cellEpisode";
 
+/**
+ * Message for time play
+ */
+NSString *const kMessageForTimePlay = @"Bạn đã xem phim %@ tới phút %@, bạn muốn xem tiếp theo hay xem lại từ đầu.";
+
+/**
+ * Message time play for epi
+ */
+NSString *const kMessageTimePlayForEpi = @"Bạn đã xem phim %@ tập %d tới phút %@, bạn muốn xem tiếp theo hay xem lại từ đầu.";
+
+/**
+ * Alert title
+ */
+NSString *const kAlertTitle = @"Thông báo";
+
+/**
+ * Watch
+ */
+NSString *const kWatchMovieFromStart = @"Xem lại";
+
+/**
+ * Watch
+ */
+NSString *const kWatchMovieFromTime = @"Xem tiếp";
 
 
 @end
