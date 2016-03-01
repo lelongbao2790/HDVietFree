@@ -114,21 +114,17 @@
             }
         }
         
-        kMoviePlayer = nil;
         [self resetPlayerDurationVar];
     } else if (value == MPMovieFinishReasonPlaybackError) {
-        kMoviePlayer = nil;
         [self resetPlayerDurationVar];
     } else if (value == MPMovieFinishReasonPlaybackEnded) {
         if (self.timePlay == round([player duration])) {
             [Utilities writeContentToFile:[NSString stringWithFormat:@"%@_%d",self.aMovie.movieID,(int)self.epiNumber]
                                andContent:0];
-            kMoviePlayer = nil;
             [self resetPlayerDurationVar];
         } else if (round([kMoviePlayer.moviePlayer currentPlaybackTime]) == round([kMoviePlayer.moviePlayer duration])){
             [Utilities writeContentToFile:[NSString stringWithFormat:@"%@_%d",self.aMovie.movieID,(int)self.epiNumber]
                                andContent:0];
-            kMoviePlayer = nil;
             [self resetPlayerDurationVar];
         }
     }
@@ -173,6 +169,7 @@
 }
 
 - (void)resetPlayerDurationVar{
+    kMoviePlayer = nil;
     self.playbackDurationSet=NO;
 }
 
