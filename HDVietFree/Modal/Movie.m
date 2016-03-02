@@ -48,7 +48,7 @@
     newMovie.currentSeason = [[json objectForKey:kCurrentSeason] integerValue];
     newMovie.episode = [[json objectForKey:kEpisode] integerValue];
     newMovie.cast = [Utilities nullToObject:json key:kCast andType:kTypeString];
-    newMovie.plotVI = [Utilities nullToObject:json key:kPlotVI andType:kTypeString];
+    newMovie.plotVI = [[Utilities nullToObject:json key:kPlotVI andType:kTypeString] stringByStrippingHTML];
     newMovie.country = [Utilities nullToObject:json key:kCountry andType:kTypeString];
     newMovie.bannerMovie = [Utilities nullToObject:json key:kBannerFilm andType:kTypeString];
     newMovie.backdrop = [Utilities nullToObject:json key:kBackDrop andType:kTypeString];
@@ -69,7 +69,7 @@
     movie.currentSeason = [[json objectForKey:kCurrentSeason] integerValue];
     movie.episode = [[json objectForKey:kEpisode] integerValue];
     movie.cast = [Utilities nullToObject:json key:kCast andType:kTypeString];
-    movie.plotVI = [Utilities nullToObject:json key:kPlotVI andType:kTypeString];
+    movie.plotVI = [[Utilities nullToObject:json key:kPlotVI andType:kTypeString] stringByStrippingHTML];
     movie.country = [Utilities nullToObject:json key:kCountry andType:kTypeString];
     movie.releaseDate = [Utilities nullToObject:json key:kReleaseDate andType:kTypeString];
     movie.genreMovie = stringFromInteger([MovieSearch share].genreMovie);
@@ -114,7 +114,7 @@
     newMovie.movieName = [Utilities nullToObject:json key:kDocMovieName andType:kTypeString];
     newMovie.knownAs = [Utilities nullToObject:json key:kDocKnownAs andType:kTypeString];
     newMovie.poster = [Utilities nullToObject:json key:kDocPoster andType:kTypeString];
-    newMovie.plotVI = [Utilities nullToObject:json key:kDocMoviePlotVi andType:kTypeString];
+    newMovie.plotVI = [[Utilities nullToObject:json key:kDocMoviePlotVi andType:kTypeString] stringByStrippingHTML];
     newMovie.sequence = [[json objectForKey:kDocMoreSequene] integerValue];
     newMovie.episode = [[json objectForKey:kDocEpisode] integerValue];
     return newMovie;

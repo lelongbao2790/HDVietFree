@@ -70,7 +70,7 @@
 
 - (void)setInformationMovie {
     [self configLabel];
-    self.lbPlot.text = self.movie.plotVI;
+    self.lbPlot.text = [self.movie.plotVI stringByStrippingHTML];
     self.lbCast.text = self.movie.cast;
     self.lbGenre.text = self.movie.category;
     self.lbRuntime.text = [NSString stringWithFormat:@"%d phút",(int)self.movie.runtime];
