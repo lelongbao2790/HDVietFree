@@ -52,6 +52,11 @@ extern NSString *const kSearchCellIdentifier;
 extern NSString *const kLoading;
 
 /**
+ * Loading
+ */
+extern NSString *const kLoadMoreData;
+
+/**
  * Genre 1: PhimLe
  */
 extern NSString *const kPhimLe;

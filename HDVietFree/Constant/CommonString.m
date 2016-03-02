@@ -51,6 +51,11 @@ NSString *const kSearchCellIdentifier = @"SearchCellIdentifier";
 NSString *const kLoading = @"Loading";
 
 /**
+ * Loading
+ */
+NSString *const kLoadMoreData = @"Load more data ...";
+
+/**
  * Genre 1: PhimLe
  */
 NSString *const kPhimLe = @"PHIM LẺ";

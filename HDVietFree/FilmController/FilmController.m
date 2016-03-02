@@ -11,6 +11,8 @@
 @interface FilmController ()<ListMovieByGenreDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 
 @property (assign, nonatomic) NSInteger previousPage;
+@property (strong, nonatomic) UIActivityIndicatorView *loading;
+@property (strong, nonatomic) UILabel *loadingLabel;
 @end
 
 @implementation FilmController
@@ -48,6 +50,8 @@
     kFilmViewController = self;
     
     [self.collectionFilmController registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
+    [self.collectionFilmController registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
+    [self.collectionFilmController registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
     [self.collectionFilmController reloadData];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -114,6 +118,63 @@
     return returnSize;
 }
 
+- (UICollectionReusableView *)collectionView:(UICollectionView *)theCollectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)theIndexPath
+{
+    
+    UICollectionReusableView *theView;
+    
+    if(kind == UICollectionElementKindSectionHeader)
+    {
+        theView = [theCollectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:theIndexPath];
+    } else {
+        theView = [theCollectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:theIndexPath];
+        if (!self.loading) {
+            [self addViewLoadingInFooterView:theView];
+        }
+        
+    }
+    
+    return theView;
+}
+
+- (void)addViewLoadingInFooterView:(UICollectionReusableView *)view {
+    
+    self.loading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    self.loading.frame = CGRectMake(self.view.frame.size.width/2 - kSpaceLoadingX, 0, kSpaceLoading, kSpaceLoading);
+    [self.loading startAnimating];
+    [view addSubview:self.loading];
+    
+    self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.loading.frame.origin.x + self.loading.frame.size.width, 0, kWidthLabelLoadMore, kSpaceLoading)];
+    self.loadingLabel.textColor = [ UIColor whiteColor];
+    self.loadingLabel.textAlignment = NSTextAlignmentLeft;
+    self.loadingLabel.text = kLoadMoreData;
+    [view addSubview:self.loadingLabel];
+    
+}
+
+-(void)scrollViewDidScroll: (UIScrollView*)scrollView
+{
+    float scrollViewHeight = scrollView.frame.size.height;
+    float scrollContentSizeHeight = scrollView.contentSize.height;
+    float scrollOffset = scrollView.contentOffset.y;
+    
+    if (scrollOffset + scrollViewHeight == scrollContentSizeHeight)
+    {
+        //This condition will be true when scrollview will reach to bottom
+        Movie *randomMovie = self.listMovie[0];
+        if (self.listMovie.count == randomMovie.totalRecord) {
+            if (self.loading) {
+                [self.loading stopAnimating];
+                self.loadingLabel.text = kEmptyString;
+            }
+        } else {
+            if (self.loading) {
+                [self.loading startAnimating];
+            }
+        }
+    }
+    
+}
 
 //*****************************************************************************
 #pragma mark -

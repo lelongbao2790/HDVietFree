@@ -14,6 +14,10 @@ typedef NS_ENUM(NSInteger, SearchMovie) {
     kGenrePhimLe = 1,
     kGenrePhimBo = 2,
     kPageDefault = 1,
+    kSpaceLoading = 35,
+    kSpaceLoadingX = 80,
+    kWidthLabelLoadMore = 150,
+    kSpaceBetweenLoadingAndText = 10,
 };
 
 typedef NS_ENUM(NSInteger, TagMainController) {
