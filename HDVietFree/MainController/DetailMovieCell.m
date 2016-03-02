@@ -21,7 +21,7 @@
     
     if (movie.episode > 0) {
         self.lbEpsiode.hidden = NO;
-        self.lbEpsiode.text = [NSString stringWithFormat:@"Tập %d",(int)movie.episode];
+        self.lbEpsiode.text = [NSString stringWithFormat:@"Tập %d/%d",(int)movie.sequence,(int)movie.episode];
     } else {
         self.lbEpsiode.hidden = YES;
     }

@@ -191,6 +191,7 @@
 
 - (void)loadDetailInformationMovieAPIFail:(NSString *)resultMessage {
     DLOG(@"Load detail information api fail");
+    [Utilities showiToastMessage:@"Lấy thông tin film không thành công."];
     [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 

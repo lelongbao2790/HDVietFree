@@ -24,7 +24,12 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csBottomConstant;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadingTrailer;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UILabel *lbNumberEpisode;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopConstantDescription;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopNumberEpi;
 @property (strong, nonatomic) NSArray *listMovie;
+@property (weak, nonatomic) IBOutlet UILabel *lbTitleOfNumberEpi;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeadingNumberEpi;
 @end
 
 @implementation InformationController
@@ -71,6 +76,16 @@
     self.lbRuntime.text = [NSString stringWithFormat:@"%d phút",(int)self.movie.runtime];
     self.lbIMDBRating.text = self.movie.imdbRating;
     self.lbReleaseDate.text = self.movie.releaseDate;
+    
+    if (self.movie.episode > 0) {
+        self.lbNumberEpisode.text = [NSString stringWithFormat:@"Tập %d/%d",(int)self.movie.sequence,(int)self.movie.episode];
+        self.lbNumberEpisode.hidden = NO;
+        self.lbTitleOfNumberEpi.hidden = NO;
+    } else {
+        self.lbNumberEpisode.hidden = YES;
+        self.lbTitleOfNumberEpi.hidden = YES;
+    }
+    
     
     self.listMovie = [[DataAccess share] getRelativeMovieInDB:self.movie.movieID];
     [self.collectionRelativeMovie reloadData];
@@ -128,6 +143,9 @@
     self.csWidthTag.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
     self.csWidthRuntime.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
     self.leadingTrailer.constant = kLeadingTrailerConstant;
+    self.csLeadingNumberEpi.constant = self.lbIMDBRating.frame.origin.x + self.lbIMDBRating.frame.size.width + self.leadingTrailer.constant;
+    self.csTopNumberEpi.constant = self.csTopConstantDescription.constant;
+
 }
 
 - (void)fixAutolayoutFor40 {
@@ -137,6 +155,8 @@
     self.csWidthTag.constant = [Utilities widthOfScreen] - 4.5*kWidthConstantPlot;
     self.csWidthRuntime.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
     self.leadingTrailer.constant = kLeadingTrailerConstant;
+    self.csLeadingNumberEpi.constant = self.lbIMDBRating.frame.origin.x + self.lbIMDBRating.frame.size.width + self.leadingTrailer.constant;
+    self.csTopNumberEpi.constant = self.csTopConstantDescription.constant;
 }
 
 - (void)fixAutolayoutFor47 {
@@ -145,6 +165,9 @@
     self.csWidthReleaseDate.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
     self.csWidthTag.constant = [Utilities widthOfScreen] -4.5*kWidthConstantPlot;
     self.csWidthRuntime.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
+    self.leadingTrailer.constant = kLeadingTrailerConstant;
+    self.csLeadingNumberEpi.constant = self.lbIMDBRating.frame.origin.x + self.lbIMDBRating.frame.size.width + self.leadingTrailer.constant;
+    self.csTopNumberEpi.constant = self.csTopConstantDescription.constant;
 }
 
 - (void)fixAutolayoutFor55 {
@@ -153,6 +176,8 @@
     self.csWidthReleaseDate.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
     self.csWidthTag.constant = [Utilities widthOfScreen] - 4.5*kWidthConstantPlot;
     self.csWidthRuntime.constant = [Utilities widthOfScreen] - 2*kWidthConstantPlot;
+    self.csLeadingNumberEpi.constant = self.lbIMDBRating.frame.origin.x + self.lbIMDBRating.frame.size.width + self.leadingTrailer.constant;
+    self.csTopNumberEpi.constant = self.csTopConstantDescription.constant;
 }
 
 -(void)fixAutolayoutForIpad {

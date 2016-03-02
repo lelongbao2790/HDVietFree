@@ -140,7 +140,6 @@
 }
 
 - (void)requestGetListMovie:(NSInteger)nextPage {
-    ProgressBarShowLoading(kEmptyString);
     [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie
                                     tag:self.tagMovie
                                 andPage:nextPage];

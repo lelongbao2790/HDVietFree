@@ -61,9 +61,9 @@
     self.lbNameSeason.text = [NSString stringWithFormat:@"   %@",self.movie.movieName];
     
     // Check episode
-    if (self.movie.episode > 0) {
+    if (self.movie.sequence > 0) {
         NSMutableArray *listEpisode = [[NSMutableArray alloc] init];
-        for (int i= 0; i< self.movie.episode; i++) {
+        for (int i= 0; i< self.movie.sequence; i++) {
             [listEpisode addObject:[NSNumber numberWithInteger:i]];
         }
         self.listEpisode = [[NSArray alloc] init];
