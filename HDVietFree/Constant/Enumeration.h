@@ -50,9 +50,9 @@ typedef NS_ENUM(NSInteger, ControllerTag) {
     kTopConstantTableViewIp6 = 170,
     kConstantInformationViewIp4 = 310,
     kConstantInformationViewIp5 = 350,
-    kConstantInformationViewIp6 = 510,
-    kConstantInformationViewIp6Plus = 510,
-    kConstantInformationViewIpad = 710,
+    kConstantInformationViewIp6 = 500,
+    kConstantInformationViewIp6Plus = 500,
+    kConstantInformationViewIpad = 700,
     k400BadRequest = 400,
 };
 
