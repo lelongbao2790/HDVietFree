@@ -45,6 +45,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     // Hidden navigation bar
+    [DataManager shared].listMovieDelegate = self;
+    self.tbvListMovie.delegate = self;
+    self.tbvListMovie.dataSource = self;
+    [self getListMovieShowOnBanner];
     [self.navigationController.navigationBar setHidden:NO];
 }
 
@@ -53,11 +57,8 @@
 
 - (void)dealloc
 {
-    //it's a good idea to set these to nil here to avoid
-    //sending messages to a deallocated viewcontroller
     self.bannerView.delegate = nil;
     self.bannerView.dataSource = nil;
-    
 }
 
 //*****************************************************************************
@@ -68,15 +69,12 @@
     [AppDelegate share].mainController = self;
     self.dictMenu = getDictTitleMenu([MovieSearch share].genreMovie);
     
-    [DataManager shared].listMovieDelegate = self;
     self.lastListMovie = 0;
     
     // Config table view
     self.tbvListMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tbvListMovie.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
-    self.tbvListMovie.delegate = self;
-    self.tbvListMovie.dataSource = self;
     [self fixedTableViewScrollHeader];
     self.tbvListMovie.scrollEnabled = NO;
     
@@ -121,9 +119,8 @@
 }
 
 - (void)getListMovieShowOnBanner {
-    [[DataAccess share] listMovieLocalByTag:kShowMovieTop
-                                   andGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                    andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
+    [[DataAccess share] listMovieLocalForTopOnMainByTag:kShowMovieTop
+                                                andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
                                         if (success) {
                                             self.listMovieOnMain = [array mutableCopy];
                                             [self.bannerView reloadData];
@@ -133,6 +130,7 @@
 
 - (void)refreshData:(UIRefreshControl *)refreshControl {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[[Movie query] fetch] removeAll];
         [self requestRefreshListMovie];
         [NSThread sleepForTimeInterval:3];
     });
@@ -167,6 +165,7 @@
 }
 
 - (void)didTapHeader:(UITapGestureRecognizer *)recognizer {
+    [self.refreshControl endRefreshing];
     NSInteger section = recognizer.view.tag;
     
     [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][section]
@@ -219,7 +218,8 @@
     for (int i = 0; i < self.dictMenu.allKeys.count; i++) {
 
         // Not exist - Request server to get list
-        [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
+        [[ManageAPI share] loadListMovieAPI:kGenrePhimLe tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
+        [[ManageAPI share] loadListMovieAPI:kGenrePhimBo tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
     }
 }
 
@@ -237,7 +237,8 @@
                 ProgressBarShowLoading(kLoading);
                 
                 // Not exist - Request server to get list
-                [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
+                [[ManageAPI share] loadListMovieAPI:kGenrePhimLe tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
+                [[ManageAPI share] loadListMovieAPI:kGenrePhimBo tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
             }
         }];
     }
@@ -378,7 +379,7 @@
     [[DataAccess share] addListMovieToLocal:response];
     
     // Check last list category
-    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:NO]) {
+    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:YES]) {
         // Last list loaded
         ProgressBarDismissLoading(kEmptyString);
         self.lastListMovie = 0;
@@ -411,7 +412,7 @@
 
 - (void)lastList {
     // Check last list category
-    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:NO]) {
+    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:YES]) {
         
         [self.tbvListMovie reloadData];
         [self getListMovieShowOnBanner];
@@ -419,6 +420,14 @@
 }
 
 - (void)loadListMovieAPIFail:(NSString *)resultMessage {
+    DLOG(@"Load list movie fail: %@", resultMessage);
+    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:YES]) {
+        self.lastListMovie = 0;
+        [self endRefreshList];
+    } else {
+        self.lastListMovie +=1;
+    }
+    
     [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 

@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, PlayMovieTagTableView) {
 typedef NS_ENUM(NSInteger, ControllerTag) {
     kTagMainController = 1,
     kTagPlayController = 2,
-    kTimeOutIntervalSession = 60,
+    kTimeOutIntervalSession = 30,
     kTopConstantTableView = 386,
     kTopConstantTableViewIp6Plus = 186,
     kTopConstantTableViewIp6 = 170,
@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
     kTopConstantIp5 = 30,
     kTopConstantIp6 = 40,
     kTopConstantIp6Plus = 50,
-    kTopConstantIpad = 100,
+    kTopConstantIpad = 150,
     kLeadingConstantLogin = 30,
     kBottomConstantIpad = 120,
     kHeighSpaceImageLeftConstantIpad = 90,
@@ -84,7 +84,7 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
 };
 
 typedef NS_ENUM(NSInteger, ScrollConstant) {
-    kHeightContentViewScrollViewIpad = 6950,
+    kHeightContentViewScrollViewIpad = 7000,
     kHeightContentViewScrollViewIp4 = 7360,
     kHeightContentViewScrollViewIp5 = 7300,
     kHeightContentViewScrollViewIp6 = 7240,

@@ -37,6 +37,7 @@
 
 // Init movie from json
 + (Movie *)detailListMovieFromJSON:(NSDictionary *)json withTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie {
+
     Movie *newMovie = [Movie new];
     newMovie.movieID = [json objectForKey:kMovieId];
     newMovie.movieName = [Utilities nullToObject:json key:kMovieName andType:kTypeString];
@@ -59,7 +60,6 @@
 
 // Update information movie
 + (void)updateInformationMovieFromJSON:(NSDictionary *)json andMovie:(Movie *)movie {
-    
     // Information
     movie.movieID = movie.movieID;
     movie.movieName = [Utilities nullToObject:json key:kMovieName andType:kTypeString];

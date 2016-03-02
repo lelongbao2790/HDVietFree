@@ -33,6 +33,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [DataManager shared].searchMovieDelegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -52,7 +53,7 @@
 }
 
 - (void)configView {
-    [DataManager shared].searchMovieDelegate = self;
+    
     self.listResult = [[NSMutableArray alloc] init];
     [self initData];
     

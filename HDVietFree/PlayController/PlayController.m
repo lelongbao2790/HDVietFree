@@ -40,6 +40,9 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [DataManager shared].detailInfoMovieDelegate = self;
+    [DataManager shared].loadLinkPlayMovieDelegate = self;
+    [DataManager shared].allSeasonDelegate = self;
      NavigationMovieCustomController *navCustom = (NavigationMovieCustomController *)self.navigationController;
     [navCustom.txtSearch removeFromSuperview];
 
@@ -84,9 +87,7 @@
 - (void)configView {
     kPlayViewController = self;
     [Utilities fixAutolayoutWithDelegate:self];
-    [DataManager shared].detailInfoMovieDelegate = self;
-    [DataManager shared].loadLinkPlayMovieDelegate = self;
-    [DataManager shared].allSeasonDelegate = self;
+
     
     // Config table view
     self.imagePoster.layer.borderColor = [UIColor blackColor].CGColor;

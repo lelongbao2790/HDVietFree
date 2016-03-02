@@ -74,6 +74,40 @@
 }
 
 /*
+ * Get list movie local
+ */
+- (void)listMovieLocalForTopOnMainByTag:(NSString *)tagMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        // Download
+        NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
+        NSString *genre1 = stringFromInteger(3);
+        NSString *genre2 = stringFromInteger(kGenrePhimBo);
+        DBResultSet* r = [[[Movie query] whereWithFormat:@"tagMovie = %@ and genreMovie < %@ and pageNumber = %d", tagMovie, genre1, (int)page]
+                          fetch];
+        if (r.count > 0) {
+            for (Movie* newMovie in r) {
+                [listMovieLocal addObject:newMovie];
+            }
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (completionBlock) {
+                    completionBlock(YES, listMovieLocal);
+                }
+            });
+            
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (completionBlock) {
+                    completionBlock(NO, listMovieLocal);
+                }
+            });
+            
+        }
+    });
+}
+
+/*
  * Check exist data
  */
 - (void)checkExistDataMovieWithGenre:(NSString *)genreMovie andTag:(NSString *)tagMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock {
@@ -119,7 +153,6 @@
     if (r.count > 0)
         for (Movie *aMovie in r) {
             movieObj = aMovie;
-            break;
         }
     else
         movieObj = nil;
@@ -191,10 +224,10 @@
     
     // Get detail movie and init object movie
     for (NSDictionary *dictObjectMovie in listData) {
-        Movie *newMovie = [Movie detailListMovieFromJSON:dictObjectMovie
-                                                 withTag:listResponse[kTagMoviePosition]
-                                                andGenre:stringFromInteger(numberToInteger(listResponse[kGenreNumberPosition]))];
-        
+        Movie *newMovie = nil;
+        newMovie = [Movie detailListMovieFromJSON:dictObjectMovie
+                                          withTag:listResponse[kTagMoviePosition]
+                                         andGenre:stringFromInteger(numberToInteger(listResponse[kGenreNumberPosition]))];
         newMovie.pageNumber = numberToInteger(listResponse[kPageResponsePosition]);
         newMovie.totalRecord = numberToInteger(listResponse[kTotalRecordPosition]);
         [newMovie commit];

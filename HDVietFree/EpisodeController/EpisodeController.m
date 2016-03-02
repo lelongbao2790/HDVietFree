@@ -34,7 +34,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
+    [DataManager shared].allSeasonDelegate = self;
 }
 
 //*****************************************************************************
@@ -52,7 +52,7 @@
     self.collectionAllSeason.delegate = self;
     self.collectionEpisode.dataSource = self;
     self.collectionEpisode.delegate = self;
-    [DataManager shared].allSeasonDelegate = self;
+    
     
     [self configCollection];
 }

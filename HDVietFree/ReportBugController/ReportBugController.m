@@ -26,6 +26,10 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [DataManager shared].reportBugDelegate = self;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -37,7 +41,7 @@
 
 - (void)configView {
     // Init
-    [DataManager shared].reportBugDelegate = self;
+    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnView)];
     tapGesture.cancelsTouchesInView = NO;
     [[AppDelegate share].window addGestureRecognizer:tapGesture];

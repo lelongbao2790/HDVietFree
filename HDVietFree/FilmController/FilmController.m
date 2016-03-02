@@ -26,6 +26,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     // Check request list movie
+    [DataManager shared].listMovieDelegate = self;
     [self requestListMovieFromLocal];
 }
 
@@ -45,7 +46,7 @@
 - (void)configView {
     // Init
     kFilmViewController = self;
-    [DataManager shared].listMovieDelegate = self;
+    
     [self.collectionFilmController registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
     [self.collectionFilmController reloadData];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -139,6 +140,7 @@
 }
 
 - (void)requestGetListMovie:(NSInteger)nextPage {
+    ProgressBarShowLoading(kEmptyString);
     [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie
                                     tag:self.tagMovie
                                 andPage:nextPage];
@@ -169,7 +171,7 @@
  * Refresh list movie
  */
 - (void)refreshListMovieWithPage:(NSInteger)page {
-
+    
     if (self.previousPage != page) {
         [self addNextListMovie:page];
         

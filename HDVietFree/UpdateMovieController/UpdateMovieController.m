@@ -27,7 +27,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)viewWillAppear:(BOOL)animated {
+    [DataManager shared].listMovieDelegate = self;
+}
 
 //*****************************************************************************
 #pragma mark -
@@ -38,7 +40,7 @@
  */
 - (void)configView {
     [self updateTotalMovie];
-    [DataManager shared].listMovieDelegate = self;
+    
     self.title = [kUpdateData uppercaseString];
      self.dictMenu = getDictTitleMenu([MovieSearch share].genreMovie);
 }

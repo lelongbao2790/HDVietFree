@@ -62,7 +62,9 @@
      JASidePanelController *jasidePanel =  self.window.rootViewController;
     if ([jasidePanel respondsToSelector:@selector(centerPanel)]) {
         NavigationMovieCustomController *nav = (NavigationMovieCustomController *)jasidePanel.centerPanel;
-        [Utilities resumeMovieInFrontGround:[nav getChildRootViewController]];
+        if ([nav isKindOfClass:[NavigationMovieCustomController class]]) {
+            [Utilities resumeMovieInFrontGround:[nav getChildRootViewController]];
+        }
     }
     
 }
