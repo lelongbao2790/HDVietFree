@@ -182,7 +182,6 @@
     
     else {
         [MovieSearch share].genreMovie = kGenrePhimLe;
-        [[AppDelegate share].mainController.tbvListMovie reloadData];
         [AppDelegate share].mainPanel.centerPanel = [[NavigationMovieCustomController alloc] initWithRootViewController:[AppDelegate share].mainController];
         [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
     }

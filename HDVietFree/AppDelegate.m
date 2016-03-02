@@ -59,7 +59,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     
-     JASidePanelController *jasidePanel =  self.window.rootViewController;
+     JASidePanelController *jasidePanel = (JASidePanelController *)self.window.rootViewController;
     if ([jasidePanel respondsToSelector:@selector(centerPanel)]) {
         NavigationMovieCustomController *nav = (NavigationMovieCustomController *)jasidePanel.centerPanel;
         if ([nav isKindOfClass:[NavigationMovieCustomController class]]) {

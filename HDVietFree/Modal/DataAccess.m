@@ -82,7 +82,6 @@
         // Download
         NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
         NSString *genre1 = stringFromInteger(3);
-        NSString *genre2 = stringFromInteger(kGenrePhimBo);
         DBResultSet* r = [[[Movie query] whereWithFormat:@"tagMovie = %@ and genreMovie < %@ and pageNumber = %d", tagMovie, genre1, (int)page]
                           fetch];
         if (r.count > 0) {
