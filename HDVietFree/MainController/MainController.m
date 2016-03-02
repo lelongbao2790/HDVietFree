@@ -46,8 +46,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     // Hidden navigation bar
     [DataManager shared].listMovieDelegate = self;
-    self.tbvListMovie.delegate = self;
-    self.tbvListMovie.dataSource = self;
     [self getListMovieShowOnBanner];
     [self.navigationController.navigationBar setHidden:NO];
 }
@@ -74,6 +72,8 @@
     // Config table view
     self.tbvListMovie.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tbvListMovie.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.tbvListMovie.delegate = self;
+    self.tbvListMovie.dataSource = self;
     [self setAutomaticallyAdjustsScrollViewInsets:NO];
     [self fixedTableViewScrollHeader];
     self.tbvListMovie.scrollEnabled = NO;

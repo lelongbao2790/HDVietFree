@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstant;
 @property (strong, nonatomic) InformationController *infor;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csBottomButtonPlay;
+@property (weak, nonatomic) IBOutlet UIButton *btnRetry;
 @property (strong, nonatomic) EpisodeController *episodeController;
 
 @end
@@ -88,7 +89,6 @@
     kPlayViewController = self;
     [Utilities fixAutolayoutWithDelegate:self];
 
-    
     // Config table view
     self.imagePoster.layer.borderColor = [UIColor blackColor].CGColor;
     self.imagePoster.layer.borderWidth = 1.0;
@@ -173,11 +173,18 @@
     
     [self initEpisodeBarButton];
 }
+- (IBAction)btnRetry:(id)sender {
+    ProgressBarShowLoading(kLoading);
+    [self updateUIImageAvatar:[UIImage imageNamed:kNoBannerImage]];
+    [[ManageAPI share] loadDetailInfoMovieAPI:self.movie];
+    self.btnRetry.hidden = YES;
+}
 
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Detail Information Movie Delegate **
 - (void)loadDetailInformationMovieAPISuccess:(NSDictionary *)response {
+    self.btnRetry.hidden = YES;
     ProgressBarDismissLoading(kEmptyString);
     DLOG(@"Load detail information api success");
     if (![response isKindOfClass:[NSNull class]]) {
@@ -190,6 +197,7 @@
 }
 
 - (void)loadDetailInformationMovieAPIFail:(NSString *)resultMessage {
+    self.btnRetry.hidden = NO;
     DLOG(@"Load detail information api fail");
     [Utilities showiToastMessage:@"Lấy thông tin film không thành công."];
     [Utilities loadServerFail:self withResultMessage:resultMessage];
