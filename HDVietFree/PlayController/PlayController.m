@@ -208,6 +208,7 @@
 #pragma mark - ** Load Link Movie Delegate **
 
 - (void)loadLinkPlayMovieAPISuccess:(NSDictionary *)response {
+    DLOG(@"Load link play api success");
     if (![response isKindOfClass:[NSNull class]]) {
         NSString *linkPlay = [response objectForKey:kLinkPlay];
         NSString *linkSub = [[[response objectForKey:kSubtitleExt]
@@ -273,6 +274,7 @@
 }
 
 - (void)loadLinkPlayMovieAPIFail:(NSString *)resultMessage {
+    DLOG(@"Load link play api fail");
     [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 
