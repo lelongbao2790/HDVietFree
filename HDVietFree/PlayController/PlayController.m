@@ -226,6 +226,7 @@
                 linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
             }
             self.movie.urlLinkPlayMovie = linkPlay;
+            [PlayMovieController share].channelTv = nil;
             [PlayMovieController share].epiNumber = self.epiNumber;
             [PlayMovieController share].aMovie = self.movie;
             NSTimeInterval timePlay = [Utilities readContentFromFile:[NSString stringWithFormat:@"%@_%d",self.movie.movieID,(int)self.epiNumber]];

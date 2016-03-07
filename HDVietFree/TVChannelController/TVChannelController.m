@@ -142,6 +142,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
      NSArray *valueChannel = self.dictChannel.allValues[indexPath.section];
+    [PlayMovieController share].aMovie = nil;
     [PlayMovieController share].channelTv = valueChannel[indexPath.row];
     [PlayMovieController share].timePlayMovie = 0;
     [[PlayMovieController share] playMovieWithController:self];
