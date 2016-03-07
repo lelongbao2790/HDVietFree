@@ -639,13 +639,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="2" id="5Km-Vq-uOe">
                                     <size key="itemSize" width="212" height="100"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TVChannelCellIdentifier" id="IUA-1y-BRL" customClass="TVChannelCell">
-                                        <rect key="frame" x="4" y="0.0" width="212" height="100"/>
+                                        <rect key="frame" x="4" y="50" width="212" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="212" height="100"/>
@@ -677,6 +677,10 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="header" id="ZM3-cf-m2T">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="ITE-9u-5B7" id="6VO-PU-aPc"/>
                                     <outlet property="delegate" destination="ITE-9u-5B7" id="wSm-F2-RJd"/>

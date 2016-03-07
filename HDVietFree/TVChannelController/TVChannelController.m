@@ -10,7 +10,7 @@
 
 @interface TVChannelController ()<TVChannelDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionChannel;
-@property (strong, nonatomic) NSArray *listChannel;
+@property (strong, nonatomic) NSMutableDictionary *dictChannel;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
@@ -41,8 +41,10 @@
 - (void)config {
     self.title = @"KÊNH TIVI";
      [self.collectionChannel registerClass:[TVChannelCell class] forCellWithReuseIdentifier:kTVChannelCell];
+    [self.collectionChannel registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
      self.automaticallyAdjustsScrollViewInsets = NO;
     [self addRefreshController];
+    self.dictChannel = [[NSMutableDictionary alloc] init];
 }
 
 - (void)requestListChannelFromLocal {
@@ -56,8 +58,31 @@
     }
 }
 
+- (void)separateChannelToGroup {
+    NSArray *listChannel = [[[DataAccess share] getListChannelLocal] mutableCopy];
+    NSMutableArray *htvArray = [[NSMutableArray alloc] init];
+    NSMutableArray *vtvArray = [[NSMutableArray alloc] init];
+    NSMutableArray *generalArray = [[NSMutableArray alloc] init];
+    if (listChannel.count > 0) {
+        for (TVChannel *channel in listChannel) {
+            if ([channel.nameChannel containsString:kHTV]) {
+                [htvArray addObject:channel];
+            } else if ([channel.nameChannel containsString:kVT]) {
+                [vtvArray addObject:channel];
+            } else {
+                [generalArray addObject:channel];
+            }
+        }
+    }
+    [self.dictChannel removeAllObjects];
+    [self.dictChannel setObject:htvArray forKey:kKenhHTV];
+    [self.dictChannel setObject:vtvArray forKey:kKenhVTV];
+    [self.dictChannel setObject:generalArray forKey:kKenhTongHop];
+    
+}
+
 - (void)reloadList {
-    self.listChannel = [[[DataAccess share] getListChannelLocal] mutableCopy];
+    [self separateChannelToGroup];
     [self.collectionChannel reloadData];
 }
 
@@ -81,17 +106,19 @@
 
 #pragma mark <UICollectionViewDataSource>
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    return self.dictChannel.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.listChannel.count;
+    NSArray *valueChannel = self.dictChannel.allValues[section];
+    return valueChannel.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     // Configure the cell
     TVChannelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TVChannelCellIdentifier" forIndexPath:indexPath];
-    cell.tvChannel = self.listChannel[indexPath.row];
+    NSArray *valueChannel = self.dictChannel.allValues[indexPath.section];
+    cell.tvChannel = valueChannel[indexPath.row];
     [cell loadInformation];
     return cell;
 }
@@ -114,11 +141,45 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [PlayMovieController share].channelTv = self.listChannel[indexPath.row];
+     NSArray *valueChannel = self.dictChannel.allValues[indexPath.section];
+    [PlayMovieController share].channelTv = valueChannel[indexPath.row];
     [PlayMovieController share].timePlayMovie = 0;
     [[PlayMovieController share] playMovieWithController:self];
 }
 
+- (UICollectionReusableView *)collectionView:(UICollectionView *)theCollectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)theIndexPath
+{
+    
+    UICollectionReusableView *theView;
+    
+    if(kind == UICollectionElementKindSectionHeader)
+    {
+        theView = [theCollectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:theIndexPath];
+        [self addViewHeader:theView atIndexPath:theIndexPath];
+    }
+    
+    return theView;
+}
+
+- (void)addViewHeader:(UICollectionReusableView *)view atIndexPath:(NSIndexPath *)indexPath {
+    [self removeSubviewsOfView:view];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 4, 150, 40)];
+    headerLabel.text = self.dictChannel.allKeys[indexPath.section];
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.font = [UIFont boldSystemFontOfSize:kFontSize17];
+    headerLabel.textAlignment = NSTextAlignmentLeft;
+    [view addSubview:headerLabel];
+}
+
+- (void)removeSubviewsOfView:(UIView *)view
+{
+    NSArray *subViews = [view subviews];
+    for(UIView *view in subViews)
+    {
+        [view removeFromSuperview];
+    }
+}
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** TV Channel Delegate **

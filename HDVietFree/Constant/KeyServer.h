@@ -91,6 +91,13 @@
 #define kTag @"tag"
 #define kPage @"page"
 #define kShowMovieTop @"moi-cap-nhat"
+#define kHTV @"HTV"
+#define kVT @"VT"
+#define kGeneral @"General"
+
+#define kKenhHTV @"Kênh HTV"
+#define kKenhVTV @"Kênh VTV, VTC"
+#define kKenhTongHop @"Kênh Tổng Hợp"
 
 // Request header
 #define kHTTPHeaderApplication @"application/json"
