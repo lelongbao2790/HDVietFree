@@ -42,6 +42,24 @@
 }
 
 /*
+ * Get list channel
+ */
+- (NSArray *)getListChannelLocal {
+    NSMutableArray *listChannel = [[NSMutableArray alloc] init];
+    DBResultSet* r = [[TVChannel query] fetch];
+    if (r.count > 0) {
+        for (TVChannel* newChannel in r) {
+            [listChannel addObject:newChannel];
+        }
+        
+        return listChannel;
+        
+    } else {
+        return nil;
+    }
+}
+
+/*
  * Get list movie local
  */
 - (void)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock {

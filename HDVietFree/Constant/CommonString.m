@@ -160,6 +160,11 @@ NSString *const kBugDescription = @"entry.1561439694=%@";
 NSString *const kReportString = @"Report lỗi";
 
 /**
+ * Watch tv
+ */
+NSString *const kWatchTV = @"Xem tivi";
+
+/**
  * Bug description
  */
 NSString *const kCellEpisodeIdentifier = @"cellEpisode";

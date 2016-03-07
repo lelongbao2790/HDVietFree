@@ -9,7 +9,7 @@
 #import "DataManager.h"
 
 @implementation DataManager
-@synthesize loginDelegate, listMovieDelegate, detailInfoMovieDelegate, loadLinkPlayMovieDelegate, searchMovieDelegate, reportBugDelegate, allSeasonDelegate;
+@synthesize loginDelegate, listMovieDelegate, detailInfoMovieDelegate, loadLinkPlayMovieDelegate, searchMovieDelegate, reportBugDelegate, allSeasonDelegate, tvChannelDelegate;
 
 //*****************************************************************************
 #pragma mark -
@@ -335,6 +335,45 @@
         }
         
     }];
+}
+
+/*
+ * Get all tv channel
+ *
+ * @param strUrl url string request
+ */
+- (void)getALlTVChannel:(NSString *)requestData {
+
+//    [self.manager.requestSerializer setValue:kHTTPHeaderContentTypeValue forHTTPHeaderField:kHTTPHeaderContentType];
+//    [self.manager.requestSerializer setValue:kHTTPHeaderAuthorizationValue forHTTPHeaderField:kHTTPHeaderAuthorization];
+////    [self.manager.requestSerializer setValue:kHTTPHeaderUserAgentValue forHTTPHeaderField:kHTTPHeaderUserAgent];
+//    [self.manager POST:kUrlTvChannelHTVOnline parameters:requestData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        [tvChannelDelegate getAllTVChannelAPISuccess:responseObject];
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [tvChannelDelegate getAllTVChannelAPIFail:[error localizedDescription]];
+//    }];
+
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:kUrlTvChannelHTVOnline]
+                                                           cachePolicy:NSURLRequestReloadIgnoringCacheData  timeoutInterval:10];
+    
+    [request setHTTPMethod:kPostMethod];
+    [request setValue: kHTTPHeaderContentTypeValue forHTTPHeaderField:kHTTPHeaderContentType];
+    [request setValue: kHTTPHeaderAuthorizationValue forHTTPHeaderField:kHTTPHeaderAuthorization];
+    [request setValue: kHTTPHeaderUserAgentValue forHTTPHeaderField:kHTTPHeaderUserAgent];
+    [request setHTTPBody:[requestData dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    op.responseSerializer = [AFJSONResponseSerializer serializer];
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [tvChannelDelegate getAllTVChannelAPISuccess:responseObject];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [tvChannelDelegate getAllTVChannelAPIFail:[error localizedDescription]];
+        
+    }];
+    [op start];
 }
 
 

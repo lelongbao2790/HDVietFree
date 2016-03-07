@@ -158,6 +158,16 @@
         [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
         [[AppDelegate share].window makeKeyAndVisible];
     }
+    
+    else if ([stringValue isEqualToString:kWatchTV]) {
+        // Report
+        [self resetExpandTableView];
+        TVChannelController *tvChannelController = [AppDelegate share].tvChannelController;
+        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:tvChannelController];
+        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+        [[AppDelegate share].window makeKeyAndVisible];
+    }
+
 
     else if ([stringValue isEqualToString:kUpdateData]) {
         // Update data movie

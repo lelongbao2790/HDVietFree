@@ -63,4 +63,8 @@ extern NSString *const kUpdateMovieController;
 
 extern NSString *const kReportBugController;
 
+extern NSString *const kTVChannelController;
+
+extern NSString *const kTVChannelCell;
+
 @end

@@ -7,12 +7,13 @@
 //
 
 #import <MediaPlayer/MediaPlayer.h>
-
+@class TVChannel;
 @interface PlayMovieController : MPMoviePlayerViewController
 
 + (nonnull PlayMovieController *)share;
 
 @property (strong, nonatomic) Movie *aMovie;
+@property (strong, nonatomic) TVChannel *channelTv;
 @property (assign, nonatomic) NSInteger epiNumber;
 @property (assign, nonatomic) NSTimeInterval timePlayMovie;
 

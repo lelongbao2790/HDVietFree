@@ -98,6 +98,7 @@ void HandleException(NSException *exception) {
 - (void)initController {
     self.reportBugController = InitStoryBoardWithIdentifier(kReportBugController);
     self.updateMovieController = InitStoryBoardWithIdentifier(kUpdateMovieController);
+    self.tvChannelController = InitStoryBoardWithIdentifier(kTVChannelController);
 }
 
 - (void)connectLocalDatabase {

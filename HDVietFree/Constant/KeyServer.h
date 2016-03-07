@@ -67,6 +67,13 @@
 #define kDocSeason @"mo_season"
 #define kDocs @"docs"
 
+// Channel
+#define kName @"name"
+#define kImage @"image"
+#define kIntroText @"intro_text"
+#define kLinkm3u8 @"mp3u8_link"
+#define kLinkPlayChannel @"link_play"
+
 // Response server
 #define kE @"e"
 #define kR @"r"
@@ -89,7 +96,15 @@
 #define kHTTPHeaderApplication @"application/json"
 #define kHTTPHeaderAccessToken @"Access-Token"
 #define kHTTPHeaderContentType @"Content-Type"
+#define kHTTPHeaderContentTypeValue @"application/x-www-form-urlencoded"
+#define kHTTPHeaderAuthorization @"Authorization"
+#define kHTTPHeaderAuthorizationValue @"Basic YXBpaGF5aGF5dHY6NDUlJDY2N0Bk"
+#define kHTTPHeaderUserAgent @"User-Agent"
+#define kHTTPHeaderUserAgentValue @"Apache-HttpClient/UNAVAILABLE (java 1.4)"
 #define kHTTPHeaderValue @"application/x-www-form-urlencoded; charset=utf-8"
 #define kPostMethod @"POST"
+
+// Body request htvonline
+#define kRequestChannelHtvOnline @"request={\"pageCount\":200,\"category_id\":\"-1\",\"startIndex\":0}"
 
 #endif /* KeyServer_h */

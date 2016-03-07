@@ -63,4 +63,9 @@ NSString *const kUpdateMovieController = @"UpdateMovieController";
 
 NSString *const kReportBugController = @"ReportBugController";
 
+
+NSString *const kTVChannelController = @"TVChannelController";
+
+NSString *const kTVChannelCell = @"TVChannelCell";
+
 @end

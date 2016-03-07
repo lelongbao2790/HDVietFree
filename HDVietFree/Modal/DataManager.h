@@ -20,6 +20,7 @@ typedef void (^completionDownload)(BOOL success, UIImage * image);
      NSObject<SearchMovieDelegate> *searchMovieDelegate;
      NSObject<ReportBugDelegate> *reportBugDelegate;
      NSObject<AllSeasonDelegate> *allSeasonDelegate;
+     NSObject<TVChannelDelegate> *tvChannelDelegate;
 }
 // Init request operation manager
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
@@ -33,6 +34,7 @@ typedef void (^completionDownload)(BOOL success, UIImage * image);
 @property (strong, nonatomic) NSObject *searchMovieDelegate;
 @property (strong, nonatomic) NSObject *reportBugDelegate;
 @property (strong, nonatomic) NSObject *allSeasonDelegate;
+@property (strong, nonatomic) NSObject *tvChannelDelegate;
 //*****************************************************************************
 #pragma mark -
 #pragma mark ** Singleton object **
@@ -96,5 +98,12 @@ typedef void (^completionDownload)(BOOL success, UIImage * image);
  * @param strUrl url string request
  */
 - (void)getAllSeasonMovieUrl:(NSString *)strUrl;
+
+/*
+ * Get all tv channel
+ *
+ * @param strUrl url string request
+ */
+- (void)getALlTVChannel:(NSString *)requestData;
 
 @end

@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background@1x" translatesAutoresizingMaskIntoConstraints="NO" id="MkP-I6-Ui7">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="MkP-I6-Ui7">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VBJ-0j-C0L">
@@ -611,6 +611,102 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p0J-fZ-hNM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1911" y="373"/>
+        </scene>
+        <!--Channel Controller-->
+        <scene sceneID="M1j-kI-APD">
+            <objects>
+                <viewController storyboardIdentifier="TVChannelController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ITE-9u-5B7" customClass="TVChannelController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uWJ-9k-2D9"/>
+                        <viewControllerLayoutGuide type="bottom" id="Oyq-t3-VK3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iea-wx-VRk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="s2J-tu-4vv">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pPR-cO-f9y" userLabel="Line">
+                                <rect key="frame" x="0.0" y="64" width="600" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="JgO-jN-6JC"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="21R-vd-ZmU">
+                                <rect key="frame" x="0.0" y="66" width="600" height="534"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="2" id="5Km-Vq-uOe">
+                                    <size key="itemSize" width="212" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TVChannelCellIdentifier" id="IUA-1y-BRL" customClass="TVChannelCell">
+                                        <rect key="frame" x="4" y="0.0" width="212" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="212" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fAq-Z0-7yi">
+                                                    <rect key="frame" x="0.0" y="0.0" width="212" height="100"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Noi-s7-rp9">
+                                                    <rect key="frame" x="0.0" y="0.0" width="212" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="fAq-Z0-7yi" firstAttribute="top" secondItem="IUA-1y-BRL" secondAttribute="topMargin" constant="-8" id="058-EX-eLX"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="fAq-Z0-7yi" secondAttribute="trailing" constant="-8" id="7iA-Iq-8Kv"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="Noi-s7-rp9" secondAttribute="trailing" constant="-8" id="AsH-eB-O63"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="Noi-s7-rp9" secondAttribute="bottom" constant="-8" id="HV9-eB-w6z"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="fAq-Z0-7yi" secondAttribute="bottom" constant="-8" id="MUS-Gb-7PG"/>
+                                            <constraint firstItem="Noi-s7-rp9" firstAttribute="leading" secondItem="IUA-1y-BRL" secondAttribute="leadingMargin" constant="-8" id="XPI-ss-Sr1"/>
+                                            <constraint firstItem="Noi-s7-rp9" firstAttribute="top" secondItem="IUA-1y-BRL" secondAttribute="topMargin" constant="-8" id="Zuw-Bx-Edf"/>
+                                            <constraint firstItem="fAq-Z0-7yi" firstAttribute="leading" secondItem="IUA-1y-BRL" secondAttribute="leadingMargin" constant="-8" id="cmI-MP-iyL"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageChannel" destination="Noi-s7-rp9" id="y8U-Ro-QuB"/>
+                                            <outlet property="subviewCell" destination="fAq-Z0-7yi" id="Qpl-Xh-MmN"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="ITE-9u-5B7" id="6VO-PU-aPc"/>
+                                    <outlet property="delegate" destination="ITE-9u-5B7" id="wSm-F2-RJd"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Oyq-t3-VK3" firstAttribute="top" secondItem="s2J-tu-4vv" secondAttribute="bottom" id="1ho-Op-eGS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pPR-cO-f9y" secondAttribute="trailing" constant="-20" id="Cha-83-tF4"/>
+                            <constraint firstItem="s2J-tu-4vv" firstAttribute="top" secondItem="iea-wx-VRk" secondAttribute="topMargin" id="Mw6-XZ-uZT"/>
+                            <constraint firstItem="Oyq-t3-VK3" firstAttribute="top" secondItem="21R-vd-ZmU" secondAttribute="bottom" id="Nb3-QL-aU4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="21R-vd-ZmU" secondAttribute="trailing" constant="-20" id="cD5-HO-T8u"/>
+                            <constraint firstItem="21R-vd-ZmU" firstAttribute="top" secondItem="pPR-cO-f9y" secondAttribute="bottom" constant="1" id="cHp-Re-beH"/>
+                            <constraint firstItem="pPR-cO-f9y" firstAttribute="top" secondItem="uWJ-9k-2D9" secondAttribute="bottom" id="fSD-ND-M8S"/>
+                            <constraint firstItem="s2J-tu-4vv" firstAttribute="leading" secondItem="iea-wx-VRk" secondAttribute="leadingMargin" constant="-20" id="flb-gw-o8B"/>
+                            <constraint firstItem="pPR-cO-f9y" firstAttribute="leading" secondItem="iea-wx-VRk" secondAttribute="leadingMargin" constant="-20" id="rtT-KO-0ak"/>
+                            <constraint firstItem="21R-vd-ZmU" firstAttribute="leading" secondItem="iea-wx-VRk" secondAttribute="leadingMargin" constant="-20" id="tYH-54-eVB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="s2J-tu-4vv" secondAttribute="trailing" constant="-20" id="vY6-R9-4Nc"/>
+                        </constraints>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="collectionChannel" destination="21R-vd-ZmU" id="Lqy-bc-U3y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3TJ-Ox-Q9N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1823" y="1129"/>
         </scene>
         <!--Film Controller-->
         <scene sceneID="PDz-17-2Ma">
@@ -1346,7 +1442,6 @@
     </scenes>
     <resources>
         <image name="background.png" width="1536" height="2048"/>
-        <image name="background@1x" width="320" height="568"/>
         <image name="button_active.png" width="402" height="53"/>
         <image name="hdviet_no_image.png" width="157" height="254"/>
         <image name="ic_launcher.png" width="114" height="114"/>

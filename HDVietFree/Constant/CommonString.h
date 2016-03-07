@@ -162,6 +162,11 @@ extern NSString *const kBugDescription;
 extern NSString *const kReportString ;
 
 /**
+ * Watch tv
+ */
+extern NSString *const kWatchTV;
+
+/**
  * Bug description
  */
 extern NSString *const kCellEpisodeIdentifier;

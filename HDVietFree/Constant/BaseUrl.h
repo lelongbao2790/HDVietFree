@@ -16,6 +16,7 @@
 #define kUrlImagePosterHdViet @"http://t.hdviet.com/thumbs/origins/%@"
 #define kUrlImageBannerHdViet @"http://t.hdviet.com/backdrops/origins/%@"
 #define kUrlHttpTHdViet @"t.hdviet.com"
+#define kUrlTvChannelHTVOnline @"http://api.htvonline.com.vn/tv_channels"
 
 // List api
 #define kUrlAllSeason @"movie/getallseason?movieid=%@"

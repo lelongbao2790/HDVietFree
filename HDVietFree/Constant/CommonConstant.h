@@ -18,7 +18,8 @@
 @"Cập nhập dữ liệu", [NSNumber numberWithInteger:3], \
 @"Trang chủ", [NSNumber numberWithInteger:4], \
 @"Report lỗi", [NSNumber numberWithInteger:5], \
-@"Đăng xuất", [NSNumber numberWithInteger:6], nil]
+@"Xem tivi", [NSNumber numberWithInteger:6], \
+@"Đăng xuất", [NSNumber numberWithInteger:7], nil]
 
 #define kConsoleLog @"console.log"
 #define kCrashTitle @"Crash Log"
@@ -30,7 +31,8 @@
 [NSArray arrayWithObjects: @"update_icon.png", @"update_select_icon.png",nil], [NSNumber numberWithInteger:3], \
 [NSArray arrayWithObjects: @"home_icon.png", @"home__select_icon.png",nil], [NSNumber numberWithInteger:4], \
 [NSArray arrayWithObjects: @"report_icon.png", @"report_select_icon.png",nil], [NSNumber numberWithInteger:5], \
-[NSArray arrayWithObjects: @"logout_icon.png", @"logout_select_icon.png",nil], [NSNumber numberWithInteger:6], nil]
+[NSArray arrayWithObjects: @"tv_icon.png", @"tv_icon.png",nil], [NSNumber numberWithInteger:6], \
+[NSArray arrayWithObjects: @"logout_icon.png", @"logout_select_icon.png",nil], [NSNumber numberWithInteger:7], nil]
 
 // Dict for main menu
 

@@ -14,6 +14,10 @@
 #define sizeCellFilmIp6 CGSizeMake(170, 297)
 #define sizeCellFilmIp6Plus CGSizeMake(188, 315)
 
+#define sizeCellChannelIp5 CGSizeMake(156, 100)
+#define sizeCellChannelIp6 CGSizeMake(185, 100)
+#define sizeCellChannelIp6Plus CGSizeMake(196, 100)
+
 #define kFontSize15 15
 #define kFontSize17 17
 #define kFontSize20 24

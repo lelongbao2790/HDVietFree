@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UpdateMovieController.h"
 #import "ReportBugController.h"
-
+#import "TVChannelController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 //*****************************************************************************
@@ -27,5 +27,6 @@
 @property (strong, nonatomic) LoginController *loginController;
 @property (strong, nonatomic) UpdateMovieController *updateMovieController;
 @property (strong, nonatomic) ReportBugController *reportBugController;
+@property (strong, nonatomic) TVChannelController *tvChannelController;
 @end
 

@@ -73,4 +73,13 @@
 -(void) getAllSeasonAPIFail:(NSString *)resultMessage;
 @end
 
+/*
+ * Load detail information movie
+ */
+@protocol TVChannelDelegate
+@optional
+-(void) getAllTVChannelAPISuccess:(NSDictionary *)response;
+-(void) getAllTVChannelAPIFail:(NSString *)resultMessage;
+@end
+
 #endif /* UIDelegate_h */

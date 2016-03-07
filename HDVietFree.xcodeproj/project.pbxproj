@@ -68,6 +68,11 @@
 		D38CBE771C51D7AC00084126 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE761C51D7AC00084126 /* PlayController.m */; };
 		D38CBE791C51D83A00084126 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38CBE781C51D83A00084126 /* MediaPlayer.framework */; };
 		D38CBE7F1C51DFD400084126 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE7E1C51DFD400084126 /* NSString+MD5.m */; };
+		D38D39291C8D2AE1004B6BA9 /* TVChannelController.m in Sources */ = {isa = PBXBuildFile; fileRef = D38D39281C8D2AE1004B6BA9 /* TVChannelController.m */; };
+		D38D392C1C8D2B4F004B6BA9 /* TVChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D38D392B1C8D2B4E004B6BA9 /* TVChannelCell.m */; };
+		D38D392F1C8D2BF2004B6BA9 /* TVChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D38D392E1C8D2BF2004B6BA9 /* TVChannel.m */; };
+		D38D39311C8D6A56004B6BA9 /* htvlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = D38D39301C8D6A56004B6BA9 /* htvlogo.png */; };
+		D38D39331C8D6CE2004B6BA9 /* tv_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D38D39321C8D6CE2004B6BA9 /* tv_icon.png */; };
 		D3AC46941C7C449B000490AB /* play_icon_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AC46931C7C449B000490AB /* play_icon_white.png */; };
 		D3AC469A1C7D8954000490AB /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AC46991C7D8954000490AB /* banner.png */; };
 		D3AC469E1C7D8C2E000490AB /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC469D1C7D8C2E000490AB /* iCarousel.m */; };
@@ -252,6 +257,14 @@
 		D38CBE781C51D83A00084126 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D38CBE7D1C51DFD400084126 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "Category/NSString+MD5.h"; sourceTree = "<group>"; };
 		D38CBE7E1C51DFD400084126 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MD5.m"; path = "Category/NSString+MD5.m"; sourceTree = "<group>"; };
+		D38D39271C8D2AE1004B6BA9 /* TVChannelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TVChannelController.h; path = TVChannelController/TVChannelController.h; sourceTree = "<group>"; };
+		D38D39281C8D2AE1004B6BA9 /* TVChannelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TVChannelController.m; path = TVChannelController/TVChannelController.m; sourceTree = "<group>"; };
+		D38D392A1C8D2B4E004B6BA9 /* TVChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TVChannelCell.h; path = TVChannelController/TVChannelCell.h; sourceTree = "<group>"; };
+		D38D392B1C8D2B4E004B6BA9 /* TVChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TVChannelCell.m; path = TVChannelController/TVChannelCell.m; sourceTree = "<group>"; };
+		D38D392D1C8D2BF2004B6BA9 /* TVChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TVChannel.h; path = Modal/TVChannel.h; sourceTree = "<group>"; };
+		D38D392E1C8D2BF2004B6BA9 /* TVChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TVChannel.m; path = Modal/TVChannel.m; sourceTree = "<group>"; };
+		D38D39301C8D6A56004B6BA9 /* htvlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = htvlogo.png; sourceTree = "<group>"; };
+		D38D39321C8D6CE2004B6BA9 /* tv_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tv_icon.png; sourceTree = "<group>"; };
 		D3AC46931C7C449B000490AB /* play_icon_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_icon_white.png; sourceTree = "<group>"; };
 		D3AC46991C7D8954000490AB /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
 		D3AC469C1C7D8C2E000490AB /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
@@ -395,6 +408,8 @@
 				D36579231C55F38E00F51DA3 /* ManageAPI.m */,
 				D36579461C58574A00F51DA3 /* DataAccess.h */,
 				D36579471C58574A00F51DA3 /* DataAccess.m */,
+				D38D392D1C8D2BF2004B6BA9 /* TVChannel.h */,
+				D38D392E1C8D2BF2004B6BA9 /* TVChannel.m */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -648,6 +663,17 @@
 			name = Config;
 			sourceTree = "<group>";
 		};
+		D38D39261C8D2AAC004B6BA9 /* TVChannelController */ = {
+			isa = PBXGroup;
+			children = (
+				D38D39271C8D2AE1004B6BA9 /* TVChannelController.h */,
+				D38D39281C8D2AE1004B6BA9 /* TVChannelController.m */,
+				D38D392A1C8D2B4E004B6BA9 /* TVChannelCell.h */,
+				D38D392B1C8D2B4E004B6BA9 /* TVChannelCell.m */,
+			);
+			name = TVChannelController;
+			sourceTree = "<group>";
+		};
 		D3AC46831C7ADEF9000490AB /* UIImageLoader */ = {
 			isa = PBXGroup;
 			children = (
@@ -754,6 +780,8 @@
 		D3EA87DF1C50C72000D593A1 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				D38D39301C8D6A56004B6BA9 /* htvlogo.png */,
+				D38D39321C8D6CE2004B6BA9 /* tv_icon.png */,
 				D3AC46AA1C7EE961000490AB /* star_icon.png */,
 				D3AC46A81C7EC4D5000490AB /* background.png */,
 				D3AC46A61C7EB6BE000490AB /* youtube.png */,
@@ -810,6 +838,7 @@
 		D3EA87E21C50C74900D593A1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D38D39261C8D2AAC004B6BA9 /* TVChannelController */,
 				D3DF762C1C74493E00CF6C52 /* ReportBugController */,
 				D35C601C1C718A3E0026A710 /* UpdateMovieController */,
 				D36579731C61E36100F51DA3 /* EpisodeController */,
@@ -968,7 +997,9 @@
 				D36579611C5F3F5F00F51DA3 /* search_icon.png in Resources */,
 				D3EA87AF1C50BF6200D593A1 /* Assets.xcassets in Resources */,
 				D3EA87AD1C50BF6200D593A1 /* Main.storyboard in Resources */,
+				D38D39311C8D6A56004B6BA9 /* htvlogo.png in Resources */,
 				D3EA87D61C50C1B300D593A1 /* loading_bg.png in Resources */,
+				D38D39331C8D6CE2004B6BA9 /* tv_icon.png in Resources */,
 				D3DF762B1C74465800CF6C52 /* report_icon.png in Resources */,
 				D3DF75ED1C72F5D300CF6C52 /* update_icon.png in Resources */,
 				D3C4A9661C76EABF0057B7F9 /* hdviet_banner.png in Resources */,
@@ -1019,6 +1050,7 @@
 				D32916E11C55B7DF00CE46B6 /* UIWebView+AFNetworking.m in Sources */,
 				D32916D11C55B7DF00CE46B6 /* AFHTTPSessionManager.m in Sources */,
 				D36579391C5616D000F51DA3 /* DetailMovieCell.m in Sources */,
+				D38D392F1C8D2BF2004B6BA9 /* TVChannel.m in Sources */,
 				D32916A41C55B76700CE46B6 /* iToast.m in Sources */,
 				D32916D21C55B7DF00CE46B6 /* AFNetworkReachabilityManager.m in Sources */,
 				D32916CF1C55B7DF00CE46B6 /* AFHTTPRequestOperation.m in Sources */,
@@ -1050,10 +1082,12 @@
 				D32916DC1C55B7DF00CE46B6 /* UIAlertView+AFNetworking.m in Sources */,
 				D3DF76341C757B5600CF6C52 /* NSObject+Associating.m in Sources */,
 				D36579651C5F40A200F51DA3 /* SearchController.m in Sources */,
+				D38D39291C8D2AE1004B6BA9 /* TVChannelController.m in Sources */,
 				D3DF762F1C74495E00CF6C52 /* ReportBugController.m in Sources */,
 				D365792A1C5602A600F51DA3 /* MainController.m in Sources */,
 				D3EA87E61C50D9C400D593A1 /* Utilities.m in Sources */,
 				D3EA87DD1C50C6FC00D593A1 /* LoginController.m in Sources */,
+				D38D392C1C8D2B4F004B6BA9 /* TVChannelCell.m in Sources */,
 				D32916A01C55B75D00CE46B6 /* MBProgressHUD.m in Sources */,
 				D329168A1C55B38D00CE46B6 /* CommonSize.m in Sources */,
 				D32916D31C55B7DF00CE46B6 /* AFSecurityPolicy.m in Sources */,

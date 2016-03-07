@@ -22,6 +22,11 @@ typedef void (^completionDataBlock)(BOOL success, NSMutableArray * array);
 - (NSArray *)listMovieLocalByTag2:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page;
 
 /*
+ * Get list channel
+ */
+- (NSArray *)getListChannelLocal;
+
+/*
  * Get list movie local
  */
 - (void)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock;

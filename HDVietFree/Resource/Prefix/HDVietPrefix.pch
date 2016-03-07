@@ -55,5 +55,8 @@
 #import "iCarousel.h"
 #import "InformationController.h"
 #import "PlayMovieController.h"
+#import "TVChannelController.h"
+#import "TVChannelCell.h"
+#import "TVChannel.h"
 
 #endif /* HDVietPrefix_pch */
