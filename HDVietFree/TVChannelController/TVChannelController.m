@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionChannel;
 @property (strong, nonatomic) NSMutableDictionary *dictChannel;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) PlayMovieController *playController;
 @end
 
 @implementation TVChannelController
@@ -45,6 +46,7 @@
      self.automaticallyAdjustsScrollViewInsets = NO;
     [self addRefreshController];
     self.dictChannel = [[NSMutableDictionary alloc] init];
+    self.playController = [[PlayMovieController alloc] init];
 }
 
 - (void)requestListChannelFromLocal {
@@ -142,10 +144,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
      NSArray *valueChannel = self.dictChannel.allValues[indexPath.section];
-    [PlayMovieController share].aMovie = nil;
-    [PlayMovieController share].channelTv = valueChannel[indexPath.row];
-    [PlayMovieController share].timePlayMovie = 0;
-    [[PlayMovieController share] playMovieWithController:self];
+    self.playController.aMovie = nil;
+    self.playController.channelTv = valueChannel[indexPath.row];
+    self.playController.timePlayMovie = 0;
+    [self.playController playMovieWithController:self];
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)theCollectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)theIndexPath

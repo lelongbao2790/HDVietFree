@@ -65,11 +65,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlaybackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:nil];
+                                               object:player.moviePlayer];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayerLoadStateDidChange:)
                                                  name:MPMoviePlayerLoadStateDidChangeNotification
-                                               object:nil];
+                                               object:player.moviePlayer];
     
     //Add Absorver
     [[NSNotificationCenter defaultCenter] addObserver:self

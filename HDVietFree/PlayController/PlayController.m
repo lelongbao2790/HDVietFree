@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csBottomButtonPlay;
 @property (weak, nonatomic) IBOutlet UIButton *btnRetry;
 @property (strong, nonatomic) EpisodeController *episodeController;
+@property (strong, nonatomic) PlayMovieController *playController;
 
 @end
 
@@ -82,7 +83,7 @@
     
     self.infor.movie = self.movie;
     [self.infor setInformationMovie];
-    
+    self.playController = [[PlayMovieController alloc] init];
 }
 
 - (void)configView {
@@ -226,9 +227,9 @@
                 linkPlay = [linkPlay stringByReplacingOccurrencesOfString:kResolution3201024 withString:self.convertResolution];
             }
             self.movie.urlLinkPlayMovie = linkPlay;
-            [PlayMovieController share].channelTv = nil;
-            [PlayMovieController share].epiNumber = self.epiNumber;
-            [PlayMovieController share].aMovie = self.movie;
+            self.playController.channelTv = nil;
+            self.playController.epiNumber = self.epiNumber;
+            self.playController.aMovie = self.movie;
             NSTimeInterval timePlay = [Utilities readContentFromFile:[NSString stringWithFormat:@"%@_%d",self.movie.movieID,(int)self.epiNumber]];
             
             NSString *messageForAlert = nil;
@@ -247,23 +248,23 @@
                 UIAlertAction* defaultAction = [UIAlertAction
                                                 actionWithTitle:kWatchMovieFromTime style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction * action) {
-                                                    [PlayMovieController share].timePlayMovie = timePlay;
-                                                    [[PlayMovieController share] playMovieWithController:self];
+                                                    self.playController.timePlayMovie = timePlay;
+                                                    [self.playController playMovieWithController:self];
                                                 }];
                 
                 UIAlertAction* cancelAction = [UIAlertAction
                                                actionWithTitle:kWatchMovieFromStart style:UIAlertActionStyleDefault
                                                handler:^(UIAlertAction * action) {
-                                                   [PlayMovieController share].timePlayMovie = 0;
-                                                   [[PlayMovieController share] playMovieWithController:self];
+                                                   self.playController.timePlayMovie = 0;
+                                                   [self.playController playMovieWithController:self];
                                                }];
                 
                 [alert addAction:defaultAction];
                 [alert addAction:cancelAction];
                 [self presentViewController:alert animated:YES completion:nil];
             } else {
-                [PlayMovieController share].timePlayMovie = 0;
-                [[PlayMovieController share] playMovieWithController:self];
+                self.playController.timePlayMovie = 0;
+                [self.playController playMovieWithController:self];
             }
         }
     }
