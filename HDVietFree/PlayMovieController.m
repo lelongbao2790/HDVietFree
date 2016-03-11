@@ -58,8 +58,6 @@
     
     NSURL *url = [[NSURL alloc] initWithString:linkPlay];
     MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    player.moviePlayer.shouldAutoplay = NO;
-    [player.moviePlayer prepareToPlay];
     mediaPlayerController = player.moviePlayer;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -87,18 +85,20 @@
             // Activate subtitles
             [player.moviePlayer showSubtitles];
             
+            
         } failure:^(NSError *error) {
             NSLog(@"Error: %@", error.description);
             
             [Utilities showiToastMessage:@"Phim này hiện chưa có sub việt"];
+            
         }];
     }
     
     ProgressBarDismissLoading(kEmptyString);
     // Present video
     kMoviePlayer = player;
-    player.moviePlayer.shouldAutoplay = YES;
     [controller presentMoviePlayerViewControllerAnimated:player];
+    [player.moviePlayer prepareToPlay];
     [player.moviePlayer play];
     player.moviePlayer.currentPlaybackTime = self.timePlayMovie;
 

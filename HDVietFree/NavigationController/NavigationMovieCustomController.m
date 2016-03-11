@@ -73,7 +73,7 @@
     self.txtSearch.textAlignment=NSTextAlignmentCenter;
     self.txtSearch.layer.cornerRadius = kCornerRadius;
     self.txtSearch.layer.masksToBounds = YES;
-    self.txtSearch.returnKeyType = UIReturnKeyDone;
+    self.txtSearch.returnKeyType = UIReturnKeySearch;
     
     // Init right button
     UIButton *deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
@@ -114,11 +114,16 @@
 }
 
 -(void)textDidChange:(NSNotification *)notification {
-    UITextField *searchText = [notification object];
-    [[ManageAPI share] searchMovieWithKeyword:searchText.text];
+//    UITextField *searchText = [notification object];
+    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField.returnKeyType == UIReturnKeySearch) {
+        ProgressBarShowLoading(kLoading);
+        [[ManageAPI share] searchMovieWithKeyword:textField.text];
+    }
+    
     return [textField resignFirstResponder];
 }
 

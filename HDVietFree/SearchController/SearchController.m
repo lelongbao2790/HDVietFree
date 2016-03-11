@@ -130,6 +130,7 @@
 
 #pragma mark - Search movie delegate
 - (void)searchMovieAPISuccess:(NSDictionary *)response {
+    ProgressBarDismissLoading(kEmptyString);
     [self.listResult removeAllObjects];
     NSArray *docs = [response objectForKey:kDocs];
     for (NSDictionary *dictMovie in docs) {
@@ -140,6 +141,7 @@
 }
 
 - (void)searchMovieAPIFail:(NSString *)resultMessage {
+    ProgressBarDismissLoading(kEmptyString);d
     [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 

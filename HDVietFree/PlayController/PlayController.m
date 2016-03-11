@@ -201,6 +201,7 @@
     self.btnRetry.hidden = NO;
     DLOG(@"Load detail information api fail");
     [Utilities showiToastMessage:@"Lấy thông tin film không thành công."];
+    
     [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 
