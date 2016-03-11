@@ -141,7 +141,7 @@
 }
 
 - (void)searchMovieAPIFail:(NSString *)resultMessage {
-    ProgressBarDismissLoading(kEmptyString);d
+    ProgressBarDismissLoading(kEmptyString);
     [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 

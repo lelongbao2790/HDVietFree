@@ -89,7 +89,7 @@ typedef NS_ENUM(NSInteger, LoginConstant) {
 
 typedef NS_ENUM(NSInteger, ScrollConstant) {
     kHeightContentViewScrollViewIpad = 7000,
-    kHeightContentViewScrollViewIp4 = 7360,
+    kHeightContentViewScrollViewIp4 = 7380,
     kHeightContentViewScrollViewIp5 = 7300,
     kHeightContentViewScrollViewIp6 = 7240,
     kHeightContentViewScrollViewIp6Plus = 7220,

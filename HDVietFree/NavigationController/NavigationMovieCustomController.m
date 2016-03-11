@@ -120,8 +120,10 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField.returnKeyType == UIReturnKeySearch) {
-        ProgressBarShowLoading(kLoading);
-        [[ManageAPI share] searchMovieWithKeyword:textField.text];
+        if (![textField.text isEqualToString:kEmptyString]) {
+            ProgressBarShowLoading(kLoading);
+            [[ManageAPI share] searchMovieWithKeyword:textField.text];
+        }
     }
     
     return [textField resignFirstResponder];
