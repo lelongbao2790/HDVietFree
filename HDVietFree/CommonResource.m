@@ -35,6 +35,11 @@ NSString *const kLeftMenu = @"left_menu@1x";
  */
 NSString *const kBackgroundImage = @"background.png";
 
+/**
+ * Delete image
+ */
+NSString *const kDeleteImage =@"delete.png";
+
 /*
  * Set pair view controller
  */

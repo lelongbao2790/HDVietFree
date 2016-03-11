@@ -123,7 +123,7 @@
     [viewHeader addSubview:headerLabel];
     
     // Header image
-    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(5, 7, 25, 25)];
+    UIImageView *image = [[UIImageView alloc] initWithFrame:headerImageFrame];
     image.image = [UIImage imageNamed:kDicLeftMenuImage.allValues[section][0]];
     [viewHeader addSubview:image];
     

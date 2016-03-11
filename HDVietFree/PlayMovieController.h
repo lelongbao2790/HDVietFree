@@ -12,8 +12,8 @@
 
 + (nonnull PlayMovieController *)share;
 
-@property (strong, nonatomic) Movie *aMovie;
-@property (strong, nonatomic) TVChannel *channelTv;
+@property (strong, nonatomic)  Movie * _Nonnull aMovie;
+@property (strong, nonatomic) TVChannel * _Nonnull  channelTv;
 @property (assign, nonatomic) NSInteger epiNumber;
 @property (assign, nonatomic) NSTimeInterval timePlayMovie;
 

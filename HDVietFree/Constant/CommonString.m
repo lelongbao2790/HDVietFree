@@ -194,5 +194,13 @@ NSString *const kWatchMovieFromStart = @"Xem lại";
  */
 NSString *const kWatchMovieFromTime = @"Xem tiếp";
 
+/**
+ * Report app title
+ */
+NSString *const kReportAppTitle = @"REPORT LỖI APP";
 
+/**
+ * Input error string
+ */
+NSString *const kInputErrorString  = @"Bạn chưa nhập lỗi";
 @end

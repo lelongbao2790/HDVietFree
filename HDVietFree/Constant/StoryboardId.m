@@ -68,4 +68,10 @@ NSString *const kTVChannelController = @"TVChannelController";
 
 NSString *const kTVChannelCell = @"TVChannelCell";
 
+NSString *const kEpisodeCellIdentifier = @"EpisodeCell";
+
+NSString *const kHeaderCollectionView = @"header";
+
+NSString *const kFooterCollectionView = @"footer";
+
 @end

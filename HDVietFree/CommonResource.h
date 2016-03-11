@@ -37,6 +37,11 @@ extern NSString *const kLeftMenu;
  */
 extern NSString *const kBackgroundImage;
 
+/**
+ * Delete image
+ */
+extern NSString *const kDeleteImage;
+
 /*
  * Set pair view controller
  */

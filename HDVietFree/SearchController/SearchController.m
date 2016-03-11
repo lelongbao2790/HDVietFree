@@ -61,7 +61,6 @@
     self.tbvSearch.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tbvSearch.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self setAutomaticallyAdjustsScrollViewInsets:NO];
 }
 
 - (void) initData {
@@ -97,7 +96,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.listResult count];
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     

@@ -50,8 +50,8 @@
     kFilmViewController = self;
     
     [self.collectionFilmController registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
-    [self.collectionFilmController registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
-    [self.collectionFilmController registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+    [self.collectionFilmController registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:kFooterCollectionView];
+    [self.collectionFilmController registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kHeaderCollectionView];
     [self.collectionFilmController reloadData];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -85,10 +85,7 @@
     DetailMovieCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionDetailMovieIdentifier forIndexPath:indexPath];
     cell.typeCell = kTypeFilm;
     [cell loadInformationWithMovie:self.listMovie[indexPath.row]];
-    
-    DLOG(@"Row : %d", (int)indexPath.row);
-    // Check last item
-    DLOG(@"Last item : %d", (int)indexPath.item);
+
     if(indexPath.item == (self.listMovie.count - 1)) {
         [self checkListMovie];
     }
@@ -104,17 +101,9 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     CGSize returnSize = CGSizeZero;
     
-    if (kDeviceIsPhoneSmallerOrEqual35) {
-        returnSize = sizeCellFilmIp5;
-    } else if (kDeviceIsPhoneSmallerOrEqual40) {
-        returnSize = sizeCellFilmIp5;
-    } else if (kDeviceIsPhoneSmallerOrEqual47) {
-        returnSize = sizeCellFilmIp6;
-    } else if (kDeviceIsPhoneSmallerOrEqual55) {
-        returnSize = sizeCellFilmIp6Plus;
-    } else if (kDeviceIpad) {
-        returnSize = sizeCellFilmIp6;
-    }
+    if (kDeviceIsPhoneSmallerOrEqual35) returnSize = sizeCellFilmIp5; else if (kDeviceIsPhoneSmallerOrEqual40) returnSize = sizeCellFilmIp5;
+    else if (kDeviceIsPhoneSmallerOrEqual47) returnSize = sizeCellFilmIp6; else if (kDeviceIsPhoneSmallerOrEqual55) returnSize = sizeCellFilmIp6Plus;
+    else if (kDeviceIpad) returnSize = sizeCellFilmIp6;
     return returnSize;
 }
 
@@ -125,15 +114,13 @@
     
     if(kind == UICollectionElementKindSectionHeader)
     {
-        theView = [theCollectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:theIndexPath];
+        theView = [theCollectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kHeaderCollectionView forIndexPath:theIndexPath];
     } else {
-        theView = [theCollectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:theIndexPath];
+        theView = [theCollectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:kFooterCollectionView forIndexPath:theIndexPath];
         if (!self.loading) {
             [self addViewLoadingInFooterView:theView];
         }
-        
     }
-    
     return theView;
 }
 

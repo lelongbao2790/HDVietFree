@@ -196,5 +196,15 @@ extern NSString *const kWatchMovieFromStart;
  */
 extern NSString *const kWatchMovieFromTime;
 
+/**
+ * Report app title
+ */
+extern NSString *const kReportAppTitle;
+
+/**
+ * Input error string
+ */
+extern NSString *const kInputErrorString;;
+
 
 @end

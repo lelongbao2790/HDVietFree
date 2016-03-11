@@ -49,7 +49,7 @@
     // Customize color of text view
     self.tvReport.layer.borderWidth = 1.0;
     self.tvReport.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.title = @"REPORT LỖI APP";
+    self.title = kReportAppTitle;
 }
 
 - (void)tapOnView {
@@ -60,22 +60,12 @@
 #pragma mark -
 #pragma mark - ** Text View Delegate **
 
-//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-//    NSRange resultRange = [text rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:NSBackwardsSearch];
-//    if ([text length] == 1 && resultRange.location != NSNotFound) {
-//        [textView resignFirstResponder];
-//        return NO;
-//    }
-//    
-//    return YES;
-//}
-
 - (IBAction)btnSubmit:(id)sender {
     if (self.tvReport.text.length > 0) {
         ProgressBarShowLoading(kLoading);
         [[DataManager shared] reportBugWithData:[NSString stringWithFormat:kBugDescription, self.tvReport.text]];
     } else {
-        [Utilities showiToastMessage:@"Bạn chưa nhập lỗi"];
+        [Utilities showiToastMessage:kInputErrorString];
     }
 }
 

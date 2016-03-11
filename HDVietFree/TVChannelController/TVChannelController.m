@@ -42,7 +42,7 @@
 - (void)config {
     self.title = @"KÊNH TIVI";
      [self.collectionChannel registerClass:[TVChannelCell class] forCellWithReuseIdentifier:kTVChannelCell];
-    [self.collectionChannel registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+    [self.collectionChannel registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kHeaderCollectionView];
      self.automaticallyAdjustsScrollViewInsets = NO;
     [self addRefreshController];
     self.dictChannel = [[NSMutableDictionary alloc] init];
@@ -157,7 +157,7 @@
     
     if(kind == UICollectionElementKindSectionHeader)
     {
-        theView = [theCollectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:theIndexPath];
+        theView = [theCollectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kHeaderCollectionView forIndexPath:theIndexPath];
         [self addViewHeader:theView atIndexPath:theIndexPath];
     }
     

@@ -147,6 +147,12 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == self.txtPassword) {
+        if (textField.returnKeyType == UIReturnKeyDone) {
+            [self loginServer];
+        }
+    }
+    
     return [textField resignFirstResponder];
 }
 
@@ -158,9 +164,19 @@
 #pragma mark -
 #pragma mark - ** IBAction **
 - (IBAction)btnLogin:(id)sender {
-    [self.view endEditing:YES];
-    ProgressBarShowLoading(kLoading);
-    [[ManageAPI share] loginAPI:self.txtUsername.text andPass:self.txtPassword.text];
+    [self loginServer];
+    
+}
+
+- (void)loginServer {
+    if (![self.txtUsername.text isEqualToString:kEmptyString] &&
+        ![self.txtPassword.text isEqualToString:kEmptyString]) {
+        [self.view endEditing:YES];
+        ProgressBarShowLoading(kLoading);
+        [[ManageAPI share] loginAPI:self.txtUsername.text andPass:self.txtPassword.text];
+    } else {
+        [Utilities showiToastMessage:@"Nhập username và password"];
+    }
 }
 
 //*****************************************************************************

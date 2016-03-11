@@ -47,12 +47,11 @@
     
     // Config collection
     [self.collectionAllSeason registerClass:[DetailMovieCell class] forCellWithReuseIdentifier:kDetailMovieCell];
-     [self.collectionEpisode registerClass:[EpisodeCell class] forCellWithReuseIdentifier:@"EpisodeCell"];
+     [self.collectionEpisode registerClass:[EpisodeCell class] forCellWithReuseIdentifier:kEpisodeCellIdentifier];
     self.collectionAllSeason.dataSource = self;
     self.collectionAllSeason.delegate = self;
     self.collectionEpisode.dataSource = self;
     self.collectionEpisode.delegate = self;
-    
     
     [self configCollection];
 }

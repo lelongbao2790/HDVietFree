@@ -15,6 +15,10 @@
 @implementation NavigationMovieCustomController
 @synthesize searchController;
 
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Life Cycle Method **
+
 + (NavigationMovieCustomController *)share {
     static dispatch_once_t once;
     static NavigationMovieCustomController *share;
@@ -35,15 +39,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Helper Method **
 
 /*
  * Config view
@@ -76,8 +74,8 @@
     self.txtSearch.returnKeyType = UIReturnKeySearch;
     
     // Init right button
-    UIButton *deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
-    [deleteButton setImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
+    UIButton *deleteButton = [[UIButton alloc] initWithFrame:sizeDeleteNav];
+    [deleteButton setImage:[UIImage imageNamed:kDeleteImage] forState:UIControlStateNormal];
     [deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
     self.txtSearch.rightView = deleteButton;
     

@@ -67,4 +67,10 @@ extern NSString *const kTVChannelController;
 
 extern NSString *const kTVChannelCell;
 
+extern NSString *const kEpisodeCellIdentifier;
+
+extern NSString *const kHeaderCollectionView;
+
+extern NSString *const kFooterCollectionView;
+
 @end
