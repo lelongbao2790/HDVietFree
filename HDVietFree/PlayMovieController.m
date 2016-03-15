@@ -77,7 +77,7 @@
     player.view.tag = kTagMPMoviePlayerController;
     player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
     player.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
-    player.moviePlayer.view.transform = CGAffineTransformConcat(player.moviePlayer.view.transform, CGAffineTransformMakeRotation(M_PI_2));
+//    player.moviePlayer.view.transform = CGAffineTransformConcat(player.moviePlayer.view.transform, CGAffineTransformMakeRotation(M_PI_2));
     [player.moviePlayer.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
     NSString *subString = [Utilities getDataSubFromUrl:linkSub];
     if (subString.length > 0) {

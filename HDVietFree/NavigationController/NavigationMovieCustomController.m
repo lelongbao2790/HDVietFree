@@ -39,6 +39,29 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    [self widenTextField];
+}
+
+- (void)widenTextField {
+    float y = 0;
+    if (UIDeviceOrientationIsPortrait(self.interfaceOrientation))
+    {
+        y = kPositionYTextField;
+    } else {
+        if (kDeviceIpad) {
+            y = kPositionYTextField;
+        }
+    }
+    NSInteger widthTextField = [Utilities widthOfScreen] - kSpaceWidthTextField;
+    CGRect frameTextField = CGRectMake([Utilities widthOfScreen] - widthTextField - kPositionYTextField, y,
+                                       widthTextField - kSpaceTrailingWidthTextField, kHeightTextField);
+    self.txtSearch.frame = frameTextField;
+
+}
+
+
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Helper Method **

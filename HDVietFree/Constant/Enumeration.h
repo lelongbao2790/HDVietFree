@@ -39,9 +39,9 @@ typedef NS_ENUM(NSInteger, PlayMovieTagTableView) {
     kNumberOfSectionPlayMovie = 2,
     kSpaceWidthTextField = 70,
     kSpaceTrailingWidthTextField = 8,
-    kHeightTextField = 32,
+    kHeightTextField = 29,
     kHeightOfRightButton = 36,
-    kPositionYTextField = 5,
+    kPositionYTextField = 6,
     kCornerRadius = 15,
 };
 
