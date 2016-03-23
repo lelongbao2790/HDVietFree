@@ -64,6 +64,17 @@ typedef NS_ENUM(NSInteger, PlayConstant) {
     kWidthConstantIp5 = 138,
 };
 
+typedef NS_ENUM(NSInteger, HomeConstant) {
+    kHeightButtonHomeIpad = 54,
+    
+};
+
+typedef NS_ENUM(NSInteger, ChooseServerConstant) {
+    kHeightButtonChooseServerIpad = 150,
+    kHeightButtonChooseServerIp4 = 80,
+    kHeightViewButtonChooseServerIpad = 300,
+};
+
 typedef NS_ENUM(NSInteger, LoginConstant) {
     kTopConstantIp5 = 30,
     kTopConstantIp6 = 40,

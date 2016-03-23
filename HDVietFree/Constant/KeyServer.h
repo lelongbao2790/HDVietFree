@@ -46,6 +46,12 @@
 #define kSubtitleExt @"SubtitleExt"
 #define kSubtitleVIE @"VIE"
 #define kSubtitleSource @"Source"
+#define kSuccess @"success"
+#define kMsg @"msg"
+#define kResult @"result"
+#define kToken @"token"
+#define kUser @"user"
+#define kUserNameHDO @"username"
 
 // Category
 #define kCategoryID @"CategoryID"

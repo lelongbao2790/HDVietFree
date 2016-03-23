@@ -38,7 +38,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     // Hidden navigation bar
     [DataManager shared].loginDelegate = self;
-    [self.navigationController.navigationBar setHidden:YES];
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning {

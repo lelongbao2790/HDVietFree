@@ -27,8 +27,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [DataManager shared].tvChannelDelegate = self;
-    
     [self requestListChannelFromLocal];
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning {

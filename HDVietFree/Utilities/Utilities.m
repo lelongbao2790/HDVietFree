@@ -298,6 +298,13 @@ MPMoviePlayerController *mediaPlayerController = nil;
     [cell setSelectedBackgroundView:bgColorView];
 }
 
++ (void)setBorderView:(nonnull UIView *)view {
+    view.layer.cornerRadius = 5.0;
+    view.layer.masksToBounds = YES;
+    view.layer.borderColor = [UIColor whiteColor].CGColor;
+    view.layer.borderWidth = 1.0f;
+}
+
 + (BOOL)isEmptyArray:(nonnull NSArray *)listArray {
     if (listArray.count > 0)
         return NO;

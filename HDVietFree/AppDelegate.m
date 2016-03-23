@@ -115,14 +115,13 @@ void HandleException(NSException *exception) {
                                                   forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar appearance].shadowImage = [UIImage new];
     [UINavigationBar appearance].translucent = YES;
-    
 }
 
 - (void)handleLogin {
     
-    LoginController *loginController = InitStoryBoardWithIdentifier(kLoginController);
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+    HomeController *homeController = InitStoryBoardWithIdentifier(kHomeController);
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeController];
     self.window.rootViewController = navController;
-
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -50.f) forBarMetrics:UIBarMetricsDefault];
 }
 @end

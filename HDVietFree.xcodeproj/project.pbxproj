@@ -63,7 +63,6 @@
 		D36579681C5F48B000F51DA3 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579671C5F48B000F51DA3 /* SearchCell.m */; };
 		D365796C1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.m in Sources */ = {isa = PBXBuildFile; fileRef = D365796B1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.m */; };
 		D36579701C6088E800F51DA3 /* NavigationMovieCustomController.m in Sources */ = {isa = PBXBuildFile; fileRef = D365796F1C6088E800F51DA3 /* NavigationMovieCustomController.m */; };
-		D36579721C608B5500F51DA3 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = D36579711C608B5500F51DA3 /* delete.png */; };
 		D36579761C61E39500F51DA3 /* EpisodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D36579751C61E39500F51DA3 /* EpisodeController.m */; };
 		D38CBE771C51D7AC00084126 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = D38CBE761C51D7AC00084126 /* PlayController.m */; };
 		D38CBE791C51D83A00084126 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D38CBE781C51D83A00084126 /* MediaPlayer.framework */; };
@@ -102,6 +101,13 @@
 		D3DF76341C757B5600CF6C52 /* NSObject+Associating.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF76331C757B5600CF6C52 /* NSObject+Associating.m */; };
 		D3DF763A1C75992500CF6C52 /* no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D3DF76391C75992500CF6C52 /* no_image.png */; };
 		D3DF763D1C75B8D000CF6C52 /* UIImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF763C1C75B8D000CF6C52 /* UIImageLoader.m */; };
+		D3EA21801CA156CC006CEB34 /* hdo_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EA217F1CA156CC006CEB34 /* hdo_logo.png */; };
+		D3EA21821CA15806006CEB34 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EA21811CA15806006CEB34 /* delete.png */; };
+		D3EA21961CA22E03006CEB34 /* homemovie_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EA21951CA22E03006CEB34 /* homemovie_icon.png */; };
+		D3EA21981CA2328D006CEB34 /* homemovie_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EA21971CA2328D006CEB34 /* homemovie_logo.png */; };
+		D3EA219B1CA2341D006CEB34 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA219A1CA2341D006CEB34 /* HomeController.m */; };
+		D3EA219F1CA23441006CEB34 /* ChooseServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA219E1CA23441006CEB34 /* ChooseServerController.m */; };
+		D3EA21A21CA23B67006CEB34 /* delete_black.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EA21A11CA23B67006CEB34 /* delete_black.png */; };
 		D3EA87A41C50BF6200D593A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA87A31C50BF6200D593A1 /* main.m */; };
 		D3EA87A71C50BF6200D593A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA87A61C50BF6200D593A1 /* AppDelegate.m */; };
 		D3EA87AD1C50BF6200D593A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3EA87AB1C50BF6200D593A1 /* Main.storyboard */; };
@@ -249,7 +255,6 @@
 		D365796B1C60508200F51DA3 /* MPMoviePlayerController+Subtitles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MPMoviePlayerController+Subtitles.m"; path = "ThirdParties/MPMoviePlayerController+Subtitles/MPMoviePlayerController+Subtitles.m"; sourceTree = "<group>"; };
 		D365796E1C6088E800F51DA3 /* NavigationMovieCustomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NavigationMovieCustomController.h; path = NavigationController/NavigationMovieCustomController.h; sourceTree = "<group>"; };
 		D365796F1C6088E800F51DA3 /* NavigationMovieCustomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationMovieCustomController.m; path = NavigationController/NavigationMovieCustomController.m; sourceTree = "<group>"; };
-		D36579711C608B5500F51DA3 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
 		D36579741C61E39500F51DA3 /* EpisodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EpisodeController.h; path = EpisodeController/EpisodeController.h; sourceTree = "<group>"; };
 		D36579751C61E39500F51DA3 /* EpisodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EpisodeController.m; path = EpisodeController/EpisodeController.m; sourceTree = "<group>"; };
 		D38CBE751C51D7AC00084126 /* PlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayController.h; path = PlayController/PlayController.h; sourceTree = "<group>"; };
@@ -300,6 +305,15 @@
 		D3DF76391C75992500CF6C52 /* no_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_image.png; sourceTree = "<group>"; };
 		D3DF763B1C75B8D000CF6C52 /* UIImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageLoader.h; sourceTree = "<group>"; };
 		D3DF763C1C75B8D000CF6C52 /* UIImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageLoader.m; sourceTree = "<group>"; };
+		D3EA217F1CA156CC006CEB34 /* hdo_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdo_logo.png; sourceTree = "<group>"; };
+		D3EA21811CA15806006CEB34 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		D3EA21951CA22E03006CEB34 /* homemovie_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homemovie_icon.png; sourceTree = "<group>"; };
+		D3EA21971CA2328D006CEB34 /* homemovie_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homemovie_logo.png; sourceTree = "<group>"; };
+		D3EA21991CA2341D006CEB34 /* HomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeController.h; path = HomeController/HomeController.h; sourceTree = "<group>"; };
+		D3EA219A1CA2341D006CEB34 /* HomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeController.m; path = HomeController/HomeController.m; sourceTree = "<group>"; };
+		D3EA219D1CA23441006CEB34 /* ChooseServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChooseServerController.h; path = ChooseServer/ChooseServerController.h; sourceTree = "<group>"; };
+		D3EA219E1CA23441006CEB34 /* ChooseServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChooseServerController.m; path = ChooseServer/ChooseServerController.m; sourceTree = "<group>"; };
+		D3EA21A11CA23B67006CEB34 /* delete_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_black.png; sourceTree = "<group>"; };
 		D3EA879F1C50BF6200D593A1 /* HDVietFree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HDVietFree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3EA87A31C50BF6200D593A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D3EA87A51C50BF6200D593A1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -701,6 +715,24 @@
 			name = ReportBugController;
 			sourceTree = "<group>";
 		};
+		D3EA219C1CA23421006CEB34 /* HomeController */ = {
+			isa = PBXGroup;
+			children = (
+				D3EA21991CA2341D006CEB34 /* HomeController.h */,
+				D3EA219A1CA2341D006CEB34 /* HomeController.m */,
+			);
+			name = HomeController;
+			sourceTree = "<group>";
+		};
+		D3EA21A01CA23444006CEB34 /* ChooseServer */ = {
+			isa = PBXGroup;
+			children = (
+				D3EA219D1CA23441006CEB34 /* ChooseServerController.h */,
+				D3EA219E1CA23441006CEB34 /* ChooseServerController.m */,
+			);
+			name = ChooseServer;
+			sourceTree = "<group>";
+		};
 		D3EA87961C50BF6200D593A1 = {
 			isa = PBXGroup;
 			children = (
@@ -780,6 +812,10 @@
 		D3EA87DF1C50C72000D593A1 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				D3EA21A11CA23B67006CEB34 /* delete_black.png */,
+				D3EA21971CA2328D006CEB34 /* homemovie_logo.png */,
+				D3EA21951CA22E03006CEB34 /* homemovie_icon.png */,
+				D3EA217F1CA156CC006CEB34 /* hdo_logo.png */,
 				D38D39301C8D6A56004B6BA9 /* htvlogo.png */,
 				D38D39321C8D6CE2004B6BA9 /* tv_icon.png */,
 				D3AC46AA1C7EE961000490AB /* star_icon.png */,
@@ -801,10 +837,10 @@
 				D3DF762A1C74465800CF6C52 /* report_icon.png */,
 				D3DF75E41C72F5D300CF6C52 /* home_icon.png */,
 				D3DF75E51C72F5D300CF6C52 /* logout_icon.png */,
+				D3EA21811CA15806006CEB34 /* delete.png */,
 				D3DF75E61C72F5D300CF6C52 /* phimbo_icon.png */,
 				D3DF75E71C72F5D300CF6C52 /* phimle_icon.png */,
 				D3DF75E81C72F5D300CF6C52 /* update_icon.png */,
-				D36579711C608B5500F51DA3 /* delete.png */,
 				D36579601C5F3F5F00F51DA3 /* search_icon.png */,
 				D365795E1C5EFF7800F51DA3 /* play_youtube_icon.png */,
 				D36579491C5889F700F51DA3 /* user_icon.png */,
@@ -849,6 +885,8 @@
 				D38CBE741C51D77D00084126 /* PlayController */,
 				D3EA87DE1C50C71500D593A1 /* LoginController */,
 				D365792B1C5602AA00F51DA3 /* MainController */,
+				D3EA219C1CA23421006CEB34 /* HomeController */,
+				D3EA21A01CA23444006CEB34 /* ChooseServer */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -977,9 +1015,9 @@
 			files = (
 				D3AC46941C7C449B000490AB /* play_icon_white.png in Resources */,
 				D3DF75EB1C72F5D300CF6C52 /* phimbo_icon.png in Resources */,
+				D3EA21981CA2328D006CEB34 /* homemovie_logo.png in Resources */,
 				D3DF76311C74765500CF6C52 /* crashed.plist in Resources */,
 				D3DF75E91C72F5D300CF6C52 /* home_icon.png in Resources */,
-				D36579721C608B5500F51DA3 /* delete.png in Resources */,
 				D3DF763A1C75992500CF6C52 /* no_image.png in Resources */,
 				D3DF75F71C72F9FE00CF6C52 /* update_select_icon.png in Resources */,
 				D3DF75EA1C72F5D300CF6C52 /* logout_icon.png in Resources */,
@@ -990,6 +1028,7 @@
 				D3EA87D81C50C22B00D593A1 /* button_active.png in Resources */,
 				D3C4A96D1C76ECB30057B7F9 /* play_icon.png in Resources */,
 				D3AC46A41C7EA056000490AB /* play_movie_icon.png in Resources */,
+				D3EA21801CA156CC006CEB34 /* hdo_logo.png in Resources */,
 				D365795F1C5EFF7800F51DA3 /* play_youtube_icon.png in Resources */,
 				D3DF75F61C72F9FE00CF6C52 /* phimle_select_icon.png in Resources */,
 				D3DF75EC1C72F5D300CF6C52 /* phimle_icon.png in Resources */,
@@ -999,8 +1038,11 @@
 				D3EA87AD1C50BF6200D593A1 /* Main.storyboard in Resources */,
 				D38D39311C8D6A56004B6BA9 /* htvlogo.png in Resources */,
 				D3EA87D61C50C1B300D593A1 /* loading_bg.png in Resources */,
+				D3EA21961CA22E03006CEB34 /* homemovie_icon.png in Resources */,
 				D38D39331C8D6CE2004B6BA9 /* tv_icon.png in Resources */,
 				D3DF762B1C74465800CF6C52 /* report_icon.png in Resources */,
+				D3EA21821CA15806006CEB34 /* delete.png in Resources */,
+				D3EA21A21CA23B67006CEB34 /* delete_black.png in Resources */,
 				D3DF75ED1C72F5D300CF6C52 /* update_icon.png in Resources */,
 				D3C4A9661C76EABF0057B7F9 /* hdviet_banner.png in Resources */,
 				D3DF75F41C72F9FE00CF6C52 /* logout_select_icon.png in Resources */,
@@ -1047,6 +1089,8 @@
 				D3EA87A71C50BF6200D593A1 /* AppDelegate.m in Sources */,
 				D36579571C59F1B800F51DA3 /* TopMovieCell.m in Sources */,
 				D36579241C55F38E00F51DA3 /* ManageAPI.m in Sources */,
+				D3EA219B1CA2341D006CEB34 /* HomeController.m in Sources */,
+				D3EA219F1CA23441006CEB34 /* ChooseServerController.m in Sources */,
 				D32916E11C55B7DF00CE46B6 /* UIWebView+AFNetworking.m in Sources */,
 				D32916D11C55B7DF00CE46B6 /* AFHTTPSessionManager.m in Sources */,
 				D36579391C5616D000F51DA3 /* DetailMovieCell.m in Sources */,
