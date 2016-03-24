@@ -108,6 +108,8 @@
 		D3EA219B1CA2341D006CEB34 /* HomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA219A1CA2341D006CEB34 /* HomeController.m */; };
 		D3EA219F1CA23441006CEB34 /* ChooseServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA219E1CA23441006CEB34 /* ChooseServerController.m */; };
 		D3EA21A21CA23B67006CEB34 /* delete_black.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EA21A11CA23B67006CEB34 /* delete_black.png */; };
+		D3EA21A51CA26DF2006CEB34 /* NavigationHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA21A41CA26DF2006CEB34 /* NavigationHomeController.m */; };
+		D3EA21A81CA26F82006CEB34 /* ServerType.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA21A71CA26F82006CEB34 /* ServerType.m */; };
 		D3EA87A41C50BF6200D593A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA87A31C50BF6200D593A1 /* main.m */; };
 		D3EA87A71C50BF6200D593A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EA87A61C50BF6200D593A1 /* AppDelegate.m */; };
 		D3EA87AD1C50BF6200D593A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3EA87AB1C50BF6200D593A1 /* Main.storyboard */; };
@@ -314,7 +316,11 @@
 		D3EA219D1CA23441006CEB34 /* ChooseServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChooseServerController.h; path = ChooseServer/ChooseServerController.h; sourceTree = "<group>"; };
 		D3EA219E1CA23441006CEB34 /* ChooseServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChooseServerController.m; path = ChooseServer/ChooseServerController.m; sourceTree = "<group>"; };
 		D3EA21A11CA23B67006CEB34 /* delete_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_black.png; sourceTree = "<group>"; };
-		D3EA879F1C50BF6200D593A1 /* HDVietFree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HDVietFree.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3EA21A31CA26DF2006CEB34 /* NavigationHomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationHomeController.h; sourceTree = "<group>"; };
+		D3EA21A41CA26DF2006CEB34 /* NavigationHomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationHomeController.m; sourceTree = "<group>"; };
+		D3EA21A61CA26F82006CEB34 /* ServerType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerType.h; sourceTree = "<group>"; };
+		D3EA21A71CA26F82006CEB34 /* ServerType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerType.m; sourceTree = "<group>"; };
+		D3EA879F1C50BF6200D593A1 /* HomeMovie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeMovie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3EA87A31C50BF6200D593A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D3EA87A51C50BF6200D593A1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D3EA87A61C50BF6200D593A1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -322,10 +328,10 @@
 		D3EA87AE1C50BF6200D593A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3EA87B11C50BF6200D593A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3EA87B31C50BF6200D593A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D3EA87B81C50BF6200D593A1 /* HDVietFreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HDVietFreeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3EA87B81C50BF6200D593A1 /* HomeMovie.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeMovie.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3EA87BC1C50BF6200D593A1 /* HDVietFreeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HDVietFreeTests.m; sourceTree = "<group>"; };
 		D3EA87BE1C50BF6200D593A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D3EA87C31C50BF6200D593A1 /* HDVietFreeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HDVietFreeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3EA87C31C50BF6200D593A1 /* HomeMovie.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeMovie.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3EA87C71C50BF6200D593A1 /* HDVietFreeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HDVietFreeUITests.m; sourceTree = "<group>"; };
 		D3EA87C91C50BF6200D593A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3EA87D51C50C1B300D593A1 /* loading_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading_bg.png; sourceTree = "<group>"; };
@@ -424,6 +430,8 @@
 				D36579471C58574A00F51DA3 /* DataAccess.m */,
 				D38D392D1C8D2BF2004B6BA9 /* TVChannel.h */,
 				D38D392E1C8D2BF2004B6BA9 /* TVChannel.m */,
+				D3EA21A61CA26F82006CEB34 /* ServerType.h */,
+				D3EA21A71CA26F82006CEB34 /* ServerType.m */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -640,6 +648,8 @@
 			children = (
 				D365796E1C6088E800F51DA3 /* NavigationMovieCustomController.h */,
 				D365796F1C6088E800F51DA3 /* NavigationMovieCustomController.m */,
+				D3EA21A31CA26DF2006CEB34 /* NavigationHomeController.h */,
+				D3EA21A41CA26DF2006CEB34 /* NavigationHomeController.m */,
 			);
 			name = NavigationController;
 			sourceTree = "<group>";
@@ -748,9 +758,9 @@
 		D3EA87A01C50BF6200D593A1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D3EA879F1C50BF6200D593A1 /* HDVietFree.app */,
-				D3EA87B81C50BF6200D593A1 /* HDVietFreeTests.xctest */,
-				D3EA87C31C50BF6200D593A1 /* HDVietFreeUITests.xctest */,
+				D3EA879F1C50BF6200D593A1 /* HomeMovie.app */,
+				D3EA87B81C50BF6200D593A1 /* HomeMovie.xctest */,
+				D3EA87C31C50BF6200D593A1 /* HomeMovie.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -912,9 +922,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D3EA879E1C50BF6200D593A1 /* HDVietFree */ = {
+		D3EA879E1C50BF6200D593A1 /* HomeMovie */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D3EA87CC1C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HDVietFree" */;
+			buildConfigurationList = D3EA87CC1C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HomeMovie" */;
 			buildPhases = (
 				D3EA879B1C50BF6200D593A1 /* Sources */,
 				D3EA879C1C50BF6200D593A1 /* Frameworks */,
@@ -924,14 +934,14 @@
 			);
 			dependencies = (
 			);
-			name = HDVietFree;
+			name = HomeMovie;
 			productName = HDVietFree;
-			productReference = D3EA879F1C50BF6200D593A1 /* HDVietFree.app */;
+			productReference = D3EA879F1C50BF6200D593A1 /* HomeMovie.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D3EA87B71C50BF6200D593A1 /* HDVietFreeTests */ = {
+		D3EA87B71C50BF6200D593A1 /* HomeMovieTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D3EA87CF1C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HDVietFreeTests" */;
+			buildConfigurationList = D3EA87CF1C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HomeMovieTests" */;
 			buildPhases = (
 				D3EA87B41C50BF6200D593A1 /* Sources */,
 				D3EA87B51C50BF6200D593A1 /* Frameworks */,
@@ -942,14 +952,14 @@
 			dependencies = (
 				D3EA87BA1C50BF6200D593A1 /* PBXTargetDependency */,
 			);
-			name = HDVietFreeTests;
+			name = HomeMovieTests;
 			productName = HDVietFreeTests;
-			productReference = D3EA87B81C50BF6200D593A1 /* HDVietFreeTests.xctest */;
+			productReference = D3EA87B81C50BF6200D593A1 /* HomeMovie.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D3EA87C21C50BF6200D593A1 /* HDVietFreeUITests */ = {
+		D3EA87C21C50BF6200D593A1 /* HomeMovieUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D3EA87D21C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HDVietFreeUITests" */;
+			buildConfigurationList = D3EA87D21C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HomeMovieUITests" */;
 			buildPhases = (
 				D3EA87BF1C50BF6200D593A1 /* Sources */,
 				D3EA87C01C50BF6200D593A1 /* Frameworks */,
@@ -960,9 +970,9 @@
 			dependencies = (
 				D3EA87C51C50BF6200D593A1 /* PBXTargetDependency */,
 			);
-			name = HDVietFreeUITests;
+			name = HomeMovieUITests;
 			productName = HDVietFreeUITests;
-			productReference = D3EA87C31C50BF6200D593A1 /* HDVietFreeUITests.xctest */;
+			productReference = D3EA87C31C50BF6200D593A1 /* HomeMovie.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -988,7 +998,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D3EA879A1C50BF6200D593A1 /* Build configuration list for PBXProject "HDVietFree" */;
+			buildConfigurationList = D3EA879A1C50BF6200D593A1 /* Build configuration list for PBXProject "HomeMovie" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1001,9 +1011,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D3EA879E1C50BF6200D593A1 /* HDVietFree */,
-				D3EA87B71C50BF6200D593A1 /* HDVietFreeTests */,
-				D3EA87C21C50BF6200D593A1 /* HDVietFreeUITests */,
+				D3EA879E1C50BF6200D593A1 /* HomeMovie */,
+				D3EA87B71C50BF6200D593A1 /* HomeMovieTests */,
+				D3EA87C21C50BF6200D593A1 /* HomeMovieUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1099,6 +1109,7 @@
 				D32916D21C55B7DF00CE46B6 /* AFNetworkReachabilityManager.m in Sources */,
 				D32916CF1C55B7DF00CE46B6 /* AFHTTPRequestOperation.m in Sources */,
 				D32916D51C55B7DF00CE46B6 /* AFURLRequestSerialization.m in Sources */,
+				D3EA21A81CA26F82006CEB34 /* ServerType.m in Sources */,
 				D365794D1C58A65E00F51DA3 /* SlideMenuCell.m in Sources */,
 				D36579271C55F70600F51DA3 /* CommonConstant.m in Sources */,
 				D32916D41C55B7DF00CE46B6 /* AFURLConnectionOperation.m in Sources */,
@@ -1119,6 +1130,7 @@
 				D32916991C55B6CA00CE46B6 /* UIColor+HexColor.m in Sources */,
 				D365791B1C55D1B300F51DA3 /* SlideMenuController.m in Sources */,
 				D36579761C61E39500F51DA3 /* EpisodeController.m in Sources */,
+				D3EA21A51CA26DF2006CEB34 /* NavigationHomeController.m in Sources */,
 				D3EA87A41C50BF6200D593A1 /* main.m in Sources */,
 				D3AC469E1C7D8C2E000490AB /* iCarousel.m in Sources */,
 				D32916A11C55B75D00CE46B6 /* SNLoading.m in Sources */,
@@ -1170,12 +1182,12 @@
 /* Begin PBXTargetDependency section */
 		D3EA87BA1C50BF6200D593A1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D3EA879E1C50BF6200D593A1 /* HDVietFree */;
+			target = D3EA879E1C50BF6200D593A1 /* HomeMovie */;
 			targetProxy = D3EA87B91C50BF6200D593A1 /* PBXContainerItemProxy */;
 		};
 		D3EA87C51C50BF6200D593A1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D3EA879E1C50BF6200D593A1 /* HDVietFree */;
+			target = D3EA879E1C50BF6200D593A1 /* HomeMovie */;
 			targetProxy = D3EA87C41C50BF6200D593A1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1307,7 +1319,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Brian.HDVietFree;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HomeMovie;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1330,7 +1342,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Brian.HDVietFree;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HomeMovie;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1343,8 +1355,8 @@
 				INFOPLIST_FILE = HDVietFreeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Brian.HDVietFreeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HDVietFree.app/HDVietFree";
+				PRODUCT_NAME = HomeMovie;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HomeMovie.app/HomeMovie";
 			};
 			name = Debug;
 		};
@@ -1355,8 +1367,8 @@
 				INFOPLIST_FILE = HDVietFreeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Brian.HDVietFreeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HDVietFree.app/HDVietFree";
+				PRODUCT_NAME = HomeMovie;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HomeMovie.app/HomeMovie";
 			};
 			name = Release;
 		};
@@ -1366,7 +1378,7 @@
 				INFOPLIST_FILE = HDVietFreeUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Brian.HDVietFreeUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HomeMovie;
 				TEST_TARGET_NAME = HDVietFree;
 				USES_XCTRUNNER = YES;
 			};
@@ -1378,7 +1390,7 @@
 				INFOPLIST_FILE = HDVietFreeUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Brian.HDVietFreeUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HomeMovie;
 				TEST_TARGET_NAME = HDVietFree;
 				USES_XCTRUNNER = YES;
 			};
@@ -1387,7 +1399,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D3EA879A1C50BF6200D593A1 /* Build configuration list for PBXProject "HDVietFree" */ = {
+		D3EA879A1C50BF6200D593A1 /* Build configuration list for PBXProject "HomeMovie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3EA87CA1C50BF6200D593A1 /* Debug */,
@@ -1396,7 +1408,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D3EA87CC1C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HDVietFree" */ = {
+		D3EA87CC1C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HomeMovie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3EA87CD1C50BF6200D593A1 /* Debug */,
@@ -1405,7 +1417,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D3EA87CF1C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HDVietFreeTests" */ = {
+		D3EA87CF1C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HomeMovieTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3EA87D01C50BF6200D593A1 /* Debug */,
@@ -1414,7 +1426,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D3EA87D21C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HDVietFreeUITests" */ = {
+		D3EA87D21C50BF6200D593A1 /* Build configuration list for PBXNativeTarget "HomeMovieUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3EA87D31C50BF6200D593A1 /* Debug */,

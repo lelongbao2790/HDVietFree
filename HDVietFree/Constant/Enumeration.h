@@ -66,7 +66,9 @@ typedef NS_ENUM(NSInteger, PlayConstant) {
 
 typedef NS_ENUM(NSInteger, HomeConstant) {
     kHeightButtonHomeIpad = 54,
-    
+    kTopButtonIpad = 35,
+    kTypeHDO = 1,
+    kTypeHDViet = 2,
 };
 
 typedef NS_ENUM(NSInteger, ChooseServerConstant) {
@@ -76,10 +78,11 @@ typedef NS_ENUM(NSInteger, ChooseServerConstant) {
 };
 
 typedef NS_ENUM(NSInteger, LoginConstant) {
-    kTopConstantIp5 = 30,
-    kTopConstantIp6 = 40,
-    kTopConstantIp6Plus = 50,
-    kTopConstantIpad = 150,
+    kTopConstantIp4 = -15,
+    kTopConstantIp5 = 5,
+    kTopConstantIp6 = 10,
+    kTopConstantIp6Plus = 20,
+    kTopConstantIpad = 100,
     kLeadingConstantLogin = 30,
     kBottomConstantIpad = 120,
     kHeighSpaceImageLeftConstantIpad = 90,

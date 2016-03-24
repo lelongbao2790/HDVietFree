@@ -18,6 +18,7 @@
 
 // Init storyboard
 #define InitStoryBoardWithIdentifier(identifier) [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:identifier]
+#define getStatusResponseHDO(response) [[response objectForKey:kSuccess] boolValue]
 
 // Progress Bar
 #define ProgressBarShowLoading(_Title_) [SNLoading showWithTitle:_Title_]

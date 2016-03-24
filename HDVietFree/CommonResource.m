@@ -38,7 +38,17 @@ NSString *const kBackgroundImage = @"background.png";
 /**
  * Delete image
  */
-NSString *const kDeleteImage =@"delete.png";
+NSString *const kDeleteImage = @"delete.png";
+
+/**
+ * HDO Logo
+ */
+NSString *const kHDOLogoImage = @"hdo_logo.png";
+
+/**
+ * HDViet Logo
+ */
+NSString *const kHDVietLogoImage = @"ic_launcher.png";
 
 /*
  * Set pair view controller

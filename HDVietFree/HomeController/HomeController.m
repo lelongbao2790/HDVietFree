@@ -16,6 +16,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnSetting;
 @property (weak, nonatomic) IBOutlet UIButton *btnReport;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopConstantButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopTivi;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopSetting;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTopReport;
 
 @end
 
@@ -37,6 +41,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 #pragma Helper Method
 - (void)config {
     
@@ -47,6 +53,8 @@
     
     // Customize button
     [self customizeButton];
+    
+    
 }
 
 /*
@@ -76,9 +84,19 @@
 }
 
 - (IBAction)btnSetting:(id)sender {
+    
+    UpdateMovieController *updateMovie = [AppDelegate share].updateMovieController;
+    updateMovie.navigationItem.leftBarButtonItem = nil;
+    [self.navigationController pushViewController:updateMovie animated:YES];
+    
 }
 
 - (IBAction)btnReport:(id)sender {
+    
+    ReportBugController *reportBug = [AppDelegate share].reportBugController;
+    reportBug.navigationItem.leftBarButtonItem = nil;
+    [self.navigationController pushViewController:reportBug animated:YES];
+    
 }
 
 #pragma Choose Server Delegate
@@ -89,10 +107,13 @@
 
 - (void)actionHDOController:(ChooseServerController *)controller {
     [controller dismissViewControllerAnimated:YES completion:nil];
+    [ServerType share].type = kTypeHDO;
+    [self moveToLogin];
 }
 
 - (void)actionHdvietController:(ChooseServerController *)controller {
     [controller dismissViewControllerAnimated:YES completion:nil];
+    [ServerType share].type = kTypeHDViet;
     [self moveToLogin];
 }
 
@@ -103,6 +124,8 @@
     LoginController *loginController = InitStoryBoardWithIdentifier(kLoginController);
     [self.navigationController pushViewController:loginController animated:YES];
 }
+
+
 
 //*****************************************************************************
 #pragma mark -
@@ -117,14 +140,20 @@
 
 - (void)fixAutolayoutFor47 {
     self.csHeightButton.constant = kHeightButtonHomeIpad;
+    self.csTopConstantButton.constant = kHeightButtonHomeIpad;
 }
 
 - (void)fixAutolayoutFor55 {
     self.csHeightButton.constant = kHeightButtonHomeIpad;
+    self.csTopConstantButton.constant = kHeightButtonHomeIpad;
 }
 
 -(void)fixAutolayoutForIpad {
     self.csHeightButton.constant = kHeightButtonHomeIpad;
+    self.csTopConstantButton.constant = kHeightButtonHomeIpad;
+    self.csTopReport.constant = kTopButtonIpad;
+    self.csTopSetting.constant = kTopButtonIpad;
+    self.csTopTivi.constant = kTopButtonIpad;
 }
 
 @end

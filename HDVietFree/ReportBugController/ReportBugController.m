@@ -28,6 +28,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [DataManager shared].reportBugDelegate = self;
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning {

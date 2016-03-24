@@ -255,12 +255,12 @@ MPMoviePlayerController *mediaPlayerController = nil;
 {
     if ([message isEqualToString:kInvalidSession]) {
         UIAlertController* alert = [UIAlertController
-                                    alertControllerWithTitle:@"Lỗi"
+                                    alertControllerWithTitle:kAlertTitle
                                     message:message
                                     preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction* defaultAction = [UIAlertAction
-                                        actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                        actionWithTitle:kOK style:UIAlertActionStyleDefault
                                         handler:^(UIAlertAction * action) {
                                             [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
                                             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[AppDelegate share].loginController];
@@ -456,6 +456,27 @@ MPMoviePlayerController *mediaPlayerController = nil;
     }
     return topRootViewController;
 
+}
+
++ (nonnull NSString *)getAuthorizationKeyHDO:(nonnull NSString *)username andPassword:(nonnull NSString *)password {
+    NSString *basic = [NSString stringWithFormat:@"%@:%@",username,password];
+    
+    NSData *data = [basic dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *auth = [NSString stringWithFormat:@"Basic %@",[Utilities NSDataToHex:data]];
+    return auth;
+}
+
++ (NSString*) NSDataToHex:(NSData*)data
+{
+    const unsigned char *dbytes = [data bytes];
+    NSMutableString *hexStr =
+    [NSMutableString stringWithCapacity:[data length]*2];
+    int i;
+    for (i = 0; i < [data length]; i++) {
+        [hexStr appendFormat:@"%02x ", dbytes[i]];
+    }
+    return [NSString stringWithString: hexStr];
 }
 
 @end

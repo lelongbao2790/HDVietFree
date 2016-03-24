@@ -60,5 +60,7 @@
 #import "TVChannel.h"
 #import "ChooseServerController.h"
 #import "HomeController.h"
+#import "NavigationHomeController.h"
+#import "ServerType.h"
 
 #endif /* HDVietPrefix_pch */

@@ -7,6 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** User**
 @interface User : NSObject
 
 + (User *)share;
@@ -14,11 +18,34 @@
 // Property
 @property (strong, nonatomic) NSString *userId;
 @property (strong, nonatomic) NSString *userName;
-@property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *accessToken;
+
++ (User *)userFromJSON:(NSDictionary *)json;
+
+@end
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** User HDOnline**
+@interface UserHDO : User
+
++ (UserHDO *)share;
+
+// Init user from json
++ (UserHDO *)userHDOFromJSON:(NSDictionary *)json;
+@end
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** User HDViet**
+@interface UserHDV : User
+
++ (UserHDV *)share;
+
+@property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *displayName;
 
 // Init user from json
-+ (User *)userFromJSON:(NSDictionary *)json;
++ (UserHDV *)userHDVFromJSON:(NSDictionary *)json;
 
 @end

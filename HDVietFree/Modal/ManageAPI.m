@@ -26,9 +26,28 @@
  * login API
  */
 - (void)loginAPI:(NSString *)userName andPass:(NSString *)password {
-    NSString *strUrl = [NSString stringWithFormat:kUrlLogin, userName, [password MD5]];
-    DLOG(@"Login with url:%@", strUrl);
-    [[DataManager shared] getLoginWithUrl:strUrl];
+//    NSString *auth = [Utilities getAuthorizationKeyHDO:userName andPassword:password];
+    if ([ServerType share].type == kTypeHDViet) {
+        NSString *strUrl = [NSString stringWithFormat:kUrlLogin, userName, [password MD5]];
+        DLOG(@"Login with url:%@", strUrl);
+        [[DataManager shared] getLoginWithUrl:strUrl];
+    } else {
+        // Get token
+        [[DataManager shared] getTokenWithUrl:kUrlGetTokenHDO withCompleteBlock:^(BOOL success, NSString *token) {
+            if (success) {
+                
+                // Login HDO
+                NSString *strUrl = [NSString stringWithFormat:kUrlLoginHDO, token , userName, password];
+                [[DataManager shared] getLoginHDOWithUrl:strUrl];
+                
+            } else {
+                ProgressBarDismissLoading(kEmptyString);
+                [Utilities showiToastMessage:token];
+            }
+        }];
+    }
+    
+    
 }
 
 /*
@@ -62,7 +81,7 @@
  * Load detail information movie API
  */
 - (void)loadLinkToPlayMovie:(Movie*)movie andEpisode:(NSInteger)episode {
-    NSString *strUrl = [NSString stringWithFormat:kUrlPlayMovie, movie.movieID, [User share].accessToken, (int)episode];
+    NSString *strUrl = [NSString stringWithFormat:kUrlPlayMovie, movie.movieID, [UserHDV share].accessToken, (int)episode];
     DLOG(@"Load link to play movie with url:%@", strUrl);
     [[DataManager shared] getLinkPlayMovie:strUrl];
 }

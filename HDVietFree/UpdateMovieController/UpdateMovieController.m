@@ -29,6 +29,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [DataManager shared].listMovieDelegate = self;
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 //*****************************************************************************
@@ -70,14 +71,89 @@
             }
         });
     });
-
-    
-    
-    }
+}
 
 - (IBAction)btnUpdate:(id)sender {
     
-    [self requestUpdateMovie];
+    if ([self checkAccessTokenSave]) {
+        [self requestUpdateMovie];
+    } else {
+        
+        NSString *accessTokenHDV = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessToken];
+        NSString *accessTokenHDO = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessTokenHDO];
+        
+        UIAlertController* alert;
+        if (!accessTokenHDV) {
+            alert = [UIAlertController alertControllerWithTitle:kAlertTitle message:kErrorAccessTokenHDViet
+                                                 preferredStyle:UIAlertControllerStyleAlert];
+            
+            
+        }
+        else if (!accessTokenHDO){
+            alert = [UIAlertController alertControllerWithTitle:kAlertTitle
+                                                        message:kErrorAccessTokenHDO
+                                                 preferredStyle:UIAlertControllerStyleAlert];
+            
+        }
+        
+        [alert addTextFieldWithConfigurationHandler:^(UITextField *textField)
+         {
+             textField.placeholder = NSLocalizedString(@"Username", @"Username");
+         }];
+        
+        [alert addTextFieldWithConfigurationHandler:^(UITextField *textField)
+         {
+             textField.placeholder = NSLocalizedString(@"Password", @"Password");
+             textField.secureTextEntry = YES;
+         }];
+        
+        UIAlertAction* defaultAction = [UIAlertAction
+                                        actionWithTitle:kOK style:UIAlertActionStyleDefault
+                                        handler:^(UIAlertAction * action) {
+                                            UITextField *login = alert.textFields.firstObject;
+                                            UITextField *password = alert.textFields.lastObject;
+                                            
+                                            // Login server
+                                            if (![login.text isEqualToString:kEmptyString] &&
+                                                ![password.text isEqualToString:kEmptyString]) {
+                                                [self.view endEditing:YES];
+                                                ProgressBarShowLoading(kLoading);
+                                                [[ManageAPI share] loginAPI:login.text andPass:password.text];
+                                            } else {
+                                                [Utilities showiToastMessage:@"Nhập username và password"];
+                                            }
+                                        }];
+        
+        [alert addAction:defaultAction];
+        
+        UIAlertAction *cancelAction = [UIAlertAction
+                                       actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel action")
+                                       style:UIAlertActionStyleCancel
+                                       handler:^(UIAlertAction *action)
+                                       {
+                                           [self.view endEditing:YES];
+                                           NSLog(@"Cancel action");
+                                       }];
+        [alert addAction:cancelAction];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
+    
+}
+
+- (BOOL)checkAccessTokenSave {
+    
+    NSString *accessTokenHDV = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessToken];
+    NSString *accessTokenHDO = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessTokenHDO];
+    if (accessTokenHDV && accessTokenHDO) {
+        [UserHDV share].accessToken = accessTokenHDV;
+        [UserHDV share].userName = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
+        return YES;
+    } else {
+        return NO;
+    }
+    
 }
 
 //*****************************************************************************

@@ -15,11 +15,9 @@
 #define kDicLeftMenu [[NSDictionary alloc] initWithObjectsAndKeys: \
 @"Phim lẻ", [NSNumber numberWithInteger:1], \
 @"Phim bộ", [NSNumber numberWithInteger:2], \
-@"Cập nhập dữ liệu", [NSNumber numberWithInteger:3], \
-@"Trang chủ", [NSNumber numberWithInteger:4], \
-@"Report lỗi", [NSNumber numberWithInteger:5], \
-@"Xem tivi", [NSNumber numberWithInteger:6], \
-@"Đăng xuất", [NSNumber numberWithInteger:7], nil]
+@"Trang chủ", [NSNumber numberWithInteger:3], \
+@"Thoát", [NSNumber numberWithInteger:4], \
+@"Đăng xuất", [NSNumber numberWithInteger:5], nil]
 
 #define kConsoleLog @"console.log"
 #define kCrashTitle @"Crash Log"
@@ -28,11 +26,9 @@
 #define kDicLeftMenuImage [[NSDictionary alloc] initWithObjectsAndKeys: \
 [NSArray arrayWithObjects: @"phimle_icon.png", @"phimle_select_icon.png",nil], [NSNumber numberWithInteger:1], \
 [NSArray arrayWithObjects: @"phimbo_icon.png", @"phimbo_select_icon.png",nil], [NSNumber numberWithInteger:2], \
-[NSArray arrayWithObjects: @"update_icon.png", @"update_select_icon.png",nil], [NSNumber numberWithInteger:3], \
-[NSArray arrayWithObjects: @"home_icon.png", @"home__select_icon.png",nil], [NSNumber numberWithInteger:4], \
-[NSArray arrayWithObjects: @"report_icon.png", @"report_select_icon.png",nil], [NSNumber numberWithInteger:5], \
-[NSArray arrayWithObjects: @"tv_icon.png", @"tv_icon.png",nil], [NSNumber numberWithInteger:6], \
-[NSArray arrayWithObjects: @"logout_icon.png", @"logout_select_icon.png",nil], [NSNumber numberWithInteger:7], nil]
+[NSArray arrayWithObjects: @"home_icon.png", @"home__select_icon.png",nil], [NSNumber numberWithInteger:3], \
+[NSArray arrayWithObjects: @"tv_icon.png", @"tv_icon.png",nil], [NSNumber numberWithInteger:4], \
+[NSArray arrayWithObjects: @"logout_icon.png", @"logout_select_icon.png",nil], [NSNumber numberWithInteger:5], nil]
 
 // Dict for main menu
 

@@ -77,6 +77,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
 //*****************************************************************************
 #pragma mark -
 #pragma mark ** Detect crash app **
@@ -120,7 +121,7 @@ void HandleException(NSException *exception) {
 - (void)handleLogin {
     
     HomeController *homeController = InitStoryBoardWithIdentifier(kHomeController);
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeController];
+    NavigationHomeController *navController = [[NavigationHomeController alloc] initWithRootViewController:homeController];
     self.window.rootViewController = navController;
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -50.f) forBarMetrics:UIBarMetricsDefault];
 }

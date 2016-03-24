@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:HDVietFree.xcodeproj">
+      location = "self:/Volumes/DATA/BRIAN_DATA/GIT_PROJECT/HDVietFree/HomeMovie.xcodeproj">
    </FileRef>
 </Workspace>

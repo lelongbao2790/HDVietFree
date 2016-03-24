@@ -145,7 +145,7 @@
         [self resetExpandTableView];
         // Log out
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[AppDelegate share].homeController];
+        NavigationHomeController *navController = [[NavigationHomeController alloc] initWithRootViewController:[AppDelegate share].homeController];
         [AppDelegate share].window.rootViewController = navController;
         [[AppDelegate share].window makeKeyAndVisible];
         
@@ -153,28 +153,8 @@
     else if ([stringValue isEqualToString:kReportString]) {
         // Report
         [self resetExpandTableView];
-        ReportBugController *reportBug = [AppDelegate share].reportBugController;
-        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:reportBug];
-        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
-        [[AppDelegate share].window makeKeyAndVisible];
-    }
-    
-    else if ([stringValue isEqualToString:kWatchTV]) {
-        // Report
-        [self resetExpandTableView];
-        TVChannelController *tvChannelController = [AppDelegate share].tvChannelController;
-        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:tvChannelController];
-        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
-        [[AppDelegate share].window makeKeyAndVisible];
-    }
-
-
-    else if ([stringValue isEqualToString:kUpdateData]) {
-        // Update data movie
-        [self resetExpandTableView];
-        UpdateMovieController *updateMovie = [AppDelegate share].updateMovieController;
-        [AppDelegate share].mainPanel.centerPanel = [[UINavigationController alloc] initWithRootViewController:updateMovie];
-        [[AppDelegate share].mainPanel showCenterPanelAnimated:YES];
+        NavigationHomeController *navController = [[NavigationHomeController alloc] initWithRootViewController:[AppDelegate share].homeController];
+        [AppDelegate share].window.rootViewController = navController;
         [[AppDelegate share].window makeKeyAndVisible];
     }
     

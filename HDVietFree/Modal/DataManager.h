@@ -9,8 +9,7 @@
 #import "AFHTTPSessionManager.h"
 #import "UIImageLoader.h"
 
-typedef void (^completionBlock)(BOOL success, UIImageLoaderImage * image);
-typedef void (^completionDownload)(BOOL success, UIImage * image);
+typedef void (^completionBlock)(BOOL success, NSString *token);
 
 @interface DataManager : NSObject {
      NSObject<LoginDelegate> *loginDelegate;
@@ -25,7 +24,7 @@ typedef void (^completionDownload)(BOOL success, UIImage * image);
 // Init request operation manager
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
 @property (strong, nonatomic) AFHTTPRequestOperationManager *managerSSL;
-
+@property (strong, nonatomic) AFHTTPRequestOperationManager *managerHDO;
 // Delegate
 @property (strong, nonatomic) NSObject *loginDelegate;
 @property (strong, nonatomic) NSObject *listMovieDelegate;
@@ -42,7 +41,24 @@ typedef void (^completionDownload)(BOOL success, UIImage * image);
 
 //*****************************************************************************
 #pragma mark -
-#pragma mark ** Helper Method **
+#pragma mark ** API HDO **
+/*
+ * GET TOKEN
+ *
+ * @param strUrl url string request
+ */
+- (void)getTokenWithUrl:(NSString *)strUrl withCompleteBlock:(completionBlock)completionBlock;
+
+/*
+ * GET LOGIN HDO
+ *
+ * @param strUrl url string request
+ */
+- (void)getLoginHDOWithUrl:(NSString *)strUrl;
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark ** API HDViet **
 /*
  * POST LOGIN
  *
@@ -84,13 +100,6 @@ typedef void (^completionDownload)(BOOL success, UIImage * image);
  * @param strUrl url string request
  */
 - (void)reportBugWithData:(NSString *)data;
-
-/*
- * DOWNLOAD IMAGE
- *
- * @param strUrl url string request
- */
-- (void)downloadImageWithUrl:(NSString *)url completionBlock:(completionBlock)completionBlock;
 
 /*
  * GET ALL SEASON MOVIE

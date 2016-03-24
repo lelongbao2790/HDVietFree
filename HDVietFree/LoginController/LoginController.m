@@ -19,7 +19,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csLeading;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csTrailing;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeight;
-
+@property (assign, nonatomic) float topConstant;
+@property (assign, nonatomic) BOOL isShowKeyboard;
 @end
 
 @implementation LoginController
@@ -39,6 +40,30 @@
     // Hidden navigation bar
     [DataManager shared].loginDelegate = self;
     [self.navigationController.navigationBar setHidden:NO];
+    
+    // Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    // unregister for keyboard notifications while not visible.
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,6 +74,46 @@
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Helper Method **
+//method to move the view up/down whenever the keyboard is shown/dismissed
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+    if (movedUp)
+    {
+        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+        self.csTopConstant.constant = -150;
+        [self.view setNeedsUpdateConstraints];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view layoutIfNeeded];
+        }];
+    }
+    else
+    {
+        // revert back to the normal state.
+        self.csTopConstant.constant = self.topConstant;
+        [self.view setNeedsUpdateConstraints];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view layoutIfNeeded];
+        }];
+    }
+}
+
+-(void)keyboardWillShow {
+    // Animate the current view out of the way
+    if (!self.isShowKeyboard) {
+        [self setViewMovedUp:YES];
+        self.isShowKeyboard = YES;
+    }
+}
+
+-(void)keyboardWillHide {
+    if (self.isShowKeyboard) {
+        [self setViewMovedUp:NO];
+        self.isShowKeyboard = NO;
+    }
+}
+
+
 /*
  * Config
  */
@@ -58,6 +123,7 @@
     [AppDelegate share].loginController = self;
     [Utilities fixAutolayoutWithDelegate:self];
     [self handleLogin];
+    self.topConstant = self.csTopConstant.constant;
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapOnView)];
     tapGesture.cancelsTouchesInView = NO;
@@ -66,6 +132,9 @@
 
 - (void)tapOnView {
     [self.view endEditing:YES];
+    // revert back to the normal state.
+    self.csTopConstant.constant = self.topConstant;
+    [self setViewMovedUp:NO];
 }
 
 /*
@@ -73,7 +142,7 @@
  */
 - (void)handleLogin {
     if (![Utilities isCrashApp]) {
-        if ([self checkAccessTokenSave]) {
+        if ([ServerType isSaveToken]) {
             [Utilities setMainPageSlide];
         }
     } else {
@@ -118,25 +187,10 @@
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [controller dismissViewControllerAnimated:YES completion:nil];
     
-    if ([self checkAccessTokenSave]) {
+    if ([ServerType isSaveToken]) {
         [Utilities setMainPageSlide];
     }
 }
-
-- (BOOL)checkAccessTokenSave {
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessToken];
-    
-    if (accessToken) {
-        [User share].accessToken = accessToken;
-        [User share].userName = [[NSUserDefaults standardUserDefaults] objectForKey:kUserName];
-        self.txtUsername.text = [User share].userName;
-        self.txtPassword.text = [[NSUserDefaults standardUserDefaults] objectForKey:kPassword];
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
 
 //*****************************************************************************
 #pragma mark -
@@ -147,6 +201,7 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
     if (textField == self.txtPassword) {
         if (textField.returnKeyType == UIReturnKeyDone) {
             [self loginServer];
@@ -187,11 +242,6 @@
     ProgressBarDismissLoading(kEmptyString);
     self.user = [User userFromJSON:response];
     
-    // Save access token
-    [[NSUserDefaults standardUserDefaults] setObject:self.user.accessToken forKey:kAccessToken];
-    [[NSUserDefaults standardUserDefaults] setObject:self.user.userName forKey:kUserName];
-    [[NSUserDefaults standardUserDefaults] setObject:self.txtPassword.text forKey:kPassword];
-    
     [Utilities setMainPageSlide];
     
 }
@@ -204,7 +254,7 @@
 #pragma mark -
 #pragma mark - ** FixAutoLayoutDelegate **
 - (void)fixAutolayoutFor35 {
-    self.csTopConstant.constant = kTopConstantIp5;
+    self.csTopConstant.constant = kTopConstantIp4;
 }
 
 - (void)fixAutolayoutFor40 {
@@ -227,7 +277,7 @@
     self.csTopConstant.constant = kTopConstantIpad;
     self.csLeading.constant = kTopConstantIpad;
     self.csTrailing.constant = kTopConstantIpad;
-    self.csHeight.constant = kTopConstantIp6Plus;
+//    self.csHeight.constant = kTopConstantIpad;
 }
 
 @end

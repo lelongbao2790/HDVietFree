@@ -127,7 +127,7 @@ NSString *const kLogOut = @"Đăng xuất";
 /**
  * Update
  */
-NSString *const kUpdateData = @"Cập nhập dữ liệu";
+NSString *const kUpdateData = @"Cài đặt";
 
 /**
  * Update
@@ -157,7 +157,17 @@ NSString *const kBugDescription = @"entry.1561439694=%@";
 /**
  * Bug description
  */
-NSString *const kReportString = @"Report lỗi";
+NSString *const kReportString = @"Thoát";
+
+/**
+ * Error dang nhap hdviet
+ */
+NSString *const kErrorAccessTokenHDViet = @"Bạn chưa đăng nhập tài khoản HD Việt. Bấm OK để đăng nhập";
+
+/**
+ * Error dang nhap hdo
+ */
+NSString *const kErrorAccessTokenHDO = @"Bạn chưa đăng nhập tài khoản HDOnline. Bấm OK để đăng nhập";
 
 /**
  * Watch tv
@@ -185,6 +195,11 @@ NSString *const kMessageTimePlayForEpi = @"Bạn đã xem phim %@ tập %d tới
 NSString *const kAlertTitle = @"Thông báo";
 
 /**
+ * OK
+ */
+NSString *const kOK = @"OK";
+
+/**
  * Watch
  */
 NSString *const kWatchMovieFromStart = @"Xem lại";
@@ -197,7 +212,7 @@ NSString *const kWatchMovieFromTime = @"Xem tiếp";
 /**
  * Report app title
  */
-NSString *const kReportAppTitle = @"REPORT LỖI APP";
+NSString *const kReportAppTitle = @"BÁO LỖI APP";
 
 /**
  * Input error string

@@ -16,6 +16,9 @@
 #define kEmail @"Email"
 #define kDisplayName @"DisplayName"
 #define kAccessToken @"AccessTokenKey"
+#define kAccessTokenHDO @"AccessTokenKeyHDO"
+#define kUserNameHDO @"UserNameHDO"
+#define kPasswordHDO @"PasswordHDO"
 
 // Movie
 #define kMovieId @"MovieID"
@@ -51,7 +54,7 @@
 #define kResult @"result"
 #define kToken @"token"
 #define kUser @"user"
-#define kUserNameHDO @"username"
+#define kUserNameHDOString @"username"
 
 // Category
 #define kCategoryID @"CategoryID"

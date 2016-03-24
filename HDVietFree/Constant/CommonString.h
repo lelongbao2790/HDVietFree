@@ -162,6 +162,17 @@ extern NSString *const kBugDescription;
 extern NSString *const kReportString ;
 
 /**
+ * Error dang nhap hdviet
+ */
+extern NSString *const kErrorAccessTokenHDViet;
+
+/**
+ * Error dang nhap hdo
+ */
+extern NSString *const kErrorAccessTokenHDO;
+
+
+/**
  * Watch tv
  */
 extern NSString *const kWatchTV;
@@ -185,6 +196,11 @@ extern NSString *const kMessageTimePlayForEpi;
  * Alert title
  */
 extern NSString *const kAlertTitle;
+
+/**
+ * OK
+ */
+extern NSString *const kOK;
 
 /**
  * Watch

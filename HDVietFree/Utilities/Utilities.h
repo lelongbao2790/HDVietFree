@@ -119,4 +119,8 @@
 
 + (nonnull UIViewController *)getTopRootViewController;
 
++ (nonnull NSString *)getAuthorizationKeyHDO:(nonnull NSString *)username andPassword:(nonnull NSString *)password;
+
++ (NSString*) NSDataToHex:(NSData*)data;
+
 @end

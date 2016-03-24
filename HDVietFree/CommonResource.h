@@ -42,6 +42,16 @@ extern NSString *const kBackgroundImage;
  */
 extern NSString *const kDeleteImage;
 
+/**
+ * HDO Logo
+ */
+extern NSString *const kHDOLogoImage;
+
+/**
+ * HDViet Logo
+ */
+extern NSString *const kHDVietLogoImage;
+
 /*
  * Set pair view controller
  */

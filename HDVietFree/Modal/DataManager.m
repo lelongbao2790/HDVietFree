@@ -36,12 +36,20 @@
         // init manager AFHTTPRequestOperationManager
         self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
         self.managerSSL = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrlSSL]];
+        self.managerHDO = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrlHDO]];
         self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        self.managerHDO.requestSerializer = [AFHTTPRequestSerializer serializer];
+        self.managerHDO.responseSerializer = [AFJSONResponseSerializer serializer];
         self.managerSSL.requestSerializer = [AFHTTPRequestSerializer serializer];
         self.managerSSL.responseSerializer = [AFJSONResponseSerializer serializer];
         [self.manager.requestSerializer setTimeoutInterval:kTimeOutIntervalSession];
         [self.managerSSL.requestSerializer setTimeoutInterval:kTimeOutIntervalSession];
+        [self.managerHDO.requestSerializer setTimeoutInterval:kTimeOutIntervalSession];
+        [self.managerHDO.requestSerializer setValue:kHTTPHeaderApplication
+                         forHTTPHeaderField:kHTTPHeaderContentType];
+        [self.managerHDO.requestSerializer setValue:@"iPad"
+                                 forHTTPHeaderField:kHTTPHeaderUserAgent];
     }
     
     return self;
@@ -64,7 +72,65 @@
 
 //*****************************************************************************
 #pragma mark -
-#pragma mark ** Helper Method **
+#pragma mark ** API HDO **
+/*
+ * GET TOKEN
+ *
+ * @param strUrl url string request
+ */
+- (void)getTokenWithUrl:(NSString *)strUrl withCompleteBlock:(completionBlock)completionBlock {
+    [self.managerHDO GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *msg = [responseObject objectForKey:kMsg];
+        if (getStatusResponseHDO(responseObject) == true) {
+            
+            // Success
+            NSDictionary *result = [Utilities convertNullDictionary:[responseObject objectForKey:kResult]];
+            if (result) {
+                NSString *token = [result objectForKey:kToken];
+                completionBlock(true, token);
+            } else {
+                completionBlock(false, kErrorDict);
+            }
+        } else {
+            // Fail
+            completionBlock(false, msg);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            completionBlock(false, [error localizedDescription]);
+    }];
+}
+
+/*
+ * GET LOGIN HDO
+ *
+ * @param strUrl url string request
+ */
+- (void)getLoginHDOWithUrl:(NSString *)strUrl {
+    [self.managerHDO GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+         NSString *msg = [responseObject objectForKey:kMsg];
+        if (getStatusResponseHDO(responseObject) == true) {
+            
+            // Success
+            NSDictionary *result = [Utilities convertNullDictionary:[responseObject objectForKey:kResult]];
+            if (result) {
+                [loginDelegate loginAPISuccess:result];
+            } else {
+                [loginDelegate loginAPIFail:kErrorDict];
+            }
+        } else {
+            // Fail
+            [loginDelegate loginAPIFail:msg];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [loginDelegate loginAPIFail:[error localizedDescription]];
+    }];
+}
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark ** API HDViet **
 /*
  * GET LOGIN
  *
@@ -105,7 +171,7 @@
  * @param strUrl url string request
  */
 - (void)getListMovieByGenreWithUrl:(NSString *)strUrl atTag:(NSString *)tagMovie andGenre:(NSString *)genre {
-    [self.manager.requestSerializer setValue:[User share].accessToken forHTTPHeaderField:kHTTPHeaderAccessToken];
+    [self.manager.requestSerializer setValue:[UserHDV share].accessToken forHTTPHeaderField:kHTTPHeaderAccessToken];
     [self.manager GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([[responseObject objectForKey:kError] integerValue] == kRequestSuccess) {
             
@@ -139,7 +205,7 @@
  * @param strUrl url string request
  */
 - (void)getDetailInformationMovieWithUrl:(NSString *)strUrl andMovie:(Movie *)movie {
-    [self.managerSSL.requestSerializer setValue:[User share].accessToken forHTTPHeaderField:kHTTPHeaderAccessToken];
+    [self.managerSSL.requestSerializer setValue:[UserHDV share].accessToken forHTTPHeaderField:kHTTPHeaderAccessToken];
     [self.managerSSL GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([[responseObject objectForKey:kE] integerValue] == kRequestSuccess) {
             
@@ -210,7 +276,7 @@
  * @param strUrl url string request
  */
 - (void)searchMovieWithUrl:(NSString *)strUrl {
-    [self.manager.requestSerializer setValue:[User share].accessToken forHTTPHeaderField:kHTTPHeaderAccessToken];
+    [self.manager.requestSerializer setValue:[UserHDV share].accessToken forHTTPHeaderField:kHTTPHeaderAccessToken];
     [self.manager GET:[strUrl encodeNSUTF8:strUrl] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([[responseObject objectForKey:kError] integerValue] == kRequestSuccess) {
             // Success
@@ -266,44 +332,6 @@
 }
 
 /*
- * DOWNLOAD IMAGE
- *
- * @param strUrl url string request
- */
-- (void)downloadImageWithUrl:(NSString *)url completionBlock:(completionBlock)completionBlock {
-    NSURL *urlImage = [NSURL URLWithString:url];
-    [[UIImageLoader defaultLoader] loadImageWithURL:urlImage
-                                           hasCache:^(UIImageLoaderImage * image, UIImageLoadSource loadedFromSource) {
-                                               
-                                               //there was a cached image available. use that.
-                                               if (completionBlock) {
-                                                   completionBlock(YES, image);
-                                               }
-                                               
-                                           } sendingRequest:^(BOOL didHaveCachedImage) {
-                                               
-                                               //a request is being made for the image.
-                                               
-                                               if(!didHaveCachedImage) {
-                                                   
-                                                   if (completionBlock) {
-                                                       completionBlock(NO, nil);
-                                                   }
-                                               }
-                                               
-                                           } requestCompleted:^(NSError *error, UIImageLoaderImage * image, UIImageLoadSource loadedFromSource) {
-                                               
-                                               //network request finished.
-                                               
-                                               if(loadedFromSource == UIImageLoadSourceNetworkToDisk) {
-                                                   if (completionBlock) {
-                                                       completionBlock(YES, image);
-                                                   }
-                                               }
-                                           }];
-}
-
-/*
  * GET ALL SEASON MOVIE
  *
  * @param strUrl url string request
@@ -343,18 +371,6 @@
  * @param strUrl url string request
  */
 - (void)getALlTVChannel:(NSString *)requestData {
-
-//    [self.manager.requestSerializer setValue:kHTTPHeaderContentTypeValue forHTTPHeaderField:kHTTPHeaderContentType];
-//    [self.manager.requestSerializer setValue:kHTTPHeaderAuthorizationValue forHTTPHeaderField:kHTTPHeaderAuthorization];
-////    [self.manager.requestSerializer setValue:kHTTPHeaderUserAgentValue forHTTPHeaderField:kHTTPHeaderUserAgent];
-//    [self.manager POST:kUrlTvChannelHTVOnline parameters:requestData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [tvChannelDelegate getAllTVChannelAPISuccess:responseObject];
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [tvChannelDelegate getAllTVChannelAPIFail:[error localizedDescription]];
-//    }];
-
-    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:kUrlTvChannelHTVOnline]
                                                            cachePolicy:NSURLRequestReloadIgnoringCacheData  timeoutInterval:10];
     
