@@ -13,7 +13,6 @@
 // Property
 @property (weak, nonatomic) IBOutlet iCarousel *bannerView;
 @property (strong, nonatomic) NSDictionary *dictMenu;
-@property (strong, nonatomic) NSDictionary *dictMovie;
 @property (assign, nonatomic) NSInteger lastListMovie;
 @property (strong, nonatomic) NSMutableArray *listMovieOnMain;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightBanner;
@@ -22,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *csHeightContentViewScrollView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
-
+@property (strong, nonatomic) Source *source;
 
 @end
 
@@ -46,7 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     // Hidden navigation bar
     [DataManager shared].listMovieDelegate = self;
-    [self getListMovieShowOnBanner];
+    [AppDelegate share].mainController = self;
     [self.navigationController.navigationBar setHidden:NO];
 }
 
@@ -64,8 +63,8 @@
 #pragma mark - ** Helper Method **
 
 - (void)configView {
-    [AppDelegate share].mainController = self;
-    self.dictMenu = getDictTitleMenu([MovieSearch share].genreMovie);
+    
+    self.source = [Source share];
     
     self.lastListMovie = 0;
     
@@ -86,12 +85,17 @@
     self.bannerView.dataSource = self;
      self.bannerView.type = iCarouselTypeCoverFlow2;
     [self addRefreshController];
-    [self checkListMovie];
+    
+    [self.source initSource:self.lastListMovie andTable:self.tbvListMovie andCompletion:^(BOOL success, NSMutableArray *array) {
+        self.listMovieOnMain = [array mutableCopy];
+        [self.bannerView reloadData];
+    }];
+    self.dictMenu = self.source.dictMainMenu;
 }
 
 - (void)addRefreshController {
     self.refreshControl = [[UIRefreshControl alloc] init];
-    NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Refreshing data..."
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Pull to refresh data..."
                                                                 attributes: @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithAttributedString:title];
     [self.refreshControl setTintColor:[UIColor whiteColor]];
@@ -118,20 +122,11 @@
     [self.navigationController pushViewController:searchController animated:YES];
 }
 
-- (void)getListMovieShowOnBanner {
-    [[DataAccess share] listMovieLocalForTopOnMainByTag:kShowMovieTop
-                                                andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
-                                        if (success) {
-                                            self.listMovieOnMain = [array mutableCopy];
-                                            [self.bannerView reloadData];
-                                        }
-                                    }];
-}
-
 - (void)refreshData:(UIRefreshControl *)refreshControl {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [[[Movie query] fetch] removeAll];
-        [self requestRefreshListMovie];
+        self.lastListMovie = 0;
+        [self.source requestRefreshListMovie];
         [NSThread sleepForTimeInterval:3];
     });
 }
@@ -168,18 +163,14 @@
     [self.refreshControl endRefreshing];
     NSInteger section = recognizer.view.tag;
     
-    [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][section]
-                                   andGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                    andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
-                                        if (success) {
-                                            FilmController *filmController = [Utilities initFilmControllerWithTag:[Utilities sortArrayFromDict:self.dictMenu][section]
-                                                                                                        numberTag:section
-                                                                                                        andListDb:array];
-                                            [self.navigationController pushViewController:filmController animated:YES];
-                                        }
-                                    }];
-    
-
+    [self.source loadListMovieLocal:section andCompletion:^(BOOL success, NSMutableArray *array) {
+        if (success) {
+            FilmController *filmController = [Utilities initFilmControllerWithTag:[Utilities sortArrayFromDict:self.dictMenu][section]
+                                                                        numberTag:section
+                                                                        andListDb:array];
+            [self.navigationController pushViewController:filmController animated:YES];
+        }
+    }];
 }
 
 
@@ -196,13 +187,11 @@
     
     [Utilities setColorOfSelectCell:cell];
     
-    [[DataAccess share] listMovieLocalByTag:[Utilities sortArrayFromDict:self.dictMenu][indexPath.section]
-                                   andGenre:stringFromInteger([MovieSearch share].genreMovie)
-                                    andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
-                                        if (success) {
-                                            [cell.collectionViewMovie setListMovieDb:array];
-                                        }
-                                    }];
+    [self.source loadListMovieLocal:indexPath.section andCompletion:^(BOOL success, NSMutableArray *array) {
+        if (success) {
+            [cell.collectionViewMovie setListMovieDb:array];
+        }
+    }];
     
     return cell;
 }
@@ -210,39 +199,6 @@
 //*****************************************************************************
 #pragma mark -
 #pragma mark - ** Handle list movie **
-
-- (void)requestRefreshListMovie {
-    self.lastListMovie = 0;
-    DLOG(@"Refresh menu : %d", (int)self.dictMenu.allKeys.count);
-    
-    for (int i = 0; i < self.dictMenu.allKeys.count; i++) {
-
-        // Not exist - Request server to get list
-        [[ManageAPI share] loadListMovieAPI:kGenrePhimLe tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
-        [[ManageAPI share] loadListMovieAPI:kGenrePhimBo tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
-    }
-}
-
-- (void)checkListMovie {
-    DLOG(@"Total menu : %d", (int)self.dictMenu.allKeys.count);
-    
-    for (int i = 0; i < self.dictMenu.allKeys.count; i++) {
-        [[DataAccess share] checkExistDataMovieWithGenre:stringFromInteger([MovieSearch share].genreMovie) andTag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault completionBlock:^(BOOL success, NSMutableArray *array) {
-            if (success) {
-                self.lastListMovie += 1;
-                ProgressBarDismissLoading(kEmptyString);
-                [self lastList];
-            }
-            else {
-                ProgressBarShowLoading(kLoading);
-                
-                // Not exist - Request server to get list
-                [[ManageAPI share] loadListMovieAPI:kGenrePhimLe tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
-                [[ManageAPI share] loadListMovieAPI:kGenrePhimBo tag:[Utilities sortArrayFromDict:self.dictMenu][i] andPage:kPageDefault];
-            }
-        }];
-    }
-}
 
 #pragma mark iCarousel methods
 
@@ -375,21 +331,7 @@
 - (void)loadListMovieAPISuccess:(NSDictionary *)response atTag:(NSString *)tagMovie andGenre:(NSString *)genre {
     DLOG(@"loadListMovieAPISuccess with: %@ %@", tagMovie, genre );
     
-    // Add list movie to local
-    [[DataAccess share] addListMovieToLocal:response];
-    
-    // Check last list category
-    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:YES]) {
-        // Last list loaded
-        ProgressBarDismissLoading(kEmptyString);
-        self.lastListMovie = 0;
-        [self lastList];
-        [self endRefreshList];
-    } else {
-        self.lastListMovie += 1;
-    }
-    
-    [self lastList];
+    [self.source loadListAPISuccess:response andLast:self.lastListMovie andRefresh:self.refreshControl andKey:tagMovie];
 }
 
 - (void)endRefreshList {
@@ -409,20 +351,11 @@
     });
 }
 
-- (void)lastList {
-    // Check last list category
-    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:YES]) {
-        
-        [self.tbvListMovie reloadData];
-        [self getListMovieShowOnBanner];
-    }
-}
-
 - (void)loadListMovieAPIFail:(NSString *)resultMessage {
     DLOG(@"Load list movie fail: %@", resultMessage);
-    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:YES]) {
+    if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:NO]) {
         self.lastListMovie = 0;
-        [self endRefreshList];
+        [self.refreshControl endRefreshing];
     } else {
         self.lastListMovie +=1;
     }

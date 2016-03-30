@@ -23,6 +23,11 @@
 /*
  * Load list movie API
  */
+- (void)loadListMovieHDOAPI:(NSString *)url andKey:(NSString *)key;
+
+/*
+ * Load list movie API
+ */
 - (void)loadListMovieAPI:(NSInteger)genre tag:(NSString *)tagMovie andPage:(NSInteger)page;
 
 /*

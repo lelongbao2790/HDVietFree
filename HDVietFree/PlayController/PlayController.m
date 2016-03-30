@@ -98,7 +98,10 @@
 }
 
 - (void)loadImage {
-    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.movie.backdrop945530]
+    
+    MovieHDV *movieHdv = (MovieHDV *)self.movie;
+    
+    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:movieHdv.backdrop945530]
                                                   cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                               timeoutInterval:60];
     
@@ -162,7 +165,7 @@
         [AppDelegate share].mainPanel.rightPanel = nil;
     }
     
-    if ([[DataAccess share] getRelativeMovieInDB:self.movie.movieID].count > 0 && self.movie.backdrop945530 != nil) {
+    if ([[DataAccess share] getRelativeMovieInDB:self.movie.movieID].count > 0 && ((MovieHDV *)self.movie).backdrop945530 != nil) {
         // Exist relative movie
         [self reloadView];
         
@@ -189,7 +192,7 @@
     ProgressBarDismissLoading(kEmptyString);
     DLOG(@"Load detail information api success");
     if (![response isKindOfClass:[NSNull class]]) {
-        [Movie updateInformationMovieFromJSON:response andMovie:self.movie];
+        [MovieHDV updateInformationMovieFromJSON:response andMovie:((MovieHDV *)self.movie)];
     } else {
         [Utilities showiToastMessage:@"Không có thông tin về film này"];
     }
@@ -288,7 +291,7 @@
     ProgressBarDismissLoading(kEmptyString);
     NSArray *allValue = response.allValues;
     for (NSDictionary *jsonMovie in allValue) {
-        [Movie initSeasonMovieFromJSONSearch:jsonMovie andMovie:self.movie];
+        [MovieHDV initSeasonMovieFromJSONSearch:jsonMovie andMovie:self.movie];
     }
 }
 

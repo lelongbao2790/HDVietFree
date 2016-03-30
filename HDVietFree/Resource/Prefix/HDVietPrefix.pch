@@ -62,5 +62,6 @@
 #import "HomeController.h"
 #import "NavigationHomeController.h"
 #import "ServerType.h"
+#import "Source.h"
 
 #endif /* HDVietPrefix_pch */

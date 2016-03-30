@@ -145,6 +145,7 @@
         [self resetExpandTableView];
         // Log out
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessToken];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAccessTokenHDO];
         NavigationHomeController *navController = [[NavigationHomeController alloc] initWithRootViewController:[AppDelegate share].homeController];
         [AppDelegate share].window.rootViewController = navController;
         [[AppDelegate share].window makeKeyAndVisible];

@@ -22,12 +22,8 @@
 
 - (void)setDetailInformation {
     
-    self.lbCast.text = self.movie.cast;
-    self.lbCountry.text = self.movie.country;
-    self.lbPlot.text = self.movie.plotVI;
-    self.lbReleaseDate.text = self.movie.releaseDate;
-    self.lbTagMovie.text = self.movie.category;
-
+    [[Source share] showDetailInforOnPlayController:self.lbCast country:self.lbCountry
+                                               plot:self.lbPlot tagMovie:self.lbTagMovie releaseDate:self.lbReleaseDate andMovie:self.movie];
 }
 - (IBAction)btnTrailer:(id)sender {
     if (![self.movie.trailer isEqualToString:kEmptyString]) {

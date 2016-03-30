@@ -8,8 +8,12 @@
 
 #import "Movie.h"
 
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Movie **
+
 @implementation Movie
-@dynamic movieID, movieName, knownAs, trailer, poster, poster124x184, sequence, currentSeason, episode, runtime, cast, plotVI, country, releaseDate, tagMovie, genreMovie, bannerMovie, backdrop, backdrop945530, relativeMovie, category, pageNumber, totalRecord, urlLinkPlayMovie, urlLinkSubtitleMovie, imdbRating, seasonId, timePlay, epiNumber;
+@dynamic movieID, movieName, trailer, episode, runtime, cast, plotVI, releaseDate, tagMovie, genreMovie, bannerMovie, backdrop, pageNumber, totalRecord, urlLinkPlayMovie, urlLinkSubtitleMovie, imdbRating, seasonId, timePlay, epiNumber, category, sequence, poster;
 
 + (DBIndexDefinition *)indexDefinitionForEntity {
     
@@ -21,9 +25,18 @@
     
 }
 
+
+@end
+
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Movie HDV **
+@implementation MovieHDV
+@dynamic knownAs, poster124x184, currentSeason, country, relativeMovie, backdrop945530;
+
 // Init movie from json
-+ (Movie *)detailRelativeMovieFromJson:(NSDictionary *)json {
-    Movie *newMovie = [Movie new];
++ (MovieHDV *)detailRelativeMovieFromJson:(NSDictionary *)json {
+    MovieHDV *newMovie = [MovieHDV new];
     newMovie.movieID = [Utilities nullToObject:json key:kMovieId andType:kTypeString];
     newMovie.movieName = [Utilities nullToObject:json key:kMovieRelativeName andType:kTypeString];
     newMovie.knownAs = [Utilities nullToObject:json key:kKnownAs andType:kTypeString];
@@ -36,9 +49,9 @@
 }
 
 // Init movie from json
-+ (Movie *)detailListMovieFromJSON:(NSDictionary *)json withTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie {
-
-    Movie *newMovie = [Movie new];
++ (MovieHDV *)detailListMovieFromJSON:(NSDictionary *)json withTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie {
+    
+    MovieHDV *newMovie = [MovieHDV new];
     newMovie.movieID = [json objectForKey:kMovieId];
     newMovie.movieName = [Utilities nullToObject:json key:kMovieName andType:kTypeString];
     newMovie.knownAs = [Utilities nullToObject:json key:kKnownAs andType:kTypeString];
@@ -59,7 +72,7 @@
 }
 
 // Update information movie
-+ (void)updateInformationMovieFromJSON:(NSDictionary *)json andMovie:(Movie *)movie {
++ (void)updateInformationMovieFromJSON:(NSDictionary *)json andMovie:(MovieHDV *)movie {
     // Information
     movie.movieID = movie.movieID;
     movie.movieName = [Utilities nullToObject:json key:kMovieName andType:kTypeString];
@@ -90,10 +103,10 @@
     NSArray *listRelativeFromJson = (NSArray *)[Utilities nullToObject:json key:kRelative andType:kTypeArray];
     
     for (NSDictionary *dictMovie in listRelativeFromJson) {
-        Movie *movieFromLocal = [[DataAccess share] getMovieFromId:[dictMovie objectForKey:kMovieId]];
+        MovieHDV *movieFromLocal = (MovieHDV *)[[DataAccess share] getMovieFromId:[dictMovie objectForKey:kMovieId]];
         if (movieFromLocal == nil) {
             // Movie not exist in local
-            Movie *aMovie = [Movie detailRelativeMovieFromJson:dictMovie];
+            MovieHDV *aMovie = (MovieHDV *)[MovieHDV detailRelativeMovieFromJson:dictMovie];
             aMovie.relativeMovie = movie.movieID;
             [aMovie commit];
             
@@ -108,8 +121,8 @@
 }
 
 // Init movie from json search
-+ (Movie *)initMovieFromJSONSearch:(NSDictionary *)json {
-    Movie *newMovie = [Movie new];
++ (MovieHDV *)initMovieFromJSONSearch:(NSDictionary *)json {
+    MovieHDV *newMovie = [MovieHDV new];
     newMovie.movieID = [Utilities nullToObject:json key:kDocMovieId andType:kTypeString];
     newMovie.movieName = [Utilities nullToObject:json key:kDocMovieName andType:kTypeString];
     newMovie.knownAs = [Utilities nullToObject:json key:kDocKnownAs andType:kTypeString];
@@ -122,23 +135,62 @@
 
 // Init season movie
 + (void)initSeasonMovieFromJSONSearch:(NSDictionary *)json andMovie:(Movie *)oldMovie {
-    Movie *newMovie = nil;
-    Movie *movieFromLocal = [[DataAccess share] getMovieFromId:[json objectForKey:kMovieId]];
+    MovieHDV *newMovie = nil;
+    MovieHDV *movieFromLocal = (MovieHDV *)[[DataAccess share] getMovieFromId:[json objectForKey:kMovieId]];
     
     if (movieFromLocal == nil) {
-        newMovie = [Movie new];
+        newMovie = [MovieHDV new];
         newMovie.movieID = [Utilities nullToObject:json key:kMovieId andType:kTypeString];
     }
     else {
         newMovie = movieFromLocal;
     }
     newMovie.movieName = [Utilities nullToObject:json key:kMovieName andType:kTypeString];
-    newMovie.sequence = [[json objectForKey:kSequence] integerValue];;
-    newMovie.episode = [[json objectForKey:kEpisode] integerValue];;
+    newMovie.sequence = [[json objectForKey:kSequence] integerValue];
+    newMovie.episode = [[json objectForKey:kEpisode] integerValue];
     newMovie.poster = [Utilities nullToObject:json key:kPosterLink andType:kTypeString];
     newMovie.backdrop = [Utilities nullToObject:json key:kBackDrop andType:kTypeString];
     newMovie.seasonId = oldMovie.movieID;
     [newMovie commit];
+}
+
+@end
+//*****************************************************************************
+#pragma mark -
+#pragma mark - ** Movie HDO **
+@implementation MovieHDO
+@dynamic slug, keyMovie, updateEpisode;
+
++ (MovieHDO *)initMovieFromJSON:(NSDictionary *)json withKey:(NSString *)key {
+    MovieHDO *newMovie = [MovieHDO new];
+    newMovie.movieID = [Utilities nullToObject:json key:kDocMovieId andType:kTypeString];
+    newMovie.movieName = [Utilities nullToObject:json key:kNameMovieVN andType:kTypeString];
+    newMovie.plotVI = [[Utilities nullToObject:json key:kInfo andType:kTypeString] stringByStrippingHTML];
+    newMovie.imdbRating = [Utilities nullToObject:json key:kImdb andType:kTypeString];
+    newMovie.releaseDate = [Utilities nullToObject:json key:kYear andType:kTypeString];
+    newMovie.trailer = [Utilities nullToObject:json key:kTrailer.lowercaseString andType:kTypeString];
+    newMovie.sequence = [[json objectForKey:kSequence.lowercaseString] integerValue];
+    newMovie.category = [Utilities nullToObject:json key:kCategoryFilm.lowercaseString andType:kTypeString];
+    newMovie.slug = [Utilities nullToObject:json key:kSlug andType:kTypeString];
+    newMovie.updateEpisode = [Utilities nullToObject:json key:kUpdateEpisode andType:kTypeString];
+    
+    NSDictionary *listImage = [json objectForKey:kImageList];
+    newMovie.poster = [Utilities nullToObject:listImage key:k215311 andType:kTypeString];
+    newMovie.bannerMovie = [Utilities nullToObject:listImage key:k900500 andType:kTypeString];
+    newMovie.backdrop = [Utilities nullToObject:listImage key:k900500 andType:kTypeString];
+    newMovie.keyMovie = key;
+    
+    return newMovie;
+}
+
++ (MovieHDO *)updateMovieFromJSON:(NSDictionary *)json {
+    
+    NSDictionary *dictFilm = [json objectForKey:kFilm];
+    MovieHDO *movie = (MovieHDO *)[[DataAccess share] getMovieFromId:[dictFilm objectForKey:kDocMovieId]];
+    if (movie) {
+        movie.movieID = [Utilities nullToObject:json key:kDocMovieId andType:kTypeString];
+    }
+    return movie;
 }
 
 @end

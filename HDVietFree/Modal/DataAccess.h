@@ -32,9 +32,19 @@ typedef void (^completionDataBlock)(BOOL success, NSMutableArray * array);
 - (void)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock;
 
 /*
+ * Get list movie local HDO
+ */
+- (void)listMovieLocalHDO:(NSInteger)page andKey:(NSString *)key completionBlock:(completionDataBlock)completionBlock;
+
+/*
  * Get list movie local
  */
 - (void)listMovieLocalForTopOnMainByTag:(NSString *)tagMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock;
+
+/*
+ * Get list movie local
+ */
+- (void)listMovieLocalForTopOnMainHDO:(NSString *)keyMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock;
 
 /*
  * Check exist data
@@ -44,7 +54,7 @@ typedef void (^completionDataBlock)(BOOL success, NSMutableArray * array);
 /*
  * Get movie from Id
  */
-- (Movie *)getMovieFromId:(NSString *)movieId;
+- (MovieHDV *)getMovieFromId:(NSString *)movieId;
 
 /*
  * Get relative movie in db
@@ -65,5 +75,10 @@ typedef void (^completionDataBlock)(BOOL success, NSMutableArray * array);
  * Load list movie api success
  */
 - (void)addListMovieToLocal:(NSDictionary *)response;
+
+/*
+ * Load list movie api success
+ */
+- (void)addListMovieToLocalHDO:(NSDictionary *)response withKey:(NSString *)key;
 
 @end

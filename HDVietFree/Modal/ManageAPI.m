@@ -26,7 +26,6 @@
  * login API
  */
 - (void)loginAPI:(NSString *)userName andPass:(NSString *)password {
-//    NSString *auth = [Utilities getAuthorizationKeyHDO:userName andPassword:password];
     if ([ServerType share].type == kTypeHDViet) {
         NSString *strUrl = [NSString stringWithFormat:kUrlLogin, userName, [password MD5]];
         DLOG(@"Login with url:%@", strUrl);
@@ -53,10 +52,19 @@
 /*
  * Load list movie API
  */
+- (void)loadListMovieHDOAPI:(NSString *)url andKey:(NSString *)key {
+    DLOG(@"Load list movie HDO with url:%@", url);
+    [[DataManager shared] getListMovieHDOWithUrl:url andKey:key];
+}
+
+
+/*
+ * Load list movie API
+ */
 - (void)loadListMovieAPI:(NSInteger)genre tag:(NSString *)tagMovie andPage:(NSInteger)page {
     NSString *strUrl = [NSString stringWithFormat:kUrlListMovieByGenre, (int)genre, tagMovie, (int)page];
     DLOG(@"Load list movie with url:%@", strUrl);
-     [[DataManager shared] getListMovieByGenreWithUrl:strUrl atTag:tagMovie andGenre:stringFromInteger([MovieSearch share].genreMovie)];
+    [[DataManager shared] getListMovieByGenreWithUrl:strUrl atTag:tagMovie andGenre:stringFromInteger([MovieSearch share].genreMovie)];
 }
 
 /*

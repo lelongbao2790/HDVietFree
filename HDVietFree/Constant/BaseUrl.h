@@ -32,9 +32,11 @@
 //List api HDO
 #define kUrlLoginHDO @"user/login?token=%@&username=%@&password=%@"
 #define kUrlGetTokenHDO @"index/gettoken?client=tablet&clientsecret=eba71161466442ff1733fd0c022ac957&device=tablet&platform=ios&version=1.0"
-#define kUrlHDODeCu @"film/list/type/votehome?limit=%d&offset=%d&token=%@"
-#define kUrlPhimLeHDO @"film/list/type/single?limit=%d&offset=%d&token=%@"
-#define kUrlPhimboHDO @"film/list/type/drama?limit=%d&offset=%d&token=%@"
+#define kUrlHDODeCu @"film/list/type/votehome?limit=20&offset=%d&token=%@"
+#define kUrlTopMovieHDO @"film/list/type/topmovies?limit=20&offset=%d&token=%@"
+#define kUrlPhimLeHDO @"film/list/type/single?limit=20&offset=%d&token=%@"
+#define kUrlPhimboHDO @"film/list/type/drama?limit=20&offset=%d&token=%@"
+#define kUrlCinema @"film/list/type/cinema?limit=20&offset=%d&token=%@"
 #define kUrlGetListGenreHDO @"episode?film=%d&token=%d"
 #define kUrlPlayMovieHDO @"episode/play?id=%d&token=%@"
 

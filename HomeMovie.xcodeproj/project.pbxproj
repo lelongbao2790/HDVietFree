@@ -101,6 +101,8 @@
 		D3DF76341C757B5600CF6C52 /* NSObject+Associating.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF76331C757B5600CF6C52 /* NSObject+Associating.m */; };
 		D3DF763A1C75992500CF6C52 /* no_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D3DF76391C75992500CF6C52 /* no_image.png */; };
 		D3DF763D1C75B8D000CF6C52 /* UIImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF763C1C75B8D000CF6C52 /* UIImageLoader.m */; };
+		D3E0C85E1CA4E1EF00AFFBF4 /* Source.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E0C85D1CA4E1EF00AFFBF4 /* Source.m */; };
+		D3E0C8611CA4E7C400AFFBF4 /* ManageSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E0C8601CA4E7C400AFFBF4 /* ManageSource.m */; };
 		D3EA21801CA156CC006CEB34 /* hdo_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EA217F1CA156CC006CEB34 /* hdo_logo.png */; };
 		D3EA21821CA15806006CEB34 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EA21811CA15806006CEB34 /* delete.png */; };
 		D3EA21961CA22E03006CEB34 /* homemovie_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3EA21951CA22E03006CEB34 /* homemovie_icon.png */; };
@@ -307,6 +309,10 @@
 		D3DF76391C75992500CF6C52 /* no_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_image.png; sourceTree = "<group>"; };
 		D3DF763B1C75B8D000CF6C52 /* UIImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageLoader.h; sourceTree = "<group>"; };
 		D3DF763C1C75B8D000CF6C52 /* UIImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageLoader.m; sourceTree = "<group>"; };
+		D3E0C85C1CA4E1EF00AFFBF4 /* Source.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Source.h; path = Modal/Source.h; sourceTree = "<group>"; };
+		D3E0C85D1CA4E1EF00AFFBF4 /* Source.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Source.m; path = Modal/Source.m; sourceTree = "<group>"; };
+		D3E0C85F1CA4E7C400AFFBF4 /* ManageSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ManageSource.h; path = Modal/ManageSource.h; sourceTree = "<group>"; };
+		D3E0C8601CA4E7C400AFFBF4 /* ManageSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ManageSource.m; path = Modal/ManageSource.m; sourceTree = "<group>"; };
 		D3EA217F1CA156CC006CEB34 /* hdo_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdo_logo.png; sourceTree = "<group>"; };
 		D3EA21811CA15806006CEB34 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
 		D3EA21951CA22E03006CEB34 /* homemovie_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homemovie_icon.png; sourceTree = "<group>"; };
@@ -432,6 +438,10 @@
 				D38D392E1C8D2BF2004B6BA9 /* TVChannel.m */,
 				D3EA21A61CA26F82006CEB34 /* ServerType.h */,
 				D3EA21A71CA26F82006CEB34 /* ServerType.m */,
+				D3E0C85C1CA4E1EF00AFFBF4 /* Source.h */,
+				D3E0C85D1CA4E1EF00AFFBF4 /* Source.m */,
+				D3E0C85F1CA4E7C400AFFBF4 /* ManageSource.h */,
+				D3E0C8601CA4E7C400AFFBF4 /* ManageSource.m */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -1099,6 +1109,7 @@
 				D3EA87A71C50BF6200D593A1 /* AppDelegate.m in Sources */,
 				D36579571C59F1B800F51DA3 /* TopMovieCell.m in Sources */,
 				D36579241C55F38E00F51DA3 /* ManageAPI.m in Sources */,
+				D3E0C85E1CA4E1EF00AFFBF4 /* Source.m in Sources */,
 				D3EA219B1CA2341D006CEB34 /* HomeController.m in Sources */,
 				D3EA219F1CA23441006CEB34 /* ChooseServerController.m in Sources */,
 				D32916E11C55B7DF00CE46B6 /* UIWebView+AFNetworking.m in Sources */,
@@ -1142,6 +1153,7 @@
 				D3DF762F1C74495E00CF6C52 /* ReportBugController.m in Sources */,
 				D365792A1C5602A600F51DA3 /* MainController.m in Sources */,
 				D3EA87E61C50D9C400D593A1 /* Utilities.m in Sources */,
+				D3E0C8611CA4E7C400AFFBF4 /* ManageSource.m in Sources */,
 				D3EA87DD1C50C6FC00D593A1 /* LoginController.m in Sources */,
 				D38D392C1C8D2B4F004B6BA9 /* TVChannelCell.m in Sources */,
 				D32916A01C55B75D00CE46B6 /* MBProgressHUD.m in Sources */,

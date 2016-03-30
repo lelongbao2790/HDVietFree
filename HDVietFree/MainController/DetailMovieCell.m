@@ -18,36 +18,30 @@
 
 - (void)loadInformationWithMovie:(Movie *)movie {
     [self setImagePoster:movie];
+    self.lbNameMovie.text = movie.movieName;
+    [[Source share] showEpisodeOnDetailCell:self.lbEpsiode withMovie:movie];
     
-    if (movie.episode > 0) {
-        self.lbEpsiode.hidden = NO;
-        self.lbEpsiode.text = [NSString stringWithFormat:@"Tập %d/%d",(int)movie.sequence,(int)movie.episode];
-    } else {
-        self.lbEpsiode.hidden = YES;
-    }
 }
 
 /*
  * Set avatar image
  */
 - (void)setImagePoster:(Movie *)movie {
-    self.lbNameMovie.text = movie.movieName;
-    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[Utilities getStringUrlPoster:movie]]
-                                                  cachePolicy:NSURLRequestReturnCacheDataElseLoad
-                                              timeoutInterval:60];
-
     
-    [self.imageMovie setImageWithURLRequest:imageRequest
-                     placeholderImage:[UIImage imageNamed:kNoImage]
-                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                  self.imageMovie.image = image;
-                              } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                  self.imageMovie.image = [UIImage imageNamed:kNoImage];
-                              }];
+    // Request image
+    NSURLRequest *requestPoster = [[Source share] requestPosterMovie:movie];
+    [self.imageMovie setImageWithURLRequest:requestPoster
+                   placeholderImage:[UIImage imageNamed:kNoImage]
+                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                self.imageMovie.image = image;
+                            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                self.imageMovie.image = [UIImage imageNamed:kNoImage];
+                            }];
+    
+    // Check type cell
     if (self.typeCell == kTypeFilm) {
         [Utilities customLayer:self.imageMovie];
     }
-    
 }
 
 // This method will update image avatar

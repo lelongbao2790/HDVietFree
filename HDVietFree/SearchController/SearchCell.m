@@ -34,7 +34,6 @@
  * Set avatar image
  */
 - (void)setImagePoster:(Movie *)movie {
-    
     NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[Utilities getStringUrlPoster:movie]]
                                                   cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                               timeoutInterval:60];
@@ -54,13 +53,13 @@
     self.lbNameMovie.text = movie.movieName;
     self.lbPlot.text = movie.plotVI;
     if (images) {
-        
         self.imgPoster.image = images;
         
     } else {
         self.imgPoster.image = [UIImage imageNamed:kNoImage];
     }
-    [[Utilities share]cacheImage:images forKey:movie.poster];
+    MovieHDV *movieHdv = (MovieHDV *)movie;
+    [[Utilities share]cacheImage:images forKey:movieHdv.poster];
 }
 
 @end

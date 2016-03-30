@@ -76,6 +76,18 @@
 #define kDocSeason @"mo_season"
 #define kDocs @"docs"
 
+#define kNameMovieVN @"name_vn"
+#define kImdb @"imdb"
+#define kYear @"year"
+#define kInfo @"info"
+#define kTotalEpisode @"total_episode"
+#define kUpdateEpisode @"update_episode"
+#define kImageList @"imagelist"
+#define kSlug @"slug"
+#define kFilm @"film"
+#define k900500 @"900_500"
+#define k215311 @"215_311"
+
 // Channel
 #define kName @"name"
 #define kImage @"image"

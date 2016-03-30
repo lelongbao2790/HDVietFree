@@ -169,7 +169,8 @@
     ProgressBarDismissLoading(kEmptyString);
     NSArray *allValue = response.allValues;
     for (NSDictionary *jsonMovie in allValue) {
-        [Movie initSeasonMovieFromJSONSearch:jsonMovie andMovie:self.movie];
+        
+        [MovieHDV initSeasonMovieFromJSONSearch:jsonMovie andMovie:((MovieHDV *)self.movie)];
     }
     
     self.listSeason = [[[DataAccess share] getAllSeasonMovieInDB:self.movie.movieID] mutableCopy];
@@ -201,6 +202,7 @@
 }
 
 -(void)fixAutolayoutForIpad {
+    
 }
 
 @end

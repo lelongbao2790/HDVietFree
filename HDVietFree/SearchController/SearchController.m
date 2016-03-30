@@ -132,7 +132,7 @@
     [self.listResult removeAllObjects];
     NSArray *docs = [response objectForKey:kDocs];
     for (NSDictionary *dictMovie in docs) {
-        Movie *newMovie = [Movie initMovieFromJSONSearch:dictMovie];
+        MovieHDV *newMovie = [MovieHDV initMovieFromJSONSearch:dictMovie];
         [self.listResult addObject:newMovie];
     }
     [self.tbvSearch reloadData];

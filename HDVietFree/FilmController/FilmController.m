@@ -191,6 +191,7 @@
     [[ManageAPI share] loadListMovieAPI:[MovieSearch share].genreMovie
                                     tag:self.tagMovie
                                 andPage:nextPage];
+    
 }
 
 //*****************************************************************************

@@ -19,6 +19,17 @@
 @"Thoát", [NSNumber numberWithInteger:4], \
 @"Đăng xuất", [NSNumber numberWithInteger:5], nil]
 
+#define kDicLeftMenuHDO [[NSDictionary alloc] initWithObjectsAndKeys: \
+@"HDO đề cử", @"hdo-de-cu", \
+@"Top HDO", @"top-hdo", \
+@"Phim chiếu rạp", @"phim-chieu-rap", \
+@"Phim lẻ", @"phim-le", \
+@"Phim bộ", @"phim-bo", \
+@"Trang chủ", [NSNumber numberWithInteger:3], \
+@"Thoát", [NSNumber numberWithInteger:4], \
+@"Đăng xuất", [NSNumber numberWithInteger:5], nil]
+
+
 #define kConsoleLog @"console.log"
 #define kCrashTitle @"Crash Log"
 #define kEmailSendCrash @"lelongbao2790@gmail.com"
@@ -72,6 +83,13 @@
 @"Phim chiếu rạp", @"chieu-rap", \
 @"Sắp chiếu", @"sap-chieu", \
 @"Thần thoại", @"than-thoai", nil]
+
+#define kDicMainMenuHDO [[NSDictionary alloc] initWithObjectsAndKeys: \
+@"HDO đề cử", kUrlHDODeCu, \
+@"Top HDO",kUrlTopMovieHDO, \
+@"Phim chiếu rạp", kUrlCinema, \
+@"Phim lẻ", kUrlPhimLeHDO, \
+@"Phim bộ", kUrlPhimboHDO, nil]
 
 // Dict for main menu
 #define kDicMainMenuPhimBo [[NSDictionary alloc] initWithObjectsAndKeys: \

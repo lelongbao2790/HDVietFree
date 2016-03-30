@@ -108,7 +108,7 @@
  */
 - (void)getLoginHDOWithUrl:(NSString *)strUrl {
     [self.managerHDO GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-         NSString *msg = [responseObject objectForKey:kMsg];
+        NSString *msg = [responseObject objectForKey:kMsg];
         if (getStatusResponseHDO(responseObject) == true) {
             
             // Success
@@ -127,6 +127,33 @@
         [loginDelegate loginAPIFail:[error localizedDescription]];
     }];
 }
+
+/*
+ * GET LIST MOVIE HDO
+ *
+ * @param strUrl url string request
+ */
+- (void)getListMovieHDOWithUrl:(NSString *)strUrl andKey:(NSString *)key {
+    [self.managerHDO GET:strUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *msg = [responseObject objectForKey:kMsg];
+        if (getStatusResponseHDO(responseObject) == true) {
+            
+            // Success
+            if (responseObject) {
+                [listMovieDelegate loadListMovieAPISuccess:responseObject atTag:key andGenre:nil];
+            } else {
+                [listMovieDelegate loadListMovieAPIFail:kErrorDict];
+            }
+        } else {
+            // Fail
+            [listMovieDelegate loadListMovieAPIFail:msg];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [listMovieDelegate loadListMovieAPIFail:[error localizedDescription]];
+    }];
+}
+
 
 //*****************************************************************************
 #pragma mark -

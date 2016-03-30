@@ -56,6 +56,13 @@ typedef void (^completionBlock)(BOOL success, NSString *token);
  */
 - (void)getLoginHDOWithUrl:(NSString *)strUrl;
 
+/*
+ * GET LIST MOVIE HDO
+ *
+ * @param strUrl url string request
+ */
+- (void)getListMovieHDOWithUrl:(NSString *)strUrl andKey:(NSString *)key;
+
 //*****************************************************************************
 #pragma mark -
 #pragma mark ** API HDViet **

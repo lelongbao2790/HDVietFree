@@ -30,7 +30,7 @@
     DBResultSet* r = [[[Movie query] whereWithFormat:@"tagMovie = %@ and genreMovie = %@ and pageNumber = %d", tagMovie, genreMovie, (int)page]
                       fetch];
     if (r.count > 0) {
-        for (Movie* newMovie in r) {
+        for (MovieHDV* newMovie in r) {
             [listMovieLocal addObject:newMovie];
         }
         
@@ -60,6 +60,39 @@
 }
 
 /*
+ * Get list movie local HDO
+ */
+- (void)listMovieLocalHDO:(NSInteger)page andKey:(NSString *)key completionBlock:(completionDataBlock)completionBlock {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        // Download
+        NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
+        DBResultSet* r = [[[MovieHDO query] whereWithFormat:@"keyMovie = %@ and pageNumber = %d", key, (int)page]
+                          fetch];
+        if (r.count > 0) {
+            for (MovieHDO* newMovie in r) {
+                [listMovieLocal addObject:newMovie];
+            }
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (completionBlock) {
+                    completionBlock(YES, listMovieLocal);
+                }
+            });
+            
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (completionBlock) {
+                    completionBlock(NO, listMovieLocal);
+                }
+            });
+            
+        }
+    });
+
+}
+
+/*
  * Get list movie local
  */
 - (void)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock {
@@ -67,10 +100,42 @@
     dispatch_async(queue, ^{
         // Download
         NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
-        DBResultSet* r = [[[Movie query] whereWithFormat:@"tagMovie = %@ and genreMovie = %@ and pageNumber = %d", tagMovie, genreMovie, (int)page]
+        DBResultSet* r = [[[MovieHDV query] whereWithFormat:@"tagMovie = %@ and genreMovie = %@ and pageNumber = %d", tagMovie, genreMovie, (int)page]
                           fetch];
         if (r.count > 0) {
-            for (Movie* newMovie in r) {
+            for (MovieHDV* newMovie in r) {
+                [listMovieLocal addObject:newMovie];
+            }
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (completionBlock) {
+                    completionBlock(YES, listMovieLocal);
+                }
+            });
+            
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (completionBlock) {
+                    completionBlock(NO, listMovieLocal);
+                }
+            });
+            
+        }
+    });
+}
+
+/*
+ * Get list movie local
+ */
+- (void)listMovieLocalForTopOnMainHDO:(NSString *)keyMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        // Download
+        NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
+        DBResultSet* r = [[[MovieHDO query] whereWithFormat:@"keyMovie = %@ and pageNumber = %d", keyMovie, (int)page]
+                          fetch];
+        if (r.count > 0) {
+            for (MovieHDO* newMovie in r) {
                 [listMovieLocal addObject:newMovie];
             }
             
@@ -100,10 +165,10 @@
         // Download
         NSMutableArray *listMovieLocal = [[NSMutableArray alloc] init];
         NSString *genre1 = stringFromInteger(3);
-        DBResultSet* r = [[[Movie query] whereWithFormat:@"tagMovie = %@ and genreMovie < %@ and pageNumber = %d", tagMovie, genre1, (int)page]
+        DBResultSet* r = [[[MovieHDV query] whereWithFormat:@"tagMovie = %@ and genreMovie < %@ and pageNumber = %d", tagMovie, genre1, (int)page]
                           fetch];
         if (r.count > 0) {
-            for (Movie* newMovie in r) {
+            for (MovieHDV* newMovie in r) {
                 [listMovieLocal addObject:newMovie];
             }
             
@@ -161,14 +226,14 @@
 /*
  * Get movie from Id
  */
-- (Movie *)getMovieFromId:(NSString *)movieId; {
-    Movie *movieObj = nil;
+- (MovieHDV *)getMovieFromId:(NSString *)movieId; {
+    MovieHDV *movieObj = nil;
     DBResultSet* r = [[[Movie query]
                        whereWithFormat:@"movieID = %@", movieId]
                       fetch];
     
     if (r.count > 0)
-        for (Movie *aMovie in r) {
+        for (MovieHDV *aMovie in r) {
             movieObj = aMovie;
         }
     else
@@ -219,7 +284,7 @@
                        orderBy:@"movieID"]
                       fetch];
     if (r.count > 0) {
-        for (Movie *aMovie in r) {
+        for (MovieHDV *aMovie in r) {
             if ([aMovie.releaseDate containsString:k2015] ||
                 [aMovie.releaseDate containsString:k2016]) {
                 [listTopMovie addObject:aMovie];
@@ -241,14 +306,27 @@
     
     // Get detail movie and init object movie
     for (NSDictionary *dictObjectMovie in listData) {
-        Movie *newMovie = nil;
-        newMovie = [Movie detailListMovieFromJSON:dictObjectMovie
+        MovieHDV *newMovie = nil;
+        newMovie = [MovieHDV detailListMovieFromJSON:dictObjectMovie
                                           withTag:listResponse[kTagMoviePosition]
                                          andGenre:stringFromInteger(numberToInteger(listResponse[kGenreNumberPosition]))];
         newMovie.pageNumber = numberToInteger(listResponse[kPageResponsePosition]);
         newMovie.totalRecord = numberToInteger(listResponse[kTotalRecordPosition]);
         [newMovie commit];
     }
+}
+
+/*
+ * Load list movie api success
+ */
+- (void)addListMovieToLocalHDO:(NSDictionary *)response withKey:(NSString *)key {
+    
+    NSArray *listMovieResult = [response objectForKey:kResult];
+    for (NSDictionary *dictMovie in listMovieResult) {
+        MovieHDO *movie = [MovieHDO initMovieFromJSON:dictMovie withKey:key];
+        [movie commit];
+    }
+    
 }
 
 @end
