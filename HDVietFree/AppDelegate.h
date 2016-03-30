@@ -10,7 +10,6 @@
 #import "UpdateMovieController.h"
 #import "ReportBugController.h"
 #import "TVChannelController.h"
-#import "HomeController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 //*****************************************************************************
@@ -26,7 +25,6 @@
 @property (strong, nonatomic) JASidePanelController *mainPanel;
 @property (strong, nonatomic) MainController *mainController;
 @property (strong, nonatomic) LoginController *loginController;
-@property (strong, nonatomic) HomeController *homeController;
 @property (strong, nonatomic) UpdateMovieController *updateMovieController;
 @property (strong, nonatomic) ReportBugController *reportBugController;
 @property (strong, nonatomic) TVChannelController *tvChannelController;

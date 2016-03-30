@@ -10,16 +10,6 @@
 
 @implementation StoryboardId
 
-/*
- * Home controller
- */
-NSString *const kHomeController = @"HomeController";
-
-/*
- * Choose server controller
- */
-NSString *const kChooseServerController = @"ChooseServerController";
-
 /**
  * Slide menu controller
  */

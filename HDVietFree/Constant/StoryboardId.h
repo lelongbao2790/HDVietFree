@@ -10,16 +10,6 @@
 
 @interface StoryboardId : NSObject
 
-/*
- * Home controller
- */
-extern NSString *const kHomeController;
-
-/*
- * Choose server controller
- */
-extern NSString *const kChooseServerController;
-
 /**
  * Slide menu controller
  */

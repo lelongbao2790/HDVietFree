@@ -92,8 +92,6 @@
 
 + (void)setColorOfSelectCell:(nonnull UITableViewCell *)cell;
 
-+ (void)setBorderView:(nonnull UIView *)view;
-
 + (nonnull NSString *)stringFromTimeInterval:(NSTimeInterval)interval;
 
 + (BOOL)isEmptyArray:(nonnull NSArray *)listArray;
