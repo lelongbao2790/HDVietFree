@@ -56,7 +56,7 @@
                   moduleName = "HomeMovie"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/DATA/BRIAN_DATA/GIT_PROJECT/HDVietFree/HDVietFree/Modal/DataManager.m"
-                  timestampString = "481017609.864206"
+                  timestampString = "481177473.431733"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "110"
@@ -71,7 +71,7 @@
                   moduleName = "HomeMovie"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/DATA/BRIAN_DATA/GIT_PROJECT/HDVietFree/HDVietFree/Modal/DataManager.m"
-                  timestampString = "481017609.864571"
+                  timestampString = "481177473.432325"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "110"
@@ -94,22 +94,6 @@
             startingLineNumber = "115"
             endingLineNumber = "115"
             landmarkName = "-getLoginHDOWithUrl:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HDVietFree/Modal/Source.m"
-            timestampString = "481001706.059105"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "-checkSourceMovie:andTableView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -151,28 +135,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HDVietFree/Utilities/Utilities.m"
-            timestampString = "481002378.046956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
-            landmarkName = "+nullToObject:key:andType:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "HDVietFree/Modal/Movie.m"
-            timestampString = "481021296.982743"
+            timestampString = "481176017.803761"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "+initMovieFromJSON:withKey:"
             landmarkType = "5">
          </BreakpointContent>

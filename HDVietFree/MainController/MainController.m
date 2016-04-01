@@ -356,11 +356,11 @@
     if ([Utilities isLastListCategory:self.dictMenu andCurrentIndex:self.lastListMovie andLoop:NO]) {
         self.lastListMovie = 0;
         [self.refreshControl endRefreshing];
+        [Utilities loadServerFail:self withResultMessage:resultMessage];
     } else {
         self.lastListMovie +=1;
     }
     
-    [Utilities loadServerFail:self withResultMessage:resultMessage];
 }
 
 //*****************************************************************************

@@ -79,7 +79,6 @@
             [[ManageAPI share] loadListMovieHDOAPI:urlListMovie andKey:self.dictMainMenu.allKeys[i]];
         }
     }
-
 }
 
 /*
@@ -248,10 +247,6 @@
         lbReleaseDate.text = movieHDO.releaseDate;
         lbTagMovie.text = movieHDO.category;
     }
-    
-    
-    
-    
 }
 
 @end

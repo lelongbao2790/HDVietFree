@@ -33,6 +33,7 @@
 #pragma mark - ** Movie HDV **
 @implementation MovieHDV
 @dynamic knownAs, poster124x184, currentSeason, country, relativeMovie, backdrop945530;
+@dynamic movieID, movieName, trailer, episode, runtime, cast, plotVI, releaseDate, tagMovie, genreMovie, bannerMovie, backdrop, pageNumber, totalRecord, urlLinkPlayMovie, urlLinkSubtitleMovie, imdbRating, seasonId, timePlay, epiNumber, category, sequence, poster;
 
 // Init movie from json
 + (MovieHDV *)detailRelativeMovieFromJson:(NSDictionary *)json {
@@ -160,6 +161,7 @@
 #pragma mark - ** Movie HDO **
 @implementation MovieHDO
 @dynamic slug, keyMovie, updateEpisode;
+@dynamic movieID, movieName, trailer, episode, runtime, cast, plotVI, releaseDate, tagMovie, genreMovie, bannerMovie, backdrop, pageNumber, totalRecord, urlLinkPlayMovie, urlLinkSubtitleMovie, imdbRating, seasonId, timePlay, epiNumber, category, sequence, poster;
 
 + (MovieHDO *)initMovieFromJSON:(NSDictionary *)json withKey:(NSString *)key {
     MovieHDO *newMovie = [MovieHDO new];
