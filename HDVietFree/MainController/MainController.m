@@ -274,8 +274,21 @@
     view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bannerView.frame.size.width, self.bannerView.frame.size.height)];
     ((UIImageView *)view).contentMode = UIViewContentModeScaleAspectFill;
     ((UIImageView *)view).clipsToBounds = YES;
-    [self requestBannerImage:self.listMovieOnMain[index] andImage:((UIImageView *)view)];
+    Movie *aMovie = self.listMovieOnMain[index];
+    [self requestBannerImage:aMovie andImage:((UIImageView *)view)];
     [Utilities customLayer:view];
+//    
+//    UIView *viewTitle = [[UIView alloc] initWithFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y + view.frame.size.height - 40, view.frame.size.width, 40)];
+//    view.backgroundColor = [UIColor colorWithHexString:@"1c1b1b"];
+    
+    UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, view.frame.origin.y + view.frame.size.height - 40, view.frame.size.width, 40)];
+    lbTitle.text = [NSString stringWithFormat:@" %@",aMovie.movieName];
+    lbTitle.textColor = [UIColor whiteColor];
+    lbTitle.backgroundColor = [ UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    
+//    
+//    [viewTitle addSubview:lbTitle];
+    [view addSubview:lbTitle];
     
     return view;
     
