@@ -137,11 +137,6 @@
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    PlayController *playController = InitStoryBoardWithIdentifier(kPlayController);
-    playController.movie = self.listMovieUpdate[indexPath.row];
-    [self.navigationController pushViewController:playController animated:YES];
-}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     CGSize returnSize = CGSizeZero;
