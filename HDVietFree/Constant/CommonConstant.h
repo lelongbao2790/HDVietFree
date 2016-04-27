@@ -15,7 +15,7 @@
 #define kDicLeftMenu [[NSDictionary alloc] initWithObjectsAndKeys: \
 @"Phim lẻ", [NSNumber numberWithInteger:1], \
 @"Phim bộ", [NSNumber numberWithInteger:2], \
-@"Cập nhập dữ liệu", [NSNumber numberWithInteger:3], \
+@"Cập nhật dữ liệu", [NSNumber numberWithInteger:3], \
 @"Trang chủ", [NSNumber numberWithInteger:4], \
 @"Report lỗi", [NSNumber numberWithInteger:5], \
 @"Xem tivi", [NSNumber numberWithInteger:6], \

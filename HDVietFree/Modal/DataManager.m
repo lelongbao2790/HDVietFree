@@ -344,17 +344,6 @@
  */
 - (void)getALlTVChannel:(NSString *)requestData {
 
-//    [self.manager.requestSerializer setValue:kHTTPHeaderContentTypeValue forHTTPHeaderField:kHTTPHeaderContentType];
-//    [self.manager.requestSerializer setValue:kHTTPHeaderAuthorizationValue forHTTPHeaderField:kHTTPHeaderAuthorization];
-////    [self.manager.requestSerializer setValue:kHTTPHeaderUserAgentValue forHTTPHeaderField:kHTTPHeaderUserAgent];
-//    [self.manager POST:kUrlTvChannelHTVOnline parameters:requestData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [tvChannelDelegate getAllTVChannelAPISuccess:responseObject];
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [tvChannelDelegate getAllTVChannelAPIFail:[error localizedDescription]];
-//    }];
-
-    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:kUrlTvChannelHTVOnline]
                                                            cachePolicy:NSURLRequestReloadIgnoringCacheData  timeoutInterval:10];
     

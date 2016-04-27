@@ -127,7 +127,7 @@ NSString *const kLogOut = @"Đăng xuất";
 /**
  * Update
  */
-NSString *const kUpdateData = @"Cập nhập dữ liệu";
+NSString *const kUpdateData = @"Cập nhật dữ liệu";
 
 /**
  * Update

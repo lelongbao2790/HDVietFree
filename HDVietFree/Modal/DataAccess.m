@@ -60,6 +60,24 @@
 }
 
 /*
+ * Get list movie
+ */
+- (NSArray *)getAllMovie {
+    NSMutableArray *listMovie = [[NSMutableArray alloc] init];
+    DBResultSet* r = [[Movie query] fetch];
+    if (r.count > 0) {
+        for (Movie* movie in r) {
+            [listMovie addObject:movie];
+        }
+        
+        return listMovie;
+        
+    } else {
+        return nil;
+    }
+}
+
+/*
  * Get list movie local
  */
 - (void)listMovieLocalByTag:(NSString *)tagMovie andGenre:(NSString *)genreMovie andPage:(NSInteger)page completionBlock:(completionDataBlock)completionBlock {

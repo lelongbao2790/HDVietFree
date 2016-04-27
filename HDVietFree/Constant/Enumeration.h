@@ -120,4 +120,9 @@ typedef NS_ENUM(NSInteger, Type) {
     kTagFilmController = 101,
     kTagInformation = 102,
 };
+
+typedef NS_ENUM(NSInteger, MovieId) {
+    kIDGhienMyGo = 11264,
+};
+
 #endif /* Enumeration_h */
