@@ -51,6 +51,11 @@ NSString *const kSearchCellIdentifier = @"SearchCellIdentifier";
 NSString *const kLoading = @"Loading";
 
 /**
+ * Login Fail
+ */
+NSString *const kLoginFail = @"Đăng nhập thất bại";
+
+/**
  * Loading
  */
 NSString *const kLoadMoreData = @"Load more data ...";

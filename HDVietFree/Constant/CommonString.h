@@ -52,6 +52,11 @@ extern NSString *const kSearchCellIdentifier;
 extern NSString *const kLoading;
 
 /**
+ * Login Fail
+ */
+extern NSString *const kLoginFail;
+
+/**
  * Loading
  */
 extern NSString *const kLoadMoreData;

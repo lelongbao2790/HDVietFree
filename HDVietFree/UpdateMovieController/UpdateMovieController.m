@@ -116,6 +116,10 @@
         }
     }
 
+    // Remove duplicate movie in array
+    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:self.listMovieUpdate];
+    self.listMovieUpdate = [orderedSet.array mutableCopy];
+    
     self.lbNumberMovieUpdate.text = stringFromInteger(self.listMovieUpdate.count);
 }
 

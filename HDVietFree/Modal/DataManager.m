@@ -328,9 +328,9 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (errorString(k400BadRequestString)) {
             [allSeasonDelegate getAllSeasonAPIFail:kInvalidSession];
-        }else if (errorString(k502BadRequestString) || errorString(k500BadRequestString) ) {
+        } else if (errorString(k502BadRequestString) || errorString(k500BadRequestString) ) {
             [allSeasonDelegate getAllSeasonAPIFail:kServerOverload];
-        }else {
+        } else {
             [allSeasonDelegate getAllSeasonAPIFail:[error localizedDescription]];
         }
         

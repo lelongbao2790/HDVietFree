@@ -197,7 +197,7 @@
 }
 
 - (void)loginAPIFail:(NSString *)resultMessage {
-     [Utilities loadServerFail:self withResultMessage:resultMessage];
+     [Utilities loadServerFail:self withResultMessage:kLoginFail];
 }
 
 //*****************************************************************************
